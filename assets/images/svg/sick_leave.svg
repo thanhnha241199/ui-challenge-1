@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="95" height="25" viewBox="0 0 95 25">
+  <g id="Group_11552" data-name="Group 11552" transform="translate(-239 -395)">
+    <g id="Rectangle_1250" data-name="Rectangle 1250" transform="translate(239 395)" fill="#fff" stroke="#bababa" stroke-width="2">
+      <rect width="95" height="25" rx="12.5" stroke="none"/>
+      <rect x="1" y="1" width="93" height="23" rx="11.5" fill="none"/>
+    </g>
+    <text id="Sick_Leave" data-name="Sick Leave" transform="translate(320 412)" fill="#575757" font-size="14" font-family="Helvetica"><tspan x="-68.482" y="0">Sick Leave</tspan></text>
+  </g>
+</svg>

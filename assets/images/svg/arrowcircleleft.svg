@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="ArrowCircleLeft" transform="translate(-4 -4)">
+    <path id="Path_11957" data-name="Path 11957" d="M16,28A12,12,0,1,0,4,16,12,12,0,0,0,16,28Z" fill="#46dac0"/>
+    <path id="Path_11958" data-name="Path 11958" d="M15.243,20.243,11,16l4.243-4.243" fill="#46dac0" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_11959" data-name="Path 11959" d="M11,16H21" fill="#46dac0" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  </g>
+</svg>
