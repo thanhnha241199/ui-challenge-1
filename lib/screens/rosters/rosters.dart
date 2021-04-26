@@ -1,4 +1,6 @@
+import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
+import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,34 +22,39 @@ class _RostersState extends State<Rosters> {
       appBar: HeaderView(
         color: Colors.transparent,
         height: 90.0,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(flex: 1, child: Text("")),
-            Expanded(
-                flex: 4,
-                child: Text(
-                  "My Rosters",
-                  style: AppTextStyles.textSize16(),
-                  textAlign: TextAlign.center,
-                )),
-            Expanded(
-              flex: 1,
-              child: SvgPicture.asset(
-                AppImage.notification,
-                alignment: Alignment.center,
-                height: 20.0,
-                width: 20.0,
-              ),
-            )
-          ],
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: AppMetrics.paddingHorizotal,
+              vertical: AppMetrics.paddingVertical),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(flex: 1, child: Text("")),
+              Expanded(
+                  flex: 4,
+                  child: Text(
+                    "My ${AppTranslations().getLanguage(context, 'rosters')}",
+                    style: AppTextStyles.textSize16(),
+                    textAlign: TextAlign.center,
+                  )),
+              Expanded(
+                flex: 1,
+                child: SvgPicture.asset(
+                  AppImage.notification,
+                  alignment: Alignment.center,
+                  height: 20.0,
+                  width: 20.0,
+                ),
+              )
+            ],
+          ),
         ),
       ),
       body: Column(
         children: [
           SizedBox(
-            height: 20.0,
+            height: 10.0,
           ),
           Container(
             margin: EdgeInsets.symmetric(
@@ -92,13 +99,11 @@ class _RostersState extends State<Rosters> {
                 SizedBox(
                   height: 10.0,
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                  width: MediaQuery.of(context).size.width * 0.75,
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12)),
+                CustomContainer(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: AppMetrics.paddingHorizotal,
+                      vertical: AppMetrics.paddingVertical),
+                  width: MediaQuery.of(context).size.width * 0.8,
                   child: Text(
                     "09:00ap to 12:00pm",
                     style: AppTextStyles.textSize16(),
@@ -114,14 +119,11 @@ class _RostersState extends State<Rosters> {
                 SizedBox(
                   height: 10.0,
                 ),
-                Container(
+                CustomContainer(
                   padding: EdgeInsets.symmetric(
                       horizontal: AppMetrics.paddingHorizotal,
                       vertical: AppMetrics.paddingVertical),
                   width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12)),
                   child: Row(
                     children: [
                       SvgPicture.asset(
@@ -141,14 +143,11 @@ class _RostersState extends State<Rosters> {
                 SizedBox(
                   height: 10.0,
                 ),
-                Container(
+                CustomContainer(
                   padding: EdgeInsets.symmetric(
                       horizontal: AppMetrics.paddingHorizotal,
                       vertical: AppMetrics.paddingVertical),
                   width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -162,7 +161,7 @@ class _RostersState extends State<Rosters> {
                       CustomButton(
                         ontap: () {},
                         color: AppColors.greenAccent,
-                        text: "View PDF",
+                        text: AppTranslations().getLanguage(context, 'clockin'),
                         height: MediaQuery.of(context).size.height * 0.06,
                         width: MediaQuery.of(context).size.width * 0.3,
                         style: AppTextStyles.textSize16(),
@@ -173,14 +172,11 @@ class _RostersState extends State<Rosters> {
                 SizedBox(
                   height: 10.0,
                 ),
-                Container(
+                CustomContainer(
                     padding: EdgeInsets.symmetric(
                         horizontal: AppMetrics.paddingHorizotal,
                         vertical: AppMetrics.paddingVertical),
                     width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12)),
                     child: Text(
                       "01:00pm to 05:00pm",
                       style: AppTextStyles.textSize16(),

@@ -17,6 +17,9 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.grey,
+      ),
       navigatorKey: NavigationService.instance.navigationKey,
       home: Scaffold(
         body: MainTab(),

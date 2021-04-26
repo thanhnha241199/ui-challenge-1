@@ -1,11 +1,11 @@
 class AppImage {
+  static const String welcome = 'assets/images/svg/hello.png';
   static const String logo = 'assets/images/svg/logo.svg';
   static const String house = 'assets/images/svg/house.svg';
   static const String leave = 'assets/images/svg/leave.svg';
   static const String payslips = 'assets/images/svg/payslips.svg';
   static const String timesheets = 'assets/images/svg/timesheets.svg';
   static const String rosters = 'assets/images/svg/rosters.svg';
-  static const String welcome = 'assets/images/svg/hello.svg';
   static const String user = 'assets/images/svg/user.svg';
   static const String notification = 'assets/images/svg/bell.svg';
   static const String floatbtn = 'assets/images/svg/floatbtn.svg';
@@ -34,4 +34,12 @@ class AppImage {
   static const String close = 'assets/images/svg/close.svg';
   static const String radio = 'assets/images/svg/radio.svg';
   static const String clock = 'assets/images/svg/clock.svg';
+  static const String storefront = 'assets/images/svg/storefront.svg';
+  static const String logout = 'assets/images/svg/logout.svg';
+  static const String privacy = 'assets/images/svg/privacy.svg';
+  static const String support = 'assets/images/svg/support.svg';
+  static const String key = 'assets/images/svg/key.svg';
+  static const String toggleright = 'assets/images/svg/toggleright.svg';
+  static const String arrowforward = 'assets/images/svg/arrow_forward.svg';
+  static const String eyeslash = 'assets/images/svg/eyeslash.svg';
 }

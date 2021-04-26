@@ -3,9 +3,11 @@ import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
+import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../config/app_metrics.dart';
 import '../../widgets/header_view.dart';
 
 class EditLeave extends StatefulWidget {
@@ -19,40 +21,44 @@ class _EditLeaveState extends State<EditLeave> {
     return Scaffold(
       appBar: HeaderView(
         color: Colors.transparent,
-        height: 90.0,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 1,
-              child: GestureDetector(
-                onTap: () {
-                  NavigationService.instance.goback();
-                },
-                child: SvgPicture.asset(
-                  AppImage.arrow_back,
-                  alignment: Alignment.center,
-                  height: 20,
-                  width: 20,
+        height: 94.0,
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: AppMetrics.paddingVertical),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 1,
+                child: GestureDetector(
+                  onTap: () {
+                    NavigationService.instance.goback();
+                  },
+                  child: SvgPicture.asset(
+                    AppImage.arrow_back,
+                    alignment: Alignment.center,
+                    height: 21.0,
+                    width: 11.0,
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-                flex: 4,
-                child: Text(
-                  "Edit Leave Request",
-                  style: AppTextStyles.textSize16(),
-                  textAlign: TextAlign.center,
-                )),
-            Expanded(flex: 1, child: Text(''))
-          ],
+              Expanded(
+                  flex: 4,
+                  child: Text(
+                    "Edit Leave Request",
+                    style: AppTextStyles.textSize16(),
+                    textAlign: TextAlign.center,
+                  )),
+              Expanded(flex: 1, child: Text(''))
+            ],
+          ),
         ),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            flex: 3,
+            flex: 5,
             child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
                 padding: EdgeInsets.symmetric(vertical: 10.0),
@@ -64,7 +70,8 @@ class _EditLeaveState extends State<EditLeave> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20.0),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppMetrics.paddingHorizotal),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -93,7 +100,9 @@ class _EditLeaveState extends State<EditLeave> {
                         )),
                     Container(
                         padding: EdgeInsets.only(
-                            left: 20.0, right: 20.0, bottom: 10.0),
+                            left: AppMetrics.paddingHorizotal,
+                            right: AppMetrics.paddingHorizotal,
+                            bottom: AppMetrics.paddingContent),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -106,7 +115,8 @@ class _EditLeaveState extends State<EditLeave> {
                         )),
                     Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10),
+                            horizontal: AppMetrics.paddingHorizotal,
+                            vertical: AppMetrics.paddingContent),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -135,7 +145,8 @@ class _EditLeaveState extends State<EditLeave> {
                         )),
                     Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10),
+                            horizontal: AppMetrics.paddingHorizotal,
+                            vertical: AppMetrics.paddingContent),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -164,7 +175,8 @@ class _EditLeaveState extends State<EditLeave> {
                         )),
                     Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10),
+                            horizontal: AppMetrics.paddingHorizotal,
+                            vertical: AppMetrics.paddingContent),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -187,18 +199,16 @@ class _EditLeaveState extends State<EditLeave> {
                             SizedBox(
                               height: 20.0,
                             ),
-                            Container(
+                            CustomContainer(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 10.0, vertical: 10),
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(12)),
+                                    horizontal: AppMetrics.paddingHorizotal,
+                                    vertical: AppMetrics.paddingVertical),
                                 child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Expanded(
-                                          flex: 2,
+                                          flex: 3,
                                           child: Row(
                                             children: [
                                               SvgPicture.asset(
@@ -216,7 +226,7 @@ class _EditLeaveState extends State<EditLeave> {
                                             ],
                                           )),
                                       Expanded(
-                                          flex: 2,
+                                          flex: 3,
                                           child: Row(
                                             children: [
                                               SvgPicture.asset(
@@ -266,12 +276,14 @@ class _EditLeaveState extends State<EditLeave> {
                         builder: (BuildContext context) {
                           return Container(
                             padding: EdgeInsets.symmetric(
-                                vertical: 30.0, horizontal: 20.0),
+                                vertical: 30.0,
+                                horizontal: AppMetrics.paddingHorizotal),
                             height: MediaQuery.of(context).size.height * 0.55,
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Expanded(
-                                  flex: 3,
+                                  flex: 5,
                                   child: Row(
                                     children: [
                                       Expanded(flex: 2, child: Text("")),
@@ -289,26 +301,35 @@ class _EditLeaveState extends State<EditLeave> {
                                                 NavigationService.instance
                                                     .goback();
                                               },
-                                              child: Icon(Icons
-                                                  .delete_forever_rounded)))
+                                              child: SvgPicture.asset(
+                                                AppImage.close,
+                                                alignment: Alignment.center,
+                                              )))
                                     ],
                                   ),
                                 ),
                                 Expanded(
-                                    flex: 3,
-                                    child: Text(
-                                      "Your leave request has been submitted. \nYou will be notified once your employer\nApproves or rejects it.",
-                                      style: AppTextStyles.textSize16(),
+                                    flex: 5,
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal:
+                                              AppMetrics.paddingHorizotal),
+                                      child: Text(
+                                        "Your leave request has been submitted. \nYou will be notified once your employer\nApproves or rejects it.",
+                                        style: AppTextStyles.textSize16(),
+                                        textAlign: TextAlign.start,
+                                      ),
                                     )),
                                 Expanded(
-                                  flex: 3,
+                                  flex: 5,
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: 20.0),
+                                            horizontal:
+                                                AppMetrics.paddingHorizotal),
                                         child: Row(
                                           children: [
                                             Column(
@@ -361,7 +382,7 @@ class _EditLeaveState extends State<EditLeave> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 2,
+                                  flex: 3,
                                   child: CustomButton(
                                     ontap: () {
                                       NavigationService.instance.goback();

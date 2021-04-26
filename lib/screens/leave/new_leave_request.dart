@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../config/app_colors.dart';
 import '../../config/app_images.dart';
+import '../../config/app_metrics.dart';
 import '../../config/app_text_styles.dart';
 import '../../util/navigator_serivce.dart';
 import '../../widgets/header_view.dart';
@@ -19,34 +20,37 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
     return Scaffold(
         appBar: HeaderView(
           color: Colors.transparent,
-          height: 90.0,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 1,
-                child: GestureDetector(
-                  onTap: () {
-                    NavigationService.instance.goback();
-                  },
-                  child: SvgPicture.asset(
-                    AppImage.arrow_back,
-                    alignment: Alignment.center,
-                    height: 20,
-                    width: 20,
+          height: 94.0,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: AppMetrics.paddingVertical),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: GestureDetector(
+                    onTap: () {
+                      NavigationService.instance.goback();
+                    },
+                    child: SvgPicture.asset(
+                      AppImage.arrow_back,
+                      alignment: Alignment.center,
+                      height: 21.0,
+                      width: 11.0,
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                  flex: 4,
-                  child: Text(
-                    "My Timesheets",
-                    style: AppTextStyles.textSize16(),
-                    textAlign: TextAlign.center,
-                  )),
-              Expanded(flex: 1, child: Text(''))
-            ],
+                Expanded(
+                    flex: 4,
+                    child: Text(
+                      "New Leave Request",
+                      style: AppTextStyles.textSize16(),
+                      textAlign: TextAlign.center,
+                    )),
+                Expanded(flex: 1, child: Text(''))
+              ],
+            ),
           ),
         ),
         body: Column(
@@ -101,8 +105,11 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                               TextField(
                                 decoration: InputDecoration(
                                     hintText: 'Add Description',
-                                    labelText: 'Leave Description'),
-                                style: AppTextStyles.textSize18(),
+                                    labelText: 'Leave Description',
+                                    hintStyle: AppTextStyles.textSize18(
+                                        color: AppColors.grey),
+                                    labelStyle: AppTextStyles.textSize12(
+                                        color: AppColors.grey)),
                               )
                             ],
                           )),
@@ -187,12 +194,14 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                           builder: (BuildContext context) {
                             return Container(
                               padding: EdgeInsets.symmetric(
-                                  vertical: 30.0, horizontal: 20.0),
+                                  vertical: 30.0,
+                                  horizontal: AppMetrics.paddingHorizotal),
                               height: MediaQuery.of(context).size.height * 0.55,
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
-                                    flex: 3,
+                                    flex: 5,
                                     child: Row(
                                       children: [
                                         Expanded(flex: 2, child: Text("")),
@@ -200,39 +209,45 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                                             flex: 5,
                                             child: Text(
                                               "Leave Requested",
-                                              style: AppTextStyles.textSize20(
+                                              style: AppTextStyles.textSize18(
                                                   fontWeight: FontWeight.bold),
                                             )),
                                         Expanded(
                                             flex: 1,
                                             child: GestureDetector(
-                                              onTap: () {
-                                                NavigationService.instance
-                                                    .goback();
-                                              },
-                                              child: SvgPicture.asset(
-                                                AppImage.close,
-                                                alignment: Alignment.center,
-                                              ),
-                                            ))
+                                                onTap: () {
+                                                  NavigationService.instance
+                                                      .goback();
+                                                },
+                                                child: SvgPicture.asset(
+                                                  AppImage.close,
+                                                  alignment: Alignment.center,
+                                                )))
                                       ],
                                     ),
                                   ),
                                   Expanded(
-                                      flex: 3,
-                                      child: Text(
-                                        "Your leave request has been submitted. \nYou will be notified once your employer\nApproves or rejects it.",
-                                        style: AppTextStyles.textSize16(),
+                                      flex: 5,
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal:
+                                                AppMetrics.paddingHorizotal),
+                                        child: Text(
+                                          "Your leave request has been submitted. \nYou will be notified once your employer\nApproves or rejects it.",
+                                          style: AppTextStyles.textSize16(),
+                                          textAlign: TextAlign.start,
+                                        ),
                                       )),
                                   Expanded(
-                                    flex: 3,
+                                    flex: 5,
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         Container(
                                           padding: EdgeInsets.symmetric(
-                                              horizontal: 20.0),
+                                              horizontal:
+                                                  AppMetrics.paddingHorizotal),
                                           child: Row(
                                             children: [
                                               Column(
@@ -285,7 +300,7 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                                     ),
                                   ),
                                   Expanded(
-                                    flex: 2,
+                                    flex: 3,
                                     child: CustomButton(
                                       ontap: () {
                                         NavigationService.instance.goback();

@@ -4,5 +4,5 @@ class AppMetrics {
   static const double heightHeader = 50.0;
   static final double paddingContent = 10.0;
   static final double borderContainer = 17.0;
-  static final double borderButton = 26.0;
+  static final double borderButton = 45.0;
 }
