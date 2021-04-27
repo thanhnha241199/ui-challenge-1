@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
+  <g id="WarningCircle" transform="translate(-3 -3)">
+    <path id="Path_11711" data-name="Path 11711" d="M16,28A12,12,0,1,0,4,16,12,12,0,0,0,16,28Z" fill="none" stroke="#4fd9c0" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="Path_11712" data-name="Path 11712" d="M16,10v7" fill="none" stroke="#4fd9c0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path id="Path_11713" data-name="Path 11713" d="M16,23a1.5,1.5,0,1,0-1.5-1.5A1.5,1.5,0,0,0,16,23Z" fill="#46dac0"/>
+  </g>
+</svg>

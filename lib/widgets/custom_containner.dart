@@ -1,4 +1,3 @@
-import 'package:bookkeepa/config/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../config/app_metrics.dart';
@@ -10,12 +9,14 @@ class CustomContainer extends StatelessWidget {
   final Widget child;
   final EdgeInsets edgeInsets;
   final EdgeInsets padding;
+  final Color colorBorder;
   CustomContainer(
       {this.color = Colors.white,
       this.child,
       this.edgeInsets,
       this.padding,
       this.height,
+      @required this.colorBorder,
       this.width});
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class CustomContainer extends StatelessWidget {
       padding: this.padding,
       decoration: BoxDecoration(
           color: color,
-          border: Border.all(color: AppColors.grey.withOpacity(0.2)),
+          border: Border.all(color: colorBorder),
           borderRadius: BorderRadius.circular(AppMetrics.borderContainer)),
       alignment: Alignment.centerLeft,
       child: child,

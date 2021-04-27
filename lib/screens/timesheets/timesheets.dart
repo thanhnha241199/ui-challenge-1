@@ -1,3 +1,4 @@
+import 'package:bookkeepa/models/timesheet/timesheet.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/widgets/app_list_view.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
@@ -16,7 +17,36 @@ class Timesheets extends StatefulWidget {
 }
 
 class _TimesheetsState extends State<Timesheets> {
-  List<String> items = new List.generate(5, (index) => 'Hello $index');
+  List<TimeSheetModel> items = [
+    TimeSheetModel(
+        start: "Apr 12",
+        end: "Apr 28 2021",
+        label: "draft",
+        scheduled: "40.0",
+        actual: "35.0",
+        file: 0),
+    TimeSheetModel(
+        start: "Apr 12",
+        end: "Apr 28 2021",
+        label: "approved",
+        scheduled: "40.0",
+        actual: "35.0",
+        file: 1),
+    TimeSheetModel(
+        start: "Apr 12",
+        end: "Apr 28 2021",
+        label: "pending",
+        scheduled: "40.0",
+        actual: "35.0",
+        file: 3),
+    TimeSheetModel(
+        start: "Apr 12",
+        end: "Apr 28 2021",
+        label: "draft",
+        scheduled: "40.0",
+        actual: "35.0",
+        file: 0)
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,6 +121,7 @@ class _TimesheetsState extends State<Timesheets> {
                 left: AppMetrics.paddingHorizotal,
                 right: AppMetrics.paddingHorizotal),
             padding: EdgeInsets.only(top: AppMetrics.paddingContent),
+            colorBorder: AppColors.grey.withOpacity(0.2),
             child: AppListView(
               data: items,
               renderItem: (item) {
@@ -109,7 +140,7 @@ class _TimesheetsState extends State<Timesheets> {
     );
   }
 
-  Widget renderItem(BuildContext context, dynamic item) {
+  Widget renderItem(BuildContext context, TimeSheetModel item) {
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         alignment: Alignment.center,
@@ -120,7 +151,7 @@ class _TimesheetsState extends State<Timesheets> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Apr 12 - Apr 28 2021",
+                  "${item.start} - ${item.end}",
                   style: AppTextStyles.textSize16(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
@@ -136,7 +167,7 @@ class _TimesheetsState extends State<Timesheets> {
                           height: 5.0,
                         ),
                         Text(
-                          "40",
+                          "${item.scheduled}",
                           style: AppTextStyles.textSize16(
                               fontWeight: FontWeight.bold),
                         )
@@ -156,7 +187,7 @@ class _TimesheetsState extends State<Timesheets> {
                           height: 5.0,
                         ),
                         Text(
-                          "35.0",
+                          "${item.actual}",
                           style: AppTextStyles.textSize16(
                               fontWeight: FontWeight.bold,
                               color: AppColors.green),
@@ -170,32 +201,46 @@ class _TimesheetsState extends State<Timesheets> {
             Spacer(),
             Column(
               children: [
-                SvgPicture.asset(
-                  AppImage.pending,
-                  fit: BoxFit.scaleDown,
-                  alignment: Alignment.center,
-                ),
+                item.label == 'draft'
+                    ? SvgPicture.asset(
+                        AppImage.draft,
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.center,
+                      )
+                    : item.label == 'approved'
+                        ? SvgPicture.asset(
+                            AppImage.approved,
+                            fit: BoxFit.scaleDown,
+                            alignment: Alignment.center,
+                          )
+                        : SvgPicture.asset(
+                            AppImage.pending,
+                            fit: BoxFit.scaleDown,
+                            alignment: Alignment.center,
+                          ),
                 SizedBox(
                   height: 30.0,
                 ),
-                Row(
-                  children: [
-                    SvgPicture.asset(
-                      AppImage.paperclip,
-                      fit: BoxFit.scaleDown,
-                      width: 12.0,
-                      height: 14.0,
-                      alignment: Alignment.center,
-                    ),
-                    SizedBox(
-                      width: 5.0,
-                    ),
-                    Text(
-                      "3",
-                      style: AppTextStyles.textSize12(),
-                    )
-                  ],
-                )
+                item.file == 0
+                    ? Text('')
+                    : Row(
+                        children: [
+                          SvgPicture.asset(
+                            AppImage.paperclip,
+                            fit: BoxFit.scaleDown,
+                            width: 12.0,
+                            height: 14.0,
+                            alignment: Alignment.center,
+                          ),
+                          SizedBox(
+                            width: 5.0,
+                          ),
+                          Text(
+                            "3",
+                            style: AppTextStyles.textSize12(),
+                          )
+                        ],
+                      )
               ],
             )
           ],

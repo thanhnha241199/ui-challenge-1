@@ -203,6 +203,7 @@ class _EditLeaveState extends State<EditLeave> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: AppMetrics.paddingHorizotal,
                                     vertical: AppMetrics.paddingVertical),
+                                colorBorder: AppColors.grey.withOpacity(0.2),
                                 child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,

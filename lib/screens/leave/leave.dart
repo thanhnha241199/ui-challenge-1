@@ -60,6 +60,7 @@ class _LeaveState extends State<Leave> {
           CustomContainer(
               edgeInsets: EdgeInsets.symmetric(horizontal: 20.0),
               padding: EdgeInsets.symmetric(vertical: 10.0),
+              colorBorder: AppColors.grey.withOpacity(0.2),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -367,6 +368,7 @@ class _LeaveState extends State<Leave> {
             horizontal: AppMetrics.paddingHorizotal,
             vertical: AppMetrics.paddingVertical),
         padding: EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
+        colorBorder: AppColors.grey.withOpacity(0.2),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,

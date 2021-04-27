@@ -1,5 +1,11 @@
+import 'dart:ui';
+
 import 'package:bookkeepa/config/app_metrics.dart';
+import 'package:bookkeepa/models/notification/notification.dart';
 import 'package:bookkeepa/screens/dashboard/account.dart';
+import 'package:bookkeepa/screens/dashboard/new_time_card.dart';
+import 'package:bookkeepa/screens/dashboard/time_card.dart';
+import 'package:bookkeepa/screens/notifications/notifications.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
@@ -20,17 +26,34 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  List<NotificationModel> items = [
+    NotificationModel(
+        title: "Jack Hihnson requested leave", read: true, time: "1m ago"),
+    NotificationModel(
+        title: "Amy Ranch needs timesheet approved",
+        read: true,
+        time: "20m ago"),
+    NotificationModel(
+        title: "1 document needs to be signed", read: false, time: "1h ago"),
+    NotificationModel(
+        title: "Amy Ranch needs timesheet approved",
+        read: false,
+        time: "5h ago"),
+    NotificationModel(
+        title: "Cornor Halt requested leave", read: false, time: "10h ago"),
+    NotificationModel(
+        title: "Joseph Rosso needs timesheet approved",
+        read: false,
+        time: "1d ago"),
+    NotificationModel(
+        title: "3 documents needs to be signed", read: false, time: "1d ago"),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HeaderView(
           color: Colors.transparent,
-          height: 94.0,
           child: Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: AppMetrics.paddingHorizotal,
@@ -70,22 +93,44 @@ class _DashboardState extends State<Dashboard> {
                     )),
                 Expanded(
                     flex: 1,
-                    child: SvgPicture.asset(
-                      AppImage.notification,
-                      alignment: Alignment.center,
+                    child: GestureDetector(
+                      onTap: () {
+                        showGeneralDialog(
+                          barrierDismissible: true,
+                          barrierLabel: '',
+                          barrierColor: Colors.black38,
+                          transitionDuration: Duration(milliseconds: 500),
+                          pageBuilder: (ctx, anim1, anim2) {
+                            return Notifications(
+                              items: items,
+                            );
+                          },
+                          transitionBuilder: (ctx, anim1, anim2, child) =>
+                              FadeTransition(
+                            child: child,
+                            opacity: anim1,
+                          ),
+                          context: context,
+                        );
+                      },
+                      child: SvgPicture.asset(
+                        AppImage.notification,
+                        alignment: Alignment.center,
+                      ),
                     ))
               ],
             ),
           )),
-      body: Column(
-        children: [
-          Expanded(flex: 7, child: circletime()),
-          Expanded(flex: 4, child: scheduleroster()),
-          Expanded(flex: 5, child: total())
-        ],
+      body: ListView(
+        children: [circletime(), scheduleroster(), total()],
       ),
-      floatingActionButton: SvgPicture.asset(
-        AppImage.floatbtn,
+      floatingActionButton: GestureDetector(
+        onTap: () {
+          NavigationService.instance.pushPage(context, false, NewTimeCard());
+        },
+        child: SvgPicture.asset(
+          AppImage.floatbtn,
+        ),
       ),
     );
   }
@@ -96,6 +141,7 @@ class _DashboardState extends State<Dashboard> {
           horizontal: AppMetrics.paddingHorizotal,
           vertical: AppMetrics.paddingVertical),
       padding: EdgeInsets.only(top: AppMetrics.paddingContent),
+      colorBorder: AppColors.grey.withOpacity(0.2),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -161,6 +207,7 @@ class _DashboardState extends State<Dashboard> {
     return CustomContainer(
       edgeInsets: EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
       padding: EdgeInsets.only(top: AppMetrics.paddingContent),
+      colorBorder: AppColors.grey.withOpacity(0.2),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -188,7 +235,10 @@ class _DashboardState extends State<Dashboard> {
                     height: 20.0,
                   ),
                   CustomButton(
-                    ontap: () {},
+                    ontap: () {
+                      NavigationService.instance
+                          .pushPage(context, false, TimeCard());
+                    },
                     color: AppColors.greenAccent,
                     text: AppTranslations().getLanguage(context, 'clockin'),
                     height: MediaQuery.of(context).size.height * 0.05,
@@ -210,6 +260,7 @@ class _DashboardState extends State<Dashboard> {
           top: AppMetrics.paddingVertical,
           bottom: AppMetrics.paddingContent),
       padding: EdgeInsets.only(top: AppMetrics.paddingContent),
+      colorBorder: AppColors.grey.withOpacity(0.2),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

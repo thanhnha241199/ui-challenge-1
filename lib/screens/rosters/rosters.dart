@@ -104,6 +104,7 @@ class _RostersState extends State<Rosters> {
                       horizontal: AppMetrics.paddingHorizotal,
                       vertical: AppMetrics.paddingVertical),
                   width: MediaQuery.of(context).size.width * 0.8,
+                  colorBorder: AppColors.grey.withOpacity(0.2),
                   child: Text(
                     "09:00ap to 12:00pm",
                     style: AppTextStyles.textSize16(),
@@ -123,6 +124,7 @@ class _RostersState extends State<Rosters> {
                   padding: EdgeInsets.symmetric(
                       horizontal: AppMetrics.paddingHorizotal,
                       vertical: AppMetrics.paddingVertical),
+                  colorBorder: AppColors.grey.withOpacity(0.2),
                   width: MediaQuery.of(context).size.width,
                   child: Row(
                     children: [
@@ -148,6 +150,7 @@ class _RostersState extends State<Rosters> {
                       horizontal: AppMetrics.paddingHorizotal,
                       vertical: AppMetrics.paddingVertical),
                   width: MediaQuery.of(context).size.width,
+                  colorBorder: AppColors.grey.withOpacity(0.2),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -177,6 +180,7 @@ class _RostersState extends State<Rosters> {
                         horizontal: AppMetrics.paddingHorizotal,
                         vertical: AppMetrics.paddingVertical),
                     width: MediaQuery.of(context).size.width,
+                    colorBorder: AppColors.grey.withOpacity(0.2),
                     child: Text(
                       "01:00pm to 05:00pm",
                       style: AppTextStyles.textSize16(),

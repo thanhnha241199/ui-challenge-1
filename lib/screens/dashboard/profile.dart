@@ -66,6 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 edgeInsets: EdgeInsets.symmetric(
                     vertical: AppMetrics.paddingVertical,
                     horizontal: AppMetrics.paddingHorizotal),
+                colorBorder: AppColors.grey.withOpacity(0.2),
                 child: Container(
                   padding: EdgeInsets.symmetric(
                       vertical: AppMetrics.paddingVertical,
@@ -80,8 +81,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             height: 62,
                             width: 62,
                             decoration: BoxDecoration(
-                              color: Colors.red,
                               shape: BoxShape.circle,
+                            ),
+                            child: Image.asset(
+                              AppImage.avatar,
                             ),
                           ),
                           SizedBox(
@@ -107,6 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     horizontal: AppMetrics.paddingHorizotal),
                 padding:
                     EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
+                colorBorder: AppColors.grey.withOpacity(0.2),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -149,6 +153,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Expanded(
                               flex: 1,
                               child: TextField(
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                     hintText: '+61',
                                     labelText: 'Phone number',
@@ -164,6 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Expanded(
                               flex: 4,
                               child: TextField(
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                     hintText: '0412 345 678',
                                     labelText: '',

@@ -1,3 +1,4 @@
+import 'package:bookkeepa/models/payslip/payslip.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/widgets/app_list_view.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
@@ -17,7 +18,15 @@ class Payslips extends StatefulWidget {
 }
 
 class _PayslipsState extends State<Payslips> {
-  List<String> items = new List.generate(10, (index) => 'Hello $index');
+  List<PayslipModel> items = [
+    PayslipModel(start: "01 Feb", end: "28 Feb 2021", amount: "1,956.00"),
+    PayslipModel(start: "01 Feb", end: "28 Feb 2021", amount: "1,956.00"),
+    PayslipModel(start: "01 Feb", end: "28 Feb 2021", amount: "1,956.00"),
+    PayslipModel(start: "01 Feb", end: "28 Feb 2021", amount: "1,956.00"),
+    PayslipModel(start: "01 Feb", end: "28 Feb 2021", amount: "1,956.00")
+  ];
+  bool date = false;
+  bool amount = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +69,14 @@ class _PayslipsState extends State<Payslips> {
                 vertical: AppMetrics.paddingVertical,
                 horizontal: AppMetrics.paddingHorizotal),
             child: Row(
-              children: [dropdownDate(), Spacer(), dropdownAmount()],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                dropdownDate(),
+                SizedBox(
+                  width: 10.0,
+                ),
+                dropdownAmount()
+              ],
             ),
           ),
           CustomContainer(
@@ -69,6 +85,7 @@ class _PayslipsState extends State<Payslips> {
                 left: AppMetrics.paddingHorizotal,
                 right: AppMetrics.paddingHorizotal),
             padding: EdgeInsets.only(top: AppMetrics.paddingContent),
+            colorBorder: AppColors.grey.withOpacity(0.2),
             child: AppListView(
               data: items,
               renderItem: (item) {
@@ -88,48 +105,74 @@ class _PayslipsState extends State<Payslips> {
   }
 
   Widget dropdownAmount() {
-    return CustomContainer(
-      height: MediaQuery.of(context).size.height * 0.07,
-      width: MediaQuery.of(context).size.width * 0.42,
-      padding: EdgeInsets.symmetric(horizontal: AppMetrics.paddingContent),
-      child: Row(
-        children: [
-          Text(
-            AppTranslations().getLanguage(context, 'amount'),
-            style: AppTextStyles.textSize16(),
-          ),
-          Spacer(),
-          SvgPicture.asset(
-            AppImage.caretdown,
-            alignment: Alignment.center,
-          ),
-        ],
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          amount = !amount;
+        });
+      },
+      child: CustomContainer(
+        height: MediaQuery.of(context).size.height * 0.07,
+        width: MediaQuery.of(context).size.width * 0.44,
+        padding: EdgeInsets.symmetric(horizontal: AppMetrics.paddingContent),
+        colorBorder: AppColors.grey.withOpacity(0.2),
+        child: Row(
+          children: [
+            Text(
+              AppTranslations().getLanguage(context, 'amount'),
+              style: AppTextStyles.textSize16(),
+            ),
+            Spacer(),
+            amount == false
+                ? SvgPicture.asset(
+                    AppImage.caretdown,
+                    alignment: Alignment.center,
+                  )
+                : SvgPicture.asset(
+                    AppImage.caretup,
+                    alignment: Alignment.center,
+                  ),
+          ],
+        ),
       ),
     );
   }
 
   Widget dropdownDate() {
-    return CustomContainer(
-      height: MediaQuery.of(context).size.height * 0.07,
-      width: MediaQuery.of(context).size.width * 0.42,
-      padding: EdgeInsets.symmetric(horizontal: AppMetrics.paddingContent),
-      child: Row(
-        children: [
-          Text(
-            AppTranslations().getLanguage(context, 'date'),
-            style: AppTextStyles.textSize16(),
-          ),
-          Spacer(),
-          SvgPicture.asset(
-            AppImage.caretdown,
-            alignment: Alignment.center,
-          ),
-        ],
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          date = !date;
+        });
+      },
+      child: CustomContainer(
+        height: MediaQuery.of(context).size.height * 0.07,
+        width: MediaQuery.of(context).size.width * 0.44,
+        padding: EdgeInsets.symmetric(horizontal: AppMetrics.paddingContent),
+        colorBorder: AppColors.grey.withOpacity(0.2),
+        child: Row(
+          children: [
+            Text(
+              AppTranslations().getLanguage(context, 'date'),
+              style: AppTextStyles.textSize16(),
+            ),
+            Spacer(),
+            date == false
+                ? SvgPicture.asset(
+                    AppImage.caretdown,
+                    alignment: Alignment.center,
+                  )
+                : SvgPicture.asset(
+                    AppImage.caretup,
+                    alignment: Alignment.center,
+                  ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget renderItem(BuildContext context, dynamic item) {
+  Widget renderItem(BuildContext context, PayslipModel item) {
     return Container(
       padding: EdgeInsets.symmetric(
           horizontal: AppMetrics.paddingHorizotal,
@@ -140,12 +183,12 @@ class _PayslipsState extends State<Payslips> {
           Row(
             children: [
               Text(
-                "28 February 2021",
+                item.end,
                 style: AppTextStyles.textSize16(fontWeight: FontWeight.bold),
               ),
               Spacer(),
               Text(
-                "\$1,956.00",
+                "\$${item.amount}",
                 style: AppTextStyles.textSize16(fontWeight: FontWeight.bold),
               ),
             ],
@@ -154,7 +197,7 @@ class _PayslipsState extends State<Payslips> {
             height: 5.0,
           ),
           Text(
-            "01 Feb - 28 Feb 2021)",
+            "${item.start} - ${item.end})",
             style: AppTextStyles.textSize12(),
           ),
           SizedBox(

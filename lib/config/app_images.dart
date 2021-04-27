@@ -10,6 +10,7 @@ class AppImage {
   static const String notification = 'assets/images/svg/bell.svg';
   static const String floatbtn = 'assets/images/svg/floatbtn.svg';
   static const String caretdown = 'assets/images/svg/caretdown.svg';
+  static const String caretup = 'assets/images/svg/caretup.svg';
   static const String calendar = 'assets/images/svg/calendar.svg';
   static const String arrowcircleright =
       'assets/images/svg/arrowcircleright.svg';
@@ -42,4 +43,11 @@ class AppImage {
   static const String toggleright = 'assets/images/svg/toggleright.svg';
   static const String arrowforward = 'assets/images/svg/arrow_forward.svg';
   static const String eyeslash = 'assets/images/svg/eyeslash.svg';
+  static const String xcircle = 'assets/images/svg/xcircle.svg';
+  static const String avatar = 'assets/images/svg/avatar.png';
+  static const String business = 'assets/images/svg/business.png';
+  static const String search = 'assets/images/svg/search.svg';
+  static const String sender1 = 'assets/images/svg/sender1.svg';
+  static const String sender2 = 'assets/images/svg/sender2.svg';
+  static const String warningcircle = 'assets/images/svg/warningcircle.svg';
 }
