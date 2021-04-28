@@ -20,29 +20,22 @@ class _NewTimeCardState extends State<NewTimeCard> {
     return Scaffold(
       appBar: HeaderView(
           color: Colors.transparent,
-          height: 78.0,
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingHorizotal,
-                vertical: AppMetrics.paddingVertical),
-            child: Row(
-              children: [
-                Expanded(flex: 1, child: Text('')),
-                Expanded(
-                    flex: 9,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "New Time Card",
-                          style: AppTextStyles.textSize16(),
-                        )
-                      ],
-                    )),
-                Expanded(flex: 1, child: Text(''))
-              ],
-            ),
+          child: Row(
+            children: [
+              Expanded(flex: 1, child: Text('')),
+              Expanded(
+                  flex: 4,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: AppMetrics.paddingContainer),
+                    child: Text(
+                      "New Time Card",
+                      style: AppTextStyles.textSize16(),
+                      textAlign: TextAlign.center,
+                    ),
+                  )),
+              Expanded(flex: 1, child: Text(''))
+            ],
           )),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -108,76 +101,71 @@ class _NewTimeCardState extends State<NewTimeCard> {
                                 horizontal: AppMetrics.paddingHorizotal),
                             height: MediaQuery.of(context).size.height * 0.55,
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Row(
-                                    children: [
-                                      Expanded(flex: 2, child: Text("")),
-                                      Expanded(
-                                          flex: 5,
-                                          child: Text(
-                                            "Your Are About To Clock In",
-                                            style: AppTextStyles.textSize18(
-                                                fontWeight: FontWeight.bold),
-                                          )),
-                                      Expanded(
-                                          flex: 1,
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                NavigationService.instance
-                                                    .goback();
-                                              },
-                                              child: SvgPicture.asset(
-                                                AppImage.close,
-                                                alignment: Alignment.center,
-                                              )))
-                                    ],
+                                Row(
+                                  children: [
+                                    Expanded(flex: 1, child: Text("")),
+                                    Expanded(
+                                        flex: 4,
+                                        child: Text(
+                                          "Your Are About To Clock In",
+                                          style: AppTextStyles.textSize20(
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.center,
+                                        )),
+                                    Expanded(
+                                        flex: 1,
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              NavigationService.instance
+                                                  .goback();
+                                            },
+                                            child: SvgPicture.asset(
+                                              AppImage.close,
+                                              alignment: Alignment.center,
+                                            )))
+                                  ],
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: AppMetrics.paddingHorizotal),
+                                  child: Text(
+                                    "Just to confirm: you are not scheduled to work today. Please confirm you would like to clock in a time",
+                                    maxLines: 5,
+                                    style: AppTextStyles.textSize16(),
+                                    textAlign: TextAlign.start,
                                   ),
                                 ),
-                                Expanded(
-                                    flex: 1,
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              AppMetrics.paddingHorizotal),
-                                      child: Text(
-                                        "Just to confirm: you are not scheduled to work today. Please confirm you would like to clock in a time",
-                                        maxLines: 3,
-                                        style: AppTextStyles.textSize16(),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    )),
-                                Expanded(
-                                    flex: 2,
-                                    child: Column(
-                                      children: [
-                                        CustomButton(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
+                                Column(
+                                  children: [
+                                    CustomButton(
+                                      height:
+                                          MediaQuery.of(context).size.height *
                                               0.08,
-                                          ontap: () {},
-                                          color: AppColors.greenAccent,
-                                          text: "Confirm Clock In",
-                                          style: AppTextStyles.textSize14(),
-                                        ),
-                                        SizedBox(
-                                          height: 10.0,
-                                        ),
-                                        CustomButton(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
+                                      ontap: () {},
+                                      borderColor: AppColors.greenAccent,
+                                      color: AppColors.greenAccent,
+                                      text: "Confirm Clock In",
+                                      style: AppTextStyles.textSize14(),
+                                    ),
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    CustomButton(
+                                      height:
+                                          MediaQuery.of(context).size.height *
                                               0.08,
-                                          ontap: () {},
-                                          color: AppColors.whiteColor,
-                                          text: "Cancel",
-                                          style: AppTextStyles.textSize14(),
-                                        ),
-                                      ],
-                                    ))
+                                      ontap: () {
+                                        NavigationService.instance.goback();
+                                      },
+                                      borderColor: AppColors.greenAccent,
+                                      color: AppColors.whiteColor,
+                                      text: "Cancel",
+                                      style: AppTextStyles.textSize14(),
+                                    ),
+                                  ],
+                                )
                               ],
                             ),
                           );
@@ -185,15 +173,17 @@ class _NewTimeCardState extends State<NewTimeCard> {
                       );
                     },
                     color: AppColors.greenAccent,
+                    borderColor: AppColors.greenAccent,
                     text: 'Clock In',
                     height: MediaQuery.of(context).size.height * 0.09,
                     style: AppTextStyles.textSize18(),
                   ),
                   SizedBox(
-                    height: 10.0,
+                    height: AppMetrics.paddingContainer,
                   ),
                   CustomButton(
                     ontap: () {},
+                    borderColor: AppColors.greenAccent,
                     color: AppColors.whiteColor,
                     text: 'Cancel',
                     height: MediaQuery.of(context).size.height * 0.09,

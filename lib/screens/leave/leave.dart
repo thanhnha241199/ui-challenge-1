@@ -23,38 +23,40 @@ class _LeaveState extends State<Leave> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HeaderView(
-        color: Colors.transparent,
-        height: 94.0,
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: AppMetrics.paddingHorizotal,
-              vertical: AppMetrics.paddingVertical),
+          color: Colors.transparent,
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(flex: 1, child: Text("")),
+              Expanded(
+                  flex: 1,
+                  child: GestureDetector(onTap: () {}, child: Text(''))),
               Expanded(
                   flex: 4,
-                  child: Text(
-                    "My ${AppTranslations().getLanguage(context, 'leave')}",
-                    style: AppTextStyles.textSize16(),
-                    textAlign: TextAlign.center,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: AppMetrics.paddingContainer),
+                    child: Text(
+                      "My ${AppTranslations().getLanguage(context, 'leave')}",
+                      style: AppTextStyles.textSize16(),
+                      textAlign: TextAlign.center,
+                    ),
                   )),
               Expanded(
-                flex: 1,
-                child: SvgPicture.asset(
-                  AppImage.notification,
-                  alignment: Alignment.center,
-                  height: 20.0,
-                  width: 20.0,
-                ),
-              )
+                  flex: 1,
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: SvgPicture.asset(
+                      AppImage.notification,
+                      alignment: Alignment.center,
+                      height: 21.0,
+                      width: 20.0,
+                    ),
+                  ))
             ],
-          ),
-        ),
-      ),
+          )),
       body: ListView(
+        physics: BouncingScrollPhysics(),
         children: [
           leaveBalance(),
           CustomContainer(
@@ -340,6 +342,7 @@ class _LeaveState extends State<Leave> {
             ontap: () {
               NavigationService.instance.navigateTo(EditLeave());
             },
+            borderColor: AppColors.greenAccent,
             color: AppColors.greenAccent,
             text: "Request Leave",
             height: MediaQuery.of(context).size.height * 0.07,

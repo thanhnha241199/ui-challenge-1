@@ -26,35 +26,35 @@ class _SelectBusinessState extends State<SelectBusiness> {
     return Scaffold(
       appBar: HeaderView(
           color: Colors.transparent,
-          height: 90.0,
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: AppMetrics.paddingVertical),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                    flex: 1,
-                    child: GestureDetector(
-                      onTap: () {
-                        NavigationService.instance.goback();
-                      },
-                      child: SvgPicture.asset(
-                        AppImage.arrow_back,
-                        height: 21.0,
-                        width: 11.0,
-                      ),
-                    )),
-                Expanded(
-                    flex: 4,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                  flex: 1,
+                  child: GestureDetector(
+                    onTap: () {
+                      NavigationService.instance.goback();
+                    },
+                    child: SvgPicture.asset(
+                      AppImage.arrow_back,
+                      height: 21.0,
+                      width: 11.0,
+                    ),
+                  )),
+              Expanded(
+                  flex: 4,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: AppMetrics.paddingContainer),
                     child: Text(
                       "Select Another Business",
                       style: AppTextStyles.textSize16(),
                       textAlign: TextAlign.center,
-                    )),
-                Expanded(flex: 1, child: Text(''))
-              ],
-            ),
+                    ),
+                  )),
+              Expanded(flex: 1, child: Text(''))
+            ],
           )),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,10 +63,11 @@ class _SelectBusinessState extends State<SelectBusiness> {
             children: [
               ..._getBody(),
               SizedBox(
-                height: 18.0,
+                height: AppMetrics.paddingContainer,
               ),
               CustomButton(
                 ontap: () {},
+                borderColor: AppColors.greenAccent,
                 color: AppColors.greenAccent,
                 text: 'Add New Business',
                 height: MediaQuery.of(context).size.height * 0.09,
@@ -81,6 +82,7 @@ class _SelectBusinessState extends State<SelectBusiness> {
                 vertical: AppMetrics.paddingVertical),
             child: CustomButton(
               ontap: () {},
+              borderColor: AppColors.greenAccent,
               color: AppColors.greenAccent,
               text: 'Change Business',
               height: MediaQuery.of(context).size.height * 0.1,

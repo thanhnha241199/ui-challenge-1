@@ -1,5 +1,7 @@
 import 'package:bookkeepa/models/payslip/payslip.dart';
+import 'package:bookkeepa/screens/payslips/viewpayslips.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
+import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/app_list_view.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
@@ -32,29 +34,30 @@ class _PayslipsState extends State<Payslips> {
     return Scaffold(
       appBar: HeaderView(
         color: Colors.transparent,
-        height: 94.0,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: AppMetrics.paddingHorizotal,
-              vertical: AppMetrics.paddingVertical),
+          padding:
+              EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(flex: 1, child: Text("")),
               Expanded(
                   flex: 4,
-                  child: Text(
-                    "My ${AppTranslations().getLanguage(context, 'payslips')}",
-                    style: AppTextStyles.textSize16(),
-                    textAlign: TextAlign.center,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: AppMetrics.paddingContainer),
+                    child: Text(
+                      "My ${AppTranslations().getLanguage(context, 'payslips')}",
+                      style: AppTextStyles.textSize16(),
+                      textAlign: TextAlign.center,
+                    ),
                   )),
               Expanded(
                 flex: 1,
                 child: SvgPicture.asset(
                   AppImage.notification,
-                  alignment: Alignment.center,
-                  height: 20.0,
+                  alignment: Alignment.centerRight,
+                  height: 21.0,
                   width: 20.0,
                 ),
               )
@@ -204,8 +207,12 @@ class _PayslipsState extends State<Payslips> {
             height: 15.0,
           ),
           CustomButton(
-            ontap: () {},
+            ontap: () {
+              NavigationService.instance
+                  .pushPage(context, false, ViewPayslip());
+            },
             color: AppColors.whiteColor,
+            borderColor: AppColors.greenAccent,
             text: AppTranslations().getLanguage(context, 'viewpdf'),
             height: MediaQuery.of(context).size.height * 0.065,
             width: MediaQuery.of(context).size.width * 0.3,

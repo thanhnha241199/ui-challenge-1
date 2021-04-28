@@ -5,7 +5,7 @@ import 'package:bookkeepa/screens/leave/leave.dart';
 import 'package:bookkeepa/screens/main/widgets/bottom_bar_item.dart';
 import 'package:bookkeepa/screens/payslips/payslips.dart';
 import 'package:bookkeepa/screens/rosters/rosters.dart';
-import 'package:bookkeepa/screens/timesheets/timesheets.dart';
+import 'package:bookkeepa/screens/timesheets/timesheet.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/navigator/adaptive_bottom_navigation_scaffold.dart';

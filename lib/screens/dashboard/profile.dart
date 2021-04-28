@@ -23,11 +23,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: HeaderView(
           color: Colors.transparent,
-          height: 90.0,
           child: Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: AppMetrics.paddingHorizotal,
-                vertical: AppMetrics.paddingVertical),
+                vertical: AppMetrics.paddingContent),
             child: Row(
               children: [
                 Expanded(
@@ -209,6 +208,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   CustomButton(
                     ontap: () {},
+                    borderColor: AppColors.greenAccent,
                     color: AppColors.greenAccent,
                     text: "Save Changes",
                     height: MediaQuery.of(context).size.height * 0.075,
@@ -221,6 +221,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ontap: () {
                       NavigationService.instance.goback();
                     },
+                    borderColor: AppColors.greenAccent,
                     color: AppColors.whiteColor,
                     text: "Cancel",
                     height: MediaQuery.of(context).size.height * 0.075,

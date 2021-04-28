@@ -6,7 +6,6 @@ import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/models/notification/notification.dart';
 import 'package:bookkeepa/screens/dashboard/profile.dart';
 import 'package:bookkeepa/screens/dashboard/select_business.dart';
-import 'package:bookkeepa/screens/dashboard/support.dart';
 import 'package:bookkeepa/screens/notifications/notifications.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
@@ -50,55 +49,57 @@ class _AccountScreenState extends State<AccountScreen> {
     return Scaffold(
       appBar: HeaderView(
           color: Colors.transparent,
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: AppMetrics.paddingVertical),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(flex: 1, child: Text("")),
-                Expanded(
-                    flex: 4,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(flex: 1, child: Text("")),
+              Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: AppMetrics.paddingContainer),
                     child: Text(
                       "Account",
                       style: AppTextStyles.textSize16(),
                       textAlign: TextAlign.center,
-                    )),
-                Expanded(
-                  flex: 1,
-                  child: GestureDetector(
-                    onTap: () {
-                      showGeneralDialog(
-                        barrierDismissible: true,
-                        barrierLabel: '',
-                        barrierColor: Colors.black38,
-                        transitionDuration: Duration(milliseconds: 500),
-                        pageBuilder: (ctx, anim1, anim2) {
-                          return Notifications(
-                            items: items,
-                          );
-                        },
-                        transitionBuilder: (ctx, anim1, anim2, child) =>
-                            BackdropFilter(
-                          filter: ImageFilter.blur(
-                              sigmaX: 30 * anim1.value,
-                              sigmaY: 30 * anim1.value),
-                          child: FadeTransition(
-                            child: child,
-                            opacity: anim1,
-                          ),
-                        ),
-                        context: context,
-                      );
-                    },
-                    child: SvgPicture.asset(
-                      AppImage.notification,
-                      alignment: Alignment.center,
                     ),
+                  )),
+              Expanded(
+                flex: 1,
+                child: GestureDetector(
+                  onTap: () {
+                    showGeneralDialog(
+                      barrierDismissible: true,
+                      barrierLabel: '',
+                      barrierColor: Colors.black38,
+                      transitionDuration: Duration(milliseconds: 500),
+                      pageBuilder: (ctx, anim1, anim2) {
+                        return Notifications(
+                          items: items,
+                        );
+                      },
+                      transitionBuilder: (ctx, anim1, anim2, child) =>
+                          BackdropFilter(
+                        filter: ImageFilter.blur(
+                            sigmaX: 30 * anim1.value, sigmaY: 30 * anim1.value),
+                        child: FadeTransition(
+                          child: child,
+                          opacity: anim1,
+                        ),
+                      ),
+                      context: context,
+                    );
+                  },
+                  child: SvgPicture.asset(
+                    AppImage.notification,
+                    alignment: Alignment.center,
+                    height: 21,
+                    width: 20,
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           )),
       body: ListView(
         children: [
@@ -152,28 +153,21 @@ class _AccountScreenState extends State<AccountScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: AppMetrics.paddingHorizotal,
+                      vertical: AppMetrics.paddingContent),
                   alignment: Alignment.center,
                   child: Row(
                     children: [
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            AppImage.toggleright,
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Text(
-                            "Notification Preferences",
-                            style: AppTextStyles.textSize16(),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
                       SvgPicture.asset(
-                        AppImage.arrowforward,
+                        AppImage.toggleright,
+                      ),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(
+                        "Notification Preferences",
+                        style: AppTextStyles.textSize16(),
                       ),
                     ],
                   ),
@@ -277,6 +271,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                             MediaQuery.of(context).size.height *
                                                 0.05,
                                         ontap: () {},
+                                        borderColor: AppColors.greenAccent,
                                         color: AppColors.greenAccent,
                                         text: "Save",
                                         style: AppTextStyles.textSize14(),
@@ -292,26 +287,38 @@ class _AccountScreenState extends State<AccountScreen> {
                     },
                     child: Row(
                       children: [
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              AppImage.key,
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              "Update Password",
-                              style: AppTextStyles.textSize16(),
-                            ),
-                          ],
-                        ),
-                        Spacer(),
                         SvgPicture.asset(
-                          AppImage.arrowforward,
+                          AppImage.key,
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Text(
+                          "Update Password",
+                          style: AppTextStyles.textSize16(),
                         ),
                       ],
                     ),
+                  ),
+                ),
+                Divider(),
+                Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                  alignment: Alignment.center,
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        AppImage.privacy,
+                      ),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(
+                        "Privacy Policy",
+                        style: AppTextStyles.textSize16(),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -325,101 +332,30 @@ class _AccountScreenState extends State<AccountScreen> {
                 EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
             padding: EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
             colorBorder: AppColors.grey.withOpacity(0.2),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    NavigationService.instance.navigateTo(Support());
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppMetrics.paddingHorizotal,
-                        vertical: AppMetrics.paddingContent),
-                    alignment: Alignment.center,
-                    child: Row(
-                      children: [
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              AppImage.support,
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              "Support",
-                              style: AppTextStyles.textSize16(),
-                            ),
-                          ],
-                        ),
-                        Spacer(),
-                        SvgPicture.asset(
-                          AppImage.arrowforward,
-                        ),
-                      ],
+            child: GestureDetector(
+              onTap: () {
+                NavigationService.instance.navigateTo(SelectBusiness());
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                alignment: Alignment.center,
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      AppImage.logout,
                     ),
-                  ),
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    Text(
+                      "Log out",
+                      style: AppTextStyles.textSize16(),
+                    ),
+                  ],
                 ),
-                Divider(),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                  alignment: Alignment.center,
-                  child: Row(
-                    children: [
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            AppImage.privacy,
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Text(
-                            "Privacy Policy",
-                            style: AppTextStyles.textSize16(),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      SvgPicture.asset(
-                        AppImage.arrowforward,
-                      ),
-                    ],
-                  ),
-                ),
-                Divider(),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                  alignment: Alignment.center,
-                  child: Row(
-                    children: [
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            AppImage.logout,
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Text(
-                            "Log out",
-                            style: AppTextStyles.textSize16(),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      SvgPicture.asset(
-                        AppImage.arrowforward,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
-          )
+          ),
         ],
       ),
       floatingActionButton: SvgPicture.asset(
@@ -459,7 +395,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     ),
                   ),
                   SizedBox(
-                    width: 10.0,
+                    width: AppMetrics.paddingContainer,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

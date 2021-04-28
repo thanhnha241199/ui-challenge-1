@@ -55,10 +55,10 @@ class _DashboardState extends State<Dashboard> {
       appBar: HeaderView(
           color: Colors.transparent,
           child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingHorizotal,
-                vertical: AppMetrics.paddingVertical),
+            padding: EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                     flex: 1,
@@ -70,19 +70,19 @@ class _DashboardState extends State<Dashboard> {
                       child: SvgPicture.asset(
                         AppImage.user,
                         alignment: Alignment.center,
-                        height: 20.0,
+                        height: 21.0,
                         width: 20.0,
                       ),
                     )),
                 Expanded(
-                    flex: 9,
+                    flex: 4,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset(AppImage.welcome),
                         SizedBox(
-                          width: 10.0,
+                          width: 5.0,
                         ),
                         Text(
                           "${AppTranslations().getLanguage(context, 'hi')} Lucas",
@@ -116,12 +116,15 @@ class _DashboardState extends State<Dashboard> {
                       child: SvgPicture.asset(
                         AppImage.notification,
                         alignment: Alignment.center,
+                        height: 21.0,
+                        width: 20.0,
                       ),
                     ))
               ],
             ),
           )),
       body: ListView(
+        physics: BouncingScrollPhysics(),
         children: [circletime(), scheduleroster(), total()],
       ),
       floatingActionButton: GestureDetector(
@@ -146,7 +149,9 @@ class _DashboardState extends State<Dashboard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            padding: EdgeInsets.symmetric(
+                horizontal: AppMetrics.paddingHorizotal,
+                vertical: AppMetrics.paddingContent),
             child: Text(
               AppTranslations().getLanguage(context, 'hoursworkedthisweek'),
               style: AppTextStyles.textSize16(fontWeight: FontWeight.bold),
@@ -154,7 +159,7 @@ class _DashboardState extends State<Dashboard> {
           ),
           Divider(),
           SizedBox(
-            height: 5.0,
+            height: 22.0,
           ),
           Container(
             alignment: Alignment.center,
@@ -198,6 +203,9 @@ class _DashboardState extends State<Dashboard> {
               progressColor: AppColors.greenAccent,
             ),
           ),
+          SizedBox(
+            height: 22.0,
+          ),
         ],
       ),
     );
@@ -222,8 +230,9 @@ class _DashboardState extends State<Dashboard> {
           ),
           Divider(),
           Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
+              padding: EdgeInsets.symmetric(
+                  horizontal: AppMetrics.paddingHorizotal,
+                  vertical: AppMetrics.paddingContent),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -239,9 +248,10 @@ class _DashboardState extends State<Dashboard> {
                       NavigationService.instance
                           .pushPage(context, false, TimeCard());
                     },
+                    borderColor: AppColors.greenAccent,
                     color: AppColors.greenAccent,
                     text: AppTranslations().getLanguage(context, 'clockin'),
-                    height: MediaQuery.of(context).size.height * 0.05,
+                    height: MediaQuery.of(context).size.height * 0.06,
                     width: MediaQuery.of(context).size.width * 0.3,
                     style: AppTextStyles.textSize14(),
                   ),
@@ -305,9 +315,11 @@ class _DashboardState extends State<Dashboard> {
           ),
           Divider(),
           Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingHorizotal,
-                vertical: AppMetrics.paddingContent),
+            padding: EdgeInsets.only(
+                left: AppMetrics.paddingHorizotal,
+                right: AppMetrics.paddingHorizotal,
+                top: AppMetrics.paddingContent,
+                bottom: AppMetrics.paddingHorizotal),
             alignment: Alignment.center,
             child: Row(
               children: [

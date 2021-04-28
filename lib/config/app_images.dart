@@ -33,7 +33,8 @@ class AppImage {
   static const String arrow_back = 'assets/images/svg/arrow_back.svg';
   static const String time = 'assets/images/svg/time.svg';
   static const String close = 'assets/images/svg/close.svg';
-  static const String radio = 'assets/images/svg/radio.svg';
+  static const String radio_checked = 'assets/images/svg/radio_checked.svg';
+  static const String radio_unchecked = 'assets/images/svg/radio_unchecked.svg';
   static const String clock = 'assets/images/svg/clock.svg';
   static const String storefront = 'assets/images/svg/storefront.svg';
   static const String logout = 'assets/images/svg/logout.svg';

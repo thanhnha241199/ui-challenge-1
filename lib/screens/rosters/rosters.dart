@@ -21,29 +21,31 @@ class _RostersState extends State<Rosters> {
     return Scaffold(
       appBar: HeaderView(
         color: Colors.transparent,
-        height: 90.0,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: AppMetrics.paddingHorizotal,
-              vertical: AppMetrics.paddingVertical),
+          padding:
+              EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(flex: 1, child: Text("")),
               Expanded(
                   flex: 4,
-                  child: Text(
-                    "My ${AppTranslations().getLanguage(context, 'rosters')}",
-                    style: AppTextStyles.textSize16(),
-                    textAlign: TextAlign.center,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: AppMetrics.paddingContainer),
+                    child: Text(
+                      "My ${AppTranslations().getLanguage(context, 'rosters')}",
+                      style: AppTextStyles.textSize16(),
+                      textAlign: TextAlign.center,
+                    ),
                   )),
               Expanded(
                 flex: 1,
                 child: SvgPicture.asset(
                   AppImage.notification,
                   alignment: Alignment.center,
-                  height: 20.0,
+                  height: 21.0,
                   width: 20.0,
                 ),
               )
@@ -163,6 +165,7 @@ class _RostersState extends State<Rosters> {
                       ),
                       CustomButton(
                         ontap: () {},
+                        borderColor: AppColors.greenAccent,
                         color: AppColors.greenAccent,
                         text: AppTranslations().getLanguage(context, 'clockin'),
                         height: MediaQuery.of(context).size.height * 0.06,
