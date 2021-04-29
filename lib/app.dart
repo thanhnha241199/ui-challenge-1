@@ -1,4 +1,4 @@
-import 'package:bookkeepa/screens/main/main_tab.dart';
+import 'package:bookkeepa/screens/auth/welcome_screen.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +22,7 @@ class _AppState extends State<App> {
       ),
       navigatorKey: NavigationService.instance.navigationKey,
       home: Scaffold(
-        body: MainTab(),
+        body: Welcome(),
       ),
     );
   }

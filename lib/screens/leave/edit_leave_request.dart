@@ -4,6 +4,7 @@ import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
+import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -17,44 +18,30 @@ class EditLeave extends StatefulWidget {
 
 class _EditLeaveState extends State<EditLeave> {
   bool checkallday = false;
+  TextEditingController description;
+  @override
+  void initState() {
+    // TODO: implement initState
+    description = TextEditingController(text: 'Doctor\'s Appointment');
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    description.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HeaderView(
-        color: Colors.transparent,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 1,
-              child: GestureDetector(
-                onTap: () {
-                  NavigationService.instance.goback();
-                },
-                child: SvgPicture.asset(
-                  AppImage.arrow_back,
-                  alignment: Alignment.center,
-                  height: 21.0,
-                  width: 11.0,
-                ),
-              ),
-            ),
-            Expanded(
-                flex: 4,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: AppMetrics.paddingContainer),
-                  child: Text(
-                    "Edit Leave Request",
-                    style: AppTextStyles.textSize16(),
-                    textAlign: TextAlign.center,
-                  ),
-                )),
-            Expanded(flex: 1, child: Text(''))
-          ],
-        ),
-      ),
+          color: Colors.transparent,
+          child: HeaderChild(
+              title: "Edit Leave Request",
+              style: AppTextStyles.textSize16(),
+              leftIcon: SvgPicture.asset(AppImage.arrow_back))),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -75,7 +62,7 @@ class _EditLeaveState extends State<EditLeave> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Leave Tyoe",
+                            "Leave Type",
                             style: AppTextStyles.textSize12(),
                           ),
                           SizedBox(
@@ -106,6 +93,7 @@ class _EditLeaveState extends State<EditLeave> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TextField(
+                            controller: description,
                             decoration: InputDecoration(
                                 hintText: 'Doctor\'s Appointment',
                                 labelText: 'Leave Description'),

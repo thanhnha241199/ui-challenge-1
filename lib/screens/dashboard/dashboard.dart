@@ -9,6 +9,7 @@ import 'package:bookkeepa/screens/notifications/notifications.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
+import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -53,79 +54,53 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HeaderView(
-          color: Colors.transparent,
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                    flex: 1,
-                    child: GestureDetector(
-                      onTap: () {
-                        NavigationService.instance
-                            .pushPage(context, true, AccountScreen());
-                      },
-                      child: SvgPicture.asset(
-                        AppImage.user,
-                        alignment: Alignment.center,
-                        height: 21.0,
-                        width: 20.0,
+          color: Colors.black,
+          child: HeaderChild(
+            leftIcon: GestureDetector(
+                onTap: () {
+                  NavigationService.instance
+                      .pushPage(context, false, AccountScreen());
+                },
+                child: Image.asset(AppImage.avatar_dashboard)),
+            title: "Welcome Lucas",
+            style: AppTextStyles.textSize20(color: AppColors.whiteColor),
+            rightIcon: GestureDetector(
+                onTap: () {
+                  showGeneralDialog(
+                    barrierDismissible: true,
+                    barrierLabel: '',
+                    barrierColor: Colors.black38,
+                    transitionDuration: Duration(milliseconds: 500),
+                    pageBuilder: (ctx, anim1, anim2) {
+                      return Notifications(
+                        items: items,
+                      );
+                    },
+                    transitionBuilder: (ctx, anim1, anim2, child) =>
+                        BackdropFilter(
+                      filter: ImageFilter.blur(
+                          sigmaX: 30 * anim1.value, sigmaY: 30 * anim1.value),
+                      child: FadeTransition(
+                        child: child,
+                        opacity: anim1,
                       ),
-                    )),
-                Expanded(
-                    flex: 4,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(AppImage.welcome),
-                        SizedBox(
-                          width: 5.0,
-                        ),
-                        Text(
-                          "${AppTranslations().getLanguage(context, 'hi')} Lucas",
-                          style: AppTextStyles.textSize20(
-                              fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    )),
-                Expanded(
-                    flex: 1,
-                    child: GestureDetector(
-                      onTap: () {
-                        showGeneralDialog(
-                          barrierDismissible: true,
-                          barrierLabel: '',
-                          barrierColor: Colors.black38,
-                          transitionDuration: Duration(milliseconds: 500),
-                          pageBuilder: (ctx, anim1, anim2) {
-                            return Notifications(
-                              items: items,
-                            );
-                          },
-                          transitionBuilder: (ctx, anim1, anim2, child) =>
-                              FadeTransition(
-                            child: child,
-                            opacity: anim1,
-                          ),
-                          context: context,
-                        );
-                      },
-                      child: SvgPicture.asset(
-                        AppImage.notification,
-                        alignment: Alignment.center,
-                        height: 21.0,
-                        width: 20.0,
-                      ),
-                    ))
-              ],
-            ),
+                    ),
+                    context: context,
+                  );
+                },
+                child: SvgPicture.asset(AppImage.notification)),
           )),
-      body: ListView(
-        physics: BouncingScrollPhysics(),
-        children: [circletime(), scheduleroster(), total()],
+      body: Stack(
+        children: [
+          Container(
+            height: 150.0,
+            color: Colors.black,
+          ),
+          ListView(
+            physics: BouncingScrollPhysics(),
+            children: [circletime(), scheduleroster(), total()],
+          )
+        ],
       ),
       floatingActionButton: GestureDetector(
         onTap: () {

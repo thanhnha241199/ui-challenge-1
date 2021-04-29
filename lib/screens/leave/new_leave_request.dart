@@ -1,4 +1,5 @@
 import 'package:bookkeepa/widgets/custom_btn.dart';
+import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -15,44 +16,30 @@ class NewLeaveRequest extends StatefulWidget {
 }
 
 class _NewLeaveRequestState extends State<NewLeaveRequest> {
+  TextEditingController description;
+  @override
+  void initState() {
+    // TODO: implement initState
+    description = TextEditingController(text: 'Add Description');
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    description.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: HeaderView(
-          color: Colors.transparent,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 1,
-                child: GestureDetector(
-                  onTap: () {
-                    NavigationService.instance.goback();
-                  },
-                  child: SvgPicture.asset(
-                    AppImage.arrow_back,
-                    alignment: Alignment.center,
-                    height: 21.0,
-                    width: 11.0,
-                  ),
-                ),
-              ),
-              Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: AppMetrics.paddingContainer),
-                    child: Text(
-                      "New Leave Request",
-                      style: AppTextStyles.textSize16(),
-                      textAlign: TextAlign.center,
-                    ),
-                  )),
-              Expanded(flex: 1, child: Text(''))
-            ],
-          ),
-        ),
+            color: Colors.transparent,
+            child: HeaderChild(
+                title: "New Leave Request",
+                style: AppTextStyles.textSize16(),
+                leftIcon: SvgPicture.asset(AppImage.arrow_back))),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -100,13 +87,13 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextField(
+                              controller: description,
                               decoration: InputDecoration(
                                   hintText: 'Add Description',
                                   labelText: 'Leave Description',
                                   hintStyle: AppTextStyles.textSize18(
                                       color: AppColors.grey),
-                                  labelStyle: AppTextStyles.textSize12(
-                                      color: AppColors.grey)),
+                                  labelStyle: AppTextStyles.textSize12()),
                             )
                           ],
                         )),

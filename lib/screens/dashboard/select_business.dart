@@ -3,9 +3,9 @@ import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/models/business/business.dart';
-import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
+import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,36 +26,10 @@ class _SelectBusinessState extends State<SelectBusiness> {
     return Scaffold(
       appBar: HeaderView(
           color: Colors.transparent,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                  flex: 1,
-                  child: GestureDetector(
-                    onTap: () {
-                      NavigationService.instance.goback();
-                    },
-                    child: SvgPicture.asset(
-                      AppImage.arrow_back,
-                      height: 21.0,
-                      width: 11.0,
-                    ),
-                  )),
-              Expanded(
-                  flex: 4,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: AppMetrics.paddingContainer),
-                    child: Text(
-                      "Select Another Business",
-                      style: AppTextStyles.textSize16(),
-                      textAlign: TextAlign.center,
-                    ),
-                  )),
-              Expanded(flex: 1, child: Text(''))
-            ],
-          )),
+          child: HeaderChild(
+              title: "Select Another Business",
+              style: AppTextStyles.textSize16(),
+              leftIcon: SvgPicture.asset(AppImage.arrow_back))),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -70,7 +44,7 @@ class _SelectBusinessState extends State<SelectBusiness> {
                 borderColor: AppColors.greenAccent,
                 color: AppColors.greenAccent,
                 text: 'Add New Business',
-                height: MediaQuery.of(context).size.height * 0.09,
+                height: MediaQuery.of(context).size.height * 0.07,
                 width: MediaQuery.of(context).size.width * 0.6,
                 style: AppTextStyles.textSize16(),
               ),
@@ -85,7 +59,7 @@ class _SelectBusinessState extends State<SelectBusiness> {
               borderColor: AppColors.greenAccent,
               color: AppColors.greenAccent,
               text: 'Change Business',
-              height: MediaQuery.of(context).size.height * 0.1,
+              height: MediaQuery.of(context).size.height * 0.08,
               style: AppTextStyles.textSize16(),
             ),
           ),
@@ -101,7 +75,7 @@ class _SelectBusinessState extends State<SelectBusiness> {
               width: MediaQuery.of(context).size.width,
               edgeInsets: EdgeInsets.symmetric(
                   horizontal: AppMetrics.paddingHorizotal,
-                  vertical: AppMetrics.paddingContent),
+                  vertical: AppMetrics.paddingContent - 2),
               padding: EdgeInsets.symmetric(
                   vertical: AppMetrics.paddingVertical,
                   horizontal: AppMetrics.paddingHorizotal),
@@ -139,7 +113,7 @@ class _SelectBusinessState extends State<SelectBusiness> {
               width: MediaQuery.of(context).size.width,
               edgeInsets: EdgeInsets.symmetric(
                   horizontal: AppMetrics.paddingHorizotal,
-                  vertical: AppMetrics.paddingContent),
+                  vertical: AppMetrics.paddingContent - 2),
               padding: EdgeInsets.symmetric(
                   vertical: AppMetrics.paddingVertical,
                   horizontal: AppMetrics.paddingHorizotal),
@@ -157,7 +131,7 @@ class _SelectBusinessState extends State<SelectBusiness> {
                     ),
                   ),
                   SizedBox(
-                    width: 28.0,
+                    width: AppMetrics.paddingHorizotal,
                   ),
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

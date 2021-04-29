@@ -5,6 +5,7 @@ import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
+import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,22 +21,9 @@ class _NewTimeCardState extends State<NewTimeCard> {
     return Scaffold(
       appBar: HeaderView(
           color: Colors.transparent,
-          child: Row(
-            children: [
-              Expanded(flex: 1, child: Text('')),
-              Expanded(
-                  flex: 4,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: AppMetrics.paddingContainer),
-                    child: Text(
-                      "New Time Card",
-                      style: AppTextStyles.textSize16(),
-                      textAlign: TextAlign.center,
-                    ),
-                  )),
-              Expanded(flex: 1, child: Text(''))
-            ],
+          child: HeaderChild(
+            title: "New Time Card",
+            style: AppTextStyles.textSize16(),
           )),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -103,29 +91,33 @@ class _NewTimeCardState extends State<NewTimeCard> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  children: [
-                                    Expanded(flex: 1, child: Text("")),
-                                    Expanded(
-                                        flex: 4,
-                                        child: Text(
-                                          "Your Are About To Clock In",
-                                          style: AppTextStyles.textSize20(
-                                              fontWeight: FontWeight.bold),
-                                          textAlign: TextAlign.center,
-                                        )),
-                                    Expanded(
-                                        flex: 1,
-                                        child: GestureDetector(
-                                            onTap: () {
-                                              NavigationService.instance
-                                                  .goback();
-                                            },
-                                            child: SvgPicture.asset(
-                                              AppImage.close,
-                                              alignment: Alignment.center,
-                                            )))
-                                  ],
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      top: AppMetrics.paddingVertical),
+                                  child: Row(
+                                    children: [
+                                      Expanded(flex: 1, child: Text("")),
+                                      Expanded(
+                                          flex: 4,
+                                          child: Text(
+                                            "Your Are About To Clock In",
+                                            style: AppTextStyles.textSize20(
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          )),
+                                      Expanded(
+                                          flex: 1,
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                NavigationService.instance
+                                                    .goback();
+                                              },
+                                              child: SvgPicture.asset(
+                                                AppImage.close,
+                                                alignment: Alignment.center,
+                                              )))
+                                    ],
+                                  ),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
@@ -175,18 +167,20 @@ class _NewTimeCardState extends State<NewTimeCard> {
                     color: AppColors.greenAccent,
                     borderColor: AppColors.greenAccent,
                     text: 'Clock In',
-                    height: MediaQuery.of(context).size.height * 0.09,
+                    height: MediaQuery.of(context).size.height * 0.07,
                     style: AppTextStyles.textSize18(),
                   ),
                   SizedBox(
                     height: AppMetrics.paddingContainer,
                   ),
                   CustomButton(
-                    ontap: () {},
+                    ontap: () {
+                      NavigationService.instance.goback();
+                    },
                     borderColor: AppColors.greenAccent,
                     color: AppColors.whiteColor,
                     text: 'Cancel',
-                    height: MediaQuery.of(context).size.height * 0.09,
+                    height: MediaQuery.of(context).size.height * 0.07,
                     style: AppTextStyles.textSize18(),
                   ),
                 ],

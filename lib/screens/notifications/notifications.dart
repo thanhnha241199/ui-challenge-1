@@ -38,13 +38,15 @@ class _NotificationState extends State<Notifications> {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                   Radius.circular(AppMetrics.borderContainer))),
-          child: CustomContainer(
-            width: MediaQuery.of(context).size.width,
-            colorBorder: AppColors.grey.withOpacity(0.2),
-            child: Column(
-              children: [
-                ..._getBody(widget.items),
-              ],
+          child: SingleChildScrollView(
+            child: CustomContainer(
+              width: MediaQuery.of(context).size.width,
+              colorBorder: AppColors.grey.withOpacity(0.2),
+              child: Column(
+                children: [
+                  ..._getBody(widget.items),
+                ],
+              ),
             ),
           ),
           elevation: 2,
@@ -69,13 +71,18 @@ class _NotificationState extends State<Notifications> {
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      e.title,
-                      style: AppTextStyles.textSize16(),
+                    Flexible(
+                      child: Text(
+                        e.title,
+                        style: AppTextStyles.textSize16(),
+                        maxLines: 10,
+                      ),
                     ),
-                    Text(
-                      e.time,
-                      style: AppTextStyles.textSize16(),
+                    Flexible(
+                      child: Text(
+                        e.time,
+                        style: AppTextStyles.textSize16(),
+                      ),
                     )
                   ]),
             )
@@ -95,13 +102,18 @@ class _NotificationState extends State<Notifications> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          e.title,
-                          style: AppTextStyles.textSize16(),
+                        Flexible(
+                          child: Text(
+                            e.title,
+                            style: AppTextStyles.textSize16(),
+                            maxLines: 10,
+                          ),
                         ),
-                        Text(
-                          e.time,
-                          style: AppTextStyles.textSize16(),
+                        Flexible(
+                          child: Text(
+                            e.time,
+                            style: AppTextStyles.textSize16(),
+                          ),
                         )
                       ]),
                 )
@@ -114,13 +126,18 @@ class _NotificationState extends State<Notifications> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          e.title,
-                          style: AppTextStyles.textSize16(),
+                        Flexible(
+                          child: Text(
+                            e.title,
+                            style: AppTextStyles.textSize16(),
+                            maxLines: 10,
+                          ),
                         ),
-                        Text(
-                          e.time,
-                          style: AppTextStyles.textSize16(),
+                        Flexible(
+                          child: Text(
+                            e.time,
+                            style: AppTextStyles.textSize16(),
+                          ),
                         )
                       ]),
                 );

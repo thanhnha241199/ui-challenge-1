@@ -31,5 +31,6 @@ class Languages {
     "leavebalance": {"en": "Leave Balance"},
     "annualbalance": {"en": "Annual Leave Balance"},
     "sickbalance": {"en": "Sick Leave Balance"},
+    "myLeave": {"en": "My Leavve"}
   };
 }

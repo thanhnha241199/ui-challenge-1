@@ -80,7 +80,7 @@ class _InputFieldState extends State<InputField> {
                             padding: EdgeInsets.only(right: 25),
                             child: Icon(
                               widget.icon,
-                              color: isEnable ? Colors.green : Colors.yellow,
+                              color: isEnable ? Colors.green : Colors.grey,
                             ),
                           ),
                         )

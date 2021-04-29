@@ -1,8 +1,13 @@
+import 'dart:ui';
+
+import 'package:bookkeepa/models/notification/notification.dart';
 import 'package:bookkeepa/screens/leave/edit_leave_request.dart';
 import 'package:bookkeepa/screens/leave/new_leave_request.dart';
+import 'package:bookkeepa/screens/notifications/notifications.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
+import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,42 +24,61 @@ class Leave extends StatefulWidget {
 }
 
 class _LeaveState extends State<Leave> {
+  List<NotificationModel> notification = [
+    NotificationModel(
+        title: "Jack Hihnson requested leave", read: true, time: "1m ago"),
+    NotificationModel(
+        title: "Amy Ranch needs timesheet approved",
+        read: true,
+        time: "20m ago"),
+    NotificationModel(
+        title: "1 document needs to be signed", read: false, time: "1h ago"),
+    NotificationModel(
+        title: "Amy Ranch needs timesheet approved",
+        read: false,
+        time: "5h ago"),
+    NotificationModel(
+        title: "Cornor Halt requested leave", read: false, time: "10h ago"),
+    NotificationModel(
+        title: "Joseph Rosso needs timesheet approved",
+        read: false,
+        time: "1d ago"),
+    NotificationModel(
+        title: "3 documents needs to be signed", read: false, time: "1d ago"),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HeaderView(
           color: Colors.transparent,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                  flex: 1,
-                  child: GestureDetector(onTap: () {}, child: Text(''))),
-              Expanded(
-                  flex: 4,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: AppMetrics.paddingContainer),
-                    child: Text(
-                      "My ${AppTranslations().getLanguage(context, 'leave')}",
-                      style: AppTextStyles.textSize16(),
-                      textAlign: TextAlign.center,
-                    ),
-                  )),
-              Expanded(
-                  flex: 1,
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: SvgPicture.asset(
-                      AppImage.notification,
-                      alignment: Alignment.center,
-                      height: 21.0,
-                      width: 20.0,
-                    ),
-                  ))
-            ],
-          )),
+          child: HeaderChild(
+              title: "My ${AppTranslations().getLanguage(context, 'leave')}",
+              style: AppTextStyles.textSize16(),
+              rightIcon: GestureDetector(
+                  onTap: () {
+                    showGeneralDialog(
+                      barrierDismissible: true,
+                      barrierLabel: '',
+                      barrierColor: Colors.black38,
+                      transitionDuration: Duration(milliseconds: 500),
+                      pageBuilder: (ctx, anim1, anim2) {
+                        return Notifications(
+                          items: notification,
+                        );
+                      },
+                      transitionBuilder: (ctx, anim1, anim2, child) =>
+                          BackdropFilter(
+                        filter: ImageFilter.blur(
+                            sigmaX: 30 * anim1.value, sigmaY: 30 * anim1.value),
+                        child: FadeTransition(
+                          child: child,
+                          opacity: anim1,
+                        ),
+                      ),
+                      context: context,
+                    );
+                  },
+                  child: SvgPicture.asset(AppImage.notification)))),
       body: ListView(
         physics: BouncingScrollPhysics(),
         children: [

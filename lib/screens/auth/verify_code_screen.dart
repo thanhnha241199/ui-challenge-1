@@ -1,13 +1,17 @@
 import 'package:bookkeepa/blocs/auth/index.dart';
 import 'package:bookkeepa/config/app_colors.dart';
+import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_metrics.dart';
+import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/widgets/bottom_space.dart';
-import 'package:bookkeepa/widgets/elevated_button_custom.dart';
+import 'package:bookkeepa/widgets/custom_btn.dart';
+import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
 import 'package:bookkeepa/widgets/overlay_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyCode extends StatefulWidget {
@@ -36,15 +40,21 @@ class _VerifyCodeState extends State<VerifyCode> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double widthPinCode = (width - (AppMetrics.paddingHorizotal * 2)) / 7;
+    double widthPinCode = (width - (AppMetrics.paddingHorizotal * 2)) / 5;
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {},
       child: Scaffold(
-        appBar: HeaderView(),
+        appBar: HeaderView(
+          color: Colors.transparent,
+          child: HeaderChild(
+              leftIcon: SvgPicture.asset(AppImage.arrow_back),
+              title: "Verify Your Phone Number",
+              style: AppTextStyles.textSize16()),
+        ),
         body: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () {
-            FocusScope.of(context).requestFocus(new FocusNode());
+            FocusScope.of(context).requestFocus(FocusNode());
           },
           child: Stack(
             children: [
@@ -52,28 +62,30 @@ class _VerifyCodeState extends State<VerifyCode> {
                 padding: EdgeInsets.symmetric(
                     horizontal: AppMetrics.paddingHorizotal),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
                         child: SingleChildScrollView(
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(AppTranslations()
-                                  .getLanguage(context, 'verifyYourPhone')),
-                              Padding(
-                                padding: EdgeInsets.only(top: 44, bottom: 38),
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(AppTranslations()
-                                      .getLanguage(context, 'detail........')),
-                                ),
+                              SizedBox(
+                                height: 150.0,
+                              ),
+                              Text(
+                                'Enter 4 digit code we have sent to \n+61 0412 345 678',
+                                style: AppTextStyles.textSize16(),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(
+                                height: 20.0,
                               ),
                               PinCodeTextField(
                                 appContext: context,
-                                pastedTextStyle: TextStyle(
-                                  color: Colors.green.shade600,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                length: 6,
+                                pastedTextStyle:
+                                    TextStyle(color: AppColors.whiteColor),
+                                length: 4,
                                 blinkWhenObscuring: true,
                                 animationType: AnimationType.fade,
                                 validator: (v) {
@@ -84,18 +96,17 @@ class _VerifyCodeState extends State<VerifyCode> {
                                   // }
                                 },
                                 pinTheme: PinTheme(
-                                  shape: PinCodeFieldShape.box,
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  fieldHeight: widthPinCode,
-                                  fieldWidth: widthPinCode,
-                                  inactiveFillColor: AppColors.blueLight,
-                                  inactiveColor: Colors.transparent,
-                                  selectedFillColor: AppColors.blueLight,
-                                  selectedColor: Colors.transparent,
-                                  // activeFillColor: hasError
-                                  //     ? Colors.blue.shade100
-                                  //     : Colors.white,
-                                ),
+                                    shape: PinCodeFieldShape.box,
+                                    borderRadius: BorderRadius.circular(
+                                        AppMetrics.borderContainer),
+                                    fieldHeight: widthPinCode,
+                                    fieldWidth: widthPinCode,
+                                    inactiveFillColor: AppColors.whiteColor,
+                                    inactiveColor: AppColors.whiteColor,
+                                    selectedFillColor: AppColors.whiteColor,
+                                    selectedColor: AppColors.greenAccent,
+                                    activeFillColor: AppColors.whiteColor,
+                                    activeColor: AppColors.whiteColor),
                                 cursorColor: Colors.black,
                                 animationDuration: Duration(milliseconds: 300),
                                 enableActiveFill: true,
@@ -124,18 +135,36 @@ class _VerifyCodeState extends State<VerifyCode> {
                                   //but you can show anything you want here, like your pop up saying wrong paste format or etc
                                   return true;
                                 },
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("Didn't receive code ?"),
+                                  SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Text(
+                                    "Resend Code",
+                                    style: AppTextStyles.textSize14(
+                                        color: AppColors.green),
+                                  )
+                                ],
                               )
                             ],
                           ),
                         ),
                         flex: 1),
-                    ElevatedButtonCustom(
-                      onPressed: () {
+                    CustomButton(
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      ontap: () {
                         context.read<AuthBloc>().add(AuthLogin(
                             phoneNumber: '+61411689111',
                             password: controllerPassword.text));
                       },
-                      title: AppTranslations().getLanguage(context, 'verify'),
+                      borderColor: AppColors.greenAccent,
+                      color: AppColors.greenAccent,
+                      text: AppTranslations().getLanguage(context, 'verify'),
+                      style: AppTextStyles.textSize18(),
                     ),
                     BottomSpace(),
                   ],

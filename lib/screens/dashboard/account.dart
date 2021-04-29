@@ -10,6 +10,8 @@ import 'package:bookkeepa/screens/notifications/notifications.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
+import 'package:bookkeepa/widgets/header_child.dart';
+import 'package:bookkeepa/widgets/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -44,64 +46,38 @@ class _AccountScreenState extends State<AccountScreen> {
     NotificationModel(
         title: "3 documents needs to be signed", read: false, time: "1d ago"),
   ];
+  TextEditingController controllerPassword,
+      controllerNewPassword,
+      controllerConfirmNewPassword;
+  FocusNode fnEmail, fnPassword;
+  @override
+  void initState() {
+    super.initState();
+    controllerPassword = TextEditingController(text: '12345678');
+    controllerNewPassword = TextEditingController(text: '12345678');
+    controllerConfirmNewPassword = TextEditingController(text: '12345678');
+  }
+
+  @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    controllerPassword.dispose();
+    controllerNewPassword.dispose();
+    controllerConfirmNewPassword.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HeaderView(
           color: Colors.transparent,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(flex: 1, child: Text("")),
-              Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: AppMetrics.paddingContainer),
-                    child: Text(
-                      "Account",
-                      style: AppTextStyles.textSize16(),
-                      textAlign: TextAlign.center,
-                    ),
-                  )),
-              Expanded(
-                flex: 1,
-                child: GestureDetector(
-                  onTap: () {
-                    showGeneralDialog(
-                      barrierDismissible: true,
-                      barrierLabel: '',
-                      barrierColor: Colors.black38,
-                      transitionDuration: Duration(milliseconds: 500),
-                      pageBuilder: (ctx, anim1, anim2) {
-                        return Notifications(
-                          items: items,
-                        );
-                      },
-                      transitionBuilder: (ctx, anim1, anim2, child) =>
-                          BackdropFilter(
-                        filter: ImageFilter.blur(
-                            sigmaX: 30 * anim1.value, sigmaY: 30 * anim1.value),
-                        child: FadeTransition(
-                          child: child,
-                          opacity: anim1,
-                        ),
-                      ),
-                      context: context,
-                    );
-                  },
-                  child: SvgPicture.asset(
-                    AppImage.notification,
-                    alignment: Alignment.center,
-                    height: 21,
-                    width: 20,
-                  ),
-                ),
-              )
-            ],
-          )),
+          child: HeaderChild(
+              title: "Account",
+              style: AppTextStyles.textSize16(),
+              leftIcon: SvgPicture.asset(AppImage.arrow_back))),
       body: ListView(
+        physics: BouncingScrollPhysics(),
         children: [
           profile(),
           CustomContainer(
@@ -188,7 +164,8 @@ class _AccountScreenState extends State<AccountScreen> {
                         ),
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         builder: (BuildContext context) {
-                          return Expanded(
+                          return SingleChildScrollView(
+                            physics: BouncingScrollPhysics(),
                             child: Container(
                               padding: EdgeInsets.symmetric(
                                   horizontal: AppMetrics.paddingHorizotal),
@@ -233,28 +210,29 @@ class _AccountScreenState extends State<AccountScreen> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           TextField(
+                                            controller: controllerPassword,
                                             decoration: InputDecoration(
                                                 labelText: 'Current password',
-                                                suffixIcon: SvgPicture.asset(
-                                                  AppImage.eyeslash,
-                                                )),
+                                                suffixIcon:
+                                                    Icon(Icons.remove_red_eye)),
                                             obscureText: true,
                                           ),
                                           TextField(
+                                            controller: controllerNewPassword,
                                             decoration: InputDecoration(
                                                 labelText: 'New password',
-                                                suffixIcon: SvgPicture.asset(
-                                                  AppImage.eyeslash,
-                                                )),
+                                                suffixIcon:
+                                                    Icon(Icons.remove_red_eye)),
                                             obscureText: true,
                                           ),
                                           TextField(
+                                            controller:
+                                                controllerConfirmNewPassword,
                                             decoration: InputDecoration(
                                                 labelText:
                                                     'Confirm new password',
                                                 suffixIcon: SvgPicture.asset(
-                                                  AppImage.eyeslash,
-                                                )),
+                                                    AppImage.eyeslash)),
                                             obscureText: true,
                                           )
                                         ],

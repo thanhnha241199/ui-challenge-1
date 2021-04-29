@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class HeaderChild extends StatelessWidget {
   final bool showLeftIcon;
-  final IconData leftIcon;
+  final Widget leftIcon;
   final String title;
+  final TextStyle style;
   final Function onPressLeftIcon;
   final Widget rightIcon;
 
@@ -13,6 +14,7 @@ class HeaderChild extends StatelessWidget {
       this.showLeftIcon = true,
       this.leftIcon,
       this.title,
+      this.style,
       this.onPressLeftIcon,
       this.rightIcon})
       : super(key: key);
@@ -31,13 +33,19 @@ class HeaderChild extends StatelessWidget {
                       onPressLeftIcon ?? Navigator.pop(context);
                     },
                     child: Container(
-                      child: Icon(leftIcon ?? Icons.arrow_back),
+                      child: leftIcon,
                       padding:
                           EdgeInsets.only(top: 10.0, right: 10.0, bottom: 10.0),
                     ))
-                : Container(),
-            Expanded(child: Text(title), flex: 1),
-            rightIcon ?? Container(),
+                : Text(''),
+            Expanded(
+                child: Center(
+                    child: Text(
+                  title,
+                  style: style,
+                )),
+                flex: 1),
+            rightIcon ?? Text(''),
           ],
         ));
   }

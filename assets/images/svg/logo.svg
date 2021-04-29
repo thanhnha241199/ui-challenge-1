@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64.458" height="64.458" viewBox="0 0 64.458 64.458"><g transform="translate(-25 -25)"><path d="M48.6,44.1H75.028a7.606,7.606,0,0,1,7.606,7.606h0a7.606,7.606,0,0,1-7.606,7.606H48.6Z" transform="translate(-8.388 -6.789)" fill="#3cdbc0"/><path d="M48.6,82.3H75.028a7.606,7.606,0,0,1,7.606,7.606h0a7.606,7.606,0,0,1-7.606,7.606H48.6Z" transform="translate(-8.388 -20.366)" fill="#3cdbc0"/><path d="M76.566,29.512a8.38,8.38,0,0,1,8.38,8.38V84.946H29.512V29.512H76.566m0-4.512H25V89.458H89.458V37.892A12.892,12.892,0,0,0,76.566,25Z" fill="#3cdbc0"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <g id="Bookkeepa_BrandMark_-_Black" data-name="Bookkeepa BrandMark - Black" transform="translate(-25 -25)">
+    <path id="Path_11634" data-name="Path 11634" d="M48.6,44.1H69.235a5.9,5.9,0,0,1,5.939,5.857h0a5.9,5.9,0,0,1-5.939,5.857H48.6Z" transform="translate(-11.887 -9.528)" fill="#1d1c1d"/>
+    <path id="Path_11635" data-name="Path 11635" d="M48.6,82.3H69.235a5.9,5.9,0,0,1,5.939,5.857h0a5.9,5.9,0,0,1-5.939,5.857H48.6Z" transform="translate(-11.887 -28.585)" fill="#1d1c1d"/>
+    <path id="Path_11636" data-name="Path 11636" d="M65,28.5A6.5,6.5,0,0,1,71.5,35V71.5h-43v-43H65M65,25H25V75H75V35A10,10,0,0,0,65,25Z" transform="translate(0 0)" fill="#1d1c1d"/>
+  </g>
+</svg>

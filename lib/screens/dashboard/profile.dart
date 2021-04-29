@@ -4,6 +4,7 @@ import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
+import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -23,40 +24,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: HeaderView(
           color: Colors.transparent,
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingHorizotal,
-                vertical: AppMetrics.paddingContent),
-            child: Row(
-              children: [
-                Expanded(
-                    flex: 1,
-                    child: GestureDetector(
-                      onTap: () {
-                        NavigationService.instance.goback();
-                      },
-                      child: SvgPicture.asset(
-                        AppImage.arrow_back,
-                        height: 21.0,
-                        width: 11.0,
-                      ),
-                    )),
-                Expanded(
-                    flex: 9,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppTranslations().getLanguage(context, 'editprofile'),
-                          style: AppTextStyles.textSize16(),
-                        )
-                      ],
-                    )),
-                Expanded(flex: 1, child: Text(''))
-              ],
-            ),
-          )),
+          child: HeaderChild(
+              title: "Edit Profile",
+              style: AppTextStyles.textSize16(),
+              leftIcon: SvgPicture.asset(AppImage.arrow_back))),
       body: Column(
         children: [
           Column(
