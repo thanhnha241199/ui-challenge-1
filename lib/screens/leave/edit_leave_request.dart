@@ -21,14 +21,12 @@ class _EditLeaveState extends State<EditLeave> {
   TextEditingController description;
   @override
   void initState() {
-    // TODO: implement initState
     description = TextEditingController(text: 'Doctor\'s Appointment');
     super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     description.dispose();
     super.dispose();
   }

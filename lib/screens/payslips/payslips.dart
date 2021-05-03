@@ -9,6 +9,7 @@ import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/app_list_view.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
+import 'package:bookkeepa/widgets/float_btn.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +27,11 @@ class Payslips extends StatefulWidget {
 
 class _PayslipsState extends State<Payslips> {
   List<PayslipModel> items = [
-    PayslipModel(start: "01 Feb", end: "28 Feb 2021", amount: "1,956.00"),
-    PayslipModel(start: "01 Feb", end: "28 Feb 2021", amount: "1,956.00"),
-    PayslipModel(start: "01 Feb", end: "28 Feb 2021", amount: "1,956.00"),
-    PayslipModel(start: "01 Feb", end: "28 Feb 2021", amount: "1,956.00"),
-    PayslipModel(start: "01 Feb", end: "28 Feb 2021", amount: "1,956.00")
+    PayslipModel(start: "01 Feb", end: "22 Feb 2021", amount: "1,953.00"),
+    PayslipModel(start: "02 Feb", end: "23 Feb 2021", amount: "1,952.00"),
+    PayslipModel(start: "03 Feb", end: "23 Feb 2021", amount: "1,951.00"),
+    PayslipModel(start: "04 Feb", end: "24 Feb 2021", amount: "1,959.00"),
+    PayslipModel(start: "05 Feb", end: "25 Feb 2021", amount: "1,955.00")
   ];
   List<NotificationModel> notification = [
     NotificationModel(
@@ -63,7 +64,7 @@ class _PayslipsState extends State<Payslips> {
       appBar: HeaderView(
           color: Colors.transparent,
           child: HeaderChild(
-              title: "My ${AppTranslations().getLanguage(context, 'payslips')}",
+              title: AppTranslations().getLanguage(context, 'myPayslip'),
               style: AppTextStyles.textSize16(),
               rightIcon: GestureDetector(
                   onTap: () {
@@ -126,8 +127,8 @@ class _PayslipsState extends State<Payslips> {
           ),
         ],
       ),
-      floatingActionButton: SvgPicture.asset(
-        AppImage.floatbtn,
+      floatingActionButton: FancyFab(
+        switchAccount: false,
       ),
     );
   }
@@ -137,10 +138,13 @@ class _PayslipsState extends State<Payslips> {
       onTap: () {
         setState(() {
           amount = !amount;
+          amount
+              ? items.sort((a, b) => a.amount.compareTo(b.amount))
+              : items.sort((a, b) => -a.amount.compareTo(b.amount));
         });
       },
       child: CustomContainer(
-        height: MediaQuery.of(context).size.height * 0.07,
+        height: MediaQuery.of(context).size.height * 0.075,
         width: MediaQuery.of(context).size.width * 0.43,
         padding: EdgeInsets.symmetric(horizontal: AppMetrics.paddingContent),
         colorBorder: AppColors.grey.withOpacity(0.2),
@@ -171,10 +175,14 @@ class _PayslipsState extends State<Payslips> {
       onTap: () {
         setState(() {
           date = !date;
+
+          amount
+              ? items.sort((a, b) => a.end.compareTo(b.end))
+              : items.sort((a, b) => -a.end.compareTo(b.end));
         });
       },
       child: CustomContainer(
-        height: MediaQuery.of(context).size.height * 0.07,
+        height: MediaQuery.of(context).size.height * 0.075,
         width: MediaQuery.of(context).size.width * 0.43,
         padding: EdgeInsets.symmetric(horizontal: AppMetrics.paddingContent),
         colorBorder: AppColors.grey.withOpacity(0.2),
@@ -238,11 +246,15 @@ class _PayslipsState extends State<Payslips> {
             },
             color: AppColors.whiteColor,
             borderColor: AppColors.greenAccent,
-            text: AppTranslations().getLanguage(context, 'viewpdf'),
+            text: AppTranslations().getLanguage(context, 'viewPdf'),
             height: MediaQuery.of(context).size.height * 0.065,
             width: MediaQuery.of(context).size.width * 0.3,
             style: AppTextStyles.textSize14(color: AppColors.green),
           ),
+          SizedBox(
+            height: 10.0,
+          ),
+          Divider()
         ],
       ),
     );

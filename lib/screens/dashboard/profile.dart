@@ -7,6 +7,7 @@ import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import '../../config/app_colors.dart';
 import '../../config/app_metrics.dart';
@@ -19,13 +20,28 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  TextEditingController nameController,
+      emailController,
+      phoneController,
+      employerController;
+  String initialCountry = 'AU';
+  PhoneNumber number = PhoneNumber(isoCode: 'AU');
+  @override
+  void initState() {
+    nameController = TextEditingController(text: 'Jerry Smith');
+    emailController = TextEditingController(text: 'jerrysmith@gmail.com');
+    phoneController = TextEditingController(text: '0412 345 678');
+    employerController = TextEditingController(text: 'Mo Works');
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HeaderView(
           color: Colors.transparent,
           child: HeaderChild(
-              title: "Edit Profile",
+              title: AppTranslations().getLanguage(context, 'editProfile'),
               style: AppTextStyles.textSize16(),
               leftIcon: SvgPicture.asset(AppImage.arrow_back))),
       body: Column(
@@ -61,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             width: 10.0,
                           ),
                           Text(
-                            AppTranslations().getLanguage(context, 'editphoto'),
+                            AppTranslations().getLanguage(context, 'editPhoto'),
                             style: AppTextStyles.textSize18(
                                 color: AppColors.green),
                           ),
@@ -75,97 +91,125 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-              CustomContainer(
-                edgeInsets: EdgeInsets.symmetric(
-                    horizontal: AppMetrics.paddingHorizotal),
-                padding:
-                    EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-                colorBorder: AppColors.grey.withOpacity(0.2),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: AppMetrics.paddingHorizotal,
-                            vertical: AppMetrics.paddingContent),
-                        alignment: Alignment.center,
-                        child: TextField(
-                          decoration: InputDecoration(
+              SingleChildScrollView(
+                child: CustomContainer(
+                  edgeInsets: EdgeInsets.symmetric(
+                      horizontal: AppMetrics.paddingHorizotal),
+                  padding:
+                      EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
+                  colorBorder: AppColors.grey.withOpacity(0.2),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: AppMetrics.paddingHorizotal,
+                              vertical: AppMetrics.paddingContent),
+                          alignment: Alignment.center,
+                          child: TextField(
+                            controller: nameController,
+                            decoration: InputDecoration(
                               hintText: 'Jerry Smith',
                               labelText: 'Full Name',
                               hintStyle: AppTextStyles.textSize18(
-                                  color: AppColors.grey),
+                                  color: AppColors.blueLight),
                               labelStyle: AppTextStyles.textSize12(
-                                  color: AppColors.grey)),
-                        )),
-                    Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: AppMetrics.paddingHorizotal,
-                        ),
-                        child: TextField(
-                          decoration: InputDecoration(
+                                  color: AppColors.blueLight),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: AppColors.grey10),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: AppColors.grey10),
+                              ),
+                            ),
+                          )),
+                      Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppMetrics.paddingHorizotal,
+                          ),
+                          child: TextField(
+                            controller: emailController,
+                            decoration: InputDecoration(
                               labelText: 'Email',
                               hintText: 'jerrysmith@gmail.com',
                               hintStyle: AppTextStyles.textSize18(
-                                  color: AppColors.grey),
+                                  color: AppColors.blueLight),
                               labelStyle: AppTextStyles.textSize12(
-                                  color: AppColors.grey)),
-                        )),
-                    Container(
+                                  color: AppColors.blueLight),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: AppColors.grey10),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: AppColors.grey10),
+                              ),
+                            ),
+                          )),
+                      Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: AppMetrics.paddingHorizotal,
                             vertical: AppMetrics.paddingContent),
                         alignment: Alignment.center,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: TextField(
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                    hintText: '+61',
-                                    labelText: 'Phone number',
-                                    hintStyle: AppTextStyles.textSize18(
-                                        color: AppColors.grey),
-                                    labelStyle: AppTextStyles.textSize12(
-                                        color: AppColors.grey)),
-                              ),
+                        child: InternationalPhoneNumberInput(
+                          onInputChanged: (PhoneNumber number) {
+                            print(number.phoneNumber);
+                          },
+                          onInputValidated: (bool value) {
+                            print(value);
+                          },
+                          selectorConfig: SelectorConfig(
+                            selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                          ),
+                          ignoreBlank: false,
+                          autoValidateMode: AutovalidateMode.disabled,
+                          selectorTextStyle: TextStyle(color: Colors.black),
+                          initialValue: number,
+                          textFieldController: phoneController,
+                          formatInput: false,
+                          keyboardType: TextInputType.numberWithOptions(
+                              signed: true, decimal: true),
+                          inputDecoration: InputDecoration(
+                            hintText: '0412 345 678',
+                            labelText: 'Phone Number',
+                            hintStyle: AppTextStyles.textSize18(
+                                color: AppColors.blueLight),
+                            labelStyle: AppTextStyles.textSize12(
+                                color: AppColors.blueLight),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.grey10),
                             ),
-                            SizedBox(
-                              width: 10.0,
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.grey10),
                             ),
-                            Expanded(
-                              flex: 4,
-                              child: TextField(
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                    hintText: '0412 345 678',
-                                    labelText: '',
-                                    hintStyle: AppTextStyles.textSize18(
-                                        color: AppColors.grey),
-                                    labelStyle: AppTextStyles.textSize12(
-                                        color: AppColors.grey)),
-                              ),
-                            )
-                          ],
-                        )),
-                    Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: AppMetrics.paddingHorizotal,
-                            vertical: AppMetrics.paddingContent),
-                        alignment: Alignment.center,
-                        child: TextField(
-                          decoration: InputDecoration(
+                          ),
+                          onSaved: (PhoneNumber number) {
+                            print('On Saved: $number');
+                          },
+                        ),
+                      ),
+                      Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: AppMetrics.paddingHorizotal,
+                              vertical: AppMetrics.paddingContent),
+                          alignment: Alignment.center,
+                          child: TextField(
+                            controller: employerController,
+                            decoration: InputDecoration(
                               hintText: 'Mo works',
                               labelText: 'Employer',
                               hintStyle: AppTextStyles.textSize18(
-                                  color: AppColors.grey),
+                                  color: AppColors.blueLight),
                               labelStyle: AppTextStyles.textSize12(
-                                  color: AppColors.grey)),
-                        )),
-                  ],
+                                  color: AppColors.blueLight),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: AppColors.grey10),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: AppColors.grey10),
+                              ),
+                            ),
+                          )),
+                    ],
+                  ),
                 ),
               ),
             ],

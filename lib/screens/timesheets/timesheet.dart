@@ -9,6 +9,7 @@ import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/app_list_view.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
+import 'package:bookkeepa/widgets/float_btn.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
 import 'package:flutter/material.dart';
@@ -164,14 +165,13 @@ class _TimesheetsState extends State<Timesheets> {
         ],
       ),
       floatingActionButton: GestureDetector(
-        onTap: () {
-          NavigationService.instance
-              .pushPage(context, false, NewTimeSheetDetail());
-        },
-        child: SvgPicture.asset(
-          AppImage.floatbtn,
-        ),
-      ),
+          onTap: () {
+            NavigationService.instance
+                .pushPage(context, false, NewTimeSheetDetail());
+          },
+          child: FancyFab(
+            switchAccount: false,
+          )),
     );
   }
 

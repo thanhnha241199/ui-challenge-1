@@ -3,12 +3,13 @@ import 'dart:ui';
 import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/models/notification/notification.dart';
 import 'package:bookkeepa/screens/dashboard/account.dart';
-import 'package:bookkeepa/screens/dashboard/new_time_card.dart';
+
 import 'package:bookkeepa/screens/dashboard/time_card.dart';
 import 'package:bookkeepa/screens/notifications/notifications.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
+import 'package:bookkeepa/widgets/float_btn.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
 import 'package:flutter/material.dart';
@@ -59,10 +60,10 @@ class _DashboardState extends State<Dashboard> {
             leftIcon: GestureDetector(
                 onTap: () {
                   NavigationService.instance
-                      .pushPage(context, false, AccountScreen());
+                      .pushPage(context, true, AccountScreen());
                 },
                 child: Image.asset(AppImage.avatar_dashboard)),
-            title: "Welcome Lucas",
+            title: "${AppTranslations().getLanguage(context, 'welcome')} Lucas",
             style: AppTextStyles.textSize20(color: AppColors.whiteColor),
             rightIcon: GestureDetector(
                 onTap: () {
@@ -88,7 +89,10 @@ class _DashboardState extends State<Dashboard> {
                     context: context,
                   );
                 },
-                child: SvgPicture.asset(AppImage.notification)),
+                child: SvgPicture.asset(
+                  AppImage.notification,
+                  color: Colors.white,
+                )),
           )),
       body: Stack(
         children: [
@@ -102,13 +106,8 @@ class _DashboardState extends State<Dashboard> {
           )
         ],
       ),
-      floatingActionButton: GestureDetector(
-        onTap: () {
-          NavigationService.instance.pushPage(context, false, NewTimeCard());
-        },
-        child: SvgPicture.asset(
-          AppImage.floatbtn,
-        ),
+      floatingActionButton: FancyFab(
+        switchAccount: false,
       ),
     );
   }
@@ -199,7 +198,7 @@ class _DashboardState extends State<Dashboard> {
                 horizontal: AppMetrics.paddingHorizotal,
                 vertical: AppMetrics.paddingContent),
             child: Text(
-              AppTranslations().getLanguage(context, 'scheduleroster'),
+              AppTranslations().getLanguage(context, 'scheduleRoster'),
               style: AppTextStyles.textSize16(fontWeight: FontWeight.bold),
             ),
           ),
@@ -257,7 +256,7 @@ class _DashboardState extends State<Dashboard> {
             child: Row(
               children: [
                 Text(
-                  AppTranslations().getLanguage(context, 'totalytd'),
+                  AppTranslations().getLanguage(context, 'totalYtd'),
                   style: AppTextStyles.textSize16(),
                 ),
                 Spacer(),
@@ -277,7 +276,7 @@ class _DashboardState extends State<Dashboard> {
             child: Row(
               children: [
                 Text(
-                  AppTranslations().getLanguage(context, 'totalpayg'),
+                  AppTranslations().getLanguage(context, 'totalPayg'),
                   style: AppTextStyles.textSize16(),
                 ),
                 Spacer(),
@@ -299,7 +298,7 @@ class _DashboardState extends State<Dashboard> {
             child: Row(
               children: [
                 Text(
-                  AppTranslations().getLanguage(context, 'totalnetpay'),
+                  AppTranslations().getLanguage(context, 'totalNetpay'),
                   style: AppTextStyles.textSize16(),
                 ),
                 Spacer(),

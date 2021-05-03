@@ -197,7 +197,7 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            flex: 2,
+                            flex: 3,
                             child: Text(
                               "Total hours \nworked",
                               style: AppTextStyles.textSize16(
@@ -205,8 +205,9 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                             ),
                           ),
                           Expanded(
-                            flex: 1,
+                            flex: 2,
                             child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Expanded(
                                   child: Column(
@@ -254,6 +255,8 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                       child: Column(
                         children: items.detail
                             .map((e) => Container(
+                                  margin: EdgeInsets.only(
+                                      top: AppMetrics.paddingContent),
                                   padding: EdgeInsets.symmetric(
                                       vertical: AppMetrics.paddingContent),
                                   child: Column(
@@ -263,7 +266,7 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Expanded(
-                                            flex: 2,
+                                            flex: 3,
                                             child: Text(
                                               e.day,
                                               style: AppTextStyles.textSize16(
@@ -271,17 +274,23 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                             ),
                                           ),
                                           Expanded(
-                                            flex: 1,
+                                            flex: 2,
                                             child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Expanded(
-                                                  child: Text(
-                                                    e.toalschedule,
-                                                    style: AppTextStyles
-                                                        .textSize16(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                  child: Column(
+                                                    children: [
+                                                      Text(
+                                                        e.toalschedule,
+                                                        style: AppTextStyles
+                                                            .textSize16(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                      )
+                                                    ],
                                                   ),
                                                 ),
                                                 SizedBox(
@@ -289,15 +298,19 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                       .paddingContainer,
                                                 ),
                                                 Expanded(
-                                                  child: Text(
-                                                    e.toalactual,
-                                                    style: AppTextStyles
-                                                        .textSize16(
-                                                            color:
-                                                                AppColors.green,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                  child: Column(
+                                                    children: [
+                                                      Text(
+                                                        e.toalactual,
+                                                        style: AppTextStyles
+                                                            .textSize16(
+                                                                color: AppColors
+                                                                    .green,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                      )
+                                                    ],
                                                   ),
                                                 )
                                               ],
@@ -313,9 +326,9 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                           children:
                                               items.detail[0].elementdetail
                                                   .map((e) => Container(
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                vertical: 5.0),
+                                                        margin: EdgeInsets.only(
+                                                            top: AppMetrics
+                                                                .paddingContent),
                                                         child: Column(
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
@@ -327,45 +340,62 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                                   .textSize14(),
                                                             ),
                                                             Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
                                                               children: [
-                                                                Text(
-                                                                  e.time,
-                                                                  style: AppTextStyles
-                                                                      .textSize14(),
+                                                                Expanded(
+                                                                  flex: 3,
+                                                                  child: Text(
+                                                                    e.time,
+                                                                    style: AppTextStyles
+                                                                        .textSize14(),
+                                                                  ),
                                                                 ),
-                                                                Row(
-                                                                  children: [
-                                                                    Text(
-                                                                      e.schedule,
-                                                                      style: AppTextStyles
-                                                                          .textSize14(),
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width: AppMetrics
-                                                                          .paddingContainer,
-                                                                    ),
-                                                                    Container(
-                                                                        padding: EdgeInsets.symmetric(
-                                                                            horizontal: AppMetrics
-                                                                                .paddingContent,
-                                                                            vertical: AppMetrics
-                                                                                .paddingContent),
-                                                                        decoration: BoxDecoration(
-                                                                            shape:
-                                                                                BoxShape.circle,
-                                                                            border: Border.all(color: AppColors.greenAccent)),
-                                                                        child: Text(
-                                                                          e.actual,
-                                                                          style:
-                                                                              AppTextStyles.textSize14(),
-                                                                        ))
-                                                                  ],
+                                                                Expanded(
+                                                                  flex: 2,
+                                                                  child: Row(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Expanded(
+                                                                        child:
+                                                                            Column(
+                                                                          children: [
+                                                                            Text(
+                                                                              e.schedule,
+                                                                              style: AppTextStyles.textSize14(),
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width: AppMetrics
+                                                                            .paddingContainer,
+                                                                      ),
+                                                                      Expanded(
+                                                                        child:
+                                                                            Column(
+                                                                          children: [
+                                                                            Container(
+                                                                              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+                                                                              decoration: BoxDecoration(
+                                                                                border: Border.all(
+                                                                                  color: AppColors.green,
+                                                                                ),
+                                                                                shape: BoxShape.circle,
+                                                                              ),
+                                                                              child: Text(
+                                                                                e.actual,
+                                                                                style: AppTextStyles.textSize14(color: AppColors.green),
+                                                                              ),
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                      )
+                                                                    ],
+                                                                  ),
                                                                 )
                                                               ],
-                                                            )
+                                                            ),
                                                           ],
                                                         ),
                                                       ))
@@ -378,7 +408,7 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                     ),
                     Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: AppMetrics.paddingHorizotal,
+                            horizontal: 38.0,
                             vertical: AppMetrics.paddingContent),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -433,7 +463,7 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                         )),
                     Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: AppMetrics.paddingHorizotal,
+                            horizontal: 38.0,
                             vertical: AppMetrics.paddingContent),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -447,7 +477,7 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                     .map((e) => Container(
                                           padding: EdgeInsets.symmetric(
                                               vertical:
-                                                  AppMetrics.paddingContent,
+                                                  AppMetrics.paddingVertical,
                                               horizontal:
                                                   AppMetrics.paddingContent),
                                           child: Column(
@@ -476,10 +506,9 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                 children: items
                                                     .attachment[0].file
                                                     .map((e) => Container(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  vertical:
-                                                                      5.0),
+                                                          padding: EdgeInsets.only(
+                                                              top: AppMetrics
+                                                                  .paddingContent),
                                                           child: Row(
                                                             children: [
                                                               SvgPicture.asset(
@@ -511,8 +540,7 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                     Container(
                         padding: EdgeInsets.symmetric(
                             vertical: AppMetrics.paddingContent),
-                        margin: EdgeInsets.symmetric(
-                            horizontal: AppMetrics.paddingHorizotal),
+                        margin: EdgeInsets.symmetric(horizontal: 38.0),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -529,6 +557,9 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                             ),
                           ],
                         )),
+                    SizedBox(
+                      height: AppMetrics.paddingContent,
+                    )
                   ],
                 )),
             Container(
@@ -559,13 +590,12 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                   SizedBox(
                     height: AppMetrics.paddingContainer,
                   ),
-                  CustomButton(
-                    ontap: () {},
-                    borderColor: AppColors.whiteColor,
-                    color: AppColors.whiteColor,
-                    text: 'Delete',
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    style: AppTextStyles.textSize16(),
+                  MaterialButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Delete",
+                      style: AppTextStyles.textSize16(),
+                    ),
                   ),
                   SizedBox(
                     height: AppMetrics.paddingContainer,

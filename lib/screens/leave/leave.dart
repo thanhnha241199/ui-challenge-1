@@ -2,11 +2,12 @@ import 'dart:ui';
 
 import 'package:bookkeepa/models/notification/notification.dart';
 import 'package:bookkeepa/screens/leave/edit_leave_request.dart';
-import 'package:bookkeepa/screens/leave/new_leave_request.dart';
+
 import 'package:bookkeepa/screens/notifications/notifications.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
+import 'package:bookkeepa/widgets/float_btn.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class _LeaveState extends State<Leave> {
       appBar: HeaderView(
           color: Colors.transparent,
           child: HeaderChild(
-              title: "My ${AppTranslations().getLanguage(context, 'leave')}",
+              title: AppTranslations().getLanguage(context, 'myLeave'),
               style: AppTextStyles.textSize16(),
               rightIcon: GestureDetector(
                   onTap: () {
@@ -361,6 +362,7 @@ class _LeaveState extends State<Leave> {
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           CustomButton(
             ontap: () {
@@ -368,7 +370,7 @@ class _LeaveState extends State<Leave> {
             },
             borderColor: AppColors.greenAccent,
             color: AppColors.greenAccent,
-            text: "Request Leave",
+            text: AppTranslations().getLanguage(context, 'requestLeave'),
             height: MediaQuery.of(context).size.height * 0.07,
             width: MediaQuery.of(context).size.width * 0.4,
             style: AppTextStyles.textSize14(),
@@ -376,14 +378,9 @@ class _LeaveState extends State<Leave> {
           SizedBox(
             width: 20.0,
           ),
-          GestureDetector(
-            onTap: () {
-              NavigationService.instance.navigateTo(NewLeaveRequest());
-            },
-            child: SvgPicture.asset(
-              AppImage.floatbtn,
-            ),
-          ),
+          FancyFab(
+            switchAccount: false,
+          )
         ],
       ),
     );
@@ -403,7 +400,7 @@ class _LeaveState extends State<Leave> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
               child: Text(
-                AppTranslations().getLanguage(context, 'leavebalance'),
+                AppTranslations().getLanguage(context, 'leaveBalance'),
                 style: AppTextStyles.textSize14(fontWeight: FontWeight.bold),
               ),
             ),
@@ -416,7 +413,7 @@ class _LeaveState extends State<Leave> {
                   Row(
                     children: [
                       Text(
-                        AppTranslations().getLanguage(context, 'annualbalance'),
+                        AppTranslations().getLanguage(context, 'annualBalance'),
                         style: AppTextStyles.textSize16(),
                       ),
                       Spacer(),
@@ -436,7 +433,7 @@ class _LeaveState extends State<Leave> {
               child: Row(
                 children: [
                   Text(
-                    AppTranslations().getLanguage(context, 'sickbalance'),
+                    AppTranslations().getLanguage(context, 'sickBalance'),
                     style: AppTextStyles.textSize16(),
                   ),
                   Spacer(),

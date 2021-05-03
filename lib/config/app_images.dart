@@ -54,4 +54,7 @@ class AppImage {
   static const String sender2 = 'assets/images/svg/sender2.svg';
   static const String warningcircle = 'assets/images/svg/warningcircle.svg';
   static const String invoice = 'assets/images/svg/invoice.png';
+  static const String newtimecard = 'assets/images/svg/newtimecard.svg';
+  static const String newtimesheet = 'assets/images/svg/newtimesheet.svg';
+  static const String close_fab = 'assets/images/svg/close_fab.svg';
 }

@@ -27,7 +27,7 @@ class _NotificationState extends State<Notifications> {
               NavigationService.instance.goback();
             },
             child: Padding(
-              padding: EdgeInsets.only(top: 50.0, right: 20.0),
+              padding: EdgeInsets.only(top: 50.0, right: 40.0),
               child: SvgPicture.asset(
                 AppImage.xcircle,
                 height: 50.0,

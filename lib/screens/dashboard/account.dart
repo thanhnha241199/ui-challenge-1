@@ -6,12 +6,12 @@ import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/models/notification/notification.dart';
 import 'package:bookkeepa/screens/dashboard/profile.dart';
 import 'package:bookkeepa/screens/dashboard/select_business.dart';
-import 'package:bookkeepa/screens/notifications/notifications.dart';
+import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
+import 'package:bookkeepa/widgets/float_btn.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
-import 'package:bookkeepa/widgets/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -50,9 +50,13 @@ class _AccountScreenState extends State<AccountScreen> {
       controllerNewPassword,
       controllerConfirmNewPassword;
   FocusNode fnEmail, fnPassword;
+  bool obscureCurrent, obscureNew, obscureConfirm;
   @override
   void initState() {
     super.initState();
+    obscureCurrent = false;
+    obscureNew = false;
+    obscureConfirm = false;
     controllerPassword = TextEditingController(text: '12345678');
     controllerNewPassword = TextEditingController(text: '12345678');
     controllerConfirmNewPassword = TextEditingController(text: '12345678');
@@ -70,276 +74,336 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HeaderView(
-          color: Colors.transparent,
-          child: HeaderChild(
-              title: "Account",
+        appBar: HeaderView(
+            color: Colors.transparent,
+            child: HeaderChild(
+              title: AppTranslations().getLanguage(context, 'account'),
               style: AppTextStyles.textSize16(),
-              leftIcon: SvgPicture.asset(AppImage.arrow_back))),
-      body: ListView(
-        physics: BouncingScrollPhysics(),
-        children: [
-          profile(),
-          CustomContainer(
-            edgeInsets:
-                EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
-            padding: EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-            colorBorder: AppColors.grey.withOpacity(0.2),
-            child: GestureDetector(
-              onTap: () {
-                NavigationService.instance.navigateTo(SelectBusiness());
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                alignment: Alignment.center,
-                child: Row(
-                  children: [
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          AppImage.storefront,
-                        ),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        Text(
-                          "Switch to Anothe Bussiness",
-                          style: AppTextStyles.textSize16(),
-                        ),
-                      ],
-                    ),
-                    Spacer(),
-                    SvgPicture.asset(
-                      AppImage.arrowforward,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: AppMetrics.paddingContainer,
-          ),
-          CustomContainer(
-            edgeInsets:
-                EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
-            padding: EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-            colorBorder: AppColors.grey.withOpacity(0.2),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: AppMetrics.paddingHorizotal,
-                      vertical: AppMetrics.paddingContent),
+            )),
+        body: ListView(
+          physics: BouncingScrollPhysics(),
+          children: [
+            profile(),
+            CustomContainer(
+              edgeInsets:
+                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
+              padding:
+                  EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
+              colorBorder: AppColors.grey.withOpacity(0.2),
+              child: GestureDetector(
+                onTap: () {
+                  NavigationService.instance.navigateTo(SelectBusiness());
+                },
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                   alignment: Alignment.center,
                   child: Row(
                     children: [
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            AppImage.storefront,
+                          ),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          Text(
+                            "Switch to Anothe Bussiness",
+                            style: AppTextStyles.textSize16(),
+                          ),
+                        ],
+                      ),
+                      Spacer(),
                       SvgPicture.asset(
-                        AppImage.toggleright,
-                      ),
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                      Text(
-                        "Notification Preferences",
-                        style: AppTextStyles.textSize16(),
+                        AppImage.arrowforward,
                       ),
                     ],
                   ),
                 ),
-                Divider(),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                  alignment: Alignment.center,
-                  child: GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet<void>(
-                        context: context,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(20),
-                          ),
-                        ),
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        builder: (BuildContext context) {
-                          return SingleChildScrollView(
-                            physics: BouncingScrollPhysics(),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: AppMetrics.paddingHorizotal),
-                              height: MediaQuery.of(context).size.height * 0.55,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Row(
-                                      children: [
-                                        Expanded(flex: 2, child: Text("")),
-                                        Expanded(
-                                            flex: 5,
-                                            child: Text(
-                                              "Update Password",
-                                              style: AppTextStyles.textSize20(
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                        Expanded(
-                                            flex: 1,
-                                            child: GestureDetector(
-                                                onTap: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: SvgPicture.asset(
-                                                  AppImage.close,
-                                                  alignment: Alignment.center,
-                                                )))
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 5,
-                                    child: Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal:
-                                              AppMetrics.paddingHorizotal,
-                                          vertical: AppMetrics.paddingVertical),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          TextField(
-                                            controller: controllerPassword,
-                                            decoration: InputDecoration(
-                                                labelText: 'Current password',
-                                                suffixIcon:
-                                                    Icon(Icons.remove_red_eye)),
-                                            obscureText: true,
-                                          ),
-                                          TextField(
-                                            controller: controllerNewPassword,
-                                            decoration: InputDecoration(
-                                                labelText: 'New password',
-                                                suffixIcon:
-                                                    Icon(Icons.remove_red_eye)),
-                                            obscureText: true,
-                                          ),
-                                          TextField(
-                                            controller:
-                                                controllerConfirmNewPassword,
-                                            decoration: InputDecoration(
-                                                labelText:
-                                                    'Confirm new password',
-                                                suffixIcon: SvgPicture.asset(
-                                                    AppImage.eyeslash)),
-                                            obscureText: true,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 20, left: 20.0, right: 20),
-                                      child: CustomButton(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.05,
-                                        ontap: () {},
-                                        borderColor: AppColors.greenAccent,
-                                        color: AppColors.greenAccent,
-                                        text: "Save",
-                                        style: AppTextStyles.textSize14(),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    },
+              ),
+            ),
+            SizedBox(
+              height: AppMetrics.paddingContainer,
+            ),
+            CustomContainer(
+              edgeInsets:
+                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
+              padding:
+                  EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
+              colorBorder: AppColors.grey.withOpacity(0.2),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: AppMetrics.paddingHorizotal,
+                        vertical: AppMetrics.paddingContent),
+                    alignment: Alignment.center,
                     child: Row(
                       children: [
                         SvgPicture.asset(
-                          AppImage.key,
+                          AppImage.toggleright,
                         ),
                         SizedBox(
                           width: 10.0,
                         ),
                         Text(
-                          "Update Password",
+                          "Notification Preferences",
                           style: AppTextStyles.textSize16(),
                         ),
                       ],
                     ),
                   ),
-                ),
-                Divider(),
-                Container(
+                  Divider(),
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                    alignment: Alignment.center,
+                    child: GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet<void>(
+                          context: context,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
+                          ),
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          builder: (BuildContext context) {
+                            return SingleChildScrollView(
+                              physics: BouncingScrollPhysics(),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: AppMetrics.paddingHorizotal),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.55,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        children: [
+                                          Expanded(flex: 2, child: Text("")),
+                                          Expanded(
+                                              flex: 5,
+                                              child: Text(
+                                                "Update Password",
+                                                style: AppTextStyles.textSize20(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )),
+                                          Expanded(
+                                              flex: 1,
+                                              child: GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: SvgPicture.asset(
+                                                    AppImage.close,
+                                                    alignment: Alignment.center,
+                                                  )))
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 5,
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal:
+                                                AppMetrics.paddingHorizotal,
+                                            vertical:
+                                                AppMetrics.paddingVertical),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            TextField(
+                                              controller: controllerPassword,
+                                              decoration: InputDecoration(
+                                                labelText: 'Current password',
+                                                suffixIcon:
+                                                    Icon(Icons.remove_red_eye),
+                                                enabledBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: AppColors.grey10),
+                                                ),
+                                                focusedBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: AppColors.grey10),
+                                                ),
+                                              ),
+                                              obscureText: !obscureCurrent,
+                                            ),
+                                            TextField(
+                                              controller: controllerNewPassword,
+                                              decoration: InputDecoration(
+                                                labelText: 'New password',
+                                                suffixIcon:
+                                                    Icon(Icons.visibility_off),
+                                                enabledBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: AppColors.grey10),
+                                                ),
+                                                focusedBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: AppColors.grey10),
+                                                ),
+                                              ),
+                                              obscureText: !obscureNew,
+                                            ),
+                                            TextField(
+                                              controller:
+                                                  controllerConfirmNewPassword,
+                                              decoration: InputDecoration(
+                                                labelText:
+                                                    'Confirm new password',
+                                                suffixIcon: obscureConfirm
+                                                    ? GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            obscureConfirm =
+                                                                !obscureConfirm;
+                                                          });
+                                                        },
+                                                        child: Icon(Icons
+                                                            .remove_red_eye))
+                                                    : GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            obscureConfirm =
+                                                                !obscureConfirm;
+                                                          });
+                                                        },
+                                                        child: Icon(Icons
+                                                            .remove_red_eye)),
+                                                enabledBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: AppColors.grey10),
+                                                ),
+                                                focusedBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: AppColors.grey10),
+                                                ),
+                                              ),
+                                              obscureText: !obscureConfirm,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 30.0,
+                                            left: 20.0,
+                                            right: 20.0),
+                                        child: CustomButton(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.05,
+                                          ontap: () {},
+                                          borderColor: AppColors.greenAccent,
+                                          color: AppColors.greenAccent,
+                                          text: "Save",
+                                          style: AppTextStyles.textSize14(),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            AppImage.key,
+                          ),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          Text(
+                            "Update Password",
+                            style: AppTextStyles.textSize16(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Divider(),
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                    alignment: Alignment.center,
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          AppImage.privacy,
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Text(
+                          "Privacy Policy",
+                          style: AppTextStyles.textSize16(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: AppMetrics.paddingContainer,
+            ),
+            CustomContainer(
+              edgeInsets:
+                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
+              padding:
+                  EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
+              colorBorder: AppColors.grey.withOpacity(0.2),
+              child: GestureDetector(
+                onTap: () {
+                  NavigationService.instance.navigateTo(SelectBusiness());
+                },
+                child: Container(
                   padding:
                       EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                   alignment: Alignment.center,
                   child: Row(
                     children: [
                       SvgPicture.asset(
-                        AppImage.privacy,
+                        AppImage.logout,
                       ),
                       SizedBox(
                         width: 10.0,
                       ),
                       Text(
-                        "Privacy Policy",
+                        "Log out",
                         style: AppTextStyles.textSize16(),
                       ),
                     ],
                   ),
                 ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: AppMetrics.paddingContainer,
-          ),
-          CustomContainer(
-            edgeInsets:
-                EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
-            padding: EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-            colorBorder: AppColors.grey.withOpacity(0.2),
-            child: GestureDetector(
-              onTap: () {
-                NavigationService.instance.navigateTo(SelectBusiness());
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                alignment: Alignment.center,
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      AppImage.logout,
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      "Log out",
-                      style: AppTextStyles.textSize16(),
-                    ),
-                  ],
-                ),
               ),
             ),
-          ),
-        ],
-      ),
-      floatingActionButton: SvgPicture.asset(
-        AppImage.floatbtn,
-      ),
-    );
+          ],
+        ),
+        floatingActionButton: FancyFab(
+          switchAccount: true,
+        ));
   }
 
   Widget profile() {
@@ -388,14 +452,16 @@ class _AccountScreenState extends State<AccountScreen> {
                       ),
                       Text(
                         "lucasflatonia@gmail.com",
-                        style: AppTextStyles.textSize14(),
+                        style: AppTextStyles.textSize14(
+                            color: AppColors.greyColor),
                       ),
                       SizedBox(
                         height: 5.0,
                       ),
                       Text(
                         "+61 342 554 321",
-                        style: AppTextStyles.textSize14(),
+                        style: AppTextStyles.textSize14(
+                            color: AppColors.greyColor),
                       ),
                     ],
                   ),

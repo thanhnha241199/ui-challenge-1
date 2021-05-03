@@ -17,16 +17,15 @@ class NewLeaveRequest extends StatefulWidget {
 
 class _NewLeaveRequestState extends State<NewLeaveRequest> {
   TextEditingController description;
+  DateTime dateFrom, dateTo;
   @override
   void initState() {
-    // TODO: implement initState
     description = TextEditingController(text: 'Add Description');
     super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     description.dispose();
     super.dispose();
   }
@@ -34,6 +33,7 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: HeaderView(
             color: Colors.transparent,
             child: HeaderChild(
@@ -53,107 +53,138 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Leave Type",
-                              style: AppTextStyles.textSize12(),
+                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      child: DropdownButtonFormField<String>(
+                        items: [
+                          "Select Leave type 1",
+                          'Select Leave type 2',
+                          'Select Leave type 3',
+                          'Select Leave type 4',
+                          'Select Leave type 5'
+                        ]
+                            .map((label) => DropdownMenuItem(
+                                  child: Text(label.toString()),
+                                  value: label,
+                                ))
+                            .toList(),
+                        value: "Select Leave type 1",
+                        decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.grey10),
                             ),
-                            SizedBox(
-                              height: 5.0,
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.grey10),
                             ),
-                            Row(
-                              children: [
-                                Text(
-                                  "Select Leave Type",
-                                  style: AppTextStyles.textSize18(),
-                                ),
-                                Spacer(),
-                                SvgPicture.asset(
-                                  AppImage.caretdown,
-                                  alignment: Alignment.center,
-                                ),
-                              ],
-                            ),
-                            Divider()
-                          ],
-                        )),
+                            labelText: 'Leave Type',
+                            hintText: 'Select Leave Type',
+                            hintStyle:
+                                AppTextStyles.textSize18(color: AppColors.grey),
+                            labelStyle: AppTextStyles.textSize12(
+                                color: AppColors.grey)),
+                        icon: SvgPicture.asset(
+                          AppImage.caretdown,
+                          alignment: Alignment.center,
+                        ),
+                        onChanged: (value) {},
+                      ),
+                    ),
                     Container(
                         padding: EdgeInsets.only(
                             left: 20.0, right: 20.0, bottom: 10.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            TextField(
+                            TextFormField(
                               controller: description,
                               decoration: InputDecoration(
                                   hintText: 'Add Description',
                                   labelText: 'Leave Description',
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: AppColors.grey10),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: AppColors.grey10),
+                                  ),
                                   hintStyle: AppTextStyles.textSize18(
                                       color: AppColors.grey),
-                                  labelStyle: AppTextStyles.textSize12()),
+                                  labelStyle: AppTextStyles.textSize12(
+                                      color: AppColors.grey)),
                             )
                           ],
                         )),
                     Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Start Date",
-                              style: AppTextStyles.textSize12(),
-                            ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  "From",
-                                  style: AppTextStyles.textSize20(),
-                                ),
-                                Spacer(),
-                                SvgPicture.asset(
-                                  AppImage.calendar,
-                                  alignment: Alignment.center,
-                                ),
-                              ],
-                            ),
-                            Divider()
-                          ],
+                        child: GestureDetector(
+                          onTap: _selectDateFrom,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Start Date",
+                                style: AppTextStyles.textSize12(
+                                    color: AppColors.grey),
+                              ),
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    dateFrom.toString() == null
+                                        ? "From"
+                                        : dateFrom.toString(),
+                                    style: AppTextStyles.textSize20(
+                                        color: AppColors.grey),
+                                  ),
+                                  Spacer(),
+                                  SvgPicture.asset(
+                                    AppImage.calendar,
+                                    alignment: Alignment.center,
+                                  ),
+                                ],
+                              ),
+                              Divider()
+                            ],
+                          ),
                         )),
                     Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "End Date",
-                              style: AppTextStyles.textSize12(),
-                            ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  "To",
-                                  style: AppTextStyles.textSize20(),
-                                ),
-                                Spacer(),
-                                SvgPicture.asset(
-                                  AppImage.calendar,
-                                  alignment: Alignment.center,
-                                ),
-                              ],
-                            ),
-                            Divider()
-                          ],
+                        child: GestureDetector(
+                          onTap: _selectDateTo,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "End Date",
+                                style: AppTextStyles.textSize12(
+                                    color: AppColors.grey),
+                              ),
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    dateTo.toString() == null
+                                        ? "To"
+                                        : dateTo.toString(),
+                                    style: AppTextStyles.textSize20(
+                                        color: AppColors.grey),
+                                  ),
+                                  Spacer(),
+                                  SvgPicture.asset(
+                                    AppImage.calendar,
+                                    alignment: Alignment.center,
+                                  ),
+                                ],
+                              ),
+                              Divider()
+                            ],
+                          ),
                         )),
                   ],
                 )),
@@ -322,5 +353,35 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
             )
           ],
         ));
+  }
+
+  void _selectDateFrom() async {
+    final DateTime newDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2017, 1),
+      lastDate: DateTime(2022, 7),
+      helpText: 'Select a date',
+    );
+    if (newDate != null) {
+      setState(() {
+        dateFrom = newDate;
+      });
+    }
+  }
+
+  void _selectDateTo() async {
+    final DateTime newDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2017, 1),
+      lastDate: DateTime(2022, 7),
+      helpText: 'Select a date',
+    );
+    if (newDate != null) {
+      setState(() {
+        dateTo = newDate;
+      });
+    }
   }
 }
