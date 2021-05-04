@@ -3,6 +3,7 @@ import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
+import 'package:bookkeepa/widgets/bottom_space.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
@@ -29,6 +30,7 @@ class _ViewPayslipState extends State<ViewPayslip> {
               style: AppTextStyles.textSize16(),
               leftIcon: SvgPicture.asset(AppImage.arrow_back))),
       body: ListView(
+        physics: BouncingScrollPhysics(),
         children: [
           Image.asset(
             AppImage.invoice,
@@ -54,7 +56,7 @@ class _ViewPayslipState extends State<ViewPayslip> {
                   style: AppTextStyles.textSize18(),
                 ),
                 SizedBox(
-                  height: 10.0,
+                  height: AppMetrics.paddingContainer,
                 ),
                 CustomButton(
                   height: MediaQuery.of(context).size.height * 0.08,
@@ -66,6 +68,7 @@ class _ViewPayslipState extends State<ViewPayslip> {
                   text: AppTranslations().getLanguage(context, 'Share'),
                   style: AppTextStyles.textSize18(),
                 ),
+                BottomSpace(),
               ],
             ),
           )

@@ -5,12 +5,11 @@ import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/screens/dashboard/new_time_card.dart';
-import 'package:bookkeepa/screens/dashboard/select_business.dart';
 import 'package:bookkeepa/screens/leave/new_leave_request.dart';
 import 'package:bookkeepa/screens/timesheets/new_timesheet.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
-import 'package:bookkeepa/widgets/custom_containner.dart';
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -18,9 +17,7 @@ class FancyFab extends StatefulWidget {
   final Function() onPressed;
   final String tooltip;
   final IconData icon;
-  final bool switchAccount;
-  FancyFab(
-      {this.onPressed, this.tooltip, this.icon, @required this.switchAccount});
+  FancyFab({this.onPressed, this.tooltip, this.icon});
 
   @override
   _FancyFabState createState() => _FancyFabState();
@@ -94,49 +91,6 @@ class _FancyFabState extends State<FancyFab>
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          if (isOpened && widget.switchAccount)
-            Padding(
-              padding: EdgeInsets.only(left: 30.0, bottom: 180.0),
-              child: CustomContainer(
-                edgeInsets: EdgeInsets.symmetric(
-                    horizontal: AppMetrics.paddingHorizotal),
-                padding:
-                    EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-                colorBorder: AppColors.grey.withOpacity(0.2),
-                child: GestureDetector(
-                  onTap: () {
-                    NavigationService.instance.navigateTo(SelectBusiness());
-                  },
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                    alignment: Alignment.center,
-                    child: Row(
-                      children: [
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              AppImage.storefront,
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              "Switch to Anothe Bussiness",
-                              style: AppTextStyles.textSize16(),
-                            ),
-                          ],
-                        ),
-                        Spacer(),
-                        SvgPicture.asset(
-                          AppImage.arrowforward,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
           if (isOpened)
             Transform(
                 transform: Matrix4.translationValues(
@@ -144,7 +98,11 @@ class _FancyFabState extends State<FancyFab>
                   _translateButton.value * 3.0,
                   0.0,
                 ),
-                child: newTimecard()),
+                child: item(
+                    AppTranslations().getLanguage(context, 'newTimecard'),
+                    AppImage.newtimecard, () {
+                  NavigationService.instance.navigateTo(NewTimeCard());
+                })),
           if (isOpened)
             Transform(
                 transform: Matrix4.translationValues(
@@ -152,114 +110,55 @@ class _FancyFabState extends State<FancyFab>
                   _translateButton.value * 2.0,
                   0.0,
                 ),
-                child: newTimesheet()),
+                child: item(
+                    AppTranslations().getLanguage(context, 'newTimesheet'),
+                    AppImage.newtimesheet, () {
+                  NavigationService.instance.navigateTo(NewTimeSheetDetail());
+                })),
           if (isOpened)
             Transform(
-                transform: Matrix4.translationValues(
-                  0.0,
-                  _translateButton.value,
-                  0.0,
-                ),
-                child: requestLeave()),
+              transform: Matrix4.translationValues(
+                0.0,
+                _translateButton.value,
+                0.0,
+              ),
+              child: item(
+                  AppTranslations().getLanguage(context, 'requestLeave'),
+                  AppImage.clock, () {
+                NavigationService.instance.navigateTo(NewLeaveRequest());
+              }),
+            ),
           toggle(),
         ],
       ),
     );
   }
 
-  Widget newTimecard() {
+  Widget item(String title, String icon, Function ontap) {
     return GestureDetector(
-      onTap: () {
-        NavigationService.instance.navigateTo(NewTimeCard());
-      },
+      onTap: ontap,
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.08,
-        width: MediaQuery.of(context).size.width * 0.46,
+        height: 55.0,
+        width: 185.0,
         padding: EdgeInsets.symmetric(
-            horizontal: AppMetrics.paddingHorizotal,
+            horizontal: AppMetrics.paddingVerticalContainer,
             vertical: AppMetrics.paddingContent),
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: AppColors.grey),
+            border: Border.all(color: AppColors.grey.withOpacity(0.2)),
             borderRadius: BorderRadius.circular(AppMetrics.borderButton)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              AppTranslations().getLanguage(context, 'newTimecard'),
+              title,
               style: AppTextStyles.textSize16(color: AppColors.green),
             ),
             SizedBox(
               width: 10.0,
             ),
-            SvgPicture.asset(AppImage.newtimecard)
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget newTimesheet() {
-    return GestureDetector(
-      onTap: () {
-        NavigationService.instance.navigateTo(NewTimeSheetDetail());
-      },
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.08,
-        width: MediaQuery.of(context).size.width * 0.46,
-        padding: EdgeInsets.symmetric(
-            horizontal: AppMetrics.paddingHorizotal,
-            vertical: AppMetrics.paddingContent),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: AppColors.grey),
-            borderRadius: BorderRadius.circular(AppMetrics.borderButton)),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              AppTranslations().getLanguage(context, 'newTimesheet'),
-              style: AppTextStyles.textSize16(color: AppColors.green),
-            ),
-            SizedBox(
-              width: 10.0,
-            ),
-            SvgPicture.asset(AppImage.newtimesheet)
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget requestLeave() {
-    return GestureDetector(
-      onTap: () {
-        NavigationService.instance.navigateTo(NewLeaveRequest());
-      },
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.08,
-        width: MediaQuery.of(context).size.width * 0.46,
-        padding: EdgeInsets.symmetric(
-            horizontal: AppMetrics.paddingHorizotal,
-            vertical: AppMetrics.paddingContent),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: AppColors.grey),
-            borderRadius: BorderRadius.circular(AppMetrics.borderButton)),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              AppTranslations().getLanguage(context, 'requestLeave'),
-              style: AppTextStyles.textSize16(color: AppColors.green),
-            ),
-            SizedBox(
-              width: 10.0,
-            ),
-            SvgPicture.asset(AppImage.clock)
+            SvgPicture.asset(icon)
           ],
         ),
       ),
@@ -268,25 +167,14 @@ class _FancyFabState extends State<FancyFab>
 
   Widget toggle() {
     return isOpened
-        ? Transform(
-            transform: Matrix4.translationValues(
-              0.0,
-              _translateButton.value,
-              0.0,
-            ),
+        ? Transform.rotate(
+            angle: 45 * math.pi / 180,
+            child: GestureDetector(
+                onTap: animate, child: SvgPicture.asset(AppImage.floatbtn)),
+          )
+        : Transform.rotate(
+            angle: 180 * math.pi / 180,
             child: Container(
-              padding: EdgeInsets.only(top: 10.0),
-              child: GestureDetector(
-                  onTap: animate, child: SvgPicture.asset(AppImage.close_fab)),
-            ))
-        : Transform(
-            transform: Matrix4.translationValues(
-              0.0,
-              _translateButton.value,
-              0.0,
-            ),
-            child: Container(
-              padding: EdgeInsets.only(top: 10.0, bottom: 60.0),
               child: GestureDetector(
                   onTap: animate, child: SvgPicture.asset(AppImage.floatbtn)),
             ));

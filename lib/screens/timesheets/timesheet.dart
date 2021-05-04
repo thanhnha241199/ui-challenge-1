@@ -26,6 +26,7 @@ class Timesheets extends StatefulWidget {
 }
 
 class _TimesheetsState extends State<Timesheets> {
+  int index;
   List<NotificationModel> notification = [
     NotificationModel(
         title: "Jack Hihnson requested leave", read: true, time: "1m ago"),
@@ -76,8 +77,72 @@ class _TimesheetsState extends State<Timesheets> {
         label: "draft",
         scheduled: "40.0",
         actual: "35.0",
+        file: 0),
+    TimeSheetModel(
+        start: "Apr 12",
+        end: "Apr 28 2021",
+        label: "draft",
+        scheduled: "40.0",
+        actual: "35.0",
+        file: 0),
+    TimeSheetModel(
+        start: "Apr 12",
+        end: "Apr 28 2021",
+        label: "approved",
+        scheduled: "40.0",
+        actual: "35.0",
+        file: 1),
+    TimeSheetModel(
+        start: "Apr 12",
+        end: "Apr 28 2021",
+        label: "pending",
+        scheduled: "40.0",
+        actual: "35.0",
+        file: 3),
+    TimeSheetModel(
+        start: "Apr 12",
+        end: "Apr 28 2021",
+        label: "draft",
+        scheduled: "40.0",
+        actual: "35.0",
         file: 0)
   ];
+  List<TimeSheetModel> items2 = [
+    TimeSheetModel(
+        start: "Apr 22",
+        end: "Apr 28 2021",
+        label: "draft",
+        scheduled: "55.0",
+        actual: "35.0",
+        file: 1),
+    TimeSheetModel(
+        start: "Apr 21",
+        end: "Apr 28 2021",
+        label: "approved",
+        scheduled: "40.0",
+        actual: "35.0",
+        file: 1),
+    TimeSheetModel(
+        start: "Apr 11",
+        end: "Apr 28 2021",
+        label: "pending",
+        scheduled: "40.0",
+        actual: "12.0",
+        file: 3),
+    TimeSheetModel(
+        start: "Apr 12",
+        end: "Apr 28 2021",
+        label: "draft",
+        scheduled: "40.0",
+        actual: "42.0",
+        file: 0)
+  ];
+  @override
+  void initState() {
+    index = 0;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,9 +179,6 @@ class _TimesheetsState extends State<Timesheets> {
                   child: SvgPicture.asset(AppImage.notification)))),
       body: Stack(
         children: [
-          SizedBox(
-            height: 20.0,
-          ),
           Container(
             margin: EdgeInsets.symmetric(
                 horizontal: AppMetrics.paddingHorizotal,
@@ -124,23 +186,37 @@ class _TimesheetsState extends State<Timesheets> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                  AppImage.arrowcircleleft,
-                  alignment: Alignment.center,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      index = 0;
+                    });
+                  },
+                  child: SvgPicture.asset(
+                    AppImage.arrowcircleleft,
+                    alignment: Alignment.center,
+                  ),
                 ),
                 SizedBox(
                   width: 70,
                 ),
                 Text(
-                  "April 2021",
+                  index == 0 ? "April 2021" : "May 2021",
                   style: AppTextStyles.textSize16(),
                 ),
                 SizedBox(
                   width: 70,
                 ),
-                SvgPicture.asset(
-                  AppImage.arrowcircleright,
-                  alignment: Alignment.center,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      index = 1;
+                    });
+                  },
+                  child: SvgPicture.asset(
+                    AppImage.arrowcircleright,
+                    alignment: Alignment.center,
+                  ),
                 ),
               ],
             ),
@@ -153,7 +229,7 @@ class _TimesheetsState extends State<Timesheets> {
             padding: EdgeInsets.only(top: AppMetrics.paddingContent),
             colorBorder: AppColors.grey.withOpacity(0.2),
             child: AppListView(
-              data: items,
+              data: index == 0 ? items : items2,
               renderItem: (item) {
                 return renderItem(context, item);
               },
@@ -169,123 +245,138 @@ class _TimesheetsState extends State<Timesheets> {
             NavigationService.instance
                 .pushPage(context, false, NewTimeSheetDetail());
           },
-          child: FancyFab(
-            switchAccount: false,
-          )),
+          child: FancyFab()),
     );
   }
 
   Widget renderItem(BuildContext context, TimeSheetModel item) {
-    return GestureDetector(
-      onTap: () {
-        NavigationService.instance
-            .pushPage(context, false, TimeSheetDetail(timeSheetModel: item));
-      },
-      child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-          alignment: Alignment.center,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: () {
+            NavigationService.instance.pushPage(
+                context, false, TimeSheetDetail(timeSheetModel: item));
+          },
+          child: Container(
+              margin: EdgeInsets.only(
+                  left: AppMetrics.paddingContainer,
+                  right: AppMetrics.paddingContainer,
+                  bottom: AppMetrics.paddingContainer,
+                  top: AppMetrics.paddingVertical),
+              alignment: Alignment.center,
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "${item.start} - ${item.end}",
-                    style:
-                        AppTextStyles.textSize16(fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Row(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Schedule", style: AppTextStyles.textSize12()),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Text(
-                            "${item.scheduled}",
-                            style: AppTextStyles.textSize16(
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
+                      Text(
+                        "${item.start} - ${item.end}",
+                        style: AppTextStyles.textSize16(
+                            fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
-                        width: 10,
+                        height: 10.0,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Row(
                         children: [
-                          Text(
-                            "Actual",
-                            style: AppTextStyles.textSize12(),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Schedule",
+                                  style: AppTextStyles.textSize12()),
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Text(
+                                "${item.scheduled}",
+                                style: AppTextStyles.textSize16(
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
                           ),
                           SizedBox(
-                            height: 5.0,
+                            width: 10,
                           ),
-                          Text(
-                            "${item.actual}",
-                            style: AppTextStyles.textSize16(
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.green),
-                          )
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Actual",
+                                style: AppTextStyles.textSize12(),
+                              ),
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Text(
+                                "${item.actual}",
+                                style: AppTextStyles.textSize16(
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.green),
+                              )
+                            ],
+                          ),
                         ],
                       ),
                     ],
                   ),
-                ],
-              ),
-              Spacer(),
-              Column(
-                children: [
-                  item.label == 'draft'
-                      ? SvgPicture.asset(
-                          AppImage.draft,
-                          fit: BoxFit.scaleDown,
-                          alignment: Alignment.center,
-                        )
-                      : item.label == 'approved'
+                  Spacer(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      item.label == 'draft'
                           ? SvgPicture.asset(
-                              AppImage.approved,
+                              AppImage.draft,
                               fit: BoxFit.scaleDown,
                               alignment: Alignment.center,
                             )
-                          : SvgPicture.asset(
-                              AppImage.pending,
-                              fit: BoxFit.scaleDown,
-                              alignment: Alignment.center,
-                            ),
-                  SizedBox(
-                    height: 30.0,
+                          : item.label == 'approved'
+                              ? SvgPicture.asset(
+                                  AppImage.approved,
+                                  fit: BoxFit.scaleDown,
+                                  alignment: Alignment.center,
+                                )
+                              : SvgPicture.asset(
+                                  AppImage.pending,
+                                  fit: BoxFit.scaleDown,
+                                  alignment: Alignment.center,
+                                ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      item.file == 0
+                          ? Text('')
+                          : Row(
+                              children: [
+                                SvgPicture.asset(
+                                  AppImage.paperclip,
+                                  fit: BoxFit.scaleDown,
+                                  width: 12.0,
+                                  height: 14.0,
+                                  alignment: Alignment.center,
+                                ),
+                                SizedBox(
+                                  width: 5.0,
+                                ),
+                                Text(
+                                  item.file.toString(),
+                                  style: AppTextStyles.textSize12(),
+                                )
+                              ],
+                            )
+                    ],
                   ),
-                  item.file == 0
-                      ? Text('')
-                      : Row(
-                          children: [
-                            SvgPicture.asset(
-                              AppImage.paperclip,
-                              fit: BoxFit.scaleDown,
-                              width: 12.0,
-                              height: 14.0,
-                              alignment: Alignment.center,
-                            ),
-                            SizedBox(
-                              width: 5.0,
-                            ),
-                            Text(
-                              "3",
-                              style: AppTextStyles.textSize12(),
-                            )
-                          ],
-                        )
+                  SizedBox(
+                    height: 50.0,
+                  )
                 ],
-              )
-            ],
-          )),
+              )),
+        ),
+        items.indexOf(item) == items.length - 1 ? Container() : Divider()
+      ],
     );
   }
 }

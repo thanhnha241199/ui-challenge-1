@@ -12,7 +12,6 @@ import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:intl/intl.dart';
 import '../../config/app_colors.dart';
 import '../../config/app_images.dart';
@@ -47,6 +46,7 @@ class _RostersState extends State<Rosters> {
     NotificationModel(
         title: "3 documents needs to be signed", read: false, time: "1d ago"),
   ];
+  int index;
   String _range =
       '${DateFormat('MMM d').format(DateTime.now())} - ${DateFormat('MMM d yyyy').format(DateTime.now().add(Duration(days: 3)))}';
   DateTimeRange time;
@@ -72,12 +72,199 @@ class _RostersState extends State<Rosters> {
   void initState() {
     time = DateTimeRange(
         start: DateTime.now(), end: DateTime.now().add(Duration(days: 3)));
-
+    index = 0;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> widgets = [
+      Container(
+        margin: EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Wesnesday, 4th April 2021",
+              style: AppTextStyles.textSize14(),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            CustomContainer(
+              padding: EdgeInsets.symmetric(
+                  horizontal: AppMetrics.paddingContainer,
+                  vertical: AppMetrics.paddingVertical),
+              width: MediaQuery.of(context).size.width * 0.6,
+              colorBorder: AppColors.grey.withOpacity(0.2),
+              child: Text(
+                "09:00ap to 12:00pm",
+                style: AppTextStyles.textSize16(),
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              "Thursday, 5th April 2021",
+              style: AppTextStyles.textSize14(),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            CustomContainer(
+              padding: EdgeInsets.symmetric(
+                  horizontal: AppMetrics.paddingContainer,
+                  vertical: AppMetrics.paddingVertical),
+              colorBorder: AppColors.grey.withOpacity(0.2),
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                children: [
+                  SvgPicture.asset(
+                    AppImage.calendar,
+                    alignment: Alignment.center,
+                  ),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  Text(
+                    "This is today",
+                    style: AppTextStyles.textSize14(),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            CustomContainer(
+              padding: EdgeInsets.symmetric(
+                  horizontal: AppMetrics.paddingContainer,
+                  vertical: AppMetrics.paddingVertical),
+              width: MediaQuery.of(context).size.width,
+              colorBorder: AppColors.grey.withOpacity(0.2),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "09:00am to 12:00pm",
+                    style: AppTextStyles.textSize16(),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  CustomButton(
+                    ontap: () {
+                      NavigationService.instance
+                          .pushPage(context, false, TimeCard());
+                    },
+                    borderColor: AppColors.greenAccent,
+                    color: AppColors.greenAccent,
+                    text: AppTranslations().getLanguage(context, 'clockin'),
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    style: AppTextStyles.textSize16(),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            CustomContainer(
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppMetrics.paddingContainer,
+                    vertical: AppMetrics.paddingVertical),
+                width: MediaQuery.of(context).size.width,
+                colorBorder: AppColors.grey.withOpacity(0.2),
+                child: Text(
+                  "01:00pm to 05:00pm",
+                  style: AppTextStyles.textSize16(),
+                )),
+          ],
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Wesnesday, 4th April 2021",
+              style: AppTextStyles.textSize14(),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            CustomContainer(
+              padding: EdgeInsets.symmetric(
+                  horizontal: AppMetrics.paddingContainer,
+                  vertical: AppMetrics.paddingVertical),
+              width: MediaQuery.of(context).size.width * 0.6,
+              colorBorder: AppColors.grey.withOpacity(0.2),
+              child: Text(
+                "09:00ap to 12:00pm",
+                style: AppTextStyles.textSize16(),
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              "Thursday, 5th April 2021",
+              style: AppTextStyles.textSize14(),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            CustomContainer(
+              padding: EdgeInsets.symmetric(
+                  horizontal: AppMetrics.paddingContainer,
+                  vertical: AppMetrics.paddingVertical),
+              width: MediaQuery.of(context).size.width,
+              colorBorder: AppColors.grey.withOpacity(0.2),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "09:00am to 12:00pm",
+                    style: AppTextStyles.textSize16(),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  CustomButton(
+                    ontap: () {
+                      NavigationService.instance
+                          .pushPage(context, false, TimeCard());
+                    },
+                    borderColor: AppColors.greenAccent,
+                    color: AppColors.greenAccent,
+                    text: AppTranslations().getLanguage(context, 'clockin'),
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    style: AppTextStyles.textSize16(),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            CustomContainer(
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppMetrics.paddingContainer,
+                    vertical: AppMetrics.paddingVertical),
+                width: MediaQuery.of(context).size.width,
+                colorBorder: AppColors.grey.withOpacity(0.2),
+                child: Text(
+                  "01:00pm to 05:00pm",
+                  style: AppTextStyles.textSize16(),
+                )),
+          ],
+        ),
+      )
+    ];
     return Scaffold(
         appBar: HeaderView(
             color: Colors.transparent,
@@ -111,22 +298,31 @@ class _RostersState extends State<Rosters> {
                     },
                     child: SvgPicture.asset(AppImage.notification)))),
         body: ListView(
+          physics: BouncingScrollPhysics(),
           children: [
             Container(
-              margin: EdgeInsets.symmetric(
-                  horizontal: AppMetrics.paddingHorizotal,
-                  vertical: AppMetrics.paddingVertical),
+              margin:
+                  EdgeInsets.symmetric(vertical: AppMetrics.paddingVertical),
               padding:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
+                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    AppImage.arrowcircleleft,
-                    alignment: Alignment.center,
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (index > 0) {
+                          index--;
+                        }
+                      });
+                    },
+                    child: SvgPicture.asset(
+                      AppImage.arrowcircleleft,
+                      alignment: Alignment.center,
+                    ),
                   ),
                   SizedBox(
-                    width: 40,
+                    width: 26.0,
                   ),
                   GestureDetector(
                     onTap: _selectDate,
@@ -136,126 +332,27 @@ class _RostersState extends State<Rosters> {
                     ),
                   ),
                   SizedBox(
-                    width: 40,
+                    width: 40.0,
                   ),
-                  SvgPicture.asset(
-                    AppImage.arrowcircleright,
-                    alignment: Alignment.center,
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (index < widgets.length - 1) {
+                          index++;
+                        }
+                      });
+                    },
+                    child: SvgPicture.asset(
+                      AppImage.arrowcircleright,
+                      alignment: Alignment.center,
+                    ),
                   ),
                 ],
               ),
             ),
-            Container(
-              margin:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Wesnesday, 4th April 2021",
-                    style: AppTextStyles.textSize14(),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  CustomContainer(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppMetrics.paddingHorizotal,
-                        vertical: AppMetrics.paddingVertical),
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    colorBorder: AppColors.grey.withOpacity(0.2),
-                    child: Text(
-                      "09:00ap to 12:00pm",
-                      style: AppTextStyles.textSize16(),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Text(
-                    "Thursday, 5th April 2021",
-                    style: AppTextStyles.textSize14(),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  CustomContainer(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppMetrics.paddingHorizotal,
-                        vertical: AppMetrics.paddingVertical),
-                    colorBorder: AppColors.grey.withOpacity(0.2),
-                    width: MediaQuery.of(context).size.width,
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(
-                          AppImage.calendar,
-                          alignment: Alignment.center,
-                        ),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        Text(
-                          "This is today",
-                          style: AppTextStyles.textSize14(),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  CustomContainer(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppMetrics.paddingHorizotal,
-                        vertical: AppMetrics.paddingVertical),
-                    width: MediaQuery.of(context).size.width,
-                    colorBorder: AppColors.grey.withOpacity(0.2),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "09:00am to 12:00pm",
-                          style: AppTextStyles.textSize16(),
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        CustomButton(
-                          ontap: () {
-                            NavigationService.instance
-                                .pushPage(context, false, TimeCard());
-                          },
-                          borderColor: AppColors.greenAccent,
-                          color: AppColors.greenAccent,
-                          text:
-                              AppTranslations().getLanguage(context, 'clockin'),
-                          height: MediaQuery.of(context).size.height * 0.06,
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          style: AppTextStyles.textSize16(),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  CustomContainer(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: AppMetrics.paddingHorizotal,
-                          vertical: AppMetrics.paddingVertical),
-                      width: MediaQuery.of(context).size.width,
-                      colorBorder: AppColors.grey.withOpacity(0.2),
-                      child: Text(
-                        "01:00pm to 05:00pm",
-                        style: AppTextStyles.textSize16(),
-                      )),
-                ],
-              ),
-            ),
+            widgets[index]
           ],
         ),
-        floatingActionButton: FancyFab(
-          switchAccount: false,
-        ));
+        floatingActionButton: FancyFab());
   }
 }

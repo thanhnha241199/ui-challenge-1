@@ -4,6 +4,7 @@ import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/models/notification/notification.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
+import 'package:bookkeepa/widgets/app_list_view.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,131 +17,170 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationState extends State<Notifications> {
+  List<NotificationModel> items = [
+    NotificationModel(
+        title: "Jack Hihnson requested leave", read: true, time: "1m ago"),
+    NotificationModel(
+        title: "Amy Ranch needs timesheet approved",
+        read: true,
+        time: "20m ago"),
+    NotificationModel(
+        title: "1 document needs to be signed", read: false, time: "1h ago"),
+    NotificationModel(
+        title: "Amy Ranch needs timesheet approved",
+        read: false,
+        time: "5h ago"),
+    NotificationModel(
+        title: "Cornor Halt requested leave", read: false, time: "10h ago"),
+    NotificationModel(
+        title: "Joseph Rosso needs timesheet approved",
+        read: false,
+        time: "1d ago"),
+    NotificationModel(
+        title: "3 documents needs to be signed", read: false, time: "1d ago"),
+    NotificationModel(
+        title: "Amy Ranch needs timesheet approved",
+        read: false,
+        time: "5h ago"),
+    NotificationModel(
+        title: "Cornor Halt requested leave", read: false, time: "10h ago"),
+    NotificationModel(
+        title: "Joseph Rosso needs timesheet approved",
+        read: false,
+        time: "1d ago"),
+    NotificationModel(
+        title: "3 documents needs to be signed", read: false, time: "1d ago"),
+  ];
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.end,
+    return Stack(
       children: [
         GestureDetector(
-            onTap: () {
-              NavigationService.instance.goback();
-            },
-            child: Padding(
-              padding: EdgeInsets.only(top: 50.0, right: 40.0),
-              child: SvgPicture.asset(
-                AppImage.xcircle,
-                height: 50.0,
-                width: 50.0,
-              ),
-            )),
+          onTap: () {
+            NavigationService.instance.goback();
+          },
+          child: Padding(
+            padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width - 90.0, top: 40.0),
+            child: SvgPicture.asset(
+              AppImage.xcircle,
+              height: 50.0,
+              width: 50.0,
+              alignment: Alignment.centerLeft,
+            ),
+          ),
+        ),
         Dialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                   Radius.circular(AppMetrics.borderContainer))),
-          child: SingleChildScrollView(
-            child: CustomContainer(
+          child: CustomContainer(
+              height: MediaQuery.of(context).size.height * 0.7,
               width: MediaQuery.of(context).size.width,
               colorBorder: AppColors.grey.withOpacity(0.2),
-              child: Column(
-                children: [
-                  ..._getBody(widget.items),
-                ],
-              ),
-            ),
-          ),
+              color: AppColors.whiteColor,
+              child: AppListView(
+                data: items,
+                renderItem: (item) {
+                  return renderItem(context, item);
+                },
+                onLoadMore: () {
+                  print('loadmore');
+                },
+              )),
           elevation: 2,
         )
       ],
     );
   }
 
-  _getBody(List<NotificationModel> items) {
-    return items.map((e) {
-      return items.indexOf(e) == 0
-          ? Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  color: e.read == true ? AppColors.green20 : Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(AppMetrics.borderContainer),
-                      topRight: Radius.circular(AppMetrics.borderContainer))),
-              padding: EdgeInsets.symmetric(
-                  vertical: AppMetrics.paddingVertical,
-                  horizontal: AppMetrics.paddingHorizotal),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        e.title,
-                        style: AppTextStyles.textSize16(),
-                        maxLines: 10,
-                      ),
+  renderItem(BuildContext context, NotificationModel item) {
+    return items.indexOf(item) == 0
+        ? Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                color:
+                    item.read == true ? AppColors.green20 : Colors.transparent,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(AppMetrics.borderContainer),
+                    topRight: Radius.circular(AppMetrics.borderContainer))),
+            padding: EdgeInsets.symmetric(
+                vertical: AppMetrics.paddingVertical,
+                horizontal: AppMetrics.paddingHorizotal),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Text(
+                      item.title,
+                      style: AppTextStyles.textSize16(),
+                      maxLines: 10,
                     ),
-                    Flexible(
-                      child: Text(
-                        e.time,
-                        style: AppTextStyles.textSize16(),
+                  ),
+                  Flexible(
+                    child: Text(
+                      item.time,
+                      style: AppTextStyles.textSize16(),
+                    ),
+                  )
+                ]),
+          )
+        : items.indexOf(item) == items.length - 1
+            ? Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    color: item.read == true
+                        ? AppColors.green20
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(AppMetrics.borderContainer),
+                        bottomRight:
+                            Radius.circular(AppMetrics.borderContainer))),
+                padding: EdgeInsets.symmetric(
+                    vertical: AppMetrics.paddingVertical,
+                    horizontal: AppMetrics.paddingHorizotal),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          item.title,
+                          style: AppTextStyles.textSize16(),
+                          maxLines: 10,
+                        ),
                       ),
-                    )
-                  ]),
-            )
-          : items.indexOf(e) == items.length - 1
-              ? Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      color: e.read == true ? AppColors.green20 : Colors.white,
-                      borderRadius: BorderRadius.only(
-                          bottomLeft:
-                              Radius.circular(AppMetrics.borderContainer),
-                          bottomRight:
-                              Radius.circular(AppMetrics.borderContainer))),
-                  padding: EdgeInsets.symmetric(
-                      vertical: AppMetrics.paddingVertical,
-                      horizontal: AppMetrics.paddingHorizotal),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            e.title,
-                            style: AppTextStyles.textSize16(),
-                            maxLines: 10,
-                          ),
+                      Flexible(
+                        child: Text(
+                          item.time,
+                          style: AppTextStyles.textSize16(),
                         ),
-                        Flexible(
-                          child: Text(
-                            e.time,
-                            style: AppTextStyles.textSize16(),
-                          ),
-                        )
-                      ]),
-                )
-              : Container(
-                  color: e.read == true ? AppColors.green20 : Colors.white,
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(
-                      vertical: AppMetrics.paddingVertical,
-                      horizontal: AppMetrics.paddingHorizotal),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            e.title,
-                            style: AppTextStyles.textSize16(),
-                            maxLines: 10,
-                          ),
+                      )
+                    ]),
+              )
+            : Container(
+                color:
+                    item.read == true ? AppColors.green20 : Colors.transparent,
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.symmetric(
+                    vertical: AppMetrics.paddingVertical,
+                    horizontal: AppMetrics.paddingHorizotal),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          item.title,
+                          style: AppTextStyles.textSize16(),
+                          maxLines: 10,
                         ),
-                        Flexible(
-                          child: Text(
-                            e.time,
-                            style: AppTextStyles.textSize16(),
-                          ),
-                        )
-                      ]),
-                );
-    });
+                      ),
+                      Flexible(
+                        child: Text(
+                          item.time,
+                          style: AppTextStyles.textSize16(),
+                        ),
+                      )
+                    ]),
+              );
   }
 }

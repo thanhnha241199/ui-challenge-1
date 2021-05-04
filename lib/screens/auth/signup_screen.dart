@@ -50,123 +50,123 @@ class _SignUpState extends State<SignUp> {
         appBar: HeaderView(),
         body: Stack(
           children: [
-            Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                      child: SingleChildScrollView(
-                        physics: BouncingScrollPhysics(),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(top: 100.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppMetrics.paddingHorizotal),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(AppImage.logo),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Text(
+                                AppTranslations()
+                                    .getLanguage(context, 'Sign Up'),
+                                style: AppTextStyles.textSize25(
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              InputField(
+                                  title: AppTranslations()
+                                      .getLanguage(context, 'Email'),
+                                  textInputAction: TextInputAction.done,
+                                  controller: controllerEmail,
+                                  icon: Icons.check_circle_outline_outlined),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Row(
                                 children: [
-                                  SvgPicture.asset(AppImage.logo),
-                                  SizedBox(
-                                    height: 10.0,
+                                  Expanded(
+                                    flex: 1,
+                                    child: InputField(
+                                      title: AppTranslations()
+                                          .getLanguage(context, '+61'),
+                                      textInputAction: TextInputAction.done,
+                                      textInputType: TextInputType.number,
+                                    ),
                                   ),
-                                  Text(
-                                    AppTranslations()
-                                        .getLanguage(context, 'Sign Up'),
-                                    style: AppTextStyles.textSize25(
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
+                                  Expanded(
+                                    flex: 4,
+                                    child: InputField(
+                                      title: AppTranslations()
+                                          .getLanguage(context, '0412 345 678'),
+                                      textInputAction: TextInputAction.done,
+                                      textInputType: TextInputType.number,
+                                    ),
                                   ),
                                 ],
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 20.0,
-                                ),
-                                InputField(
-                                    title: AppTranslations()
-                                        .getLanguage(context, 'Email'),
-                                    textInputAction: TextInputAction.done,
-                                    controller: controllerEmail,
-                                    icon: Icons.check_circle_outline_outlined),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 1,
-                                      child: InputField(
-                                        title: AppTranslations()
-                                            .getLanguage(context, '+61'),
-                                        textInputAction: TextInputAction.done,
-                                        textInputType: TextInputType.number,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 4,
-                                      child: InputField(
-                                        title: AppTranslations().getLanguage(
-                                            context, '0412 345 678'),
-                                        textInputAction: TextInputAction.done,
-                                        textInputType: TextInputType.number,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                      flex: 1),
-                  Column(
-                    children: [
-                      CustomButton(
-                        height: MediaQuery.of(context).size.height * 0.08,
-                        ontap: () {
-                          NavigationService.instance.navigateTo(VerifyCode());
-                        },
-                        borderColor: AppColors.greenAccent,
-                        color: AppColors.greenAccent,
-                        text:
-                            AppTranslations().getLanguage(context, 'Register'),
-                        style: AppTextStyles.textSize18(),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: AppMetrics.paddingHorizotal,
-                              vertical: AppMetrics.paddingVertical),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Already registered?',
-                                style: AppTextStyles.textSize14(),
-                              ),
-                              SizedBox(
-                                width: 5.0,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  NavigationService.instance
-                                      .navigateTo(Login());
-                                },
-                                child: Text('Login',
-                                    style: AppTextStyles.textSize14(
-                                      color: AppColors.green,
-                                    )),
                               )
                             ],
-                          )),
-                    ],
-                  ),
-                  BottomSpace(),
-                ],
+                          )
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        CustomButton(
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          ontap: () {
+                            NavigationService.instance.navigateTo(VerifyCode());
+                          },
+                          borderColor: AppColors.greenAccent,
+                          color: AppColors.greenAccent,
+                          text: AppTranslations()
+                              .getLanguage(context, 'Register'),
+                          style: AppTextStyles.textSize18(),
+                        ),
+                        Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: AppMetrics.paddingHorizotal,
+                                vertical: AppMetrics.paddingVertical),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Already registered?',
+                                  style: AppTextStyles.textSize14(),
+                                ),
+                                SizedBox(
+                                  width: 5.0,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    NavigationService.instance
+                                        .navigateTo(Login());
+                                  },
+                                  child: Text('Login',
+                                      style: AppTextStyles.textSize14(
+                                        color: AppColors.green,
+                                      )),
+                                )
+                              ],
+                            )),
+                      ],
+                    ),
+                    BottomSpace(),
+                  ],
+                ),
               ),
             ),
             BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {

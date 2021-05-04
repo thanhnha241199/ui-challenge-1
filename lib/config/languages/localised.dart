@@ -1,6 +1,7 @@
 class Languages {
   static Map<dynamic, dynamic> localised = {
     "login": {"en": "Log in"},
+    "logout": {"en": "Log out"},
     "forgotPassword": {"en": "Forgot password?"},
     "phoneNumber": {"en": "Phone number"},
     "password": {"en": "Password"},
@@ -39,5 +40,15 @@ class Languages {
     "newTimecard": {"en": "New Time Card"},
     "newTimesheet": {"en": "New Timesheet"},
     "account": {"en": "Account"},
+    "of": {"en": "of"},
+    "scheduled": {"en": "Scheduled"},
+    "switchBussiness": {"en": "Switch to Anothe Bussiness"},
+    "notification": {"en": "Notification Preferences"},
+    "updatePassword": {"en": "Update Password"},
+    "currentPassword": {"en": "Current password"},
+    "newPassword": {"en": "New password"},
+    "confirmPassword": {"en": "Confirm new password"},
+    "save": {"en": "Save"},
+    "privacyPocicy": {"en": "Privacy Policy"},
   };
 }

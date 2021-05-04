@@ -9,6 +9,7 @@ import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 class TimeCard extends StatefulWidget {
   @override
@@ -16,6 +17,16 @@ class TimeCard extends StatefulWidget {
 }
 
 class _TimeCardState extends State<TimeCard> {
+  TextEditingController comments, location;
+  TimeOfDay _time = TimeOfDay(hour: 4, minute: 33);
+  DateTime _date;
+  @override
+  void initState() {
+    comments = TextEditingController(text: 'Enter Note');
+    location = TextEditingController(text: 'Add location');
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,198 +36,212 @@ class _TimeCardState extends State<TimeCard> {
             title: "My Time Card",
             style: AppTextStyles.textSize16(),
           )),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          formTimeCard(),
-          Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingHorizotal,
-                vertical: AppMetrics.paddingVertical),
-            child: Column(
-              children: [
-                CustomButton(
-                  ontap: () {
-                    showModalBottomSheet<void>(
-                      context: context,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(20),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            formTimeCard(),
+            Container(
+              margin: EdgeInsets.symmetric(
+                  horizontal: AppMetrics.paddingHorizotal,
+                  vertical: AppMetrics.paddingVertical),
+              child: Column(
+                children: [
+                  CustomButton(
+                    ontap: () {
+                      showModalBottomSheet<void>(
+                        context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(AppMetrics.paddingHorizotal),
+                          ),
                         ),
-                      ),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      builder: (BuildContext context) {
-                        return Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 30.0,
-                              horizontal: AppMetrics.paddingHorizotal),
-                          height: MediaQuery.of(context).size.height * 0.55,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(flex: 1, child: Text("")),
-                                  Expanded(
-                                      flex: 4,
-                                      child: Text(
-                                        "Time Card Added",
-                                        style: AppTextStyles.textSize20(
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      )),
-                                  Expanded(
-                                      flex: 1,
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            NavigationService.instance.goback();
-                                          },
-                                          child: SvgPicture.asset(
-                                            AppImage.close,
-                                            alignment: Alignment.center,
-                                          )))
-                                ],
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: AppMetrics.paddingHorizotal),
-                                child: Flexible(
-                                  child: Row(
-                                    children: [
-                                      RichText(
-                                        text: TextSpan(children: [
-                                          TextSpan(
-                                            text:
-                                                "This time card has been added to this week's\ntimesheet. You can edit time card yor \nTimesheets as long as it is in ",
-                                            style: AppTextStyles.textSize16(),
-                                          ),
-                                          WidgetSpan(
-                                              child: SvgPicture.asset(
-                                            AppImage.draft,
-                                            alignment: Alignment.bottomCenter,
-                                          )),
-                                          TextSpan(
-                                            text: "or\n",
-                                            style: AppTextStyles.textSize16(),
-                                          ),
-                                          WidgetSpan(
-                                              child: SvgPicture.asset(
-                                            AppImage.pending,
-                                            alignment: Alignment.bottomCenter,
-                                          )),
-                                        ]),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.1,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: AppMetrics.paddingHorizotal,
-                                    vertical: AppMetrics.paddingVertical),
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: AppMetrics.paddingContent,
-                                    vertical: AppMetrics.paddingContent),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: AppColors.grey.withOpacity(0.2)),
-                                    color: AppColors.whiteColor,
-                                    borderRadius: BorderRadius.circular(
-                                        AppMetrics.borderContainer)),
-                                alignment: Alignment.center,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        builder: (BuildContext context) {
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 30.0,
+                                horizontal: AppMetrics.paddingHorizotal),
+                            height: MediaQuery.of(context).size.height * 0.55,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Row(
                                   children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Day Total",
-                                          style: AppTextStyles.textSize12(),
-                                        ),
-                                        Text(
-                                          "1h12m",
-                                          style: AppTextStyles.textSize18(
-                                              color: AppColors.green),
-                                        )
-                                      ],
-                                    ),
-                                    VerticalDivider(),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Start",
-                                          style: AppTextStyles.textSize12(),
-                                        ),
-                                        Text(
-                                          "3:00pm",
-                                          style: AppTextStyles.textSize18(),
-                                        )
-                                      ],
-                                    ),
-                                    VerticalDivider(),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "End",
-                                          style: AppTextStyles.textSize12(),
-                                        ),
-                                        Text(
-                                          "4:12pm",
-                                          style: AppTextStyles.textSize18(),
-                                        )
-                                      ],
-                                    ),
+                                    Expanded(flex: 1, child: Text("")),
+                                    Expanded(
+                                        flex: 4,
+                                        child: Text(
+                                          "Time Card Added",
+                                          style: AppTextStyles.textSize20(
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.center,
+                                        )),
+                                    Expanded(
+                                        flex: 1,
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              NavigationService.instance
+                                                  .goback();
+                                            },
+                                            child: SvgPicture.asset(
+                                              AppImage.close,
+                                              alignment: Alignment.center,
+                                            )))
                                   ],
                                 ),
-                              ),
-                              CustomButton(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.08,
-                                ontap: () {},
-                                borderColor: AppColors.greenAccent,
-                                color: AppColors.greenAccent,
-                                text: "View My Timesheet",
-                                style: AppTextStyles.textSize14(),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  color: AppColors.greenAccent,
-                  borderColor: AppColors.greenAccent,
-                  text: 'Clock Out',
-                  height: MediaQuery.of(context).size.height * 0.08,
-                  style: AppTextStyles.textSize18(),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                CustomButton(
-                  ontap: () {
-                    NavigationService.instance.goback();
-                  },
-                  color: AppColors.whiteColor,
-                  borderColor: AppColors.greenAccent,
-                  text: 'Cancel',
-                  height: MediaQuery.of(context).size.height * 0.08,
-                  style: AppTextStyles.textSize18(),
-                ),
-              ],
-            ),
-          )
-        ],
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: AppMetrics.paddingContent,
+                                      horizontal: AppMetrics.paddingHorizotal),
+                                  child: Flexible(
+                                    child: Row(
+                                      children: [
+                                        Flexible(
+                                          child: RichText(
+                                            text: TextSpan(children: [
+                                              TextSpan(
+                                                text:
+                                                    "This time card has been added to this week's timesheet. You can edit time card yor Timesheets as long as it is in ",
+                                                style:
+                                                    AppTextStyles.textSize16(),
+                                              ),
+                                              WidgetSpan(
+                                                  alignment:
+                                                      PlaceholderAlignment
+                                                          .middle,
+                                                  child: SvgPicture.asset(
+                                                      AppImage.draft)),
+                                              TextSpan(
+                                                text: " or ",
+                                                style:
+                                                    AppTextStyles.textSize16(),
+                                              ),
+                                              WidgetSpan(
+                                                  alignment:
+                                                      PlaceholderAlignment
+                                                          .middle,
+                                                  child: SvgPicture.asset(
+                                                      AppImage.pending)),
+                                            ]),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.12,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: AppMetrics.paddingHorizotal,
+                                        vertical: AppMetrics.paddingVertical),
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: AppMetrics.paddingContent,
+                                        vertical: AppMetrics.paddingContent),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: AppColors.grey
+                                                .withOpacity(0.2)),
+                                        color: AppColors.whiteColor,
+                                        borderRadius: BorderRadius.circular(
+                                            AppMetrics.borderContainer)),
+                                    alignment: Alignment.center,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Day Total",
+                                              style: AppTextStyles.textSize12(),
+                                            ),
+                                            Text(
+                                              "1h12m",
+                                              style: AppTextStyles.textSize18(
+                                                  color: AppColors.green),
+                                            )
+                                          ],
+                                        ),
+                                        VerticalDivider(),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Start",
+                                              style: AppTextStyles.textSize12(),
+                                            ),
+                                            Text(
+                                              "3:00pm",
+                                              style: AppTextStyles.textSize18(),
+                                            )
+                                          ],
+                                        ),
+                                        VerticalDivider(),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "End",
+                                              style: AppTextStyles.textSize12(),
+                                            ),
+                                            Text(
+                                              "4:12pm",
+                                              style: AppTextStyles.textSize18(),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                CustomButton(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.08,
+                                  ontap: () {},
+                                  borderColor: AppColors.greenAccent,
+                                  color: AppColors.greenAccent,
+                                  text: "View My Timesheet",
+                                  style: AppTextStyles.textSize14(),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    color: AppColors.greenAccent,
+                    borderColor: AppColors.greenAccent,
+                    text: 'Clock Out',
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    style: AppTextStyles.textSize18(),
+                  ),
+                  SizedBox(
+                    height: AppMetrics.paddingContainer,
+                  ),
+                  CustomButton(
+                    ontap: () {
+                      NavigationService.instance.goback();
+                    },
+                    color: AppColors.whiteColor,
+                    borderColor: AppColors.greenAccent,
+                    text: 'Cancel',
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    style: AppTextStyles.textSize18(),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -290,148 +315,147 @@ class _TimeCardState extends State<TimeCard> {
             ),
           ),
           Container(
-            padding:
-                EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppMetrics.paddingHorizotal,
-                        vertical: AppMetrics.paddingContent),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Start Time",
-                          style: AppTextStyles.textSize12(),
-                        ),
-                        SizedBox(
-                          height: 5.0,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Today",
-                              style: AppTextStyles.textSize20(),
-                            ),
-                            Spacer(),
-                            SvgPicture.asset(
-                              AppImage.calendar,
-                              alignment: Alignment.center,
-                            ),
-                          ],
-                        ),
-                        Divider()
-                      ],
-                    )),
-                Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppMetrics.paddingHorizotal,
-                        vertical: AppMetrics.paddingContent),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "",
-                          style: AppTextStyles.textSize12(),
-                        ),
-                        SizedBox(
-                          height: 5.0,
-                        ),
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              AppImage.clock,
-                              alignment: Alignment.center,
-                            ),
-                            SizedBox(
-                              width: 5.0,
-                            ),
-                            Text(
-                              "4:33pm",
-                              style: AppTextStyles.textSize18(),
-                            ),
-                          ],
-                        ),
-                        Divider()
-                      ],
-                    )),
+                Expanded(
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppMetrics.paddingHorizotal,
+                          vertical: AppMetrics.paddingContent),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Start Time",
+                            style: AppTextStyles.textSize12(
+                                color: AppColors.blueLight),
+                          ),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  _date == null
+                                      ? "Today"
+                                      : DateFormat('dd/MM/yyyy').format(_date),
+                                  overflow: TextOverflow.ellipsis,
+                                  style: AppTextStyles.textSize18(
+                                      color: AppColors.blueLight),
+                                ),
+                              ),
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: _selectDate,
+                                  child: SvgPicture.asset(
+                                    AppImage.calendar,
+                                    alignment: Alignment.center,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Divider()
+                        ],
+                      )),
+                ),
+                Expanded(
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppMetrics.paddingHorizotal,
+                          vertical: AppMetrics.paddingContent),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "",
+                            style: AppTextStyles.textSize12(
+                                color: AppColors.blueLight),
+                          ),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: _selectTime,
+                                child: SvgPicture.asset(
+                                  AppImage.clock,
+                                  alignment: Alignment.center,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5.0,
+                              ),
+                              Text(
+                                _time.format(context),
+                                style: AppTextStyles.textSize18(
+                                    color: AppColors.blueLight),
+                              ),
+                            ],
+                          ),
+                          Divider()
+                        ],
+                      )),
+                ),
               ],
             ),
           ),
           Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: AppMetrics.paddingHorizotal,
-                  vertical: AppMetrics.paddingContent),
-              margin:
+              padding:
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Location",
-                    style: AppTextStyles.textSize12(),
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Add location",
-                        style: AppTextStyles.textSize18(),
-                      ),
-                      Spacer(),
-                      SvgPicture.asset(
-                        AppImage.search,
-                        alignment: Alignment.center,
-                      ),
-                    ],
-                  ),
-                  Divider()
-                ],
+              child: TextField(
+                style: AppTextStyles.textSize18(color: AppColors.blueLight),
+                controller: location,
+                decoration: InputDecoration(
+                    suffixIcon: Image.asset(
+                      AppImage.search,
+                      height: 18.0,
+                      width: 18.0,
+                    ),
+                    hintText: 'Add Location',
+                    labelStyle:
+                        AppTextStyles.textSize12(color: AppColors.blueLight),
+                    hintStyle:
+                        AppTextStyles.textSize18(color: AppColors.blueLight),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.grey10),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.grey10),
+                    ),
+                    labelText: 'Location'),
               )),
           Container(
               padding: EdgeInsets.symmetric(
                   horizontal: AppMetrics.paddingHorizotal,
                   vertical: AppMetrics.paddingContent),
-              margin:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Commnets",
-                    style: AppTextStyles.textSize12(),
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Enter Note",
-                        style: AppTextStyles.textSize18(),
-                      ),
-                      Spacer(),
-                      SvgPicture.asset(
-                        AppImage.caretdown,
-                        alignment: Alignment.center,
-                      ),
-                    ],
-                  ),
-                  Divider()
-                ],
+              child: TextField(
+                style: AppTextStyles.textSize18(color: AppColors.blueLight),
+                controller: comments,
+                decoration: InputDecoration(
+                    hintText: 'Enter Note',
+                    labelStyle:
+                        AppTextStyles.textSize12(color: AppColors.blueLight),
+                    hintStyle:
+                        AppTextStyles.textSize18(color: AppColors.blueLight),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.grey10),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.grey10),
+                    ),
+                    labelText: 'Comments'),
               )),
           Container(
               padding: EdgeInsets.symmetric(
                   horizontal: AppMetrics.paddingHorizotal,
                   vertical: AppMetrics.paddingContent),
-              margin:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -448,8 +472,38 @@ class _TimeCardState extends State<TimeCard> {
                   ),
                 ],
               )),
+          SizedBox(
+            height: AppMetrics.paddingContainer,
+          )
         ],
       ),
     );
+  }
+
+  void _selectDate() async {
+    final DateTime newDate = await showDatePicker(
+      context: context,
+      initialDate: _date ?? DateTime.now(),
+      firstDate: DateTime(2017, 1),
+      lastDate: DateTime(2022, 7),
+      helpText: 'Select a date',
+    );
+    if (newDate != null) {
+      setState(() {
+        _date = newDate;
+      });
+    }
+  }
+
+  void _selectTime() async {
+    final TimeOfDay newTime = await showTimePicker(
+      context: context,
+      initialTime: _time,
+    );
+    if (newTime != null) {
+      setState(() {
+        _time = newTime;
+      });
+    }
   }
 }

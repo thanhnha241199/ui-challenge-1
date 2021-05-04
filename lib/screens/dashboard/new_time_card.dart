@@ -9,6 +9,7 @@ import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 class NewTimeCard extends StatefulWidget {
   @override
@@ -16,6 +17,16 @@ class NewTimeCard extends StatefulWidget {
 }
 
 class _NewTimeCardState extends State<NewTimeCard> {
+  TextEditingController comments, location;
+  TimeOfDay _time = TimeOfDay(hour: 4, minute: 33);
+  DateTime _date;
+  @override
+  void initState() {
+    comments = TextEditingController(text: 'Enter Note');
+    location = TextEditingController(text: 'Add location');
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,167 +36,176 @@ class _NewTimeCardState extends State<NewTimeCard> {
             title: "New Time Card",
             style: AppTextStyles.textSize16(),
           )),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            children: [
-              formTimeCard(),
-              CustomContainer(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: AppMetrics.paddingHorizotal,
-                      vertical: AppMetrics.paddingVertical),
-                  edgeInsets: EdgeInsets.symmetric(
-                      horizontal: AppMetrics.paddingHorizotal),
-                  colorBorder: AppColors.grey.withOpacity(0.2),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        AppImage.warningcircle,
-                        alignment: Alignment.center,
-                      ),
-                      SizedBox(
-                        width: 16.0,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "You are next scheduled to clock in",
-                            style: AppTextStyles.textSize14(),
-                          ),
-                          Text(
-                            "Tomorrow at 06:00pm",
-                            style: AppTextStyles.textSize14(
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      )
-                    ],
-                  )),
-            ],
-          ),
-          Container(
-              margin: EdgeInsets.symmetric(
-                  vertical: AppMetrics.paddingVertical,
-                  horizontal: AppMetrics.paddingHorizotal),
-              child: Column(
-                children: [
-                  CustomButton(
-                    ontap: () {
-                      showModalBottomSheet<void>(
-                        context: context,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(20),
-                          ),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                formTimeCard(),
+                CustomContainer(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: AppMetrics.paddingContainer,
+                        vertical: AppMetrics.paddingVertical),
+                    edgeInsets: EdgeInsets.symmetric(
+                        horizontal: AppMetrics.paddingHorizotal),
+                    colorBorder: AppColors.grey.withOpacity(0.2),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          AppImage.warningcircle,
+                          alignment: Alignment.center,
                         ),
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        builder: (BuildContext context) {
-                          return Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 30.0,
-                                horizontal: AppMetrics.paddingHorizotal),
-                            height: MediaQuery.of(context).size.height * 0.55,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(
-                                      top: AppMetrics.paddingVertical),
-                                  child: Row(
-                                    children: [
-                                      Expanded(flex: 1, child: Text("")),
-                                      Expanded(
-                                          flex: 4,
-                                          child: Text(
-                                            "Your Are About To Clock In",
-                                            style: AppTextStyles.textSize20(
-                                                fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
-                                          )),
-                                      Expanded(
-                                          flex: 1,
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                NavigationService.instance
-                                                    .goback();
-                                              },
-                                              child: SvgPicture.asset(
-                                                AppImage.close,
-                                                alignment: Alignment.center,
-                                              )))
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: AppMetrics.paddingHorizotal),
-                                  child: Text(
-                                    "Just to confirm: you are not scheduled to work today. Please confirm you would like to clock in a time",
-                                    maxLines: 5,
-                                    style: AppTextStyles.textSize16(),
-                                    textAlign: TextAlign.start,
-                                  ),
-                                ),
-                                Column(
-                                  children: [
-                                    CustomButton(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.08,
-                                      ontap: () {},
-                                      borderColor: AppColors.greenAccent,
-                                      color: AppColors.greenAccent,
-                                      text: "Confirm Clock In",
-                                      style: AppTextStyles.textSize14(),
-                                    ),
-                                    SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    CustomButton(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.08,
-                                      ontap: () {
-                                        NavigationService.instance.goback();
-                                      },
-                                      borderColor: AppColors.greenAccent,
-                                      color: AppColors.whiteColor,
-                                      text: "Cancel",
-                                      style: AppTextStyles.textSize14(),
-                                    ),
-                                  ],
-                                )
-                              ],
+                        SizedBox(
+                          width: 16.0,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "You are next scheduled to clock in",
+                              style: AppTextStyles.textSize14(),
                             ),
-                          );
-                        },
-                      );
-                    },
-                    color: AppColors.greenAccent,
-                    borderColor: AppColors.greenAccent,
-                    text: 'Clock In',
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    style: AppTextStyles.textSize18(),
-                  ),
-                  SizedBox(
-                    height: AppMetrics.paddingContainer,
-                  ),
-                  CustomButton(
-                    ontap: () {
-                      NavigationService.instance.goback();
-                    },
-                    borderColor: AppColors.greenAccent,
-                    color: AppColors.whiteColor,
-                    text: 'Cancel',
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    style: AppTextStyles.textSize18(),
-                  ),
-                ],
-              )),
-        ],
+                            Text(
+                              "Tomorrow at 06:00pm",
+                              style: AppTextStyles.textSize14(
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        )
+                      ],
+                    )),
+              ],
+            ),
+            SizedBox(
+              height: 40.0,
+            ),
+            Container(
+                margin: EdgeInsets.symmetric(
+                    vertical: AppMetrics.paddingVertical,
+                    horizontal: AppMetrics.paddingHorizotal),
+                child: Column(
+                  children: [
+                    CustomButton(
+                      ontap: () {
+                        showModalBottomSheet<void>(
+                          context: context,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
+                          ),
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          builder: (BuildContext context) {
+                            return Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 30.0,
+                                  horizontal: AppMetrics.paddingHorizotal),
+                              height: MediaQuery.of(context).size.height * 0.55,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                        top: AppMetrics.paddingVertical),
+                                    child: Row(
+                                      children: [
+                                        Expanded(flex: 1, child: Text("")),
+                                        Expanded(
+                                            flex: 4,
+                                            child: Text(
+                                              "Your Are About To Clock In",
+                                              style: AppTextStyles.textSize20(
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            )),
+                                        Expanded(
+                                            flex: 1,
+                                            child: GestureDetector(
+                                                onTap: () {
+                                                  NavigationService.instance
+                                                      .goback();
+                                                },
+                                                child: SvgPicture.asset(
+                                                  AppImage.close,
+                                                  alignment: Alignment.center,
+                                                )))
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            AppMetrics.paddingHorizotal),
+                                    child: Text(
+                                      "Just to confirm: you are not scheduled to work today. Please confirm you would like to clock in a time",
+                                      maxLines: 5,
+                                      style: AppTextStyles.textSize16(),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ),
+                                  Column(
+                                    children: [
+                                      CustomButton(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.08,
+                                        ontap: () {},
+                                        borderColor: AppColors.greenAccent,
+                                        color: AppColors.greenAccent,
+                                        text: "Confirm Clock In",
+                                        style: AppTextStyles.textSize14(),
+                                      ),
+                                      SizedBox(
+                                        height: AppMetrics.paddingContainer,
+                                      ),
+                                      CustomButton(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.08,
+                                        ontap: () {
+                                          NavigationService.instance.goback();
+                                        },
+                                        borderColor: AppColors.greenAccent,
+                                        color: AppColors.whiteColor,
+                                        text: "Cancel",
+                                        style: AppTextStyles.textSize14(),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      color: AppColors.greenAccent,
+                      borderColor: AppColors.greenAccent,
+                      text: 'Clock In',
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      style: AppTextStyles.textSize18(),
+                    ),
+                    SizedBox(
+                      height: AppMetrics.paddingContainer,
+                    ),
+                    CustomButton(
+                      ontap: () {
+                        NavigationService.instance.goback();
+                      },
+                      borderColor: AppColors.greenAccent,
+                      color: AppColors.whiteColor,
+                      text: 'Cancel',
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      style: AppTextStyles.textSize18(),
+                    ),
+                  ],
+                )),
+          ],
+        ),
       ),
     );
   }
@@ -248,144 +268,181 @@ class _NewTimeCardState extends State<NewTimeCard> {
             ),
           ),
           Container(
-            padding:
-                EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppMetrics.paddingHorizotal,
-                        vertical: AppMetrics.paddingContent),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Start Time",
-                          style: AppTextStyles.textSize12(),
-                        ),
-                        SizedBox(
-                          height: 5.0,
-                        ),
-                        Row(
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppMetrics.paddingHorizotal,
+                            vertical: AppMetrics.paddingContent),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Today",
-                              style: AppTextStyles.textSize20(),
-                            ),
-                            Spacer(),
-                            SvgPicture.asset(
-                              AppImage.calendar,
-                              alignment: Alignment.center,
-                            ),
-                          ],
-                        ),
-                        Divider()
-                      ],
-                    )),
-                Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppMetrics.paddingHorizotal,
-                        vertical: AppMetrics.paddingContent),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "",
-                          style: AppTextStyles.textSize12(),
-                        ),
-                        SizedBox(
-                          height: 5.0,
-                        ),
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              AppImage.clock,
-                              alignment: Alignment.center,
+                              "Start Time",
+                              style: AppTextStyles.textSize12(
+                                  color: AppColors.blueLight),
                             ),
                             SizedBox(
-                              width: 5.0,
+                              height: 5.0,
                             ),
-                            Text(
-                              "4:33pm",
-                              style: AppTextStyles.textSize18(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    _date == null
+                                        ? "Today"
+                                        : DateFormat('dd/MM/yyyy')
+                                            .format(_date),
+                                    overflow: TextOverflow.ellipsis,
+                                    style: AppTextStyles.textSize18(
+                                        color: AppColors.blueLight),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: selectDate,
+                                    child: SvgPicture.asset(
+                                      AppImage.calendar,
+                                      alignment: Alignment.center,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
+                            Divider()
                           ],
-                        ),
-                        Divider()
-                      ],
-                    )),
+                        )),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppMetrics.paddingHorizotal,
+                            vertical: AppMetrics.paddingContent),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "",
+                              style: AppTextStyles.textSize12(
+                                  color: AppColors.blueLight),
+                            ),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: selectTime,
+                                  child: SvgPicture.asset(
+                                    AppImage.clock,
+                                    alignment: Alignment.center,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 5.0,
+                                ),
+                                Text(
+                                  _time.format(context),
+                                  style: AppTextStyles.textSize18(
+                                      color: AppColors.blueLight),
+                                ),
+                              ],
+                            ),
+                            Divider()
+                          ],
+                        )),
+                  ),
+                ),
               ],
             ),
           ),
           Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: AppMetrics.paddingHorizotal,
-                  vertical: AppMetrics.paddingContent),
-              margin:
+              padding:
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Location",
-                    style: AppTextStyles.textSize12(),
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Add location",
-                        style: AppTextStyles.textSize18(),
-                      ),
-                      Spacer(),
-                      SvgPicture.asset(
-                        AppImage.search,
-                        alignment: Alignment.center,
-                      ),
-                    ],
-                  ),
-                  Divider()
-                ],
+              child: TextField(
+                style: AppTextStyles.textSize18(color: AppColors.blueLight),
+                controller: location,
+                decoration: InputDecoration(
+                    suffixIcon: Image.asset(
+                      AppImage.search,
+                      height: 18.0,
+                      width: 18.0,
+                    ),
+                    hintText: 'Add Location',
+                    labelStyle:
+                        AppTextStyles.textSize12(color: AppColors.blueLight),
+                    hintStyle:
+                        AppTextStyles.textSize18(color: AppColors.blueLight),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.grey10),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.grey10),
+                    ),
+                    labelText: 'Location'),
               )),
           Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: AppMetrics.paddingHorizotal,
-                  vertical: AppMetrics.paddingContent),
-              margin:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Commnets",
-                    style: AppTextStyles.textSize12(),
+            padding: EdgeInsets.only(
+                left: AppMetrics.paddingHorizotal,
+                right: AppMetrics.paddingHorizotal,
+                bottom: AppMetrics.paddingHorizotal),
+            child: TextField(
+              style: AppTextStyles.textSize18(color: AppColors.blueLight),
+              controller: comments,
+              decoration: InputDecoration(
+                  hintText: 'Enter Note',
+                  labelStyle:
+                      AppTextStyles.textSize12(color: AppColors.blueLight),
+                  hintStyle:
+                      AppTextStyles.textSize18(color: AppColors.blueLight),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: AppColors.grey10),
                   ),
-                  SizedBox(
-                    height: 5.0,
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: AppColors.grey10),
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        "Enter Note",
-                        style: AppTextStyles.textSize18(),
-                      ),
-                      Spacer(),
-                      SvgPicture.asset(
-                        AppImage.caretdown,
-                        alignment: Alignment.center,
-                      ),
-                    ],
-                  ),
-                  Divider()
-                ],
-              )),
+                  labelText: 'Comments'),
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  void selectDate() async {
+    final DateTime newDate = await showDatePicker(
+      context: context,
+      initialDate: _date ?? DateTime.now(),
+      firstDate: DateTime(2017, 1),
+      lastDate: DateTime(2022, 7),
+      helpText: 'Select a date',
+    );
+    if (newDate != null) {
+      setState(() {
+        _date = newDate;
+      });
+    }
+  }
+
+  void selectTime() async {
+    final TimeOfDay newTime = await showTimePicker(
+      context: context,
+      initialTime: _time,
+    );
+    if (newTime != null) {
+      setState(() {
+        _time = newTime;
+      });
+    }
   }
 }

@@ -1,10 +1,12 @@
 import 'dart:ui';
 
 import 'package:bookkeepa/models/notification/notification.dart';
+import 'package:bookkeepa/models/leave/leave.dart';
 import 'package:bookkeepa/screens/leave/edit_leave_request.dart';
-
+import 'package:bookkeepa/screens/leave/new_leave_request.dart';
 import 'package:bookkeepa/screens/notifications/notifications.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
+import 'package:bookkeepa/widgets/app_list_view.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/float_btn.dart';
@@ -47,6 +49,64 @@ class _LeaveState extends State<Leave> {
     NotificationModel(
         title: "3 documents needs to be signed", read: false, time: "1d ago"),
   ];
+  List<LeaveModel> items = [
+    LeaveModel(
+        name: "Jackson Garrison",
+        start: "8 Feb",
+        end: "12 Feb 2021",
+        hours: "36.5hrs",
+        description: "Doctor's Appointment",
+        label1: AppImage.pending,
+        label2: AppImage.sick_leave),
+    LeaveModel(
+        name: "Jackson Garrison",
+        start: "8 Feb",
+        end: "12 Feb 2021",
+        hours: "36.5hrs",
+        description: "Trip to Sydney",
+        label1: AppImage.approved,
+        label2: AppImage.sick_leave),
+    LeaveModel(
+        name: "Jackson Garrison",
+        start: "8 Feb",
+        end: "12 Feb 2021",
+        hours: "36.5hrs",
+        description: "Doctor's Appointment",
+        label1: AppImage.pending,
+        label2: AppImage.sick_leave),
+    LeaveModel(
+        name: "Jackson Garrison",
+        start: "8 Feb",
+        end: "12 Feb 2021",
+        hours: "36.5hrs",
+        description: "Doctor's Appointment",
+        label1: AppImage.approved,
+        label2: AppImage.sick_leave),
+    LeaveModel(
+        name: "Jackson Garrison",
+        start: "8 Feb",
+        end: "12 Feb 2021",
+        hours: "36.5hrs",
+        description: "Trip to Sydney",
+        label1: AppImage.approved,
+        label2: AppImage.sick_leave),
+    LeaveModel(
+        name: "Jackson Garrison",
+        start: "8 Feb",
+        end: "12 Feb 2021",
+        hours: "36.5hrs",
+        description: "Doctor's Appointment",
+        label1: AppImage.pending,
+        label2: AppImage.sick_leave),
+    LeaveModel(
+        name: "Jackson Garrison",
+        start: "8 Feb",
+        end: "12 Feb 2021",
+        hours: "36.5hrs",
+        description: "Doctor's Appointment",
+        label1: AppImage.approved,
+        label2: AppImage.sick_leave)
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,284 +140,29 @@ class _LeaveState extends State<Leave> {
                     );
                   },
                   child: SvgPicture.asset(AppImage.notification)))),
-      body: ListView(
-        physics: BouncingScrollPhysics(),
+      body: Column(
         children: [
           leaveBalance(),
-          CustomContainer(
-              edgeInsets: EdgeInsets.symmetric(horizontal: 20.0),
-              padding: EdgeInsets.symmetric(vertical: 10.0),
+          Expanded(
+            child: CustomContainer(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.45,
+              edgeInsets:
+                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
+              padding:
+                  EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
               colorBorder: AppColors.grey.withOpacity(0.2),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Jackson Garrison",
-                                  style: AppTextStyles.textSize16(),
-                                ),
-                                SizedBox(
-                                  height: 5.0,
-                                ),
-                                Text(
-                                  "8 Feb - 12 2021 (36.5hrs)",
-                                  style: AppTextStyles.textSize12(),
-                                ),
-                                SizedBox(
-                                  height: 5.0,
-                                ),
-                                Text(
-                                  "Doctor's Appointment",
-                                  style: AppTextStyles.textSize12(),
-                                )
-                              ],
-                            ),
-                            Spacer(),
-                            Column(
-                              children: [
-                                SvgPicture.asset(
-                                  AppImage.pending,
-                                  alignment: Alignment.center,
-                                ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                SvgPicture.asset(
-                                  AppImage.sick_leave,
-                                  alignment: Alignment.center,
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Divider(),
-                  Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Jackson Garrison",
-                                  style: AppTextStyles.textSize16(),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "8 Feb - 12 2021 (36.5hrs)",
-                                  style: AppTextStyles.textSize12(),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "Trip to Sydney",
-                                  style: AppTextStyles.textSize12(),
-                                )
-                              ],
-                            ),
-                            Spacer(),
-                            Column(
-                              children: [
-                                SvgPicture.asset(
-                                  AppImage.approved,
-                                  alignment: Alignment.center,
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                SvgPicture.asset(
-                                  AppImage.sick_leave,
-                                  alignment: Alignment.center,
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Divider(),
-                  Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Jackson Garrison",
-                                  style: AppTextStyles.textSize16(),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "8 Feb - 12 2021 (36.5hrs)",
-                                  style: AppTextStyles.textSize12(),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "Doctor's Appointment",
-                                  style: AppTextStyles.textSize12(),
-                                )
-                              ],
-                            ),
-                            Spacer(),
-                            Column(
-                              children: [
-                                SvgPicture.asset(
-                                  AppImage.pending,
-                                  alignment: Alignment.center,
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                SvgPicture.asset(
-                                  AppImage.sick_leave,
-                                  alignment: Alignment.center,
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Divider(),
-                  Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Jackson Garrison",
-                                  style: AppTextStyles.textSize16(),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "8 Feb - 12 2021 (36.5hrs)",
-                                  style: AppTextStyles.textSize12(),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "Doctor's Appointment",
-                                  style: AppTextStyles.textSize12(),
-                                )
-                              ],
-                            ),
-                            Spacer(),
-                            Column(
-                              children: [
-                                SvgPicture.asset(
-                                  AppImage.approved,
-                                  alignment: Alignment.center,
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                SvgPicture.asset(
-                                  AppImage.sick_leave,
-                                  alignment: Alignment.center,
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Divider(),
-                  Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Jackson Garrison",
-                                  style: AppTextStyles.textSize16(),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "8 Feb - 12 2021 (36.5hrs)",
-                                  style: AppTextStyles.textSize12(),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "Doctor's Appointment",
-                                  style: AppTextStyles.textSize12(),
-                                )
-                              ],
-                            ),
-                            Spacer(),
-                            Column(
-                              children: [
-                                SvgPicture.asset(
-                                  AppImage.approved,
-                                  alignment: Alignment.center,
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                SvgPicture.asset(
-                                  AppImage.sick_leave,
-                                  alignment: Alignment.center,
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ))
+              child: AppListView(
+                data: items,
+                renderItem: (item) {
+                  return renderItem(context, item);
+                },
+                onLoadMore: () {
+                  print('loadmore');
+                },
+              ),
+            ),
+          )
         ],
       ),
       floatingActionButton: Row(
@@ -366,23 +171,88 @@ class _LeaveState extends State<Leave> {
         children: [
           CustomButton(
             ontap: () {
-              NavigationService.instance.navigateTo(EditLeave());
+              NavigationService.instance.navigateTo(NewLeaveRequest());
             },
             borderColor: AppColors.greenAccent,
             color: AppColors.greenAccent,
             text: AppTranslations().getLanguage(context, 'requestLeave'),
-            height: MediaQuery.of(context).size.height * 0.07,
+            height: 55.0,
             width: MediaQuery.of(context).size.width * 0.4,
             style: AppTextStyles.textSize14(),
           ),
           SizedBox(
             width: 20.0,
           ),
-          FancyFab(
-            switchAccount: false,
-          )
+          FancyFab()
         ],
       ),
+    );
+  }
+
+  Widget renderItem(BuildContext context, LeaveModel item) {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: () {
+            NavigationService.instance.navigateTo(EditLeave());
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: AppMetrics.paddingContainer,
+                vertical: AppMetrics.paddingContent),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.name,
+                          style: AppTextStyles.textSize16(),
+                        ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
+                        Text(
+                          "${item.start} - ${item.end}(${item.hours})",
+                          style: AppTextStyles.textSize12(),
+                        ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
+                        Text(
+                          item.description,
+                          style: AppTextStyles.textSize12(),
+                        )
+                      ],
+                    ),
+                    Spacer(),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SvgPicture.asset(
+                          item.label1,
+                          alignment: Alignment.center,
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        SvgPicture.asset(
+                          item.label2,
+                          alignment: Alignment.center,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        items.indexOf(item) == items.length - 1 ? Container() : Divider()
+      ],
     );
   }
 
@@ -391,14 +261,16 @@ class _LeaveState extends State<Leave> {
         edgeInsets: EdgeInsets.symmetric(
             horizontal: AppMetrics.paddingHorizotal,
             vertical: AppMetrics.paddingVertical),
-        padding: EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
+        padding: EdgeInsets.symmetric(vertical: AppMetrics.paddingContainer),
         colorBorder: AppColors.grey.withOpacity(0.2),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+              padding: EdgeInsets.symmetric(
+                  horizontal: AppMetrics.paddingContainer,
+                  vertical: AppMetrics.paddingContent),
               child: Text(
                 AppTranslations().getLanguage(context, 'leaveBalance'),
                 style: AppTextStyles.textSize14(fontWeight: FontWeight.bold),
@@ -406,7 +278,9 @@ class _LeaveState extends State<Leave> {
             ),
             Divider(),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+              padding: EdgeInsets.symmetric(
+                  horizontal: AppMetrics.paddingContainer,
+                  vertical: AppMetrics.paddingContent),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -429,7 +303,9 @@ class _LeaveState extends State<Leave> {
             ),
             Divider(),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+              padding: EdgeInsets.symmetric(
+                  horizontal: AppMetrics.paddingContainer,
+                  vertical: AppMetrics.paddingContent),
               child: Row(
                 children: [
                   Text(

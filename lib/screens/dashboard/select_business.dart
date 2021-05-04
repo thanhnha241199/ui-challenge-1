@@ -20,6 +20,9 @@ class _SelectBusinessState extends State<SelectBusiness> {
     BusinessModel(title: "Telsta", subtitle: "Address Info (get from Xero)"),
     BusinessModel(title: "Kmart", subtitle: "Address Info (get from Xero)"),
     BusinessModel(title: "Autodesk", subtitle: "Address Info (get from Xero)"),
+    BusinessModel(title: "Telsta", subtitle: "Address Info (get from Xero)"),
+    BusinessModel(title: "Kmart", subtitle: "Address Info (get from Xero)"),
+    BusinessModel(title: "Autodesk", subtitle: "Address Info (get from Xero)"),
   ];
   @override
   Widget build(BuildContext context) {
@@ -30,40 +33,43 @@ class _SelectBusinessState extends State<SelectBusiness> {
               title: "Select Another Business",
               style: AppTextStyles.textSize16(),
               leftIcon: SvgPicture.asset(AppImage.arrow_back))),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            children: [
-              ..._getBody(),
-              SizedBox(
-                height: AppMetrics.paddingContainer,
-              ),
-              CustomButton(
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                ..._getBody(),
+                SizedBox(
+                  height: AppMetrics.paddingContainer,
+                ),
+                CustomButton(
+                  ontap: () {},
+                  borderColor: AppColors.greenAccent,
+                  color: AppColors.greenAccent,
+                  text: 'Add New Business',
+                  height: MediaQuery.of(context).size.height * 0.065,
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  style: AppTextStyles.textSize16(),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: AppMetrics.paddingHorizotal,
+                  vertical: AppMetrics.paddingVertical),
+              child: CustomButton(
                 ontap: () {},
                 borderColor: AppColors.greenAccent,
                 color: AppColors.greenAccent,
-                text: 'Add New Business',
-                height: MediaQuery.of(context).size.height * 0.07,
-                width: MediaQuery.of(context).size.width * 0.6,
+                text: 'Change Business',
+                height: MediaQuery.of(context).size.height * 0.08,
                 style: AppTextStyles.textSize16(),
               ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingHorizotal,
-                vertical: AppMetrics.paddingVertical),
-            child: CustomButton(
-              ontap: () {},
-              borderColor: AppColors.greenAccent,
-              color: AppColors.greenAccent,
-              text: 'Change Business',
-              height: MediaQuery.of(context).size.height * 0.08,
-              style: AppTextStyles.textSize16(),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -78,7 +84,7 @@ class _SelectBusinessState extends State<SelectBusiness> {
                   vertical: AppMetrics.paddingContent - 2),
               padding: EdgeInsets.symmetric(
                   vertical: AppMetrics.paddingVertical,
-                  horizontal: AppMetrics.paddingHorizotal),
+                  horizontal: AppMetrics.paddingContainer),
               colorBorder: AppColors.greenAccent,
               child: Row(
                 children: [
@@ -116,7 +122,7 @@ class _SelectBusinessState extends State<SelectBusiness> {
                   vertical: AppMetrics.paddingContent - 2),
               padding: EdgeInsets.symmetric(
                   vertical: AppMetrics.paddingVertical,
-                  horizontal: AppMetrics.paddingHorizotal),
+                  horizontal: AppMetrics.paddingContainer),
               colorBorder: AppColors.grey.withOpacity(0.2),
               child: Row(
                 children: [

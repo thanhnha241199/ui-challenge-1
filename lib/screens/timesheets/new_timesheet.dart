@@ -16,6 +16,7 @@ class NewTimeSheetDetail extends StatefulWidget {
 }
 
 class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
+  TextEditingController comments;
   DetailTimeSheetModel items = DetailTimeSheetModel(
       infor: Infor(name: "Jackson Garrison", manager: "Manager"),
       detail: [
@@ -93,6 +94,13 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
             time: "08:00am - 12:00pm",
             file: [FileElement(file: "File.pdf")])
       ]);
+
+  @override
+  void initState() {
+    comments = TextEditingController(text: 'Enter Note');
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,7 +128,7 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                     padding: EdgeInsets.symmetric(
                         vertical: AppMetrics.paddingContainer),
                     child: Text(
-                      "TimeSheet Details",
+                      "New TimeSheet",
                       style: AppTextStyles.textSize16(),
                       textAlign: TextAlign.center,
                     ),
@@ -237,8 +245,8 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                             .map((e) => Container(
                                   margin: EdgeInsets.only(
                                       top: AppMetrics.paddingContent),
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: AppMetrics.paddingContent),
+                                  padding: EdgeInsets.only(
+                                      top: AppMetrics.paddingContent),
                                   child: Column(
                                     children: [
                                       Row(
@@ -387,52 +395,61 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                       ),
                     ),
                     Container(
+                      padding: EdgeInsets.only(
+                          left: AppMetrics.paddingHorizotal,
+                          right: AppMetrics.paddingHorizotal,
+                          bottom: AppMetrics.paddingContent),
+                      child: TextField(
+                        style: AppTextStyles.textSize18(
+                            color: AppColors.blueLight),
+                        controller: comments,
+                        decoration: InputDecoration(
+                            hintText: 'Enter Note',
+                            labelStyle: AppTextStyles.textSize12(
+                                color: AppColors.blueLight),
+                            hintStyle: AppTextStyles.textSize18(
+                                color: AppColors.blueLight),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.grey10),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.grey10),
+                            ),
+                            labelText: 'Comments'),
+                      ),
+                    ),
+                    Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10),
+                            vertical: AppMetrics.paddingContent),
+                        margin: EdgeInsets.symmetric(
+                            horizontal: AppMetrics.paddingHorizotal),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Commnet",
-                              style: AppTextStyles.textSize12(),
+                              "Attachment",
+                              style: AppTextStyles.textSize14(
+                                  color: AppColors.blueLight),
                             ),
                             SizedBox(
-                              height: 5.0,
+                              height: 10.0,
                             ),
                             Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  'Enter Note',
-                                  style: AppTextStyles.textSize20(),
-                                ),
-                                Spacer(),
                                 SvgPicture.asset(
-                                  AppImage.caretdown,
+                                  AppImage.floatbtn,
                                   alignment: Alignment.center,
                                 ),
+                                SizedBox(
+                                  width: 16.0,
+                                ),
+                                Text(
+                                  "Add Attachments",
+                                  style: AppTextStyles.textSize18(),
+                                ),
                               ],
-                            ),
-                            Divider()
-                          ],
-                        )),
-                    Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: AppMetrics.paddingContent),
-                        margin: EdgeInsets.symmetric(horizontal: 38.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              AppImage.floatbtn,
-                              alignment: Alignment.center,
-                            ),
-                            SizedBox(
-                              width: 16.0,
-                            ),
-                            Text(
-                              "Add Attachments",
-                              style: AppTextStyles.textSize18(),
-                            ),
+                            )
                           ],
                         )),
                     SizedBox(

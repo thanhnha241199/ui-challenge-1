@@ -95,7 +95,7 @@ class _PayslipsState extends State<Payslips> {
         children: [
           Container(
             margin: EdgeInsets.symmetric(
-                vertical: AppMetrics.paddingVertical,
+                vertical: AppMetrics.paddingContainer,
                 horizontal: AppMetrics.paddingHorizotal),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,7 +110,7 @@ class _PayslipsState extends State<Payslips> {
           ),
           CustomContainer(
             edgeInsets: EdgeInsets.only(
-                top: 100.0,
+                top: 80.0,
                 left: AppMetrics.paddingHorizotal,
                 right: AppMetrics.paddingHorizotal),
             padding: EdgeInsets.only(top: AppMetrics.paddingContent),
@@ -127,9 +127,7 @@ class _PayslipsState extends State<Payslips> {
           ),
         ],
       ),
-      floatingActionButton: FancyFab(
-        switchAccount: false,
-      ),
+      floatingActionButton: FancyFab(),
     );
   }
 
@@ -145,8 +143,9 @@ class _PayslipsState extends State<Payslips> {
       },
       child: CustomContainer(
         height: MediaQuery.of(context).size.height * 0.075,
-        width: MediaQuery.of(context).size.width * 0.43,
-        padding: EdgeInsets.symmetric(horizontal: AppMetrics.paddingContent),
+        width: MediaQuery.of(context).size.width * 0.4,
+        padding: EdgeInsets.symmetric(
+            horizontal: AppMetrics.paddingVerticalContainer),
         colorBorder: AppColors.grey.withOpacity(0.2),
         child: Row(
           children: [
@@ -183,8 +182,9 @@ class _PayslipsState extends State<Payslips> {
       },
       child: CustomContainer(
         height: MediaQuery.of(context).size.height * 0.075,
-        width: MediaQuery.of(context).size.width * 0.43,
-        padding: EdgeInsets.symmetric(horizontal: AppMetrics.paddingContent),
+        width: MediaQuery.of(context).size.width * 0.4,
+        padding: EdgeInsets.symmetric(
+            horizontal: AppMetrics.paddingVerticalContainer),
         colorBorder: AppColors.grey.withOpacity(0.2),
         child: Row(
           children: [
@@ -209,54 +209,60 @@ class _PayslipsState extends State<Payslips> {
   }
 
   Widget renderItem(BuildContext context, PayslipModel item) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: AppMetrics.paddingHorizotal,
-          vertical: AppMetrics.paddingContent),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(
+              horizontal: AppMetrics.paddingVerticalContainer,
+              vertical: AppMetrics.paddingContent),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                item.end,
-                style: AppTextStyles.textSize16(fontWeight: FontWeight.bold),
+              Row(
+                children: [
+                  Text(
+                    item.end,
+                    style:
+                        AppTextStyles.textSize16(fontWeight: FontWeight.bold),
+                  ),
+                  Spacer(),
+                  Text(
+                    "\$${item.amount}",
+                    style:
+                        AppTextStyles.textSize16(fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-              Spacer(),
+              SizedBox(
+                height: 5.0,
+              ),
               Text(
-                "\$${item.amount}",
-                style: AppTextStyles.textSize16(fontWeight: FontWeight.bold),
+                "${item.start} - ${item.end})",
+                style: AppTextStyles.textSize12(),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              CustomButton(
+                ontap: () {
+                  NavigationService.instance
+                      .pushPage(context, false, ViewPayslip());
+                },
+                color: AppColors.whiteColor,
+                borderColor: AppColors.greenAccent,
+                text: AppTranslations().getLanguage(context, 'viewPdf'),
+                height: MediaQuery.of(context).size.height * 0.065,
+                width: MediaQuery.of(context).size.width * 0.3,
+                style: AppTextStyles.textSize14(color: AppColors.green),
+              ),
+              SizedBox(
+                height: 10.0,
               ),
             ],
           ),
-          SizedBox(
-            height: 5.0,
-          ),
-          Text(
-            "${item.start} - ${item.end})",
-            style: AppTextStyles.textSize12(),
-          ),
-          SizedBox(
-            height: 15.0,
-          ),
-          CustomButton(
-            ontap: () {
-              NavigationService.instance
-                  .pushPage(context, false, ViewPayslip());
-            },
-            color: AppColors.whiteColor,
-            borderColor: AppColors.greenAccent,
-            text: AppTranslations().getLanguage(context, 'viewPdf'),
-            height: MediaQuery.of(context).size.height * 0.065,
-            width: MediaQuery.of(context).size.width * 0.3,
-            style: AppTextStyles.textSize14(color: AppColors.green),
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          Divider()
-        ],
-      ),
+        ),
+        items.indexOf(item) == items.length - 1 ? Container() : Divider()
+      ],
     );
   }
 }

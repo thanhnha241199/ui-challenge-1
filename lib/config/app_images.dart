@@ -49,7 +49,7 @@ class AppImage {
   static const String avatar_dashboard =
       'assets/images/svg/avatar_dashboard.png';
   static const String business = 'assets/images/svg/business.png';
-  static const String search = 'assets/images/svg/search.svg';
+  static const String search = 'assets/images/svg/search.png';
   static const String sender1 = 'assets/images/svg/sender1.svg';
   static const String sender2 = 'assets/images/svg/sender2.svg';
   static const String warningcircle = 'assets/images/svg/warningcircle.svg';

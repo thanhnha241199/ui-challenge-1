@@ -1,9 +1,7 @@
 import 'dart:ui';
 
 import 'package:bookkeepa/config/app_metrics.dart';
-import 'package:bookkeepa/models/notification/notification.dart';
 import 'package:bookkeepa/screens/dashboard/account.dart';
-
 import 'package:bookkeepa/screens/dashboard/time_card.dart';
 import 'package:bookkeepa/screens/notifications/notifications.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
@@ -28,31 +26,11 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  List<NotificationModel> items = [
-    NotificationModel(
-        title: "Jack Hihnson requested leave", read: true, time: "1m ago"),
-    NotificationModel(
-        title: "Amy Ranch needs timesheet approved",
-        read: true,
-        time: "20m ago"),
-    NotificationModel(
-        title: "1 document needs to be signed", read: false, time: "1h ago"),
-    NotificationModel(
-        title: "Amy Ranch needs timesheet approved",
-        read: false,
-        time: "5h ago"),
-    NotificationModel(
-        title: "Cornor Halt requested leave", read: false, time: "10h ago"),
-    NotificationModel(
-        title: "Joseph Rosso needs timesheet approved",
-        read: false,
-        time: "1d ago"),
-    NotificationModel(
-        title: "3 documents needs to be signed", read: false, time: "1d ago"),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //     statusBarColor: Colors.transparent,
+    //     statusBarIconBrightness: Brightness.light));
     return Scaffold(
       appBar: HeaderView(
           color: Colors.black,
@@ -73,9 +51,7 @@ class _DashboardState extends State<Dashboard> {
                     barrierColor: Colors.black38,
                     transitionDuration: Duration(milliseconds: 500),
                     pageBuilder: (ctx, anim1, anim2) {
-                      return Notifications(
-                        items: items,
-                      );
+                      return Notifications();
                     },
                     transitionBuilder: (ctx, anim1, anim2, child) =>
                         BackdropFilter(
@@ -91,7 +67,7 @@ class _DashboardState extends State<Dashboard> {
                 },
                 child: SvgPicture.asset(
                   AppImage.notification,
-                  color: Colors.white,
+                  color: AppColors.whiteColor,
                 )),
           )),
       body: Stack(
@@ -106,9 +82,7 @@ class _DashboardState extends State<Dashboard> {
           )
         ],
       ),
-      floatingActionButton: FancyFab(
-        switchAccount: false,
-      ),
+      floatingActionButton: FancyFab(),
     );
   }
 
@@ -124,7 +98,7 @@ class _DashboardState extends State<Dashboard> {
         children: [
           Container(
             padding: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingHorizotal,
+                horizontal: AppMetrics.paddingContainer,
                 vertical: AppMetrics.paddingContent),
             child: Text(
               AppTranslations().getLanguage(context, 'hoursworkedthisweek'),
@@ -160,15 +134,17 @@ class _DashboardState extends State<Dashboard> {
                       height: 10.0,
                     ),
                     Text(
-                      "of 40.0 h",
-                      style: AppTextStyles.textSize14(),
+                      "${AppTranslations().getLanguage(context, 'of')} 40.0 h",
+                      style:
+                          AppTextStyles.textSize14(color: AppColors.greyColor),
                     ),
                     SizedBox(
                       height: 5.0,
                     ),
                     Text(
-                      "Scheduled",
-                      style: AppTextStyles.textSize14(),
+                      AppTranslations().getLanguage(context, 'scheduled'),
+                      style:
+                          AppTextStyles.textSize14(color: AppColors.greyColor),
                     )
                   ],
                 ),
@@ -195,7 +171,7 @@ class _DashboardState extends State<Dashboard> {
         children: [
           Container(
             padding: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingHorizotal,
+                horizontal: AppMetrics.paddingContainer,
                 vertical: AppMetrics.paddingContent),
             child: Text(
               AppTranslations().getLanguage(context, 'scheduleRoster'),
@@ -204,18 +180,20 @@ class _DashboardState extends State<Dashboard> {
           ),
           Divider(),
           Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: AppMetrics.paddingHorizotal,
-                  vertical: AppMetrics.paddingContent),
+              padding:
+                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(
+                    height: AppMetrics.paddingContent,
+                  ),
                   Text(
                     "09:00am to 12:00pm",
                     style: AppTextStyles.textSize16(),
                   ),
                   SizedBox(
-                    height: 20.0,
+                    height: AppMetrics.paddingVerticalContainer,
                   ),
                   CustomButton(
                     ontap: () {
@@ -228,6 +206,9 @@ class _DashboardState extends State<Dashboard> {
                     height: MediaQuery.of(context).size.height * 0.06,
                     width: MediaQuery.of(context).size.width * 0.3,
                     style: AppTextStyles.textSize14(),
+                  ),
+                  SizedBox(
+                    height: AppMetrics.paddingVerticalContainer,
                   ),
                 ],
               )),
@@ -250,7 +231,7 @@ class _DashboardState extends State<Dashboard> {
         children: [
           Container(
             padding: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingHorizotal,
+                horizontal: AppMetrics.paddingContainer,
                 vertical: AppMetrics.paddingContent),
             alignment: Alignment.center,
             child: Row(
@@ -270,7 +251,7 @@ class _DashboardState extends State<Dashboard> {
           Divider(),
           Container(
             padding: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingHorizotal,
+                horizontal: AppMetrics.paddingContainer,
                 vertical: AppMetrics.paddingContent),
             alignment: Alignment.center,
             child: Row(
@@ -290,10 +271,10 @@ class _DashboardState extends State<Dashboard> {
           Divider(),
           Container(
             padding: EdgeInsets.only(
-                left: AppMetrics.paddingHorizotal,
-                right: AppMetrics.paddingHorizotal,
+                left: AppMetrics.paddingContainer,
+                right: AppMetrics.paddingContainer,
                 top: AppMetrics.paddingContent,
-                bottom: AppMetrics.paddingHorizotal),
+                bottom: AppMetrics.paddingContainer),
             alignment: Alignment.center,
             child: Row(
               children: [

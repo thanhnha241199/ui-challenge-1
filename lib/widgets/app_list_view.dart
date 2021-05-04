@@ -38,6 +38,7 @@ class _AppListViewState extends State<AppListView> {
   @override
   Widget build(BuildContext context) {
     return SmartRefresher(
+        physics: BouncingScrollPhysics(),
         controller: _refreshController,
         header: WaterDropMaterialHeader(),
         onRefresh: () {

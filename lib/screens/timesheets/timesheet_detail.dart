@@ -4,6 +4,7 @@ import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/models/timesheet/detailtimesheet.dart';
 import 'package:bookkeepa/models/timesheet/timesheet.dart';
+import 'package:bookkeepa/screens/main/main_tab.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
@@ -189,6 +190,7 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                         ],
                       ),
                     ),
+                    Divider(),
                     Container(
                       padding: EdgeInsets.symmetric(
                           horizontal: AppMetrics.paddingHorizotal,
@@ -249,6 +251,7 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                         ],
                       ),
                     ),
+                    Divider(),
                     Container(
                       padding: EdgeInsets.symmetric(
                           horizontal: AppMetrics.paddingHorizotal),
@@ -406,6 +409,7 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                             .toList(),
                       ),
                     ),
+                    Divider(),
                     Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: 38.0,
@@ -419,7 +423,11 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                             ),
                             Column(
                                 children: items.notes
-                                    .map((e) => Container(
+                                    .map((e) => CustomContainer(
+                                          colorBorder:
+                                              AppColors.grey.withOpacity(0.2),
+                                          edgeInsets: EdgeInsets.only(
+                                              top: AppMetrics.paddingContent),
                                           padding: EdgeInsets.symmetric(
                                               vertical:
                                                   AppMetrics.paddingContent,
@@ -432,18 +440,25 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: [
-                                                  Text(
-                                                    e.day,
-                                                    style: AppTextStyles
-                                                        .textSize16(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                  Expanded(
+                                                    flex: 4,
+                                                    child: Text(
+                                                      e.day,
+                                                      style: AppTextStyles
+                                                          .textSize16(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                    ),
                                                   ),
-                                                  Text(
-                                                    e.time,
-                                                    style: AppTextStyles
-                                                        .textSize14(),
+                                                  Spacer(),
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Text(
+                                                      e.time,
+                                                      style: AppTextStyles
+                                                          .textSize14(),
+                                                    ),
                                                   )
                                                 ],
                                               ),
@@ -474,7 +489,11 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                             ),
                             Column(
                                 children: items.attachment
-                                    .map((e) => Container(
+                                    .map((e) => CustomContainer(
+                                          colorBorder:
+                                              AppColors.grey.withOpacity(0.2),
+                                          edgeInsets: EdgeInsets.only(
+                                              top: AppMetrics.paddingContent),
                                           padding: EdgeInsets.symmetric(
                                               vertical:
                                                   AppMetrics.paddingVertical,
@@ -487,18 +506,25 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: [
-                                                  Text(
-                                                    e.day,
-                                                    style: AppTextStyles
-                                                        .textSize16(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                  Expanded(
+                                                    flex: 4,
+                                                    child: Text(
+                                                      e.day,
+                                                      style: AppTextStyles
+                                                          .textSize16(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                    ),
                                                   ),
-                                                  Text(
-                                                    e.time,
-                                                    style: AppTextStyles
-                                                        .textSize14(),
+                                                  Spacer(),
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Text(
+                                                      e.time,
+                                                      style: AppTextStyles
+                                                          .textSize14(),
+                                                    ),
                                                   )
                                                 ],
                                               ),
@@ -569,7 +595,11 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
               child: Column(
                 children: [
                   CustomButton(
-                    ontap: () {},
+                    ontap: () {
+                      NavigationService.instance
+                          .navigateToReplacement(MainTab());
+                      //  NavigationService.instance.onChangeTab(3);
+                    },
                     color: AppColors.greenAccent,
                     borderColor: AppColors.greenAccent,
                     text: 'Submit',
