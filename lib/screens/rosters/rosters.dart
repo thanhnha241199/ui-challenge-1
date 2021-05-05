@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:bookkeepa/models/notification/notification.dart';
 import 'package:bookkeepa/screens/dashboard/time_card.dart';
 import 'package:bookkeepa/screens/notifications/notifications.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
@@ -24,28 +23,6 @@ class Rosters extends StatefulWidget {
 }
 
 class _RostersState extends State<Rosters> {
-  List<NotificationModel> notification = [
-    NotificationModel(
-        title: "Jack Hihnson requested leave", read: true, time: "1m ago"),
-    NotificationModel(
-        title: "Amy Ranch needs timesheet approved",
-        read: true,
-        time: "20m ago"),
-    NotificationModel(
-        title: "1 document needs to be signed", read: false, time: "1h ago"),
-    NotificationModel(
-        title: "Amy Ranch needs timesheet approved",
-        read: false,
-        time: "5h ago"),
-    NotificationModel(
-        title: "Cornor Halt requested leave", read: false, time: "10h ago"),
-    NotificationModel(
-        title: "Joseph Rosso needs timesheet approved",
-        read: false,
-        time: "1d ago"),
-    NotificationModel(
-        title: "3 documents needs to be signed", read: false, time: "1d ago"),
-  ];
   int index;
   String _range =
       '${DateFormat('MMM d').format(DateTime.now())} - ${DateFormat('MMM d yyyy').format(DateTime.now().add(Duration(days: 3)))}';
@@ -96,7 +73,7 @@ class _RostersState extends State<Rosters> {
                   horizontal: AppMetrics.paddingContainer,
                   vertical: AppMetrics.paddingVertical),
               width: MediaQuery.of(context).size.width * 0.6,
-              colorBorder: AppColors.grey.withOpacity(0.2),
+              colorBorder: AppColors.border,
               child: Text(
                 "09:00ap to 12:00pm",
                 style: AppTextStyles.textSize16(),
@@ -116,7 +93,7 @@ class _RostersState extends State<Rosters> {
               padding: EdgeInsets.symmetric(
                   horizontal: AppMetrics.paddingContainer,
                   vertical: AppMetrics.paddingVertical),
-              colorBorder: AppColors.grey.withOpacity(0.2),
+              colorBorder: AppColors.border,
               width: MediaQuery.of(context).size.width,
               child: Row(
                 children: [
@@ -142,7 +119,7 @@ class _RostersState extends State<Rosters> {
                   horizontal: AppMetrics.paddingContainer,
                   vertical: AppMetrics.paddingVertical),
               width: MediaQuery.of(context).size.width,
-              colorBorder: AppColors.grey.withOpacity(0.2),
+              colorBorder: AppColors.border,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -176,7 +153,7 @@ class _RostersState extends State<Rosters> {
                     horizontal: AppMetrics.paddingContainer,
                     vertical: AppMetrics.paddingVertical),
                 width: MediaQuery.of(context).size.width,
-                colorBorder: AppColors.grey.withOpacity(0.2),
+                colorBorder: AppColors.border,
                 child: Text(
                   "01:00pm to 05:00pm",
                   style: AppTextStyles.textSize16(),
@@ -201,7 +178,7 @@ class _RostersState extends State<Rosters> {
                   horizontal: AppMetrics.paddingContainer,
                   vertical: AppMetrics.paddingVertical),
               width: MediaQuery.of(context).size.width * 0.6,
-              colorBorder: AppColors.grey.withOpacity(0.2),
+              colorBorder: AppColors.border,
               child: Text(
                 "09:00ap to 12:00pm",
                 style: AppTextStyles.textSize16(),
@@ -222,7 +199,7 @@ class _RostersState extends State<Rosters> {
                   horizontal: AppMetrics.paddingContainer,
                   vertical: AppMetrics.paddingVertical),
               width: MediaQuery.of(context).size.width,
-              colorBorder: AppColors.grey.withOpacity(0.2),
+              colorBorder: AppColors.border,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -256,7 +233,7 @@ class _RostersState extends State<Rosters> {
                     horizontal: AppMetrics.paddingContainer,
                     vertical: AppMetrics.paddingVertical),
                 width: MediaQuery.of(context).size.width,
-                colorBorder: AppColors.grey.withOpacity(0.2),
+                colorBorder: AppColors.border,
                 child: Text(
                   "01:00pm to 05:00pm",
                   style: AppTextStyles.textSize16(),
@@ -279,9 +256,7 @@ class _RostersState extends State<Rosters> {
                         barrierColor: Colors.black38,
                         transitionDuration: Duration(milliseconds: 500),
                         pageBuilder: (ctx, anim1, anim2) {
-                          return Notifications(
-                            items: notification,
-                          );
+                          return Notifications();
                         },
                         transitionBuilder: (ctx, anim1, anim2, child) =>
                             BackdropFilter(

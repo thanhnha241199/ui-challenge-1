@@ -51,7 +51,7 @@ class _NewTimeCardState extends State<NewTimeCard> {
                         vertical: AppMetrics.paddingVertical),
                     edgeInsets: EdgeInsets.symmetric(
                         horizontal: AppMetrics.paddingHorizotal),
-                    colorBorder: AppColors.grey.withOpacity(0.2),
+                    colorBorder: AppColors.border,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -173,7 +173,8 @@ class _NewTimeCardState extends State<NewTimeCard> {
                                         borderColor: AppColors.greenAccent,
                                         color: AppColors.whiteColor,
                                         text: "Cancel",
-                                        style: AppTextStyles.textSize14(),
+                                        style: AppTextStyles.textSize14(
+                                            color: AppColors.greyColor),
                                       ),
                                     ],
                                   )
@@ -215,7 +216,7 @@ class _NewTimeCardState extends State<NewTimeCard> {
       edgeInsets: EdgeInsets.symmetric(
           horizontal: AppMetrics.paddingHorizotal,
           vertical: AppMetrics.paddingVertical),
-      colorBorder: AppColors.grey.withOpacity(0.2),
+      colorBorder: AppColors.border,
       child: Column(
         children: [
           CustomContainer(

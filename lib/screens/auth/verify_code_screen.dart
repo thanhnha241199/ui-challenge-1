@@ -40,7 +40,7 @@ class _VerifyCodeState extends State<VerifyCode> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double widthPinCode = (width - (AppMetrics.paddingHorizotal * 2)) / 5;
+    double widthPinCode = (width - (AppMetrics.paddingHorizotal * 2)) / 7;
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {},
       child: Scaffold(
@@ -85,7 +85,7 @@ class _VerifyCodeState extends State<VerifyCode> {
                                 appContext: context,
                                 pastedTextStyle:
                                     TextStyle(color: AppColors.whiteColor),
-                                length: 4,
+                                length: 6,
                                 blinkWhenObscuring: true,
                                 animationType: AnimationType.fade,
                                 validator: (v) {

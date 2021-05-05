@@ -19,4 +19,6 @@ class AppColors {
   static const Color red = Color(0xffFD4646);
   static const Color purple = Color(0xff371642);
   static const Color grey10 = Color(0xffE2E1E7);
+  static const Color border = Color(0xffE8E8E8);
+  static const Color divider = Color(0xffEFEEF3);
 }

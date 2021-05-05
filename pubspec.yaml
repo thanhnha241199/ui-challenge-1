@@ -41,6 +41,7 @@ dependencies:
   share: ^2.0.1
   intl_phone_number_input: ^0.7.0+2
   syncfusion_flutter_datepicker: ^19.1.58-beta
+  file_picker: ^3.0.1
 
 dev_dependencies:
   flutter_test:

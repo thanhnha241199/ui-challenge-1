@@ -35,7 +35,7 @@ class Languages {
     "myLeave": {"en": "My Leavve"},
     "myRoster": {"en": "My Rosters"},
     "myTimeSheet": {"en": "My TimeSheet"},
-    "myPayslip": {"en": "My PAYSLIPS"},
+    "myPayslip": {"en": "My Payslips"},
     "requestLeave": {"en": "Request Leave"},
     "newTimecard": {"en": "New Time Card"},
     "newTimesheet": {"en": "New Timesheet"},
@@ -50,5 +50,6 @@ class Languages {
     "confirmPassword": {"en": "Confirm new password"},
     "save": {"en": "Save"},
     "privacyPocicy": {"en": "Privacy Policy"},
+    "saveAsDraft": {"en": "Save As Draft"}
   };
 }

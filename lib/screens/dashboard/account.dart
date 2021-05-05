@@ -8,8 +8,8 @@ import 'package:bookkeepa/screens/dashboard/profile.dart';
 import 'package:bookkeepa/screens/dashboard/select_business.dart';
 import 'package:bookkeepa/screens/notifications/notifications.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
+import 'package:bookkeepa/screens/dashboard/update_password.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
-import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/float_btn.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
@@ -113,7 +113,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
               padding:
                   EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-              colorBorder: AppColors.grey.withOpacity(0.2),
+              colorBorder: AppColors.border,
               child: GestureDetector(
                 onTap: () {
                   NavigationService.instance.navigateTo(SelectBusiness());
@@ -156,7 +156,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
               padding:
                   EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-              colorBorder: AppColors.grey.withOpacity(0.2),
+              colorBorder: AppColors.border,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -196,157 +196,16 @@ class _AccountScreenState extends State<AccountScreen> {
                             ),
                           ),
                           clipBehavior: Clip.antiAliasWithSaveLayer,
+                          useRootNavigator: true,
                           builder: (BuildContext context) {
-                            return SingleChildScrollView(
-                              physics: BouncingScrollPhysics(),
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: AppMetrics.paddingHorizotal),
-                                height:
-                                    MediaQuery.of(context).size.height * 0.55,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: 30.0,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Expanded(flex: 2, child: Text("")),
-                                        Expanded(
-                                            flex: 5,
-                                            child: Text(
-                                              AppTranslations().getLanguage(
-                                                  context, 'updatePassword'),
-                                              style: AppTextStyles.textSize20(
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                        Expanded(
-                                            flex: 1,
-                                            child: GestureDetector(
-                                                onTap: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: SvgPicture.asset(
-                                                  AppImage.close,
-                                                  alignment: Alignment.center,
-                                                )))
-                                      ],
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal:
-                                              AppMetrics.paddingHorizotal,
-                                          vertical: AppMetrics.paddingVertical),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          TextField(
-                                            controller: controllerPassword,
-                                            decoration: InputDecoration(
-                                              labelText: AppTranslations()
-                                                  .getLanguage(context,
-                                                      'currentPassword'),
-                                              suffixIcon:
-                                                  Icon(Icons.visibility_off),
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: AppColors.grey10),
-                                              ),
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: AppColors.grey10),
-                                              ),
-                                            ),
-                                            obscureText: !obscureCurrent,
-                                          ),
-                                          TextField(
-                                            controller: controllerNewPassword,
-                                            decoration: InputDecoration(
-                                              labelText: AppTranslations()
-                                                  .getLanguage(
-                                                      context, 'newPassword'),
-                                              suffixIcon:
-                                                  Icon(Icons.visibility_off),
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: AppColors.grey10),
-                                              ),
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: AppColors.grey10),
-                                              ),
-                                            ),
-                                            obscureText: !obscureNew,
-                                          ),
-                                          TextField(
-                                            controller:
-                                                controllerConfirmNewPassword,
-                                            decoration: InputDecoration(
-                                              labelText: AppTranslations()
-                                                  .getLanguage(context,
-                                                      'confirmPassword'),
-                                              suffixIcon: obscureConfirm
-                                                  ? GestureDetector(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          obscureConfirm =
-                                                              !obscureConfirm;
-                                                        });
-                                                      },
-                                                      child: Icon(
-                                                          Icons.visibility_off),
-                                                    )
-                                                  : GestureDetector(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          obscureConfirm =
-                                                              !obscureConfirm;
-                                                        });
-                                                      },
-                                                      child: Icon(Icons
-                                                          .remove_red_eye)),
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: AppColors.grey10),
-                                              ),
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: AppColors.grey10),
-                                              ),
-                                            ),
-                                            obscureText: !obscureConfirm,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: AppMetrics.paddingContent,
-                                        horizontal: AppMetrics.paddingHorizotal,
-                                      ),
-                                      child: CustomButton(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.065,
-                                        ontap: () {},
-                                        borderColor: AppColors.greenAccent,
-                                        color: AppColors.greenAccent,
-                                        text: AppTranslations()
-                                            .getLanguage(context, 'save'),
-                                        style: AppTextStyles.textSize14(),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
+                            return UpdatePassword(
+                              obscureNew: obscureNew,
+                              obscureCurrent: obscureCurrent,
+                              obscureConfirm: obscureConfirm,
+                              controllerPassword: controllerPassword,
+                              controllerNewPassword: controllerNewPassword,
+                              controllerConfirmNewPassword:
+                                  controllerConfirmNewPassword,
                             );
                           },
                         );
@@ -400,7 +259,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
               padding:
                   EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-              colorBorder: AppColors.grey.withOpacity(0.2),
+              colorBorder: AppColors.border,
               child: GestureDetector(
                 onTap: () {
                   NavigationService.instance.navigateTo(SelectBusiness());
@@ -437,7 +296,7 @@ class _AccountScreenState extends State<AccountScreen> {
           vertical: AppMetrics.paddingHorizotal,
           horizontal: AppMetrics.paddingContainer),
       padding: EdgeInsets.symmetric(horizontal: AppMetrics.paddingContent),
-      colorBorder: AppColors.grey.withOpacity(0.2),
+      colorBorder: AppColors.border,
       child: GestureDetector(
         onTap: () {
           NavigationService.instance.navigateTo(ProfileScreen());

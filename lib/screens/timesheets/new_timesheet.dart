@@ -3,6 +3,7 @@ import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/models/timesheet/detailtimesheet.dart';
+import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
@@ -145,7 +146,7 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                     horizontal: AppMetrics.paddingHorizotal,
                     vertical: AppMetrics.paddingVertical),
                 padding: EdgeInsets.only(top: AppMetrics.paddingContent),
-                colorBorder: AppColors.grey.withOpacity(0.2),
+                colorBorder: AppColors.border,
                 child: Column(
                   children: [
                     Container(
@@ -164,18 +165,28 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                                 style: AppTextStyles.textSize18(
                                     fontWeight: FontWeight.bold),
                               ),
+                              SizedBox(
+                                height: 2.0,
+                              ),
                               Text(
                                 items.infor.manager,
                                 style: AppTextStyles.textSize14(),
                               ),
+                              SizedBox(
+                                height: 2.0,
+                              ),
                               Text(
                                 "Feb -Feb 28 2021",
-                                style: AppTextStyles.textSize14(),
+                                style: AppTextStyles.textSize14(
+                                    color: AppColors.greyColor),
                               ),
                             ],
                           ),
                         ],
                       ),
+                    ),
+                    Divider(
+                      color: AppColors.divider,
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(
@@ -202,7 +213,9 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                                     children: [
                                       Text(
                                         "Scheduled",
-                                        style: AppTextStyles.textSize12(),
+                                        overflow: TextOverflow.ellipsis,
+                                        style: AppTextStyles.textSize12(
+                                            color: AppColors.greyColor),
                                       ),
                                       Text(
                                         '40.0',
@@ -220,7 +233,8 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                                     children: [
                                       Text(
                                         "Actual",
-                                        style: AppTextStyles.textSize12(),
+                                        style: AppTextStyles.textSize12(
+                                            color: AppColors.greyColor),
                                       ),
                                       Text(
                                         '35.0',
@@ -237,9 +251,10 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                         ],
                       ),
                     ),
+                    Divider(
+                      color: AppColors.divider,
+                    ),
                     Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: AppMetrics.paddingHorizotal),
                       child: Column(
                         children: items.detail
                             .map((e) => Container(
@@ -249,150 +264,169 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                                       top: AppMetrics.paddingContent),
                                   child: Column(
                                     children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            flex: 3,
-                                            child: Text(
-                                              e.day,
-                                              style: AppTextStyles.textSize16(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Expanded(
-                                                  child: Column(
-                                                    children: [
-                                                      Text(
-                                                        e.toalschedule,
-                                                        style: AppTextStyles
-                                                            .textSize16(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: AppMetrics
-                                                      .paddingContainer,
-                                                ),
-                                                Expanded(
-                                                  child: Column(
-                                                    children: [
-                                                      Text(
-                                                        e.toalactual,
-                                                        style: AppTextStyles
-                                                            .textSize16(
-                                                                color: AppColors
-                                                                    .green,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                      )
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      Column(
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal:
+                                                AppMetrics.paddingHorizotal),
+                                        child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children:
-                                              items.detail[0].elementdetail
-                                                  .map((e) => Container(
-                                                        margin: EdgeInsets.only(
-                                                            top: AppMetrics
-                                                                .paddingContent),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              e.description,
-                                                              style: AppTextStyles
-                                                                  .textSize14(),
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                Expanded(
-                                                                  flex: 3,
-                                                                  child: Text(
-                                                                    e.time,
-                                                                    style: AppTextStyles
-                                                                        .textSize14(),
+                                          children: [
+                                            Expanded(
+                                              flex: 3,
+                                              child: Text(
+                                                e.day,
+                                                style: AppTextStyles.textSize16(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 2,
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: Column(
+                                                      children: [
+                                                        Text(
+                                                          e.toalschedule,
+                                                          style: AppTextStyles
+                                                              .textSize16(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: AppMetrics
+                                                        .paddingContainer,
+                                                  ),
+                                                  Expanded(
+                                                    child: Column(
+                                                      children: [
+                                                        Text(
+                                                          e.toalactual,
+                                                          style: AppTextStyles
+                                                              .textSize16(
+                                                                  color:
+                                                                      AppColors
+                                                                          .green,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal:
+                                                AppMetrics.paddingHorizotal),
+                                        child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children:
+                                                items.detail[0].elementdetail
+                                                    .map((e) => Container(
+                                                          margin: EdgeInsets.only(
+                                                              top: AppMetrics
+                                                                  .paddingContent),
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                e.description,
+                                                                style: AppTextStyles
+                                                                    .textSize14(),
+                                                              ),
+                                                              Row(
+                                                                children: [
+                                                                  Expanded(
+                                                                    flex: 3,
+                                                                    child: Text(
+                                                                      e.time,
+                                                                      style: AppTextStyles
+                                                                          .textSize14(),
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Expanded(
-                                                                  flex: 2,
-                                                                  child: Row(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Expanded(
-                                                                        child:
-                                                                            Column(
-                                                                          children: [
-                                                                            Text(
-                                                                              e.schedule,
-                                                                              style: AppTextStyles.textSize14(),
-                                                                            )
-                                                                          ],
+                                                                  Expanded(
+                                                                    flex: 2,
+                                                                    child: Row(
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Expanded(
+                                                                          child:
+                                                                              Column(
+                                                                            children: [
+                                                                              Text(
+                                                                                e.schedule,
+                                                                                style: AppTextStyles.textSize14(),
+                                                                              )
+                                                                            ],
+                                                                          ),
                                                                         ),
-                                                                      ),
-                                                                      SizedBox(
-                                                                        width: AppMetrics
-                                                                            .paddingContainer,
-                                                                      ),
-                                                                      Expanded(
-                                                                        child:
-                                                                            Column(
-                                                                          children: [
-                                                                            Container(
-                                                                              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-                                                                              decoration: BoxDecoration(
-                                                                                border: Border.all(
-                                                                                  color: AppColors.green,
+                                                                        SizedBox(
+                                                                          width:
+                                                                              AppMetrics.paddingContainer,
+                                                                        ),
+                                                                        Expanded(
+                                                                          child:
+                                                                              Column(
+                                                                            children: [
+                                                                              Container(
+                                                                                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+                                                                                decoration: BoxDecoration(
+                                                                                  border: Border.all(
+                                                                                    color: AppColors.green,
+                                                                                  ),
+                                                                                  shape: BoxShape.circle,
                                                                                 ),
-                                                                                shape: BoxShape.circle,
-                                                                              ),
-                                                                              child: Text(
-                                                                                e.actual,
-                                                                                style: AppTextStyles.textSize14(color: AppColors.green),
-                                                                              ),
-                                                                            )
-                                                                          ],
-                                                                        ),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ))
-                                                  .toList()),
+                                                                                child: Text(
+                                                                                  e.actual,
+                                                                                  style: AppTextStyles.textSize14(color: AppColors.green),
+                                                                                ),
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ))
+                                                    .toList()),
+                                      ),
+                                      items.detail.indexOf(e) ==
+                                              items.detail.length - 1
+                                          ? Container()
+                                          : Divider(color: AppColors.divider),
                                     ],
                                   ),
                                 ))
                             .toList(),
                       ),
+                    ),
+                    Divider(
+                      color: AppColors.divider,
                     ),
                     Container(
                       padding: EdgeInsets.only(
@@ -478,9 +512,9 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                     ontap: () {},
                     borderColor: AppColors.greenAccent,
                     color: AppColors.whiteColor,
-                    text: 'Save As Draft',
+                    text: AppTranslations().getLanguage(context, 'saveAsDraft'),
                     height: MediaQuery.of(context).size.height * 0.07,
-                    style: AppTextStyles.textSize16(),
+                    style: AppTextStyles.textSize16(color: AppColors.greyColor),
                   ),
                   SizedBox(
                     height: AppMetrics.paddingContainer,

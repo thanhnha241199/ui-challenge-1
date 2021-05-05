@@ -10,8 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Notifications extends StatefulWidget {
-  final List<NotificationModel> items;
-  Notifications({this.items});
   @override
   _NotificationState createState() => new _NotificationState();
 }
@@ -77,7 +75,7 @@ class _NotificationState extends State<Notifications> {
           child: CustomContainer(
               height: MediaQuery.of(context).size.height * 0.7,
               width: MediaQuery.of(context).size.width,
-              colorBorder: AppColors.grey.withOpacity(0.2),
+              colorBorder: AppColors.border,
               color: AppColors.whiteColor,
               child: AppListView(
                 data: items,
@@ -96,91 +94,141 @@ class _NotificationState extends State<Notifications> {
 
   renderItem(BuildContext context, NotificationModel item) {
     return items.indexOf(item) == 0
-        ? Container(
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                color:
-                    item.read == true ? AppColors.green20 : Colors.transparent,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(AppMetrics.borderContainer),
-                    topRight: Radius.circular(AppMetrics.borderContainer))),
-            padding: EdgeInsets.symmetric(
-                vertical: AppMetrics.paddingVertical,
-                horizontal: AppMetrics.paddingHorizotal),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: Text(
-                      item.title,
-                      style: AppTextStyles.textSize16(),
-                      maxLines: 10,
-                    ),
-                  ),
-                  Flexible(
-                    child: Text(
-                      item.time,
-                      style: AppTextStyles.textSize16(),
-                    ),
-                  )
-                ]),
+        ? Column(
+            children: [
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      color: item.read == true
+                          ? AppColors.green20
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(AppMetrics.borderContainer),
+                          topRight:
+                              Radius.circular(AppMetrics.borderContainer))),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: AppMetrics.paddingContent,
+                        horizontal: AppMetrics.paddingContent),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              item.title,
+                              style: AppTextStyles.textSize16(),
+                              maxLines: 2,
+                            ),
+                          ),
+                          Flexible(
+                            child: Text(
+                              item.time,
+                              style: AppTextStyles.textSize16(
+                                  color: AppColors.greyColor),
+                            ),
+                          )
+                        ]),
+                  )),
+              items.indexOf(item) == items.length - 1
+                  ? Container()
+                  : Divider(
+                      color: AppColors.divider,
+                    )
+            ],
           )
         : items.indexOf(item) == items.length - 1
-            ? Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    color: item.read == true
-                        ? AppColors.green20
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(AppMetrics.borderContainer),
-                        bottomRight:
-                            Radius.circular(AppMetrics.borderContainer))),
-                padding: EdgeInsets.symmetric(
-                    vertical: AppMetrics.paddingVertical,
-                    horizontal: AppMetrics.paddingHorizotal),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          item.title,
-                          style: AppTextStyles.textSize16(),
-                          maxLines: 10,
-                        ),
-                      ),
-                      Flexible(
-                        child: Text(
-                          item.time,
-                          style: AppTextStyles.textSize16(),
-                        ),
-                      )
-                    ]),
+            ? Column(
+                children: [
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          color: item.read == true
+                              ? AppColors.green20
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.only(
+                              bottomLeft:
+                                  Radius.circular(AppMetrics.borderContainer),
+                              bottomRight:
+                                  Radius.circular(AppMetrics.borderContainer))),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: AppMetrics.paddingContent,
+                                horizontal: AppMetrics.paddingContent),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 2,
+                                    child: Text(
+                                      item.title,
+                                      style: AppTextStyles.textSize16(),
+                                      maxLines: 2,
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      item.time,
+                                      style: AppTextStyles.textSize16(
+                                          color: AppColors.greyColor),
+                                    ),
+                                  )
+                                ]),
+                          ),
+                        ],
+                      )),
+                  items.indexOf(item) == items.length - 1
+                      ? Container()
+                      : Divider(
+                          color: AppColors.divider,
+                        )
+                ],
               )
-            : Container(
-                color:
-                    item.read == true ? AppColors.green20 : Colors.transparent,
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(
-                    vertical: AppMetrics.paddingVertical,
-                    horizontal: AppMetrics.paddingHorizotal),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          item.title,
-                          style: AppTextStyles.textSize16(),
-                          maxLines: 10,
-                        ),
-                      ),
-                      Flexible(
-                        child: Text(
-                          item.time,
-                          style: AppTextStyles.textSize16(),
-                        ),
-                      )
-                    ]),
+            : Column(
+                children: [
+                  Container(
+                      color: item.read == true
+                          ? AppColors.green20
+                          : Colors.transparent,
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: AppMetrics.paddingContent,
+                                horizontal: AppMetrics.paddingContent),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 2,
+                                    child: Text(
+                                      item.title,
+                                      style: AppTextStyles.textSize16(),
+                                      maxLines: 10,
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      item.time,
+                                      style: AppTextStyles.textSize16(
+                                          color: AppColors.greyColor),
+                                    ),
+                                  )
+                                ]),
+                          ),
+                        ],
+                      )),
+                  items.indexOf(item) == items.length - 1
+                      ? Container()
+                      : Divider(
+                          color: AppColors.divider,
+                        )
+                ],
               );
   }
 }

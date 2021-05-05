@@ -145,7 +145,7 @@ class _FancyFabState extends State<FancyFab>
             vertical: AppMetrics.paddingContent),
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: AppColors.grey.withOpacity(0.2)),
+            border: Border.all(color: AppColors.border),
             borderRadius: BorderRadius.circular(AppMetrics.borderButton)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,

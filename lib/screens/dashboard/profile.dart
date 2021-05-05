@@ -54,7 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 edgeInsets: EdgeInsets.symmetric(
                     vertical: AppMetrics.paddingVertical,
                     horizontal: AppMetrics.paddingHorizotal),
-                colorBorder: AppColors.grey.withOpacity(0.2),
+                colorBorder: AppColors.border,
                 child: Container(
                   padding: EdgeInsets.symmetric(
                       vertical: AppMetrics.paddingVertical,
@@ -98,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     horizontal: AppMetrics.paddingHorizotal),
                 padding:
                     EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-                colorBorder: AppColors.grey.withOpacity(0.2),
+                colorBorder: AppColors.border,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

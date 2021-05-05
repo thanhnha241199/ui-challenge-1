@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:bookkeepa/models/notification/notification.dart';
 import 'package:bookkeepa/models/leave/leave.dart';
 import 'package:bookkeepa/screens/leave/edit_leave_request.dart';
 import 'package:bookkeepa/screens/leave/new_leave_request.dart';
@@ -27,28 +26,6 @@ class Leave extends StatefulWidget {
 }
 
 class _LeaveState extends State<Leave> {
-  List<NotificationModel> notification = [
-    NotificationModel(
-        title: "Jack Hihnson requested leave", read: true, time: "1m ago"),
-    NotificationModel(
-        title: "Amy Ranch needs timesheet approved",
-        read: true,
-        time: "20m ago"),
-    NotificationModel(
-        title: "1 document needs to be signed", read: false, time: "1h ago"),
-    NotificationModel(
-        title: "Amy Ranch needs timesheet approved",
-        read: false,
-        time: "5h ago"),
-    NotificationModel(
-        title: "Cornor Halt requested leave", read: false, time: "10h ago"),
-    NotificationModel(
-        title: "Joseph Rosso needs timesheet approved",
-        read: false,
-        time: "1d ago"),
-    NotificationModel(
-        title: "3 documents needs to be signed", read: false, time: "1d ago"),
-  ];
   List<LeaveModel> items = [
     LeaveModel(
         name: "Jackson Garrison",
@@ -123,9 +100,7 @@ class _LeaveState extends State<Leave> {
                       barrierColor: Colors.black38,
                       transitionDuration: Duration(milliseconds: 500),
                       pageBuilder: (ctx, anim1, anim2) {
-                        return Notifications(
-                          items: notification,
-                        );
+                        return Notifications();
                       },
                       transitionBuilder: (ctx, anim1, anim2, child) =>
                           BackdropFilter(
@@ -151,7 +126,7 @@ class _LeaveState extends State<Leave> {
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
               padding:
                   EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-              colorBorder: AppColors.grey.withOpacity(0.2),
+              colorBorder: AppColors.border,
               child: AppListView(
                 data: items,
                 renderItem: (item) {
@@ -217,7 +192,8 @@ class _LeaveState extends State<Leave> {
                         ),
                         Text(
                           "${item.start} - ${item.end}(${item.hours})",
-                          style: AppTextStyles.textSize12(),
+                          style: AppTextStyles.textSize12(
+                              color: AppColors.greyColor),
                         ),
                         SizedBox(
                           height: 8.0,
@@ -262,7 +238,7 @@ class _LeaveState extends State<Leave> {
             horizontal: AppMetrics.paddingHorizotal,
             vertical: AppMetrics.paddingVertical),
         padding: EdgeInsets.symmetric(vertical: AppMetrics.paddingContainer),
-        colorBorder: AppColors.grey.withOpacity(0.2),
+        colorBorder: AppColors.border,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -287,8 +263,12 @@ class _LeaveState extends State<Leave> {
                   Row(
                     children: [
                       Text(
-                        AppTranslations().getLanguage(context, 'annualBalance'),
-                        style: AppTextStyles.textSize16(),
+                        AppTranslations().getLanguage(
+                          context,
+                          'annualBalance',
+                        ),
+                        style: AppTextStyles.textSize16(
+                            color: AppColors.greyColor),
                       ),
                       Spacer(),
                       Text(
@@ -310,7 +290,7 @@ class _LeaveState extends State<Leave> {
                 children: [
                   Text(
                     AppTranslations().getLanguage(context, 'sickBalance'),
-                    style: AppTextStyles.textSize16(),
+                    style: AppTextStyles.textSize16(color: AppColors.greyColor),
                   ),
                   Spacer(),
                   Text(

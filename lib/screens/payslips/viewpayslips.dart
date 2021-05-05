@@ -66,7 +66,7 @@ class _ViewPayslipState extends State<ViewPayslip> {
                   borderColor: AppColors.greenAccent,
                   color: AppColors.whiteColor,
                   text: AppTranslations().getLanguage(context, 'Share'),
-                  style: AppTextStyles.textSize18(),
+                  style: AppTextStyles.textSize18(color: AppColors.greyColor),
                 ),
                 BottomSpace(),
               ],

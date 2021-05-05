@@ -54,7 +54,7 @@ class _AppListViewState extends State<AppListView> {
               if (index == widget.data.length) {
                 return Center(
                   child: SpinKitThreeBounce(
-                    color: AppColors.turquoiseColor,
+                    color: AppColors.greenAccent,
                     size: 20.0,
                   ),
                 );

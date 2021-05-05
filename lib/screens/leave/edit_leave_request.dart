@@ -264,8 +264,7 @@ class _EditLeaveState extends State<EditLeave> {
                                     padding: EdgeInsets.symmetric(
                                         horizontal: AppMetrics.paddingHorizotal,
                                         vertical: AppMetrics.paddingVertical),
-                                    colorBorder:
-                                        AppColors.grey.withOpacity(0.2),
+                                    colorBorder: AppColors.border,
                                     child: Row(children: [
                                       Flexible(
                                           flex: 3,
@@ -478,7 +477,7 @@ class _EditLeaveState extends State<EditLeave> {
                     color: AppColors.whiteColor,
                     text: "Cancel",
                     height: MediaQuery.of(context).size.height * 0.075,
-                    style: AppTextStyles.textSize14(),
+                    style: AppTextStyles.textSize14(color: AppColors.greyColor),
                   ),
                 ],
               ),

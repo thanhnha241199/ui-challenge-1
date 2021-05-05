@@ -28,11 +28,9 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    //     statusBarColor: Colors.transparent,
-    //     statusBarIconBrightness: Brightness.light));
     return Scaffold(
       appBar: HeaderView(
+          height: 90.0,
           color: Colors.black,
           child: HeaderChild(
             leftIcon: GestureDetector(
@@ -78,7 +76,20 @@ class _DashboardState extends State<Dashboard> {
           ),
           ListView(
             physics: BouncingScrollPhysics(),
-            children: [circletime(), scheduleroster(), total()],
+            children: [
+              circletime(),
+              SizedBox(
+                height: 8.0,
+              ),
+              scheduleroster(),
+              SizedBox(
+                height: 8.0,
+              ),
+              total(),
+              SizedBox(
+                height: AppMetrics.paddingContainer,
+              ),
+            ],
           )
         ],
       ),
@@ -88,11 +99,8 @@ class _DashboardState extends State<Dashboard> {
 
   Widget circletime() {
     return CustomContainer(
-      edgeInsets: EdgeInsets.symmetric(
-          horizontal: AppMetrics.paddingHorizotal,
-          vertical: AppMetrics.paddingVertical),
-      padding: EdgeInsets.only(top: AppMetrics.paddingContent),
-      colorBorder: AppColors.grey.withOpacity(0.2),
+      edgeInsets: EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
+      colorBorder: AppColors.border,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -105,10 +113,10 @@ class _DashboardState extends State<Dashboard> {
               style: AppTextStyles.textSize16(fontWeight: FontWeight.bold),
             ),
           ),
-          Divider(),
-          SizedBox(
-            height: 22.0,
+          Divider(
+            color: AppColors.divider,
           ),
+          SizedBox(height: 26.0),
           Container(
             alignment: Alignment.center,
             child: CircularPercentIndicator(
@@ -153,9 +161,7 @@ class _DashboardState extends State<Dashboard> {
               progressColor: AppColors.greenAccent,
             ),
           ),
-          SizedBox(
-            height: 22.0,
-          ),
+          SizedBox(height: AppMetrics.paddingHorizotal),
         ],
       ),
     );
@@ -165,7 +171,7 @@ class _DashboardState extends State<Dashboard> {
     return CustomContainer(
       edgeInsets: EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
       padding: EdgeInsets.only(top: AppMetrics.paddingContent),
-      colorBorder: AppColors.grey.withOpacity(0.2),
+      colorBorder: AppColors.border,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -178,7 +184,9 @@ class _DashboardState extends State<Dashboard> {
               style: AppTextStyles.textSize16(fontWeight: FontWeight.bold),
             ),
           ),
-          Divider(),
+          Divider(
+            color: AppColors.divider,
+          ),
           Container(
               padding:
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
@@ -221,11 +229,9 @@ class _DashboardState extends State<Dashboard> {
     return CustomContainer(
       edgeInsets: EdgeInsets.only(
           left: AppMetrics.paddingHorizotal,
-          right: AppMetrics.paddingHorizotal,
-          top: AppMetrics.paddingVertical,
-          bottom: AppMetrics.paddingContent),
+          right: AppMetrics.paddingHorizotal),
       padding: EdgeInsets.only(top: AppMetrics.paddingContent),
-      colorBorder: AppColors.grey.withOpacity(0.2),
+      colorBorder: AppColors.border,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -248,7 +254,9 @@ class _DashboardState extends State<Dashboard> {
               ],
             ),
           ),
-          Divider(),
+          Divider(
+            color: AppColors.divider,
+          ),
           Container(
             padding: EdgeInsets.symmetric(
                 horizontal: AppMetrics.paddingContainer,
@@ -268,7 +276,7 @@ class _DashboardState extends State<Dashboard> {
               ],
             ),
           ),
-          Divider(),
+          Divider(color: AppColors.divider),
           Container(
             padding: EdgeInsets.only(
                 left: AppMetrics.paddingContainer,

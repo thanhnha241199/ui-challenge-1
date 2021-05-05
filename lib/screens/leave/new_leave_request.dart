@@ -356,7 +356,7 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                     color: AppColors.whiteColor,
                     text: "Cancel",
                     height: MediaQuery.of(context).size.height * 0.075,
-                    style: AppTextStyles.textSize14(),
+                    style: AppTextStyles.textSize14(color: AppColors.greyColor),
                   ),
                 ],
               ),

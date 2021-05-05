@@ -123,7 +123,7 @@ class _SelectBusinessState extends State<SelectBusiness> {
               padding: EdgeInsets.symmetric(
                   vertical: AppMetrics.paddingVertical,
                   horizontal: AppMetrics.paddingContainer),
-              colorBorder: AppColors.grey.withOpacity(0.2),
+              colorBorder: AppColors.border,
               child: Row(
                 children: [
                   Container(

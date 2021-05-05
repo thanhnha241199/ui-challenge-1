@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:bookkeepa/models/notification/notification.dart';
 import 'package:bookkeepa/models/timesheet/timesheet.dart';
 import 'package:bookkeepa/screens/notifications/notifications.dart';
 import 'package:bookkeepa/screens/timesheets/new_timesheet.dart';
@@ -27,28 +26,7 @@ class Timesheets extends StatefulWidget {
 
 class _TimesheetsState extends State<Timesheets> {
   int index;
-  List<NotificationModel> notification = [
-    NotificationModel(
-        title: "Jack Hihnson requested leave", read: true, time: "1m ago"),
-    NotificationModel(
-        title: "Amy Ranch needs timesheet approved",
-        read: true,
-        time: "20m ago"),
-    NotificationModel(
-        title: "1 document needs to be signed", read: false, time: "1h ago"),
-    NotificationModel(
-        title: "Amy Ranch needs timesheet approved",
-        read: false,
-        time: "5h ago"),
-    NotificationModel(
-        title: "Cornor Halt requested leave", read: false, time: "10h ago"),
-    NotificationModel(
-        title: "Joseph Rosso needs timesheet approved",
-        read: false,
-        time: "1d ago"),
-    NotificationModel(
-        title: "3 documents needs to be signed", read: false, time: "1d ago"),
-  ];
+
   List<TimeSheetModel> items = [
     TimeSheetModel(
         start: "Apr 12",
@@ -160,9 +138,7 @@ class _TimesheetsState extends State<Timesheets> {
                       barrierColor: Colors.black38,
                       transitionDuration: Duration(milliseconds: 500),
                       pageBuilder: (ctx, anim1, anim2) {
-                        return Notifications(
-                          items: notification,
-                        );
+                        return Notifications();
                       },
                       transitionBuilder: (ctx, anim1, anim2, child) =>
                           BackdropFilter(
@@ -177,7 +153,7 @@ class _TimesheetsState extends State<Timesheets> {
                     );
                   },
                   child: SvgPicture.asset(AppImage.notification)))),
-      body: Stack(
+      body: Column(
         children: [
           Container(
             margin: EdgeInsets.symmetric(
@@ -221,21 +197,21 @@ class _TimesheetsState extends State<Timesheets> {
               ],
             ),
           ),
-          CustomContainer(
-            edgeInsets: EdgeInsets.only(
-                top: 70.0,
-                left: AppMetrics.paddingHorizotal,
-                right: AppMetrics.paddingHorizotal),
-            padding: EdgeInsets.only(top: AppMetrics.paddingContent),
-            colorBorder: AppColors.grey.withOpacity(0.2),
-            child: AppListView(
-              data: index == 0 ? items : items2,
-              renderItem: (item) {
-                return renderItem(context, item);
-              },
-              onLoadMore: () {
-                print('loadmore');
-              },
+          Expanded(
+            child: CustomContainer(
+              edgeInsets: EdgeInsets.only(
+                  left: AppMetrics.paddingHorizotal,
+                  right: AppMetrics.paddingHorizotal),
+              colorBorder: AppColors.border,
+              child: AppListView(
+                data: index == 0 ? items : items2,
+                renderItem: (item) {
+                  return renderItem(context, item);
+                },
+                onLoadMore: () {
+                  print('loadmore');
+                },
+              ),
             ),
           ),
         ],
@@ -261,8 +237,8 @@ class _TimesheetsState extends State<Timesheets> {
               margin: EdgeInsets.only(
                   left: AppMetrics.paddingContainer,
                   right: AppMetrics.paddingContainer,
-                  bottom: AppMetrics.paddingContainer,
-                  top: AppMetrics.paddingVertical),
+                  bottom: AppMetrics.paddingContent,
+                  top: AppMetrics.paddingContainer),
               alignment: Alignment.center,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -284,7 +260,8 @@ class _TimesheetsState extends State<Timesheets> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text("Schedule",
-                                  style: AppTextStyles.textSize12()),
+                                  style: AppTextStyles.textSize12(
+                                      color: AppColors.greyColor)),
                               SizedBox(
                                 height: 5.0,
                               ),
@@ -296,14 +273,15 @@ class _TimesheetsState extends State<Timesheets> {
                             ],
                           ),
                           SizedBox(
-                            width: 10,
+                            width: AppMetrics.paddingContent,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 "Actual",
-                                style: AppTextStyles.textSize12(),
+                                style: AppTextStyles.textSize12(
+                                    color: AppColors.greyColor),
                               ),
                               SizedBox(
                                 height: 5.0,
@@ -345,7 +323,7 @@ class _TimesheetsState extends State<Timesheets> {
                                   alignment: Alignment.center,
                                 ),
                       SizedBox(
-                        height: 30.0,
+                        height: 22.0,
                       ),
                       item.file == 0
                           ? Text('')
@@ -363,15 +341,13 @@ class _TimesheetsState extends State<Timesheets> {
                                 ),
                                 Text(
                                   item.file.toString(),
-                                  style: AppTextStyles.textSize12(),
+                                  style: AppTextStyles.textSize12(
+                                      color: AppColors.greyColor),
                                 )
                               ],
                             )
                     ],
                   ),
-                  SizedBox(
-                    height: 50.0,
-                  )
                 ],
               )),
         ),

@@ -99,7 +99,7 @@ class _SupportState extends State<Support> {
               height: MediaQuery.of(context).size.height * 0.07,
               margin: EdgeInsets.only(left: 50.0),
               decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.grey.withOpacity(0.2)),
+                  border: Border.all(color: AppColors.border),
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(AppMetrics.borderButton)),
               child: TextFormField(

@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:bookkeepa/models/notification/notification.dart';
 import 'package:bookkeepa/models/payslip/payslip.dart';
 import 'package:bookkeepa/screens/notifications/notifications.dart';
 import 'package:bookkeepa/screens/payslips/viewpayslips.dart';
@@ -33,28 +32,6 @@ class _PayslipsState extends State<Payslips> {
     PayslipModel(start: "04 Feb", end: "24 Feb 2021", amount: "1,959.00"),
     PayslipModel(start: "05 Feb", end: "25 Feb 2021", amount: "1,955.00")
   ];
-  List<NotificationModel> notification = [
-    NotificationModel(
-        title: "Jack Hihnson requested leave", read: true, time: "1m ago"),
-    NotificationModel(
-        title: "Amy Ranch needs timesheet approved",
-        read: true,
-        time: "20m ago"),
-    NotificationModel(
-        title: "1 document needs to be signed", read: false, time: "1h ago"),
-    NotificationModel(
-        title: "Amy Ranch needs timesheet approved",
-        read: false,
-        time: "5h ago"),
-    NotificationModel(
-        title: "Cornor Halt requested leave", read: false, time: "10h ago"),
-    NotificationModel(
-        title: "Joseph Rosso needs timesheet approved",
-        read: false,
-        time: "1d ago"),
-    NotificationModel(
-        title: "3 documents needs to be signed", read: false, time: "1d ago"),
-  ];
   bool date = false;
   bool amount = false;
 
@@ -74,9 +51,7 @@ class _PayslipsState extends State<Payslips> {
                       barrierColor: Colors.black38,
                       transitionDuration: Duration(milliseconds: 500),
                       pageBuilder: (ctx, anim1, anim2) {
-                        return Notifications(
-                          items: notification,
-                        );
+                        return Notifications();
                       },
                       transitionBuilder: (ctx, anim1, anim2, child) =>
                           BackdropFilter(
@@ -91,7 +66,7 @@ class _PayslipsState extends State<Payslips> {
                     );
                   },
                   child: SvgPicture.asset(AppImage.notification)))),
-      body: Stack(
+      body: Column(
         children: [
           Container(
             margin: EdgeInsets.symmetric(
@@ -108,21 +83,22 @@ class _PayslipsState extends State<Payslips> {
               ],
             ),
           ),
-          CustomContainer(
-            edgeInsets: EdgeInsets.only(
-                top: 80.0,
-                left: AppMetrics.paddingHorizotal,
-                right: AppMetrics.paddingHorizotal),
-            padding: EdgeInsets.only(top: AppMetrics.paddingContent),
-            colorBorder: AppColors.grey.withOpacity(0.2),
-            child: AppListView(
-              data: items,
-              renderItem: (item) {
-                return renderItem(context, item);
-              },
-              onLoadMore: () {
-                print('loadmore');
-              },
+          Expanded(
+            child: CustomContainer(
+              edgeInsets: EdgeInsets.only(
+                  left: AppMetrics.paddingHorizotal,
+                  right: AppMetrics.paddingHorizotal),
+              padding: EdgeInsets.only(top: AppMetrics.paddingContent),
+              colorBorder: AppColors.border,
+              child: AppListView(
+                data: items,
+                renderItem: (item) {
+                  return renderItem(context, item);
+                },
+                onLoadMore: () {
+                  print('loadmore');
+                },
+              ),
             ),
           ),
         ],
@@ -132,77 +108,81 @@ class _PayslipsState extends State<Payslips> {
   }
 
   Widget dropdownAmount() {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          amount = !amount;
-          amount
-              ? items.sort((a, b) => a.amount.compareTo(b.amount))
-              : items.sort((a, b) => -a.amount.compareTo(b.amount));
-        });
-      },
-      child: CustomContainer(
-        height: MediaQuery.of(context).size.height * 0.075,
-        width: MediaQuery.of(context).size.width * 0.4,
-        padding: EdgeInsets.symmetric(
-            horizontal: AppMetrics.paddingVerticalContainer),
-        colorBorder: AppColors.grey.withOpacity(0.2),
-        child: Row(
-          children: [
-            Text(
-              AppTranslations().getLanguage(context, 'amount'),
-              style: AppTextStyles.textSize16(),
-            ),
-            Spacer(),
-            amount == false
-                ? SvgPicture.asset(
-                    AppImage.caretdown,
-                    alignment: Alignment.center,
-                  )
-                : SvgPicture.asset(
-                    AppImage.caretup,
-                    alignment: Alignment.center,
-                  ),
-          ],
+    return Flexible(
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            amount = !amount;
+            amount
+                ? items.sort((a, b) => a.amount.compareTo(b.amount))
+                : items.sort((a, b) => -a.amount.compareTo(b.amount));
+          });
+        },
+        child: CustomContainer(
+          height: MediaQuery.of(context).size.height * 0.075,
+          width: MediaQuery.of(context).size.width * 0.45,
+          padding: EdgeInsets.symmetric(
+              horizontal: AppMetrics.paddingVerticalContainer),
+          colorBorder: AppColors.border,
+          child: Row(
+            children: [
+              Text(
+                AppTranslations().getLanguage(context, 'amount'),
+                style: AppTextStyles.textSize16(),
+              ),
+              Spacer(),
+              amount == false
+                  ? SvgPicture.asset(
+                      AppImage.caretdown,
+                      alignment: Alignment.center,
+                    )
+                  : SvgPicture.asset(
+                      AppImage.caretup,
+                      alignment: Alignment.center,
+                    ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget dropdownDate() {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          date = !date;
+    return Flexible(
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            date = !date;
 
-          amount
-              ? items.sort((a, b) => a.end.compareTo(b.end))
-              : items.sort((a, b) => -a.end.compareTo(b.end));
-        });
-      },
-      child: CustomContainer(
-        height: MediaQuery.of(context).size.height * 0.075,
-        width: MediaQuery.of(context).size.width * 0.4,
-        padding: EdgeInsets.symmetric(
-            horizontal: AppMetrics.paddingVerticalContainer),
-        colorBorder: AppColors.grey.withOpacity(0.2),
-        child: Row(
-          children: [
-            Text(
-              AppTranslations().getLanguage(context, 'date'),
-              style: AppTextStyles.textSize16(),
-            ),
-            Spacer(),
-            date == false
-                ? SvgPicture.asset(
-                    AppImage.caretdown,
-                    alignment: Alignment.center,
-                  )
-                : SvgPicture.asset(
-                    AppImage.caretup,
-                    alignment: Alignment.center,
-                  ),
-          ],
+            amount
+                ? items.sort((a, b) => a.end.compareTo(b.end))
+                : items.sort((a, b) => -a.end.compareTo(b.end));
+          });
+        },
+        child: CustomContainer(
+          height: MediaQuery.of(context).size.height * 0.075,
+          width: MediaQuery.of(context).size.width * 0.45,
+          padding: EdgeInsets.symmetric(
+              horizontal: AppMetrics.paddingVerticalContainer),
+          colorBorder: AppColors.border,
+          child: Row(
+            children: [
+              Text(
+                AppTranslations().getLanguage(context, 'date'),
+                style: AppTextStyles.textSize16(),
+              ),
+              Spacer(),
+              date == false
+                  ? SvgPicture.asset(
+                      AppImage.caretdown,
+                      alignment: Alignment.center,
+                    )
+                  : SvgPicture.asset(
+                      AppImage.caretup,
+                      alignment: Alignment.center,
+                    ),
+            ],
+          ),
         ),
       ),
     );
@@ -238,10 +218,10 @@ class _PayslipsState extends State<Payslips> {
               ),
               Text(
                 "${item.start} - ${item.end})",
-                style: AppTextStyles.textSize12(),
+                style: AppTextStyles.textSize12(color: AppColors.greyColor),
               ),
               SizedBox(
-                height: 15.0,
+                height: AppMetrics.paddingContainer,
               ),
               CustomButton(
                 ontap: () {
@@ -254,9 +234,6 @@ class _PayslipsState extends State<Payslips> {
                 height: MediaQuery.of(context).size.height * 0.065,
                 width: MediaQuery.of(context).size.width * 0.3,
                 style: AppTextStyles.textSize14(color: AppColors.green),
-              ),
-              SizedBox(
-                height: 10.0,
               ),
             ],
           ),

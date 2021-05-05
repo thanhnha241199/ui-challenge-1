@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bookkeepa/config/app_colors.dart';
 import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_metrics.dart';
@@ -7,6 +9,7 @@ import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +20,13 @@ class TimeCard extends StatefulWidget {
 }
 
 class _TimeCardState extends State<TimeCard> {
+  String _fileName;
+  List<PlatformFile> _paths;
+  String _directoryPath;
+  String _extension;
+  bool _loadingPath = false;
+  bool _multiPick = false;
+  FileType _pickingType = FileType.any;
   TextEditingController comments, location;
   TimeOfDay _time = TimeOfDay(hour: 4, minute: 33);
   DateTime _date;
@@ -39,7 +49,7 @@ class _TimeCardState extends State<TimeCard> {
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
           children: [
             formTimeCard(),
             Container(
@@ -160,7 +170,8 @@ class _TimeCardState extends State<TimeCard> {
                                           children: [
                                             Text(
                                               "Day Total",
-                                              style: AppTextStyles.textSize12(),
+                                              style: AppTextStyles.textSize12(
+                                                  color: AppColors.greyColor),
                                             ),
                                             Text(
                                               "1h12m",
@@ -176,11 +187,13 @@ class _TimeCardState extends State<TimeCard> {
                                           children: [
                                             Text(
                                               "Start",
-                                              style: AppTextStyles.textSize12(),
+                                              style: AppTextStyles.textSize12(
+                                                  color: AppColors.greyColor),
                                             ),
                                             Text(
                                               "3:00pm",
-                                              style: AppTextStyles.textSize18(),
+                                              style: AppTextStyles.textSize18(
+                                                  color: AppColors.greyColor),
                                             )
                                           ],
                                         ),
@@ -191,11 +204,13 @@ class _TimeCardState extends State<TimeCard> {
                                           children: [
                                             Text(
                                               "End",
-                                              style: AppTextStyles.textSize12(),
+                                              style: AppTextStyles.textSize12(
+                                                  color: AppColors.greyColor),
                                             ),
                                             Text(
                                               "4:12pm",
-                                              style: AppTextStyles.textSize18(),
+                                              style: AppTextStyles.textSize18(
+                                                  color: AppColors.greyColor),
                                             )
                                           ],
                                         ),
@@ -235,7 +250,7 @@ class _TimeCardState extends State<TimeCard> {
                     borderColor: AppColors.greenAccent,
                     text: 'Cancel',
                     height: MediaQuery.of(context).size.height * 0.08,
-                    style: AppTextStyles.textSize18(),
+                    style: AppTextStyles.textSize18(color: AppColors.greyColor),
                   ),
                 ],
               ),
@@ -251,7 +266,7 @@ class _TimeCardState extends State<TimeCard> {
       edgeInsets: EdgeInsets.symmetric(
           horizontal: AppMetrics.paddingHorizotal,
           vertical: AppMetrics.paddingVertical),
-      colorBorder: AppColors.grey.withOpacity(0.2),
+      colorBorder: AppColors.border,
       child: Column(
         children: [
           CustomContainer(
@@ -452,6 +467,30 @@ class _TimeCardState extends State<TimeCard> {
                     ),
                     labelText: 'Comments'),
               )),
+          if (_fileName != null)
+            Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppMetrics.paddingHorizotal,
+                    vertical: AppMetrics.paddingContent),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      child: SvgPicture.asset(
+                        AppImage.paperclip,
+                        alignment: Alignment.center,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    Text(
+                      _fileName,
+                      style:
+                          AppTextStyles.textSize14(color: AppColors.greyColor),
+                    ),
+                  ],
+                )),
           Container(
               padding: EdgeInsets.symmetric(
                   horizontal: AppMetrics.paddingHorizotal,
@@ -459,9 +498,12 @@ class _TimeCardState extends State<TimeCard> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    AppImage.floatbtn,
-                    alignment: Alignment.center,
+                  GestureDetector(
+                    onTap: _openFileExplorer,
+                    child: SvgPicture.asset(
+                      AppImage.floatbtn,
+                      alignment: Alignment.center,
+                    ),
                   ),
                   SizedBox(
                     width: 16.0,
@@ -505,5 +547,31 @@ class _TimeCardState extends State<TimeCard> {
         _time = newTime;
       });
     }
+  }
+
+  void _openFileExplorer() async {
+    setState(() => _loadingPath = true);
+    try {
+      _directoryPath = null;
+      _paths = (await FilePicker.platform.pickFiles(
+        type: _pickingType,
+        allowMultiple: _multiPick,
+        allowedExtensions: (_extension?.isNotEmpty ?? false)
+            ? _extension.replaceAll(' ', '').split(',')
+            : null,
+      ))
+          ?.files;
+    } on Exception catch (e) {
+      print("Unsupported operation" + e.toString());
+    } catch (ex) {
+      print(ex);
+    }
+    if (!mounted) return;
+    setState(() {
+      _loadingPath = false;
+      print(_paths.first.extension);
+      _fileName = _paths != null ? _paths.map((e) => e.name).toString() : '...';
+      print(_fileName);
+    });
   }
 }
