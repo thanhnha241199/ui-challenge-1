@@ -30,6 +30,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
     return Container(
       height: MediaQuery.of(context).size.height * 0.55,
       child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,7 +71,6 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(
-                        horizontal: AppMetrics.paddingHorizotal,
                         vertical: AppMetrics.paddingVertical),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
