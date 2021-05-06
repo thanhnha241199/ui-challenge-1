@@ -4,35 +4,13 @@ import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/models/onboarding/onboarding.dart';
 import 'package:bookkeepa/screens/auth/login_screen.dart';
+import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-final List<OnboadingModel> imgList = [
-  OnboadingModel(
-      image: 'assets/images/svg/onboarding.png',
-      title: "All your financials \non the go",
-      subtitle:
-          "We're simplifying bookeeping and \naccounting so you can focus \non what master."),
-  OnboadingModel(
-      image: 'assets/images/svg/onboarding2.png',
-      title: "Are you \nneeding payroll",
-      subtitle:
-          "If you require access to rosters, \ntimesheets, payslips and more, then \npayroll is for you."),
-  OnboadingModel(
-      image: 'assets/images/svg/onboarding3.png',
-      title: "Account verification \n& set up",
-      subtitle:
-          "You dedicated bookkeeper will then \nneed to verify and \nset up your account."),
-  OnboadingModel(
-      image: 'assets/images/svg/onboarding4.png',
-      title: "Begin with \nBookkeepa",
-      subtitle:
-          "Generate invoices and quotes, recied \ncashflow and manage payroll \non the go!")
-];
 
 class Welcome extends StatefulWidget {
   @override
@@ -43,6 +21,24 @@ class _WelcomeState extends State<Welcome> {
   int _current = 0;
   @override
   Widget build(BuildContext context) {
+    final List<OnboadingModel> imgList = [
+      OnboadingModel(
+          image: 'assets/images/svg/onboarding.png',
+          title: AppTranslations().getLanguage(context, 'title1'),
+          subtitle: AppTranslations().getLanguage(context, 'subtitle1')),
+      OnboadingModel(
+          image: 'assets/images/svg/onboarding2.png',
+          title: AppTranslations().getLanguage(context, 'title2'),
+          subtitle: AppTranslations().getLanguage(context, 'subtitle2')),
+      OnboadingModel(
+          image: 'assets/images/svg/onboarding3.png',
+          title: AppTranslations().getLanguage(context, 'title3'),
+          subtitle: AppTranslations().getLanguage(context, 'subtitle3')),
+      OnboadingModel(
+          image: 'assets/images/svg/onboarding4.png',
+          title: AppTranslations().getLanguage(context, 'title4'),
+          subtitle: AppTranslations().getLanguage(context, 'subtitle4'))
+    ];
     final List<Widget> imageSliders = imgList
         .map((item) => Container(
               width: double.infinity,
@@ -53,6 +49,7 @@ class _WelcomeState extends State<Welcome> {
               ),
             ))
         .toList();
+
     final double height = MediaQuery.of(context).size.height;
     return BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {},
@@ -145,7 +142,7 @@ class _WelcomeState extends State<Welcome> {
                         },
                         borderColor: AppColors.greenAccent,
                         color: AppColors.greenAccent,
-                        text: "Next",
+                        text: AppTranslations().getLanguage(context, 'next'),
                         style: AppTextStyles.textSize18(),
                       ),
                       SizedBox(
@@ -158,7 +155,7 @@ class _WelcomeState extends State<Welcome> {
                           });
                         },
                         child: Text(
-                          "Skip",
+                          AppTranslations().getLanguage(context, 'skip'),
                           style:
                               AppTextStyles.textSize16(color: AppColors.green),
                         ),

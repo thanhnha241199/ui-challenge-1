@@ -3,7 +3,9 @@ import 'package:bookkeepa/config/app_colors.dart';
 import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
+import 'package:bookkeepa/screens/auth/login_screen.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
+import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/bottom_space.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
@@ -58,14 +60,14 @@ class _VerifyCodeState extends State<VerifyCode> {
           },
           child: Stack(
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: AppMetrics.paddingHorizotal),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                        child: SingleChildScrollView(
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: AppMetrics.paddingHorizotal),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,7 +76,7 @@ class _VerifyCodeState extends State<VerifyCode> {
                                 height: 150.0,
                               ),
                               Text(
-                                'Enter 4 digit code we have sent to \n+61 0412 345 678',
+                                '${AppTranslations().getLanguage(context, 'verifyPhone')} \n+61 0412 345 678',
                                 style: AppTextStyles.textSize16(),
                                 textAlign: TextAlign.center,
                               ),
@@ -139,7 +141,11 @@ class _VerifyCodeState extends State<VerifyCode> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("Didn't receive code ?"),
+                                  Text(
+                                    "Didn't receive code ?",
+                                    style: AppTextStyles.textSize14(
+                                        color: AppColors.blueLight),
+                                  ),
                                   SizedBox(
                                     width: 5.0,
                                   ),
@@ -153,22 +159,31 @@ class _VerifyCodeState extends State<VerifyCode> {
                             ],
                           ),
                         ),
-                        flex: 1),
-                    CustomButton(
-                      height: MediaQuery.of(context).size.height * 0.08,
-                      ontap: () {
-                        context.read<AuthBloc>().add(AuthLogin(
-                            phoneNumber: '+61411689111',
-                            password: controllerPassword.text));
-                      },
-                      borderColor: AppColors.greenAccent,
-                      color: AppColors.greenAccent,
-                      text: AppTranslations().getLanguage(context, 'verify'),
-                      style: AppTextStyles.textSize18(),
+                      ),
+                      flex: 1),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: AppMetrics.paddingHorizotal),
+                    child: Column(
+                      children: [
+                        CustomButton(
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          ontap: () {
+                            NavigationService.instance.navigateTo(Login());
+                          },
+                          borderColor: AppColors.greenAccent,
+                          color: AppColors.greenAccent,
+                          text: AppTranslations().getLanguage(context, 'next'),
+                          style: AppTextStyles.textSize18(),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        )
+                      ],
                     ),
-                    BottomSpace(),
-                  ],
-                ),
+                  ),
+                  BottomSpace(),
+                ],
               ),
               BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
                 if (state.requesting) return OverlayLoading();

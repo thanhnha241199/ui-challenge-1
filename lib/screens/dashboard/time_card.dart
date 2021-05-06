@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bookkeepa/config/app_colors.dart';
 import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_metrics.dart';
@@ -22,9 +20,9 @@ class TimeCard extends StatefulWidget {
 class _TimeCardState extends State<TimeCard> {
   String _fileName;
   List<PlatformFile> _paths;
-  String _directoryPath;
+  String directoryPath;
   String _extension;
-  bool _loadingPath = false;
+  bool loadingPath = false;
   bool _multiPick = false;
   FileType _pickingType = FileType.any;
   TextEditingController comments, location;
@@ -49,7 +47,7 @@ class _TimeCardState extends State<TimeCard> {
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             formTimeCard(),
             Container(
@@ -501,7 +499,7 @@ class _TimeCardState extends State<TimeCard> {
                   GestureDetector(
                     onTap: _openFileExplorer,
                     child: SvgPicture.asset(
-                      AppImage.floatbtn,
+                      AppImage.attAttachment,
                       alignment: Alignment.center,
                     ),
                   ),
@@ -529,6 +527,19 @@ class _TimeCardState extends State<TimeCard> {
       firstDate: DateTime(2017, 1),
       lastDate: DateTime(2022, 7),
       helpText: 'Select a date',
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.light(
+              primary: AppColors.greenAccent,
+              onPrimary: Colors.white,
+              surface: AppColors.greenAccent,
+              onSurface: Colors.black,
+            ),
+          ),
+          child: child,
+        );
+      },
     );
     if (newDate != null) {
       setState(() {
@@ -541,6 +552,17 @@ class _TimeCardState extends State<TimeCard> {
     final TimeOfDay newTime = await showTimePicker(
       context: context,
       initialTime: _time,
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.light(
+              primary: AppColors.greenAccent,
+              onPrimary: Colors.white,
+            ),
+          ),
+          child: child,
+        );
+      },
     );
     if (newTime != null) {
       setState(() {
@@ -550,9 +572,9 @@ class _TimeCardState extends State<TimeCard> {
   }
 
   void _openFileExplorer() async {
-    setState(() => _loadingPath = true);
+    setState(() => loadingPath = true);
     try {
-      _directoryPath = null;
+      directoryPath = null;
       _paths = (await FilePicker.platform.pickFiles(
         type: _pickingType,
         allowMultiple: _multiPick,
@@ -568,7 +590,7 @@ class _TimeCardState extends State<TimeCard> {
     }
     if (!mounted) return;
     setState(() {
-      _loadingPath = false;
+      loadingPath = false;
       print(_paths.first.extension);
       _fileName = _paths != null ? _paths.map((e) => e.name).toString() : '...';
       print(_fileName);

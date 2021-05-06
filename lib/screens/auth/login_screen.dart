@@ -22,6 +22,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  bool showpass = true;
   TextEditingController controllerEmail, controllerPassword;
 
   FocusNode fnEmail, fnPassword;
@@ -52,7 +53,7 @@ class _LoginState extends State<Login> {
               context: context,
               builder: (BuildContext context) {
                 return CustomDialog(
-                  descriptions: 'zxczcx',
+                  descriptions: 'Alerts',
                   title: 'error',
                 );
               });
@@ -61,79 +62,89 @@ class _LoginState extends State<Login> {
       child: Scaffold(
         body: Stack(
           children: [
-            Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                      child: SingleChildScrollView(
-                        physics: BouncingScrollPhysics(),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(top: 100.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(AppImage.logo),
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
-                                  Text(
-                                    AppTranslations().getLanguage(
-                                        context, 'Welcome back to \nBookKeepa'),
-                                    style: AppTextStyles.textSize25(
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 100.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                SvgPicture.asset(AppImage.logo),
                                 SizedBox(
-                                  height: 20.0,
+                                  height: 10.0,
                                 ),
-                                InputField(
-                                    focusNode: fnEmail,
-                                    title: AppTranslations()
-                                        .getLanguage(context, 'Email'),
-                                    textInputAction: TextInputAction.done,
-                                    controller: controllerEmail,
-                                    icon: Icons.check_circle),
-                                SizedBox(
-                                  height: 20.0,
-                                ),
-                                InputField(
-                                  focusNode: fnPassword,
-                                  title: AppTranslations()
-                                      .getLanguage(context, 'password'),
-                                  isPassword: true,
-                                  textInputAction: TextInputAction.done,
-                                  controller: controllerPassword,
-                                  icon: Icons.remove_red_eye,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 20.0),
-                                  child: Text(
-                                    AppTranslations()
-                                        .getLanguage(context, 'forgotPassword'),
-                                    textAlign: TextAlign.start,
-                                    style: AppTextStyles.textSize14(
-                                        color: AppColors.green),
-                                  ),
+                                Text(
+                                  AppTranslations()
+                                      .getLanguage(context, 'welcomeBack'),
+                                  style: AppTextStyles.textSize25(
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
                                 ),
                               ],
-                            )
-                          ],
-                        ),
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              InputField(
+                                  validator: validateEmail,
+                                  onEditingComplete: () {
+                                    validateEmail(controllerEmail.text);
+                                  },
+                                  focusNode: fnEmail,
+                                  title: AppTranslations()
+                                      .getLanguage(context, 'email'),
+                                  textInputAction: TextInputAction.done,
+                                  controller: controllerEmail,
+                                  textStyle: AppTextStyles.textSize18(),
+                                  icon: Icons.check_circle),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              InputField(
+                                focusNode: fnPassword,
+                                title: AppTranslations()
+                                    .getLanguage(context, 'password'),
+                                isPassword: showpass,
+                                textInputAction: TextInputAction.done,
+                                controller: controllerPassword,
+                                textStyle: AppTextStyles.textSize18(),
+                                icon: Icons.visibility_off,
+                                onTapIcon: ontap,
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 24.0),
+                                child: Text(
+                                  AppTranslations()
+                                      .getLanguage(context, 'forgotPassword'),
+                                  textAlign: TextAlign.start,
+                                  style: AppTextStyles.textSize14(
+                                      color: AppColors.green),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
-                      flex: 1),
-                  Column(
+                    ),
+                    flex: 1),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: AppMetrics.paddingHorizotal),
+                  child: Column(
                     children: [
                       CustomButton(
                         height: MediaQuery.of(context).size.height * 0.08,
@@ -157,8 +168,10 @@ class _LoginState extends State<Login> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'New to BookKeepa?',
-                                style: AppTextStyles.textSize14(),
+                                AppTranslations()
+                                    .getLanguage(context, 'newBookeepa'),
+                                style: AppTextStyles.textSize14(
+                                    color: AppColors.greyColor),
                               ),
                               SizedBox(
                                 width: 5.0,
@@ -168,7 +181,9 @@ class _LoginState extends State<Login> {
                                   NavigationService.instance
                                       .navigateTo(SignUp());
                                 },
-                                child: Text('Register Now',
+                                child: Text(
+                                    AppTranslations()
+                                        .getLanguage(context, 'registerNow'),
                                     style: AppTextStyles.textSize14(
                                       color: AppColors.green,
                                     )),
@@ -177,9 +192,9 @@ class _LoginState extends State<Login> {
                           )),
                     ],
                   ),
-                  BottomSpace(),
-                ],
-              ),
+                ),
+                BottomSpace(),
+              ],
             ),
             BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
               if (state.requesting) return OverlayLoading();
@@ -189,5 +204,24 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  void ontap() {
+    setState(() {
+      showpass = !showpass;
+    });
+  }
+
+  String validateEmail(String value) {
+    Pattern pattern =
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?)*$";
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value) || value == null) {
+      print('Enter a valid email address');
+      return 'Enter a valid email address';
+    } else
+      return null;
   }
 }

@@ -11,8 +11,10 @@ import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/float_btn.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 import '../../config/app_colors.dart';
 import '../../config/app_images.dart';
@@ -121,6 +123,7 @@ class _TimesheetsState extends State<Timesheets> {
     super.initState();
   }
 
+  DateTime _date = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,9 +179,40 @@ class _TimesheetsState extends State<Timesheets> {
                 SizedBox(
                   width: 70,
                 ),
-                Text(
-                  index == 0 ? "April 2021" : "May 2021",
-                  style: AppTextStyles.textSize16(),
+                GestureDetector(
+                  onTap: () async {
+                    final DateTime newDate = await showDatePicker(
+                      context: context,
+                      initialDate: _date,
+                      firstDate: DateTime(2017, 1),
+                      lastDate: DateTime(2022, 7),
+                      helpText: 'Select a date',
+                      builder: (BuildContext context, Widget child) {
+                        return Theme(
+                          data: ThemeData.light().copyWith(
+                            colorScheme: ColorScheme.light(
+                              primary: AppColors.greenAccent,
+                              onPrimary: Colors.white,
+                              surface: AppColors.greenAccent,
+                              onSurface: Colors.black,
+                            ),
+                          ),
+                          child: child,
+                        );
+                      },
+                    );
+                    if (newDate != null) {
+                      setState(() {
+                        _date = newDate;
+                      });
+                    }
+                  },
+                  child: Text(
+                    index == 0
+                        ? DateFormat('MMM yyyy').format(_date)
+                        : 'June 2022',
+                    style: AppTextStyles.textSize16(),
+                  ),
                 ),
                 SizedBox(
                   width: 70,
@@ -303,7 +337,7 @@ class _TimesheetsState extends State<Timesheets> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       SizedBox(
-                        height: 5.0,
+                        height: 3.0,
                       ),
                       item.label == 'draft'
                           ? SvgPicture.asset(

@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:bookkeepa/models/payslip/payslip.dart';
@@ -24,7 +25,7 @@ class Payslips extends StatefulWidget {
   _PayslipsState createState() => _PayslipsState();
 }
 
-class _PayslipsState extends State<Payslips> {
+class _PayslipsState extends State<Payslips> with TickerProviderStateMixin {
   List<PayslipModel> items = [
     PayslipModel(start: "01 Feb", end: "22 Feb 2021", amount: "1,953.00"),
     PayslipModel(start: "02 Feb", end: "23 Feb 2021", amount: "1,952.00"),
@@ -34,6 +35,21 @@ class _PayslipsState extends State<Payslips> {
   ];
   bool date = false;
   bool amount = false;
+  Animation _arrowAnimationAmount, _arrowAnimationDate;
+  AnimationController _arrowAnimationAmountController,
+      _arrowAnimationDateController;
+  @override
+  void initState() {
+    _arrowAnimationAmountController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    _arrowAnimationAmount =
+        Tween(begin: 0.0, end: pi).animate(_arrowAnimationAmountController);
+    _arrowAnimationDateController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    _arrowAnimationDate =
+        Tween(begin: 0.0, end: pi).animate(_arrowAnimationDateController);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +133,9 @@ class _PayslipsState extends State<Payslips> {
                 ? items.sort((a, b) => a.amount.compareTo(b.amount))
                 : items.sort((a, b) => -a.amount.compareTo(b.amount));
           });
+          _arrowAnimationAmountController.isCompleted
+              ? _arrowAnimationAmountController.reverse()
+              : _arrowAnimationAmountController.forward();
         },
         child: CustomContainer(
           height: MediaQuery.of(context).size.height * 0.075,
@@ -131,15 +150,15 @@ class _PayslipsState extends State<Payslips> {
                 style: AppTextStyles.textSize16(),
               ),
               Spacer(),
-              amount == false
-                  ? SvgPicture.asset(
+              AnimatedBuilder(
+                animation: _arrowAnimationAmountController,
+                builder: (context, child) => Transform.rotate(
+                    angle: _arrowAnimationAmount.value,
+                    child: SvgPicture.asset(
                       AppImage.caretdown,
                       alignment: Alignment.center,
-                    )
-                  : SvgPicture.asset(
-                      AppImage.caretup,
-                      alignment: Alignment.center,
-                    ),
+                    )),
+              )
             ],
           ),
         ),
@@ -158,6 +177,9 @@ class _PayslipsState extends State<Payslips> {
                 ? items.sort((a, b) => a.end.compareTo(b.end))
                 : items.sort((a, b) => -a.end.compareTo(b.end));
           });
+          _arrowAnimationDateController.isCompleted
+              ? _arrowAnimationDateController.reverse()
+              : _arrowAnimationDateController.forward();
         },
         child: CustomContainer(
           height: MediaQuery.of(context).size.height * 0.075,
@@ -172,15 +194,15 @@ class _PayslipsState extends State<Payslips> {
                 style: AppTextStyles.textSize16(),
               ),
               Spacer(),
-              date == false
-                  ? SvgPicture.asset(
+              AnimatedBuilder(
+                animation: _arrowAnimationDateController,
+                builder: (context, child) => Transform.rotate(
+                    angle: _arrowAnimationDate.value,
+                    child: SvgPicture.asset(
                       AppImage.caretdown,
                       alignment: Alignment.center,
-                    )
-                  : SvgPicture.asset(
-                      AppImage.caretup,
-                      alignment: Alignment.center,
-                    ),
+                    )),
+              )
             ],
           ),
         ),
@@ -217,7 +239,7 @@ class _PayslipsState extends State<Payslips> {
                 height: 5.0,
               ),
               Text(
-                "${item.start} - ${item.end})",
+                "${item.start} - ${item.end}",
                 style: AppTextStyles.textSize12(color: AppColors.greyColor),
               ),
               SizedBox(

@@ -20,7 +20,6 @@ class _AppState extends State<App> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: AppColors.greenAccent,
-        accentColor: AppColors.greenAccent,
       ),
       navigatorKey: NavigationService.instance.navigationKey,
       home: Scaffold(

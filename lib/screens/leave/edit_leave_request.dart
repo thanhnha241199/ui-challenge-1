@@ -262,8 +262,11 @@ class _EditLeaveState extends State<EditLeave> {
                                 ? Container()
                                 : CustomContainer(
                                     padding: EdgeInsets.symmetric(
-                                        horizontal: AppMetrics.paddingHorizotal,
-                                        vertical: AppMetrics.paddingVertical),
+                                        horizontal: AppMetrics
+                                            .paddingHorizontalContainer,
+                                        vertical: AppMetrics
+                                                .paddingHorizontalContainer -
+                                            2),
                                     colorBorder: AppColors.border,
                                     child: Row(children: [
                                       Flexible(
@@ -340,12 +343,11 @@ class _EditLeaveState extends State<EditLeave> {
                                 vertical: 30.0,
                                 horizontal: AppMetrics.paddingHorizotal),
                             height: MediaQuery.of(context).size.height * 0.55,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 5,
-                                  child: Row(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
                                     children: [
                                       Expanded(flex: 2, child: Text("")),
                                       Expanded(
@@ -368,22 +370,23 @@ class _EditLeaveState extends State<EditLeave> {
                                               )))
                                     ],
                                   ),
-                                ),
-                                Expanded(
-                                    flex: 5,
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              AppMetrics.paddingHorizotal),
-                                      child: Text(
-                                        "Your leave request has been submitted. \nYou will be notified once your employer\nApproves or rejects it.",
-                                        style: AppTextStyles.textSize16(),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    )),
-                                Expanded(
-                                  flex: 5,
-                                  child: Column(
+                                  SizedBox(
+                                    height: 38.0,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            AppMetrics.paddingHorizotal),
+                                    child: Text(
+                                      "Your leave request has been submitted. You will be notified once your employer Approves or rejects it.",
+                                      style: AppTextStyles.textSize16(),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 24.0,
+                                  ),
+                                  Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -441,10 +444,12 @@ class _EditLeaveState extends State<EditLeave> {
                                       ),
                                     ],
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 3,
-                                  child: CustomButton(
+                                  SizedBox(
+                                    height: 40.0,
+                                  ),
+                                  CustomButton(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.08,
                                     ontap: () {
                                       NavigationService.instance.goback();
                                     },
@@ -452,9 +457,9 @@ class _EditLeaveState extends State<EditLeave> {
                                     color: AppColors.greenAccent,
                                     text: "Close",
                                     style: AppTextStyles.textSize14(),
-                                  ),
-                                )
-                              ],
+                                  )
+                                ],
+                              ),
                             ),
                           );
                         },
@@ -495,6 +500,19 @@ class _EditLeaveState extends State<EditLeave> {
       firstDate: DateTime(2021, 1),
       lastDate: DateTime(2022, 7),
       helpText: 'Select a date start',
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.light(
+              primary: AppColors.greenAccent,
+              onPrimary: Colors.white,
+              surface: AppColors.greenAccent,
+              onSurface: Colors.black,
+            ),
+          ),
+          child: child,
+        );
+      },
     );
     if (newDate != null) {
       setState(() {
@@ -510,6 +528,19 @@ class _EditLeaveState extends State<EditLeave> {
       firstDate: DateTime(2021, 1),
       lastDate: DateTime(2022, 7),
       helpText: 'Select a date end',
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.light(
+              primary: AppColors.greenAccent,
+              onPrimary: Colors.white,
+              surface: AppColors.greenAccent,
+              onSurface: Colors.black,
+            ),
+          ),
+          child: child,
+        );
+      },
     );
     if (newDate != null) {
       setState(() {

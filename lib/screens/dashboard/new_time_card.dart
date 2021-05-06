@@ -427,6 +427,19 @@ class _NewTimeCardState extends State<NewTimeCard> {
       firstDate: DateTime(2017, 1),
       lastDate: DateTime(2022, 7),
       helpText: 'Select a date',
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.light(
+              primary: AppColors.greenAccent,
+              onPrimary: Colors.white,
+              surface: AppColors.greenAccent,
+              onSurface: Colors.black,
+            ),
+          ),
+          child: child,
+        );
+      },
     );
     if (newDate != null) {
       setState(() {

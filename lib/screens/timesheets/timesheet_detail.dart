@@ -178,23 +178,30 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                               ),
                             ],
                           ),
-                          widget.timeSheetModel.label == 'draft'
-                              ? SvgPicture.asset(
-                                  AppImage.draft,
-                                  fit: BoxFit.scaleDown,
-                                  alignment: Alignment.center,
-                                )
-                              : widget.timeSheetModel.label == 'approved'
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: 3.0,
+                              ),
+                              widget.timeSheetModel.label == 'draft'
                                   ? SvgPicture.asset(
-                                      AppImage.approved,
+                                      AppImage.draft,
                                       fit: BoxFit.scaleDown,
                                       alignment: Alignment.center,
                                     )
-                                  : SvgPicture.asset(
-                                      AppImage.pending,
-                                      fit: BoxFit.scaleDown,
-                                      alignment: Alignment.center,
-                                    ),
+                                  : widget.timeSheetModel.label == 'approved'
+                                      ? SvgPicture.asset(
+                                          AppImage.approved,
+                                          fit: BoxFit.scaleDown,
+                                          alignment: Alignment.center,
+                                        )
+                                      : SvgPicture.asset(
+                                          AppImage.pending,
+                                          fit: BoxFit.scaleDown,
+                                          alignment: Alignment.center,
+                                        ),
+                            ],
+                          )
                         ],
                       ),
                     ),
@@ -460,9 +467,9 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                               top: AppMetrics.paddingContent),
                                           padding: EdgeInsets.symmetric(
                                               vertical:
-                                                  AppMetrics.paddingContent,
+                                                  AppMetrics.paddingVertical,
                                               horizontal:
-                                                  AppMetrics.paddingContent),
+                                                  AppMetrics.paddingContainer),
                                           child: Column(
                                             children: [
                                               Row(
@@ -486,6 +493,8 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                     flex: 3,
                                                     child: Text(
                                                       e.time,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       style: AppTextStyles
                                                           .textSize14(),
                                                     ),
@@ -528,7 +537,7 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                               vertical:
                                                   AppMetrics.paddingVertical,
                                               horizontal:
-                                                  AppMetrics.paddingContent),
+                                                  AppMetrics.paddingContainer),
                                           child: Column(
                                             children: [
                                               Row(
@@ -552,6 +561,8 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                     flex: 3,
                                                     child: Text(
                                                       e.time,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       style: AppTextStyles
                                                           .textSize14(),
                                                     ),
@@ -604,7 +615,7 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                              AppImage.floatbtn,
+                              AppImage.attAttachment,
                               alignment: Alignment.center,
                             ),
                             SizedBox(

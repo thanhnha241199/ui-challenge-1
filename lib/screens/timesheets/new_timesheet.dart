@@ -472,7 +472,7 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 SvgPicture.asset(
-                                  AppImage.floatbtn,
+                                  AppImage.attAttachment,
                                   alignment: Alignment.center,
                                 ),
                                 SizedBox(

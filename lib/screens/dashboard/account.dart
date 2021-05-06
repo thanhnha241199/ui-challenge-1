@@ -107,7 +107,13 @@ class _AccountScreenState extends State<AccountScreen> {
         body: ListView(
           physics: BouncingScrollPhysics(),
           children: [
+            SizedBox(
+              height: AppMetrics.paddingContainer,
+            ),
             profile(),
+            SizedBox(
+              height: AppMetrics.paddingContainer,
+            ),
             CustomContainer(
               edgeInsets:
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
@@ -161,9 +167,8 @@ class _AccountScreenState extends State<AccountScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppMetrics.paddingHorizotal,
-                        vertical: AppMetrics.paddingContent),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                     alignment: Alignment.center,
                     child: Row(
                       children: [
@@ -292,9 +297,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
   Widget profile() {
     return CustomContainer(
-      edgeInsets: EdgeInsets.symmetric(
-          vertical: AppMetrics.paddingHorizotal,
-          horizontal: AppMetrics.paddingContainer),
+      edgeInsets: EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
       padding: EdgeInsets.symmetric(horizontal: AppMetrics.paddingContent),
       colorBorder: AppColors.border,
       child: GestureDetector(

@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:bookkeepa/config/app_colors.dart';
@@ -9,7 +10,6 @@ import 'package:bookkeepa/screens/leave/new_leave_request.dart';
 import 'package:bookkeepa/screens/timesheets/new_timesheet.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -27,22 +27,21 @@ class _FancyFabState extends State<FancyFab>
     with SingleTickerProviderStateMixin {
   bool isOpened = false;
   AnimationController _animationController;
-  Animation<Color> _buttonColor;
-  Animation<double> _animateIcon;
+  Animation<Color> buttonColor;
+  Animation<double> animateIcon;
   Animation<double> _translateButton;
   Curve _curve = Curves.easeOut;
   double _fabHeight = 56.0;
-
   @override
   initState() {
     _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500))
+        AnimationController(vsync: this, duration: Duration(milliseconds: 200))
           ..addListener(() {
             setState(() {});
           });
-    _animateIcon =
-        Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
-    _buttonColor = ColorTween(
+    animateIcon = Tween<double>(begin: 0.0, end: 3 / 4 * pi)
+        .animate(_animationController);
+    buttonColor = ColorTween(
       begin: Colors.blue,
       end: Colors.red,
     ).animate(CurvedAnimation(
@@ -60,7 +59,7 @@ class _FancyFabState extends State<FancyFab>
       parent: _animationController,
       curve: Interval(
         0.0,
-        0.75,
+        1.0,
         curve: _curve,
       ),
     ));
@@ -79,7 +78,9 @@ class _FancyFabState extends State<FancyFab>
     } else {
       _animationController.reverse();
     }
-    isOpened = !isOpened;
+    setState(() {
+      isOpened = !isOpened;
+    });
   }
 
   @override
@@ -166,17 +167,12 @@ class _FancyFabState extends State<FancyFab>
   }
 
   Widget toggle() {
-    return isOpened
-        ? Transform.rotate(
-            angle: 45 * math.pi / 180,
-            child: GestureDetector(
-                onTap: animate, child: SvgPicture.asset(AppImage.floatbtn)),
-          )
-        : Transform.rotate(
-            angle: 180 * math.pi / 180,
-            child: Container(
-              child: GestureDetector(
-                  onTap: animate, child: SvgPicture.asset(AppImage.floatbtn)),
-            ));
+    return AnimatedBuilder(
+      animation: _animationController,
+      builder: (context, child) => Transform.rotate(
+          angle: animateIcon.value,
+          child: GestureDetector(
+              onTap: animate, child: SvgPicture.asset(AppImage.floatbtn))),
+    );
   }
 }

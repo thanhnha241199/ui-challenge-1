@@ -1,4 +1,5 @@
 import 'package:bookkeepa/config/app_colors.dart';
+import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class InputField extends StatefulWidget {
@@ -13,6 +14,7 @@ class InputField extends StatefulWidget {
   final FocusNode focusNode;
   final IconData icon;
   final Function onTapIcon;
+  final Function validator;
   InputField({
     Key key,
     this.title,
@@ -20,6 +22,7 @@ class InputField extends StatefulWidget {
     this.textStyle,
     this.textInputType,
     this.textInputAction,
+    this.validator,
     this.controller,
     this.icon,
     this.autofocus = false,
@@ -54,7 +57,7 @@ class _InputFieldState extends State<InputField> {
             borderRadius: BorderRadius.circular(20.0),
           ),
           child: Padding(
-            padding: EdgeInsets.only(left: 15.0),
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
             child: TextFormField(
               focusNode: widget.focusNode,
               autofocus: widget.autofocus,
@@ -63,21 +66,28 @@ class _InputFieldState extends State<InputField> {
               obscureText: widget.isPassword,
               textInputAction: widget.textInputAction,
               onEditingComplete: widget.onEditingComplete,
+              style: widget.textStyle,
+              validator: widget.validator,
               decoration: InputDecoration(
                   labelText: widget.title,
-                  labelStyle: TextStyle(color: AppColors.blackColor),
+                  labelStyle:
+                      AppTextStyles.textSize12(color: AppColors.blueLight),
                   border: InputBorder.none,
                   fillColor: Colors.transparent,
-                  contentPadding: new EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 10.0),
+                  contentPadding: EdgeInsets.symmetric(vertical: 15.0),
                   filled: true,
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: AppColors.grey10),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: AppColors.greenAccent),
+                  ),
                   suffixIcon: widget.icon is IconData
                       ? GestureDetector(
                           onTap: () {
                             _onTap();
                           },
                           child: Container(
-                            padding: EdgeInsets.only(right: 25),
                             child: Icon(
                               widget.icon,
                               color: isEnable ? Colors.green : Colors.grey,

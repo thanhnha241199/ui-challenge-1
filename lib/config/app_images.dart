@@ -46,6 +46,7 @@ class AppImage {
   static const String eyeslash = 'assets/images/svg/eyeslash.svg';
   static const String xcircle = 'assets/images/svg/xcircle.svg';
   static const String avatar = 'assets/images/svg/avatar.png';
+  static const String attAttachment = 'assets/images/svg/add_attachment.svg';
   static const String avatar_dashboard =
       'assets/images/svg/avatar_dashboard.png';
   static const String business = 'assets/images/svg/business.png';

@@ -23,7 +23,7 @@ class _NotificationState extends State<Notifications> {
         read: true,
         time: "20m ago"),
     NotificationModel(
-        title: "1 document needs to be signed", read: false, time: "1h ago"),
+        title: "1 document needs to be signed", read: true, time: "1h ago"),
     NotificationModel(
         title: "Amy Ranch needs timesheet approved",
         read: false,
@@ -51,15 +51,15 @@ class _NotificationState extends State<Notifications> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         GestureDetector(
           onTap: () {
             NavigationService.instance.goback();
           },
           child: Padding(
-            padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width - 90.0, top: 40.0),
+            padding: EdgeInsets.only(right: 24.0, top: 40.0),
             child: SvgPicture.asset(
               AppImage.xcircle,
               height: 50.0,
@@ -68,25 +68,30 @@ class _NotificationState extends State<Notifications> {
             ),
           ),
         ),
-        Dialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                  Radius.circular(AppMetrics.borderContainer))),
-          child: CustomContainer(
-              height: MediaQuery.of(context).size.height * 0.7,
-              width: MediaQuery.of(context).size.width,
-              colorBorder: AppColors.border,
-              color: AppColors.whiteColor,
-              child: AppListView(
-                data: items,
-                renderItem: (item) {
-                  return renderItem(context, item);
-                },
-                onLoadMore: () {
-                  print('loadmore');
-                },
-              )),
-          elevation: 2,
+        Flexible(
+          child: Dialog(
+            insetPadding: EdgeInsets.symmetric(
+                horizontal: AppMetrics.paddingHorizotal,
+                vertical: AppMetrics.paddingContainer),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                    Radius.circular(AppMetrics.borderContainer))),
+            child: CustomContainer(
+                height: MediaQuery.of(context).size.height * 0.8,
+                width: MediaQuery.of(context).size.width,
+                colorBorder: AppColors.border,
+                color: AppColors.whiteColor,
+                child: AppListView(
+                  data: items,
+                  renderItem: (item) {
+                    return renderItem(context, item);
+                  },
+                  onLoadMore: () {
+                    print('loadmore');
+                  },
+                )),
+            elevation: 2,
+          ),
         )
       ],
     );
@@ -94,49 +99,48 @@ class _NotificationState extends State<Notifications> {
 
   renderItem(BuildContext context, NotificationModel item) {
     return items.indexOf(item) == 0
-        ? Column(
-            children: [
-              Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      color: item.read == true
-                          ? AppColors.green20
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(AppMetrics.borderContainer),
-                          topRight:
-                              Radius.circular(AppMetrics.borderContainer))),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: AppMetrics.paddingContent,
-                        horizontal: AppMetrics.paddingContent),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: Text(
-                              item.title,
-                              style: AppTextStyles.textSize16(),
-                              maxLines: 2,
-                            ),
+        ? Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                color:
+                    item.read == true ? AppColors.green20 : Colors.transparent,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(AppMetrics.borderContainer),
+                    topRight: Radius.circular(AppMetrics.borderContainer))),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: AppMetrics.paddingContent,
+                      horizontal: AppMetrics.paddingContent),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            item.title,
+                            style: AppTextStyles.textSize16(),
+                            maxLines: 2,
                           ),
-                          Flexible(
-                            child: Text(
-                              item.time,
-                              style: AppTextStyles.textSize16(
-                                  color: AppColors.greyColor),
-                            ),
-                          )
-                        ]),
-                  )),
-              items.indexOf(item) == items.length - 1
-                  ? Container()
-                  : Divider(
-                      color: AppColors.divider,
-                    )
-            ],
-          )
+                        ),
+                        Flexible(
+                          child: Text(
+                            item.time,
+                            style: AppTextStyles.textSize16(
+                                color: AppColors.greyColor),
+                          ),
+                        ),
+                      ]),
+                ),
+                items.indexOf(item) == items.length - 1
+                    ? Container()
+                    : Divider(
+                        height: 1,
+                        color: AppColors.border,
+                      )
+              ],
+            ))
         : items.indexOf(item) == items.length - 1
             ? Column(
                 children: [
@@ -175,16 +179,17 @@ class _NotificationState extends State<Notifications> {
                                       style: AppTextStyles.textSize16(
                                           color: AppColors.greyColor),
                                     ),
-                                  )
+                                  ),
                                 ]),
                           ),
+                          items.indexOf(item) == items.length - 1
+                              ? Container()
+                              : Divider(
+                                  height: 1,
+                                  color: AppColors.divider,
+                                )
                         ],
                       )),
-                  items.indexOf(item) == items.length - 1
-                      ? Container()
-                      : Divider(
-                          color: AppColors.divider,
-                        )
                 ],
               )
             : Column(
@@ -218,16 +223,17 @@ class _NotificationState extends State<Notifications> {
                                       style: AppTextStyles.textSize16(
                                           color: AppColors.greyColor),
                                     ),
-                                  )
+                                  ),
                                 ]),
                           ),
+                          items.indexOf(item) == items.length - 1
+                              ? Container()
+                              : Divider(
+                                  height: 1,
+                                  color: AppColors.divider,
+                                )
                         ],
                       )),
-                  items.indexOf(item) == items.length - 1
-                      ? Container()
-                      : Divider(
-                          color: AppColors.divider,
-                        )
                 ],
               );
   }

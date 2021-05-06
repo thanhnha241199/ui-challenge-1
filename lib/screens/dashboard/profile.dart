@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
@@ -7,7 +9,9 @@ import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:path/path.dart';
 
 import '../../config/app_colors.dart';
 import '../../config/app_metrics.dart';
@@ -26,6 +30,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       employerController;
   String initialCountry = 'AU';
   PhoneNumber number = PhoneNumber(isoCode: 'AU');
+  File _imageFile;
+  final ImagePicker picker = ImagePicker();
   @override
   void initState() {
     nameController = TextEditingController(text: 'Jerry Smith');
@@ -55,41 +61,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     vertical: AppMetrics.paddingVertical,
                     horizontal: AppMetrics.paddingHorizotal),
                 colorBorder: AppColors.border,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: AppMetrics.paddingVertical,
-                      horizontal: AppMetrics.paddingHorizotal),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            height: 62,
-                            width: 62,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
+                child: GestureDetector(
+                  onTap: () {
+                    _showPicker(context);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: AppMetrics.paddingVertical,
+                        horizontal: AppMetrics.paddingHorizotal),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              height: 62,
+                              width: 62,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
+                              child: Image.asset(
+                                AppImage.avatar,
+                              ),
                             ),
-                            child: Image.asset(
-                              AppImage.avatar,
+                            SizedBox(
+                              width: 10.0,
                             ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Text(
-                            AppTranslations().getLanguage(context, 'editPhoto'),
-                            style: AppTextStyles.textSize18(
-                                color: AppColors.green),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      SvgPicture.asset(
-                        AppImage.arrowforward,
-                      ),
-                    ],
+                            Text(
+                              AppTranslations()
+                                  .getLanguage(context, 'editPhoto'),
+                              style: AppTextStyles.textSize18(
+                                  color: AppColors.green),
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                        SvgPicture.asset(
+                          AppImage.arrowforward,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -264,5 +276,109 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
     );
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10.0),
+            child: Container(
+                height: MediaQuery.of(context).size.height * 0.25,
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                decoration: new BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(25)),
+                child: Container(
+                    margin: EdgeInsets.only(right: 5.0, left: 5.0, top: 10.0),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            width: 50.0,
+                            height: 5.0,
+                            decoration: new BoxDecoration(
+                              borderRadius: new BorderRadius.circular(10.0),
+                              color: Colors.grey,
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              GestureDetector(
+                                onTap: () async {
+                                  // final pickeeLibrary = await picker.getImage(
+                                  //     source: ImageSource.gallery);
+                                  // _imageFile = File(pickeeLibrary.path);
+                                  // String fileName = basename(_imageFile.path);
+                                },
+                                child: Container(
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                          height: 50,
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                              color: AppColors.greenAccent,
+                                              borderRadius:
+                                                  BorderRadius.circular(25)),
+                                          child: Icon(Icons.photo_library)),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        "Lirary",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 30,
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  // final pickedCamera = await picker.getImage(
+                                  //     source: ImageSource.camera);
+
+                                  // _imageFile = File(pickedCamera.path);
+                                },
+                                child: Container(
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                          height: 50,
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                              color: AppColors.greenAccent,
+                                              borderRadius:
+                                                  BorderRadius.circular(25)),
+                                          child: Icon(Icons.camera)),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text("Camera",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                          ))
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          Container()
+                        ]))),
+          );
+        });
   }
 }

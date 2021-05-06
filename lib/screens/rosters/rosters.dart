@@ -35,6 +35,18 @@ class _RostersState extends State<Rosters> {
       firstDate: DateTime(2021, 1),
       lastDate: DateTime(2022, 7),
       helpText: 'Select a date range',
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.light(
+              primary: AppColors.greenAccent,
+              surface: AppColors.greenAccent,
+              onSurface: Colors.black,
+            ),
+          ),
+          child: child,
+        );
+      },
     );
     if (newDate != null) {
       setState(() {
@@ -66,7 +78,7 @@ class _RostersState extends State<Rosters> {
               style: AppTextStyles.textSize14(),
             ),
             SizedBox(
-              height: 10.0,
+              height: AppMetrics.paddingContainer / 2,
             ),
             CustomContainer(
               padding: EdgeInsets.symmetric(
@@ -80,14 +92,14 @@ class _RostersState extends State<Rosters> {
               ),
             ),
             SizedBox(
-              height: 20.0,
+              height: AppMetrics.paddingContainer,
             ),
             Text(
               "Thursday, 5th April 2021",
               style: AppTextStyles.textSize14(),
             ),
             SizedBox(
-              height: 10.0,
+              height: AppMetrics.paddingContainer / 2,
             ),
             CustomContainer(
               padding: EdgeInsets.symmetric(
@@ -102,7 +114,7 @@ class _RostersState extends State<Rosters> {
                     alignment: Alignment.center,
                   ),
                   SizedBox(
-                    width: 10.0,
+                    width: AppMetrics.paddingContainer / 2,
                   ),
                   Text(
                     "This is today",
@@ -117,7 +129,7 @@ class _RostersState extends State<Rosters> {
             CustomContainer(
               padding: EdgeInsets.symmetric(
                   horizontal: AppMetrics.paddingContainer,
-                  vertical: AppMetrics.paddingVertical),
+                  vertical: AppMetrics.paddingContainer),
               width: MediaQuery.of(context).size.width,
               colorBorder: AppColors.border,
               child: Column(
@@ -128,7 +140,7 @@ class _RostersState extends State<Rosters> {
                     style: AppTextStyles.textSize16(),
                   ),
                   SizedBox(
-                    height: 10.0,
+                    height: AppMetrics.paddingContainer,
                   ),
                   CustomButton(
                     ontap: () {
@@ -146,7 +158,7 @@ class _RostersState extends State<Rosters> {
               ),
             ),
             SizedBox(
-              height: 10.0,
+              height: AppMetrics.paddingContainer / 2,
             ),
             CustomContainer(
                 padding: EdgeInsets.symmetric(
@@ -171,7 +183,7 @@ class _RostersState extends State<Rosters> {
               style: AppTextStyles.textSize14(),
             ),
             SizedBox(
-              height: 10.0,
+              height: AppMetrics.paddingContainer / 2,
             ),
             CustomContainer(
               padding: EdgeInsets.symmetric(
@@ -185,19 +197,19 @@ class _RostersState extends State<Rosters> {
               ),
             ),
             SizedBox(
-              height: 20.0,
+              height: AppMetrics.paddingContainer,
             ),
             Text(
               "Thursday, 5th April 2021",
               style: AppTextStyles.textSize14(),
             ),
             SizedBox(
-              height: 10.0,
+              height: AppMetrics.paddingContainer / 2,
             ),
             CustomContainer(
               padding: EdgeInsets.symmetric(
                   horizontal: AppMetrics.paddingContainer,
-                  vertical: AppMetrics.paddingVertical),
+                  vertical: AppMetrics.paddingContainer),
               width: MediaQuery.of(context).size.width,
               colorBorder: AppColors.border,
               child: Column(
@@ -208,7 +220,7 @@ class _RostersState extends State<Rosters> {
                     style: AppTextStyles.textSize16(),
                   ),
                   SizedBox(
-                    height: 10.0,
+                    height: AppMetrics.paddingContainer,
                   ),
                   CustomButton(
                     ontap: () {
@@ -226,7 +238,7 @@ class _RostersState extends State<Rosters> {
               ),
             ),
             SizedBox(
-              height: 10.0,
+              height: AppMetrics.paddingContainer / 2,
             ),
             CustomContainer(
                 padding: EdgeInsets.symmetric(
@@ -240,7 +252,7 @@ class _RostersState extends State<Rosters> {
                 )),
           ],
         ),
-      )
+      ),
     ];
     return Scaffold(
         appBar: HeaderView(
