@@ -44,160 +44,7 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-                margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: AppMetrics.paddingHorizotal),
-                      child: DropdownButtonFormField<String>(
-                        items: [
-                          "Select Leave type",
-                          'Select Leave type 2',
-                          'Select Leave type 3',
-                          'Select Leave type 4',
-                          'Select Leave type 5'
-                        ]
-                            .map((label) => DropdownMenuItem(
-                                  child: Text(label.toString()),
-                                  value: label,
-                                ))
-                            .toList(),
-                        value: "Select Leave type",
-                        style: AppTextStyles.textSize18(
-                            color: AppColors.blueLight),
-                        decoration: InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.grey10),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.grey10),
-                            ),
-                            labelText: 'Leave Type',
-                            hintText: 'Select Leave type',
-                            hintStyle: AppTextStyles.textSize18(
-                                color: AppColors.blueLight),
-                            labelStyle: AppTextStyles.textSize12(
-                                color: AppColors.blueLight)),
-                        icon: SvgPicture.asset(
-                          AppImage.caretdown,
-                          alignment: Alignment.center,
-                        ),
-                        onChanged: (value) {},
-                      ),
-                    ),
-                    Container(
-                        padding: EdgeInsets.only(
-                            left: AppMetrics.paddingHorizotal,
-                            right: AppMetrics.paddingHorizotal,
-                            bottom: AppMetrics.paddingContent),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextField(
-                              style: AppTextStyles.textSize18(
-                                  color: AppColors.blueLight),
-                              controller: description,
-                              decoration: InputDecoration(
-                                  hintText: 'Add Description',
-                                  labelStyle: AppTextStyles.textSize12(
-                                      color: AppColors.blueLight),
-                                  hintStyle: AppTextStyles.textSize18(
-                                      color: AppColors.blueLight),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: AppColors.grey10),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: AppColors.grey10),
-                                  ),
-                                  labelText: 'Leave Description'),
-                            )
-                          ],
-                        )),
-                    Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10),
-                        child: GestureDetector(
-                          onTap: _selectDateFrom,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Start Date",
-                                style: AppTextStyles.textSize12(
-                                    color: AppColors.blueLight),
-                              ),
-                              SizedBox(
-                                height: 5.0,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    dateFrom == null
-                                        ? "From"
-                                        : DateFormat('dd/MM/yyyy')
-                                            .format(dateFrom),
-                                    style: AppTextStyles.textSize20(
-                                        color: AppColors.blueLight),
-                                  ),
-                                  Spacer(),
-                                  SvgPicture.asset(
-                                    AppImage.calendar,
-                                    alignment: Alignment.center,
-                                  ),
-                                ],
-                              ),
-                              Divider()
-                            ],
-                          ),
-                        )),
-                    Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10),
-                        child: GestureDetector(
-                          onTap: _selectDateTo,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "End Date",
-                                style: AppTextStyles.textSize12(
-                                    color: AppColors.blueLight),
-                              ),
-                              SizedBox(
-                                height: 5.0,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    dateTo == null
-                                        ? "To"
-                                        : DateFormat('dd/MM/yyyy')
-                                            .format(dateTo),
-                                    style: AppTextStyles.textSize20(
-                                        color: AppColors.blueLight),
-                                  ),
-                                  Spacer(),
-                                  SvgPicture.asset(
-                                    AppImage.calendar,
-                                    alignment: Alignment.center,
-                                  ),
-                                ],
-                              ),
-                              Divider()
-                            ],
-                          ),
-                        )),
-                  ],
-                )),
+            formLeaveRequest(),
             Container(
               margin: EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
               child: Column(
@@ -363,6 +210,155 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                 ],
               ),
             )
+          ],
+        ));
+  }
+
+  Widget formLeaveRequest() {
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(12)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding:
+                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
+              child: DropdownButtonFormField<String>(
+                items: [
+                  "Select Leave type",
+                  'Select Leave type 2',
+                  'Select Leave type 3',
+                  'Select Leave type 4',
+                  'Select Leave type 5'
+                ]
+                    .map((label) => DropdownMenuItem(
+                          child: Text(label.toString()),
+                          value: label,
+                        ))
+                    .toList(),
+                value: "Select Leave type",
+                style: AppTextStyles.textSize18(color: AppColors.blueLight),
+                decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.grey10),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.grey10),
+                    ),
+                    labelText: 'Leave Type',
+                    hintText: 'Select Leave type',
+                    hintStyle:
+                        AppTextStyles.textSize18(color: AppColors.blueLight),
+                    labelStyle:
+                        AppTextStyles.textSize12(color: AppColors.blueLight)),
+                icon: SvgPicture.asset(
+                  AppImage.caretdown,
+                  alignment: Alignment.center,
+                ),
+                onChanged: (value) {},
+              ),
+            ),
+            Container(
+                padding: EdgeInsets.only(
+                    left: AppMetrics.paddingHorizotal,
+                    right: AppMetrics.paddingHorizotal,
+                    bottom: AppMetrics.paddingContent),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextField(
+                      style:
+                          AppTextStyles.textSize18(color: AppColors.blueLight),
+                      controller: description,
+                      decoration: InputDecoration(
+                          hintText: 'Add Description',
+                          labelStyle: AppTextStyles.textSize12(
+                              color: AppColors.blueLight),
+                          hintStyle: AppTextStyles.textSize18(
+                              color: AppColors.blueLight),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: AppColors.grey10),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: AppColors.grey10),
+                          ),
+                          labelText: 'Leave Description'),
+                    )
+                  ],
+                )),
+            Container(
+                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                child: GestureDetector(
+                  onTap: _selectDateFrom,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Start Date",
+                        style: AppTextStyles.textSize12(
+                            color: AppColors.blueLight),
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            dateFrom == null
+                                ? "From"
+                                : DateFormat('dd/MM/yyyy').format(dateFrom),
+                            style: AppTextStyles.textSize20(
+                                color: AppColors.blueLight),
+                          ),
+                          Spacer(),
+                          SvgPicture.asset(
+                            AppImage.calendar,
+                            alignment: Alignment.center,
+                          ),
+                        ],
+                      ),
+                      Divider()
+                    ],
+                  ),
+                )),
+            Container(
+                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                child: GestureDetector(
+                  onTap: _selectDateTo,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "End Date",
+                        style: AppTextStyles.textSize12(
+                            color: AppColors.blueLight),
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            dateTo == null
+                                ? "To"
+                                : DateFormat('dd/MM/yyyy').format(dateTo),
+                            style: AppTextStyles.textSize20(
+                                color: AppColors.blueLight),
+                          ),
+                          Spacer(),
+                          SvgPicture.asset(
+                            AppImage.calendar,
+                            alignment: Alignment.center,
+                          ),
+                        ],
+                      ),
+                      Divider()
+                    ],
+                  ),
+                )),
           ],
         ));
   }
