@@ -15,6 +15,8 @@ import 'package:bookkeepa/widgets/float_btn.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bookkeepa/util/theme.dart';
 
 import '../../config/app_metrics.dart';
 import '../../widgets/header_view.dart';
@@ -51,6 +53,7 @@ class _AccountScreenState extends State<AccountScreen> {
       controllerNewPassword,
       controllerConfirmNewPassword;
   FocusNode fnEmail, fnPassword;
+  bool dartMode = false;
   bool obscureCurrent, obscureNew, obscureConfirm;
   @override
   void initState() {
@@ -79,7 +82,10 @@ class _AccountScreenState extends State<AccountScreen> {
             color: Colors.transparent,
             child: HeaderChild(
               title: AppTranslations().getLanguage(context, 'account'),
-              style: AppTextStyles.textSize16(),
+              style: AppTextStyles.textSize16(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.whiteColor
+                      : AppColors.black),
               rightIcon: GestureDetector(
                   onTap: () {
                     showGeneralDialog(
@@ -119,14 +125,19 @@ class _AccountScreenState extends State<AccountScreen> {
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
               padding:
                   EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-              colorBorder: AppColors.border,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.black300
+                  : AppColors.whiteColor,
+              colorBorder: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.black300
+                  : AppColors.border,
               child: GestureDetector(
                 onTap: () {
                   NavigationService.instance.navigateTo(SelectBusiness());
                 },
                 child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: AppMetrics.paddingContainer, vertical: 10.0),
                   alignment: Alignment.center,
                   child: Row(
                     children: [
@@ -141,7 +152,11 @@ class _AccountScreenState extends State<AccountScreen> {
                           Text(
                             AppTranslations()
                                 .getLanguage(context, 'switchBussiness'),
-                            style: AppTextStyles.textSize16(),
+                            style: AppTextStyles.textSize16(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.black),
                           ),
                         ],
                       ),
@@ -162,13 +177,19 @@ class _AccountScreenState extends State<AccountScreen> {
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
               padding:
                   EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-              colorBorder: AppColors.border,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.black300
+                  : AppColors.whiteColor,
+              colorBorder: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.black300
+                  : AppColors.border,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: AppMetrics.paddingContainer,
+                        vertical: 10.0),
                     alignment: Alignment.center,
                     child: Row(
                       children: [
@@ -181,15 +202,20 @@ class _AccountScreenState extends State<AccountScreen> {
                         Text(
                           AppTranslations()
                               .getLanguage(context, 'notification'),
-                          style: AppTextStyles.textSize16(),
+                          style: AppTextStyles.textSize16(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColors.whiteColor
+                                  : AppColors.black),
                         ),
                       ],
                     ),
                   ),
                   Divider(),
                   Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: AppMetrics.paddingContainer,
+                        vertical: 10.0),
                     alignment: Alignment.center,
                     child: GestureDetector(
                       onTap: () {
@@ -226,7 +252,11 @@ class _AccountScreenState extends State<AccountScreen> {
                           Text(
                             AppTranslations()
                                 .getLanguage(context, 'updatePassword'),
-                            style: AppTextStyles.textSize16(),
+                            style: AppTextStyles.textSize16(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.black),
                           ),
                         ],
                       ),
@@ -234,8 +264,9 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                   Divider(),
                   Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: AppMetrics.paddingContainer,
+                        vertical: 10.0),
                     alignment: Alignment.center,
                     child: Row(
                       children: [
@@ -248,7 +279,11 @@ class _AccountScreenState extends State<AccountScreen> {
                         Text(
                           AppTranslations()
                               .getLanguage(context, 'privacyPocicy'),
-                          style: AppTextStyles.textSize16(),
+                          style: AppTextStyles.textSize16(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColors.whiteColor
+                                  : AppColors.black),
                         ),
                       ],
                     ),
@@ -264,14 +299,79 @@ class _AccountScreenState extends State<AccountScreen> {
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
               padding:
                   EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-              colorBorder: AppColors.border,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.black300
+                  : AppColors.whiteColor,
+              colorBorder: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.black300
+                  : AppColors.border,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    dartMode = !dartMode;
+                  });
+                  context.read<ThemeCubit>().toggleTheme();
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: AppMetrics.paddingContainer, vertical: 4.0),
+                  alignment: Alignment.center,
+                  child: Row(
+                    children: [
+                      Row(
+                        children: [
+                          SvgPicture.asset(AppImage.theme),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          Text(
+                            "${AppTranslations().getLanguage(context, 'dartMode')} ${Theme.of(context).brightness == Brightness.dark ? "On" : "Off"}",
+                            style: AppTextStyles.textSize16(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.black),
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      dartMode
+                          ? SvgPicture.asset(
+                              AppImage.switch_on,
+                              width: 51.0,
+                              height: 31.0,
+                            )
+                          : SvgPicture.asset(
+                              AppImage.switch_off,
+                              width: 51.0,
+                              height: 31.0,
+                            ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: AppMetrics.paddingContainer,
+            ),
+            CustomContainer(
+              edgeInsets:
+                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
+              padding:
+                  EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.black300
+                  : AppColors.whiteColor,
+              colorBorder: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.black300
+                  : AppColors.border,
               child: GestureDetector(
                 onTap: () {
                   NavigationService.instance.navigateTo(SelectBusiness());
                 },
                 child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: AppMetrics.paddingContainer, vertical: 10.0),
                   alignment: Alignment.center,
                   child: Row(
                     children: [
@@ -283,13 +383,20 @@ class _AccountScreenState extends State<AccountScreen> {
                       ),
                       Text(
                         AppTranslations().getLanguage(context, 'logout'),
-                        style: AppTextStyles.textSize16(),
+                        style: AppTextStyles.textSize16(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.black),
                       ),
                     ],
                   ),
                 ),
               ),
             ),
+            SizedBox(
+              height: AppMetrics.paddingContainer,
+            )
           ],
         ),
         floatingActionButton: FancyFab());
@@ -299,7 +406,12 @@ class _AccountScreenState extends State<AccountScreen> {
     return CustomContainer(
       edgeInsets: EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
       padding: EdgeInsets.symmetric(horizontal: AppMetrics.paddingContent),
-      colorBorder: AppColors.border,
+      color: Theme.of(context).brightness == Brightness.dark
+          ? AppColors.black300
+          : AppColors.whiteColor,
+      colorBorder: Theme.of(context).brightness == Brightness.dark
+          ? AppColors.black300
+          : AppColors.border,
       child: GestureDetector(
         onTap: () {
           NavigationService.instance.navigateTo(ProfileScreen());
@@ -333,6 +445,10 @@ class _AccountScreenState extends State<AccountScreen> {
                       Text(
                         "Lucas Flalonia",
                         style: AppTextStyles.textSize18(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.black,
                             fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
@@ -341,7 +457,10 @@ class _AccountScreenState extends State<AccountScreen> {
                       Text(
                         "lucasflatonia@gmail.com",
                         style: AppTextStyles.textSize14(
-                            color: AppColors.greyColor),
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.greyColor),
                       ),
                       SizedBox(
                         height: 5.0,
@@ -349,7 +468,10 @@ class _AccountScreenState extends State<AccountScreen> {
                       Text(
                         "+61 342 554 321",
                         style: AppTextStyles.textSize14(
-                            color: AppColors.greyColor),
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.greyColor),
                       ),
                     ],
                   ),

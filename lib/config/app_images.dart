@@ -9,6 +9,7 @@ class AppImage {
   static const String user = 'assets/images/svg/user.svg';
   static const String notification = 'assets/images/svg/bell.svg';
   static const String floatbtn = 'assets/images/svg/floatbtn.svg';
+  static const String floatbtn_dart = 'assets/images/svg/float_btn_dart.svg';
   static const String caretdown = 'assets/images/svg/caretdown.svg';
   static const String caretup = 'assets/images/svg/caretup.svg';
   static const String calendar = 'assets/images/svg/calendar.svg';
@@ -58,4 +59,7 @@ class AppImage {
   static const String newtimecard = 'assets/images/svg/newtimecard.svg';
   static const String newtimesheet = 'assets/images/svg/newtimesheet.svg';
   static const String close_fab = 'assets/images/svg/close_fab.svg';
+  static const String theme = 'assets/images/svg/moon.svg';
+  static const String switch_on = 'assets/images/svg/switch_on.svg';
+  static const String switch_off = 'assets/images/svg/switch_off.svg';
 }

@@ -46,6 +46,7 @@ class Languages {
     "email": {"en": "Email"},
     "dashBoard": {"en": "Dashboard"},
     "timesheets": {"en": "Timesheets"},
+    "dartMode": {"en": "Dart Mode"},
     "leave": {"en": "Leave"},
     "payslips": {"en": "Payslips"},
     "rosters": {"en": "Rosters"},

@@ -57,14 +57,14 @@ class _WelcomeState extends State<Welcome> {
           body: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                SizedBox(
+                  height: 8.0,
+                ),
                 Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        height: 50.0,
-                      ),
                       CarouselSlider(
                         items: imageSliders,
                         options: CarouselOptions(
