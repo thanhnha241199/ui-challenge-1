@@ -48,35 +48,45 @@ class _NotificationState extends State<Notifications> {
         time: "1d ago"),
     NotificationModel(
         title: "3 documents needs to be signed", read: false, time: "1d ago"),
+    NotificationModel(
+        title: "Amy Ranch needs timesheet approved",
+        read: false,
+        time: "5h ago"),
+    NotificationModel(
+        title: "Cornor Halt requested leave", read: false, time: "10h ago"),
+    NotificationModel(
+        title: "Joseph Rosso needs timesheet approved",
+        read: false,
+        time: "1d ago"),
+    NotificationModel(
+        title: "3 documents needs to be signed", read: false, time: "1d ago"),
   ];
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        GestureDetector(
-          onTap: () {
-            NavigationService.instance.goback();
-          },
-          child: Padding(
-            padding: EdgeInsets.only(right: 24.0, top: 40.0),
-            child: SvgPicture.asset(
-              AppImage.xcircle,
-              height: 50.0,
-              width: 50.0,
-              alignment: Alignment.centerLeft,
+    return Container(
+      alignment: Alignment.center,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          GestureDetector(
+            onTap: () {
+              NavigationService.instance.goback();
+            },
+            child: Padding(
+              padding: EdgeInsets.only(right: 24.0, top: 40.0),
+              child: SvgPicture.asset(
+                AppImage.xcircle,
+                height: 50.0,
+                width: 50.0,
+                alignment: Alignment.centerLeft,
+              ),
             ),
           ),
-        ),
-        Flexible(
-          child: Dialog(
-            insetPadding: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingHorizotal,
-                vertical: AppMetrics.paddingContainer),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                    Radius.circular(AppMetrics.borderContainer))),
+          Expanded(
             child: CustomContainer(
+                edgeInsets: EdgeInsets.symmetric(
+                    horizontal: AppMetrics.paddingHorizotal,
+                    vertical: AppMetrics.paddingContainer),
                 height: MediaQuery.of(context).size.height * 0.8,
                 width: MediaQuery.of(context).size.width,
                 colorBorder: AppColors.border,
@@ -90,10 +100,9 @@ class _NotificationState extends State<Notifications> {
                     print('loadmore');
                   },
                 )),
-            elevation: 2,
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 

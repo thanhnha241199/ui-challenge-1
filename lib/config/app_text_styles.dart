@@ -12,6 +12,7 @@ class AppTextStyles {
       color: color,
       fontWeight: fontWeight,
       fontFamily: fontFamily,
+      decoration: TextDecoration.none,
     );
   }
 
@@ -24,6 +25,7 @@ class AppTextStyles {
       color: color,
       fontWeight: fontWeight,
       fontFamily: fontFamily,
+      decoration: TextDecoration.none,
     );
   }
 
@@ -36,6 +38,7 @@ class AppTextStyles {
       color: color,
       fontWeight: fontWeight,
       fontFamily: fontFamily,
+      decoration: TextDecoration.none,
     );
   }
 
@@ -48,6 +51,7 @@ class AppTextStyles {
       color: color,
       fontWeight: fontWeight,
       fontFamily: fontFamily,
+      decoration: TextDecoration.none,
     );
   }
 
@@ -60,6 +64,7 @@ class AppTextStyles {
       color: color,
       fontWeight: fontWeight,
       fontFamily: fontFamily,
+      decoration: TextDecoration.none,
     );
   }
 
@@ -72,6 +77,7 @@ class AppTextStyles {
       color: color,
       fontWeight: fontWeight,
       fontFamily: fontFamily,
+      decoration: TextDecoration.none,
     );
   }
 
@@ -84,6 +90,7 @@ class AppTextStyles {
       color: color,
       fontWeight: fontWeight,
       fontFamily: fontFamily,
+      decoration: TextDecoration.none,
     );
   }
 }
