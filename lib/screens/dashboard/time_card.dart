@@ -2,6 +2,7 @@ import 'package:bookkeepa/config/app_colors.dart';
 import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
+import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
@@ -263,20 +264,22 @@ class _TimeCardState extends State<TimeCard> {
     return CustomContainer(
       edgeInsets: EdgeInsets.symmetric(
           horizontal: AppMetrics.paddingHorizotal,
-          vertical: AppMetrics.paddingVertical),
+          vertical: AppMetrics.paddingContainer),
       colorBorder: AppColors.border,
       child: Column(
         children: [
+          SizedBox(
+            height: AppMetrics.paddingHorizotal,
+          ),
           CustomContainer(
-            edgeInsets: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingHorizotal,
-                vertical: AppMetrics.paddingVertical),
+            edgeInsets:
+                EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
             colorBorder: AppColors.green,
             color: AppColors.green,
             height: MediaQuery.of(context).size.height * 0.12,
             child: Container(
               padding:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
+                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -327,16 +330,18 @@ class _TimeCardState extends State<TimeCard> {
               ),
             ),
           ),
+          SizedBox(
+            height: AppMetrics.paddingVertical,
+          ),
           Container(
+            padding:
+                EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
                   child: Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: AppMetrics.paddingHorizotal,
-                          vertical: AppMetrics.paddingContent),
+                      width: MediaQuery.of(context).size.width * 0.6,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -361,13 +366,12 @@ class _TimeCardState extends State<TimeCard> {
                                       color: AppColors.blueLight),
                                 ),
                               ),
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: _selectDate,
-                                  child: SvgPicture.asset(
-                                    AppImage.calendar,
-                                    alignment: Alignment.center,
-                                  ),
+                              Spacer(),
+                              GestureDetector(
+                                onTap: _selectDate,
+                                child: SvgPicture.asset(
+                                  AppImage.calendar,
+                                  alignment: Alignment.center,
                                 ),
                               ),
                             ],
@@ -376,12 +380,12 @@ class _TimeCardState extends State<TimeCard> {
                         ],
                       )),
                 ),
+                SizedBox(
+                  width: AppMetrics.paddingHorizotal,
+                ),
                 Expanded(
                   child: Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: AppMetrics.paddingHorizotal,
-                          vertical: AppMetrics.paddingContent),
+                      width: MediaQuery.of(context).size.width * 0.6,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -421,7 +425,7 @@ class _TimeCardState extends State<TimeCard> {
           ),
           Container(
               padding:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
+                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
               child: TextField(
                 style: AppTextStyles.textSize18(color: AppColors.blueLight),
                 controller: location,
@@ -444,10 +448,12 @@ class _TimeCardState extends State<TimeCard> {
                     ),
                     labelText: 'Location'),
               )),
+          SizedBox(
+            height: AppMetrics.paddingContent,
+          ),
           Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: AppMetrics.paddingHorizotal,
-                  vertical: AppMetrics.paddingContent),
+              padding:
+                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
               child: TextField(
                 style: AppTextStyles.textSize18(color: AppColors.blueLight),
                 controller: comments,
@@ -465,10 +471,13 @@ class _TimeCardState extends State<TimeCard> {
                     ),
                     labelText: 'Comments'),
               )),
+          SizedBox(
+            height: AppMetrics.paddingContent,
+          ),
           if (_fileName != null)
             Container(
                 padding: EdgeInsets.symmetric(
-                    horizontal: AppMetrics.paddingHorizotal,
+                    horizontal: AppMetrics.paddingContainer,
                     vertical: AppMetrics.paddingContent),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -491,7 +500,7 @@ class _TimeCardState extends State<TimeCard> {
                 )),
           Container(
               padding: EdgeInsets.symmetric(
-                  horizontal: AppMetrics.paddingHorizotal,
+                  horizontal: AppMetrics.paddingContainer,
                   vertical: AppMetrics.paddingContent),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -507,7 +516,7 @@ class _TimeCardState extends State<TimeCard> {
                     width: 16.0,
                   ),
                   Text(
-                    "Add Attachments",
+                    AppTranslations().getLanguage(context, 'addAttachment'),
                     style: AppTextStyles.textSize18(),
                   ),
                 ],

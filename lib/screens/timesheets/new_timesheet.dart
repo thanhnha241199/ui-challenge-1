@@ -461,7 +461,8 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Attachment",
+                              AppTranslations()
+                                  .getLanguage(context, 'attachment'),
                               style: AppTextStyles.textSize14(
                                   color: AppColors.blueLight),
                             ),
@@ -479,7 +480,8 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                                   width: 16.0,
                                 ),
                                 Text(
-                                  "Add Attachments",
+                                  AppTranslations()
+                                      .getLanguage(context, 'addAttachment'),
                                   style: AppTextStyles.textSize18(),
                                 ),
                               ],

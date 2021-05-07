@@ -44,7 +44,13 @@ class _NewTimeCardState extends State<NewTimeCard> {
           children: [
             Column(
               children: [
+                SizedBox(
+                  height: AppMetrics.paddingContainer,
+                ),
                 formTimeCard(),
+                SizedBox(
+                  height: AppMetrics.paddingContainer,
+                ),
                 CustomContainer(
                     padding: EdgeInsets.symmetric(
                         horizontal: AppMetrics.paddingContainer,
@@ -60,7 +66,7 @@ class _NewTimeCardState extends State<NewTimeCard> {
                           alignment: Alignment.center,
                         ),
                         SizedBox(
-                          width: 16.0,
+                          width: 8.0,
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,22 +219,22 @@ class _NewTimeCardState extends State<NewTimeCard> {
 
   Widget formTimeCard() {
     return CustomContainer(
-      edgeInsets: EdgeInsets.symmetric(
-          horizontal: AppMetrics.paddingHorizotal,
-          vertical: AppMetrics.paddingVertical),
+      edgeInsets: EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
       colorBorder: AppColors.border,
       child: Column(
         children: [
+          SizedBox(
+            height: AppMetrics.paddingHorizotal,
+          ),
           CustomContainer(
-            edgeInsets: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingHorizotal,
-                vertical: AppMetrics.paddingVertical),
+            edgeInsets:
+                EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
             colorBorder: AppColors.green,
             color: AppColors.green,
             height: MediaQuery.of(context).size.height * 0.12,
             child: Container(
               padding:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
+                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -268,7 +274,12 @@ class _NewTimeCardState extends State<NewTimeCard> {
               ),
             ),
           ),
+          SizedBox(
+            height: AppMetrics.paddingVertical,
+          ),
           Container(
+            padding:
+                EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -276,10 +287,7 @@ class _NewTimeCardState extends State<NewTimeCard> {
                   child: GestureDetector(
                     onTap: () {},
                     child: Container(
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: AppMetrics.paddingHorizotal,
-                            vertical: AppMetrics.paddingContent),
+                        width: MediaQuery.of(context).size.width * 0.55,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -305,13 +313,11 @@ class _NewTimeCardState extends State<NewTimeCard> {
                                         color: AppColors.blueLight),
                                   ),
                                 ),
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: selectDate,
-                                    child: SvgPicture.asset(
-                                      AppImage.calendar,
-                                      alignment: Alignment.center,
-                                    ),
+                                GestureDetector(
+                                  onTap: selectDate,
+                                  child: SvgPicture.asset(
+                                    AppImage.calendar,
+                                    alignment: Alignment.center,
                                   ),
                                 ),
                               ],
@@ -321,14 +327,14 @@ class _NewTimeCardState extends State<NewTimeCard> {
                         )),
                   ),
                 ),
+                SizedBox(
+                  width: AppMetrics.paddingHorizotal,
+                ),
                 Expanded(
                   child: GestureDetector(
                     onTap: () {},
                     child: Container(
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: AppMetrics.paddingHorizotal,
-                            vertical: AppMetrics.paddingContent),
+                        width: MediaQuery.of(context).size.width * 0.55,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -369,7 +375,7 @@ class _NewTimeCardState extends State<NewTimeCard> {
           ),
           Container(
               padding:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
+                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
               child: TextField(
                 style: AppTextStyles.textSize18(color: AppColors.blueLight),
                 controller: location,
@@ -392,11 +398,12 @@ class _NewTimeCardState extends State<NewTimeCard> {
                     ),
                     labelText: 'Location'),
               )),
+          SizedBox(
+            height: AppMetrics.paddingContent,
+          ),
           Container(
-            padding: EdgeInsets.only(
-                left: AppMetrics.paddingHorizotal,
-                right: AppMetrics.paddingHorizotal,
-                bottom: AppMetrics.paddingHorizotal),
+            padding:
+                EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
             child: TextField(
               style: AppTextStyles.textSize18(color: AppColors.blueLight),
               controller: comments,
@@ -414,6 +421,9 @@ class _NewTimeCardState extends State<NewTimeCard> {
                   ),
                   labelText: 'Comments'),
             ),
+          ),
+          SizedBox(
+            height: AppMetrics.paddingHorizotal,
           ),
         ],
       ),

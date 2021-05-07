@@ -22,6 +22,7 @@ class _AppState extends State<App> {
         primaryColor: AppColors.greenAccent,
       ),
       navigatorKey: NavigationService.instance.navigationKey,
+      builder: (context, child) => SafeArea(child: child),
       home: Scaffold(
         body: Welcome(),
       ),

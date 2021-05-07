@@ -452,7 +452,7 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Notes",
+                              AppTranslations().getLanguage(context, 'notes'),
                               style: AppTextStyles.textSize14(
                                   color: AppColors.greyColor),
                             ),
@@ -523,7 +523,8 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Attachments",
+                              AppTranslations()
+                                  .getLanguage(context, 'attachment'),
                               style: AppTextStyles.textSize14(
                                   color: AppColors.greyColor),
                             ),
@@ -622,7 +623,8 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                               width: 16.0,
                             ),
                             Text(
-                              "Add Attachments",
+                              AppTranslations()
+                                  .getLanguage(context, 'addAttachment'),
                               style: AppTextStyles.textSize18(),
                             ),
                           ],

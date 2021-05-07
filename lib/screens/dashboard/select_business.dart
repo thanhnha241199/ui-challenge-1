@@ -17,12 +17,30 @@ class SelectBusiness extends StatefulWidget {
 
 class _SelectBusinessState extends State<SelectBusiness> {
   List<BusinessModel> items = [
-    BusinessModel(title: "Telsta", subtitle: "Address Info (get from Xero)"),
-    BusinessModel(title: "Kmart", subtitle: "Address Info (get from Xero)"),
-    BusinessModel(title: "Autodesk", subtitle: "Address Info (get from Xero)"),
-    BusinessModel(title: "Telsta", subtitle: "Address Info (get from Xero)"),
-    BusinessModel(title: "Kmart", subtitle: "Address Info (get from Xero)"),
-    BusinessModel(title: "Autodesk", subtitle: "Address Info (get from Xero)"),
+    BusinessModel(
+        title: "Telsta",
+        subtitle: "Address Info (get from Xero)",
+        select: true),
+    BusinessModel(
+        title: "Kmart",
+        subtitle: "Address Info (get from Xero)",
+        select: false),
+    BusinessModel(
+        title: "Autodesk",
+        subtitle: "Address Info (get from Xero)",
+        select: false),
+    BusinessModel(
+        title: "Telsta",
+        subtitle: "Address Info (get from Xero)",
+        select: false),
+    BusinessModel(
+        title: "Kmart",
+        subtitle: "Address Info (get from Xero)",
+        select: false),
+    BusinessModel(
+        title: "Autodesk",
+        subtitle: "Address Info (get from Xero)",
+        select: false),
   ];
   @override
   Widget build(BuildContext context) {
@@ -76,83 +94,56 @@ class _SelectBusinessState extends State<SelectBusiness> {
 
   _getBody() {
     return items.map((e) {
-      return items.indexOf(e) == 0
-          ? CustomContainer(
-              width: MediaQuery.of(context).size.width,
-              edgeInsets: EdgeInsets.symmetric(
-                  horizontal: AppMetrics.paddingHorizotal,
-                  vertical: AppMetrics.paddingContent - 2),
-              padding: EdgeInsets.symmetric(
-                  vertical: AppMetrics.paddingVertical,
-                  horizontal: AppMetrics.paddingContainer),
-              colorBorder: AppColors.greenAccent,
-              child: Row(
-                children: [
-                  Container(
-                    height: 62,
-                    width: 62,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.asset(
-                      AppImage.business,
-                    ),
+      return GestureDetector(
+        onTap: () {
+          items.forEach((element) {
+            setState(() {
+              element.select = false;
+            });
+          });
+          setState(() {
+            e.select = true;
+          });
+        },
+        child: CustomContainer(
+            width: MediaQuery.of(context).size.width,
+            edgeInsets: EdgeInsets.only(
+              right: AppMetrics.paddingHorizotal,
+              left: AppMetrics.paddingHorizotal,
+              top: AppMetrics.paddingContainer,
+            ),
+            padding: EdgeInsets.symmetric(
+                vertical: AppMetrics.paddingContainer,
+                horizontal: AppMetrics.paddingContainer),
+            colorBorder: e.select ? AppColors.greenAccent : AppColors.border,
+            child: Row(
+              children: [
+                Container(
+                  height: 62,
+                  width: 62,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
                   ),
-                  SizedBox(
-                    width: 28.0,
+                  child: Image.asset(
+                    AppImage.business,
                   ),
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          e.title,
-                          style: AppTextStyles.textSize18(),
-                        ),
-                        Text(
-                          e.subtitle,
-                          style: AppTextStyles.textSize14(),
-                        )
-                      ]),
-                ],
-              ))
-          : CustomContainer(
-              width: MediaQuery.of(context).size.width,
-              edgeInsets: EdgeInsets.symmetric(
-                  horizontal: AppMetrics.paddingHorizotal,
-                  vertical: AppMetrics.paddingContent - 2),
-              padding: EdgeInsets.symmetric(
-                  vertical: AppMetrics.paddingVertical,
-                  horizontal: AppMetrics.paddingContainer),
-              colorBorder: AppColors.border,
-              child: Row(
-                children: [
-                  Container(
-                    height: 62,
-                    width: 62,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.asset(
-                      AppImage.business,
-                    ),
+                ),
+                SizedBox(
+                  width: 28.0,
+                ),
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(
+                    e.title,
+                    style: AppTextStyles.textSize18(),
                   ),
-                  SizedBox(
-                    width: AppMetrics.paddingHorizotal,
-                  ),
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          e.title,
-                          style: AppTextStyles.textSize18(),
-                        ),
-                        Text(
-                          e.subtitle,
-                          style: AppTextStyles.textSize14(),
-                        )
-                      ]),
-                ],
-              ));
+                  Text(
+                    e.subtitle,
+                    style: AppTextStyles.textSize14(),
+                  )
+                ]),
+              ],
+            )),
+      );
     });
   }
 }

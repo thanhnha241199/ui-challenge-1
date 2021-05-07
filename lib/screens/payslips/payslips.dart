@@ -53,73 +53,76 @@ class _PayslipsState extends State<Payslips> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: HeaderView(
-          color: Colors.transparent,
-          child: HeaderChild(
-              title: AppTranslations().getLanguage(context, 'myPayslip'),
-              style: AppTextStyles.textSize16(),
-              rightIcon: GestureDetector(
-                  onTap: () {
-                    showGeneralDialog(
-                      barrierDismissible: true,
-                      barrierLabel: '',
-                      barrierColor: Colors.black38,
-                      transitionDuration: Duration(milliseconds: 500),
-                      pageBuilder: (ctx, anim1, anim2) {
-                        return Notifications();
-                      },
-                      transitionBuilder: (ctx, anim1, anim2, child) =>
-                          BackdropFilter(
-                        filter: ImageFilter.blur(
-                            sigmaX: 30 * anim1.value, sigmaY: 30 * anim1.value),
-                        child: FadeTransition(
-                          child: child,
-                          opacity: anim1,
+    return SafeArea(
+      child: Scaffold(
+        appBar: HeaderView(
+            color: Colors.transparent,
+            child: HeaderChild(
+                title: AppTranslations().getLanguage(context, 'myPayslip'),
+                style: AppTextStyles.textSize16(),
+                rightIcon: GestureDetector(
+                    onTap: () {
+                      showGeneralDialog(
+                        barrierDismissible: true,
+                        barrierLabel: '',
+                        barrierColor: Colors.black38,
+                        transitionDuration: Duration(milliseconds: 500),
+                        pageBuilder: (ctx, anim1, anim2) {
+                          return Notifications();
+                        },
+                        transitionBuilder: (ctx, anim1, anim2, child) =>
+                            BackdropFilter(
+                          filter: ImageFilter.blur(
+                              sigmaX: 30 * anim1.value,
+                              sigmaY: 30 * anim1.value),
+                          child: FadeTransition(
+                            child: child,
+                            opacity: anim1,
+                          ),
                         ),
-                      ),
-                      context: context,
-                    );
-                  },
-                  child: SvgPicture.asset(AppImage.notification)))),
-      body: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.symmetric(
-                vertical: AppMetrics.paddingContainer,
-                horizontal: AppMetrics.paddingHorizotal),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                dropdownDate(),
-                SizedBox(
-                  width: 10.0,
-                ),
-                dropdownAmount()
-              ],
-            ),
-          ),
-          Expanded(
-            child: CustomContainer(
-              edgeInsets: EdgeInsets.only(
-                  left: AppMetrics.paddingHorizotal,
-                  right: AppMetrics.paddingHorizotal),
-              padding: EdgeInsets.only(top: AppMetrics.paddingContent),
-              colorBorder: AppColors.border,
-              child: AppListView(
-                data: items,
-                renderItem: (item) {
-                  return renderItem(context, item);
-                },
-                onLoadMore: () {
-                  print('loadmore');
-                },
+                        context: context,
+                      );
+                    },
+                    child: SvgPicture.asset(AppImage.notification)))),
+        body: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.symmetric(
+                  vertical: AppMetrics.paddingContainer,
+                  horizontal: AppMetrics.paddingHorizotal),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  dropdownDate(),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  dropdownAmount()
+                ],
               ),
             ),
-          ),
-        ],
+            Expanded(
+              child: CustomContainer(
+                edgeInsets: EdgeInsets.only(
+                    left: AppMetrics.paddingHorizotal,
+                    right: AppMetrics.paddingHorizotal),
+                padding: EdgeInsets.only(top: AppMetrics.paddingContent),
+                colorBorder: AppColors.border,
+                child: AppListView(
+                  data: items,
+                  renderItem: (item) {
+                    return renderItem(context, item);
+                  },
+                  onLoadMore: () {
+                    print('loadmore');
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+        floatingActionButton: FancyFab(),
       ),
-      floatingActionButton: FancyFab(),
     );
   }
 

@@ -50,7 +50,7 @@ class _VerifyCodeState extends State<VerifyCode> {
           color: Colors.transparent,
           child: HeaderChild(
               leftIcon: SvgPicture.asset(AppImage.arrow_back),
-              title: "Verify Your Phone Number",
+              title: AppTranslations().getLanguage(context, 'verifyNumber'),
               style: AppTextStyles.textSize16()),
         ),
         body: GestureDetector(
@@ -81,15 +81,14 @@ class _VerifyCodeState extends State<VerifyCode> {
                                 textAlign: TextAlign.center,
                               ),
                               SizedBox(
-                                height: 20.0,
+                                height: 24.0,
                               ),
                               PinCodeTextField(
                                 appContext: context,
-                                pastedTextStyle:
-                                    TextStyle(color: AppColors.whiteColor),
                                 length: 6,
                                 blinkWhenObscuring: true,
                                 animationType: AnimationType.fade,
+                                textStyle: AppTextStyles.textSize25(),
                                 validator: (v) {
                                   // if (v!.length < 3) {
                                   //   return "I'm from validator";
@@ -109,7 +108,7 @@ class _VerifyCodeState extends State<VerifyCode> {
                                     selectedColor: AppColors.greenAccent,
                                     activeFillColor: AppColors.whiteColor,
                                     activeColor: AppColors.whiteColor),
-                                cursorColor: Colors.black,
+                                cursorColor: AppColors.greenAccent,
                                 animationDuration: Duration(milliseconds: 300),
                                 enableActiveFill: true,
                                 // errorAnimationController: errorController,
@@ -119,7 +118,7 @@ class _VerifyCodeState extends State<VerifyCode> {
                                   BoxShadow(
                                     offset: Offset(0, 1),
                                     color: Colors.black12,
-                                    blurRadius: 10,
+                                    blurRadius: 2,
                                   )
                                 ],
                                 onCompleted: (v) {
@@ -142,7 +141,8 @@ class _VerifyCodeState extends State<VerifyCode> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Didn't receive code ?",
+                                    AppTranslations()
+                                        .getLanguage(context, 'notCode'),
                                     style: AppTextStyles.textSize14(
                                         color: AppColors.blueLight),
                                   ),
@@ -150,7 +150,8 @@ class _VerifyCodeState extends State<VerifyCode> {
                                     width: 5.0,
                                   ),
                                   Text(
-                                    "Resend Code",
+                                    AppTranslations()
+                                        .getLanguage(context, 'resendCode'),
                                     style: AppTextStyles.textSize14(
                                         color: AppColors.green),
                                   )
@@ -177,7 +178,7 @@ class _VerifyCodeState extends State<VerifyCode> {
                           style: AppTextStyles.textSize18(),
                         ),
                         SizedBox(
-                          height: 20.0,
+                          height: 24.0,
                         )
                       ],
                     ),
