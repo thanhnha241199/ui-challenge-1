@@ -4,9 +4,9 @@ import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/models/timesheet/detailtimesheet.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
-import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
+import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -98,7 +98,6 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
 
   @override
   void initState() {
-    comments = TextEditingController(text: 'Enter Note');
     super.initState();
   }
 
@@ -106,38 +105,14 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: HeaderView(
-          color: Colors.transparent,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 1,
-                child: GestureDetector(
-                  onTap: () {
-                    NavigationService.instance.goback();
-                  },
-                  child: SvgPicture.asset(
-                    AppImage.arrow_back,
-                    alignment: Alignment.center,
-                  ),
-                ),
-              ),
-              Expanded(
-                  flex: 4,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: AppMetrics.paddingContainer),
-                    child: Text(
-                      "New TimeSheet",
-                      style: AppTextStyles.textSize16(),
-                      textAlign: TextAlign.center,
-                    ),
-                  )),
-              Expanded(flex: 1, child: Text(''))
-            ],
-          ),
-        ),
+            color: Colors.transparent,
+            child: HeaderChild(
+              title: "New TimeSheet",
+              style: AppTextStyles.textSize16(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.whiteColor
+                      : AppColors.black),
+            )),
         body: ListView(
           physics: BouncingScrollPhysics(),
           children: [
@@ -163,14 +138,22 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                               Text(
                                 items.infor.name,
                                 style: AppTextStyles.textSize18(
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.black),
                               ),
                               SizedBox(
                                 height: 2.0,
                               ),
                               Text(
                                 items.infor.manager,
-                                style: AppTextStyles.textSize14(),
+                                style: AppTextStyles.textSize14(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.black),
                               ),
                               SizedBox(
                                 height: 2.0,
@@ -178,7 +161,10 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                               Text(
                                 "Feb -Feb 28 2021",
                                 style: AppTextStyles.textSize14(
-                                    color: AppColors.greyColor),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.greyColor),
                               ),
                             ],
                           ),
@@ -186,7 +172,9 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                       ),
                     ),
                     Divider(
-                      color: AppColors.divider,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.dividerDark
+                          : AppColors.divider,
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(
@@ -200,7 +188,11 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                             child: Text(
                               "Total hours \nworked",
                               style: AppTextStyles.textSize16(
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.whiteColor
+                                      : AppColors.black),
                             ),
                           ),
                           Expanded(
@@ -215,12 +207,21 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                                         "Scheduled",
                                         overflow: TextOverflow.ellipsis,
                                         style: AppTextStyles.textSize12(
-                                            color: AppColors.greyColor),
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.colorText
+                                                    : AppColors.greyColor),
                                       ),
                                       Text(
                                         '40.0',
                                         style: AppTextStyles.textSize16(
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.black),
                                       )
                                     ],
                                   ),
@@ -231,15 +232,21 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                                 Expanded(
                                   child: Column(
                                     children: [
-                                      Text(
-                                        "Actual",
-                                        style: AppTextStyles.textSize12(
-                                            color: AppColors.greyColor),
-                                      ),
+                                      Text("Actual",
+                                          style: AppTextStyles.textSize12(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? AppColors.colorText
+                                                  : AppColors.greyColor)),
                                       Text(
                                         '35.0',
                                         style: AppTextStyles.textSize16(
-                                            color: AppColors.green,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.colorText
+                                                    : AppColors.green,
                                             fontWeight: FontWeight.bold),
                                       )
                                     ],
@@ -252,7 +259,9 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                       ),
                     ),
                     Divider(
-                      color: AppColors.divider,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.dividerDark
+                          : AppColors.divider,
                     ),
                     Container(
                       child: Column(
@@ -277,8 +286,12 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                                               child: Text(
                                                 e.day,
                                                 style: AppTextStyles.textSize16(
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? AppColors.whiteColor
+                                                        : AppColors.black),
                                               ),
                                             ),
                                             Expanded(
@@ -292,11 +305,18 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                                                       children: [
                                                         Text(
                                                           e.toalschedule,
-                                                          style: AppTextStyles
-                                                              .textSize16(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
+                                                          style: AppTextStyles.textSize16(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? AppColors
+                                                                      .whiteColor
+                                                                  : AppColors
+                                                                      .black),
                                                         )
                                                       ],
                                                     ),
@@ -350,8 +370,14 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                                                             children: [
                                                               Text(
                                                                 e.description,
-                                                                style: AppTextStyles
-                                                                    .textSize14(),
+                                                                style: AppTextStyles.textSize14(
+                                                                    color: Theme.of(context).brightness ==
+                                                                            Brightness
+                                                                                .dark
+                                                                        ? AppColors
+                                                                            .whiteColor
+                                                                        : AppColors
+                                                                            .black),
                                                               ),
                                                               Row(
                                                                 children: [
@@ -359,8 +385,10 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                                                                     flex: 3,
                                                                     child: Text(
                                                                       e.time,
-                                                                      style: AppTextStyles
-                                                                          .textSize14(),
+                                                                      style: AppTextStyles.textSize14(
+                                                                          color: Theme.of(context).brightness == Brightness.dark
+                                                                              ? AppColors.whiteColor
+                                                                              : AppColors.black),
                                                                     ),
                                                                   ),
                                                                   Expanded(
@@ -376,7 +404,7 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                                                                             children: [
                                                                               Text(
                                                                                 e.schedule,
-                                                                                style: AppTextStyles.textSize14(),
+                                                                                style: AppTextStyles.textSize14(color: Theme.of(context).brightness == Brightness.dark ? AppColors.whiteColor : AppColors.black),
                                                                               )
                                                                             ],
                                                                           ),
@@ -418,7 +446,13 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                                       items.detail.indexOf(e) ==
                                               items.detail.length - 1
                                           ? Container()
-                                          : Divider(color: AppColors.divider),
+                                          : Divider(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? AppColors.dividerDark
+                                                  : AppColors.divider,
+                                            ),
                                     ],
                                   ),
                                 ))
@@ -426,7 +460,9 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                       ),
                     ),
                     Divider(
-                      color: AppColors.divider,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.dividerDark
+                          : AppColors.divider,
                     ),
                     Container(
                       padding: EdgeInsets.only(
@@ -435,14 +471,23 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                           bottom: AppMetrics.paddingContent),
                       child: TextField(
                         style: AppTextStyles.textSize18(
-                            color: AppColors.blueLight),
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.blueLight),
                         controller: comments,
                         decoration: InputDecoration(
                             hintText: 'Enter Note',
                             labelStyle: AppTextStyles.textSize12(
-                                color: AppColors.blueLight),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppColors.colorText
+                                    : AppColors.colorText),
                             hintStyle: AppTextStyles.textSize18(
-                                color: AppColors.blueLight),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.blueLight),
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: AppColors.grey10),
                             ),
@@ -464,7 +509,10 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                               AppTranslations()
                                   .getLanguage(context, 'attachment'),
                               style: AppTextStyles.textSize14(
-                                  color: AppColors.blueLight),
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.whiteColor
+                                      : AppColors.blueLight),
                             ),
                             SizedBox(
                               height: 10.0,
@@ -482,7 +530,11 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                                 Text(
                                   AppTranslations()
                                       .getLanguage(context, 'addAttachment'),
-                                  style: AppTextStyles.textSize18(),
+                                  style: AppTextStyles.textSize18(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? AppColors.whiteColor
+                                          : AppColors.black),
                                 ),
                               ],
                             )
@@ -525,7 +577,10 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                     onPressed: () {},
                     child: Text(
                       "Delete",
-                      style: AppTextStyles.textSize16(),
+                      style: AppTextStyles.textSize16(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.whiteColor
+                              : AppColors.black),
                     ),
                   ),
                   SizedBox(

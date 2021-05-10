@@ -23,4 +23,8 @@ class AppColors {
   static const Color divider = Color(0xffEFEEF3);
   static const Color black = Color(0xff000000);
   static const Color black300 = Color(0xff383838);
+  static const Color colorText = Color(0xff3CDBC0);
+  static const Color dividerVetical = Color(0xffE9E9EB);
+  static const Color dividerDark = Color(0xff555555);
+  static const Color backgroundNotification = Color(0xff5CEF8EF);
 }

@@ -7,6 +7,7 @@ import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
+import 'package:bookkeepa/widgets/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -34,10 +35,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final ImagePicker picker = ImagePicker();
   @override
   void initState() {
-    nameController = TextEditingController(text: 'Jerry Smith');
-    emailController = TextEditingController(text: 'jerrysmith@gmail.com');
-    phoneController = TextEditingController(text: '0412 345 678');
-    employerController = TextEditingController(text: 'Mo Works');
     super.initState();
   }
 
@@ -46,10 +43,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: HeaderView(
-          color: Colors.transparent,
+          color: AppColors.whiteColor,
           child: HeaderChild(
               title: AppTranslations().getLanguage(context, 'editProfile'),
-              style: AppTextStyles.textSize16(),
+              style: AppTextStyles.textSize16(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.whiteColor
+                      : AppColors.black),
               leftIcon: SvgPicture.asset(AppImage.arrow_back))),
       body: ListView(
         physics: BouncingScrollPhysics(),
@@ -114,53 +114,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: AppMetrics.paddingHorizotal,
-                            vertical: AppMetrics.paddingContent),
-                        alignment: Alignment.center,
-                        child: TextField(
-                          style: AppTextStyles.textSize18(
-                              color: AppColors.blueLight),
-                          controller: nameController,
-                          decoration: InputDecoration(
-                            hintText: 'Jerry Smith',
-                            labelText: 'Full Name',
-                            hintStyle: AppTextStyles.textSize18(
-                                color: AppColors.blueLight),
-                            labelStyle: AppTextStyles.textSize12(
-                                color: AppColors.blueLight),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.grey10),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.grey10),
-                            ),
-                          ),
-                        )),
-                    Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: AppMetrics.paddingHorizotal,
-                        ),
-                        child: TextField(
-                          controller: emailController,
-                          style: AppTextStyles.textSize18(
-                              color: AppColors.blueLight),
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                            hintText: 'jerrysmith@gmail.com',
-                            hintStyle: AppTextStyles.textSize18(
-                                color: AppColors.blueLight),
-                            labelStyle: AppTextStyles.textSize12(
-                                color: AppColors.blueLight),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.grey10),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.grey10),
-                            ),
-                          ),
-                        )),
+                    InputField(
+                      title: AppTranslations().getLanguage(context, 'fullName'),
+                      hinttitle:
+                          AppTranslations().getLanguage(context, 'fullName'),
+                      style: AppTextStyles.textSize18(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.whiteColor
+                              : AppColors.black),
+                      textStyleHint:
+                          AppTextStyles.textSize18(color: AppColors.blueLight),
+                      textStyle: AppTextStyles.textSize18(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.colorText
+                              : AppColors.blueLight),
+                      textInputAction: TextInputAction.done,
+                      controller: nameController,
+                    ),
+                    InputField(
+                      title: AppTranslations().getLanguage(context, 'email'),
+                      hinttitle:
+                          AppTranslations().getLanguage(context, 'email'),
+                      style: AppTextStyles.textSize18(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.whiteColor
+                              : AppColors.black),
+                      textStyleHint:
+                          AppTextStyles.textSize18(color: AppColors.blueLight),
+                      textStyle: AppTextStyles.textSize18(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.colorText
+                              : AppColors.blueLight),
+                      textInputAction: TextInputAction.done,
+                      controller: emailController,
+                    ),
                     Padding(
                       padding: EdgeInsets.only(
                           left: AppMetrics.paddingHorizotal,
@@ -168,7 +155,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Text(
                         'Phone Number',
                         style: AppTextStyles.textSize12(
-                            color: AppColors.blueLight),
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.colorText
+                                    : AppColors.blueLight),
                       ),
                     ),
                     Container(
@@ -178,7 +168,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       alignment: Alignment.center,
                       child: InternationalPhoneNumberInput(
                         textStyle: AppTextStyles.textSize18(
-                            color: AppColors.blueLight),
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.blueLight),
                         onInputChanged: (PhoneNumber number) {
                           print(number.phoneNumber);
                         },
@@ -190,7 +183,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ignoreBlank: false,
                         autoValidateMode: AutovalidateMode.disabled,
                         selectorTextStyle: AppTextStyles.textSize18(
-                            color: AppColors.blueLight),
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.blueLight),
                         initialValue: number,
                         textFieldController: phoneController,
                         formatInput: false,
@@ -199,12 +195,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         inputDecoration: InputDecoration(
                           hintText: '0412 345 678',
                           hintStyle: AppTextStyles.textSize18(
-                              color: AppColors.blueLight),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColors.whiteColor
+                                  : AppColors.blueLight),
                           enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.grey10),
+                            borderSide: BorderSide(color: AppColors.blueLight),
                           ),
                           focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.grey10),
+                            borderSide:
+                                BorderSide(color: AppColors.greenAccent),
                           ),
                         ),
                         onSaved: (PhoneNumber number) {
@@ -212,30 +212,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         },
                       ),
                     ),
-                    Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: AppMetrics.paddingHorizotal,
-                            vertical: AppMetrics.paddingContent),
-                        alignment: Alignment.center,
-                        child: TextField(
-                          controller: employerController,
-                          style: AppTextStyles.textSize18(
-                              color: AppColors.blueLight),
-                          decoration: InputDecoration(
-                            hintText: 'Mo works',
-                            labelText: 'Employer',
-                            hintStyle: AppTextStyles.textSize18(
-                                color: AppColors.blueLight),
-                            labelStyle: AppTextStyles.textSize12(
-                                color: AppColors.blueLight),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.grey10),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.grey10),
-                            ),
-                          ),
-                        )),
+                    InputField(
+                      title:
+                          AppTranslations().getLanguage(context, 'employeer'),
+                      hinttitle:
+                          AppTranslations().getLanguage(context, 'noWork'),
+                      style: AppTextStyles.textSize18(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.whiteColor
+                              : AppColors.black),
+                      textStyleHint:
+                          AppTextStyles.textSize18(color: AppColors.blueLight),
+                      textStyle: AppTextStyles.textSize18(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.colorText
+                              : AppColors.blueLight),
+                      textInputAction: TextInputAction.done,
+                      controller: employerController,
+                    ),
                   ],
                 ),
               ),
@@ -268,7 +262,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   color: AppColors.whiteColor,
                   text: "Cancel",
                   height: MediaQuery.of(context).size.height * 0.075,
-                  style: AppTextStyles.textSize14(),
+                  style: AppTextStyles.textSize14(color: AppColors.greyColor),
                 ),
               ],
             ),

@@ -132,7 +132,10 @@ class _TimesheetsState extends State<Timesheets> {
           child: HeaderChild(
               title:
                   "My ${AppTranslations().getLanguage(context, 'timesheets')}",
-              style: AppTextStyles.textSize16(),
+              style: AppTextStyles.textSize16(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.whiteColor
+                      : AppColors.black),
               rightIcon: GestureDetector(
                   onTap: () {
                     showGeneralDialog(
@@ -211,7 +214,10 @@ class _TimesheetsState extends State<Timesheets> {
                     index == 0
                         ? DateFormat('MMM yyyy').format(_date)
                         : 'June 2022',
-                    style: AppTextStyles.textSize16(),
+                    style: AppTextStyles.textSize16(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.colorText
+                            : AppColors.black),
                   ),
                 ),
                 SizedBox(
@@ -283,7 +289,11 @@ class _TimesheetsState extends State<Timesheets> {
                       Text(
                         "${item.start} - ${item.end}",
                         style: AppTextStyles.textSize16(
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.bold,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.black),
                       ),
                       SizedBox(
                         height: 10.0,
@@ -295,14 +305,21 @@ class _TimesheetsState extends State<Timesheets> {
                             children: [
                               Text("Schedule",
                                   style: AppTextStyles.textSize12(
-                                      color: AppColors.greyColor)),
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? AppColors.colorText
+                                          : AppColors.greyColor)),
                               SizedBox(
                                 height: 5.0,
                               ),
                               Text(
                                 "${item.scheduled}",
                                 style: AppTextStyles.textSize16(
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.black),
                               )
                             ],
                           ),
@@ -315,7 +332,10 @@ class _TimesheetsState extends State<Timesheets> {
                               Text(
                                 "Actual",
                                 style: AppTextStyles.textSize12(
-                                    color: AppColors.greyColor),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.colorText
+                                        : AppColors.greyColor),
                               ),
                               SizedBox(
                                 height: 5.0,
@@ -324,7 +344,10 @@ class _TimesheetsState extends State<Timesheets> {
                                 "${item.actual}",
                                 style: AppTextStyles.textSize16(
                                     fontWeight: FontWeight.bold,
-                                    color: AppColors.green),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.green),
                               )
                             ],
                           ),
@@ -385,7 +408,13 @@ class _TimesheetsState extends State<Timesheets> {
                 ],
               )),
         ),
-        items.indexOf(item) == items.length - 1 ? Container() : Divider()
+        items.indexOf(item) == items.length - 1
+            ? Container()
+            : Divider(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.dividerDark
+                    : AppColors.divider,
+              ),
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:bookkeepa/widgets/custom_btn.dart';
+import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,7 +22,6 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
   DateTime dateFrom, dateTo;
   @override
   void initState() {
-    description = TextEditingController(text: 'Add Description');
     super.initState();
   }
 
@@ -39,7 +39,10 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
             color: Colors.transparent,
             child: HeaderChild(
                 title: "New Leave Request",
-                style: AppTextStyles.textSize16(),
+                style: AppTextStyles.textSize16(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.whiteColor
+                        : AppColors.black),
                 leftIcon: SvgPicture.asset(AppImage.arrow_back))),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -215,10 +218,9 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
   }
 
   Widget formLeaveRequest() {
-    return Container(
-        margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(12)),
+    return CustomContainer(
+        colorBorder: AppColors.border,
+        edgeInsets: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -240,7 +242,10 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                         ))
                     .toList(),
                 value: "Select Leave type",
-                style: AppTextStyles.textSize18(color: AppColors.blueLight),
+                style: AppTextStyles.textSize18(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.whiteColor
+                        : AppColors.blueLight),
                 decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: AppColors.grey10),
@@ -250,10 +255,14 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                     ),
                     labelText: 'Leave Type',
                     hintText: 'Select Leave type',
-                    hintStyle:
-                        AppTextStyles.textSize18(color: AppColors.blueLight),
-                    labelStyle:
-                        AppTextStyles.textSize12(color: AppColors.blueLight)),
+                    hintStyle: AppTextStyles.textSize18(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.whiteColor
+                            : AppColors.blueLight),
+                    labelStyle: AppTextStyles.textSize12(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.colorText
+                            : AppColors.blueLight)),
                 icon: SvgPicture.asset(
                   AppImage.caretdown,
                   alignment: Alignment.center,
@@ -270,15 +279,23 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextField(
-                      style:
-                          AppTextStyles.textSize18(color: AppColors.blueLight),
+                      style: AppTextStyles.textSize18(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.whiteColor
+                              : AppColors.blueLight),
                       controller: description,
                       decoration: InputDecoration(
                           hintText: 'Add Description',
                           labelStyle: AppTextStyles.textSize12(
-                              color: AppColors.blueLight),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColors.colorText
+                                  : AppColors.blueLight),
                           hintStyle: AppTextStyles.textSize18(
-                              color: AppColors.blueLight),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColors.whiteColor
+                                  : AppColors.blueLight),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: AppColors.grey10),
                           ),
@@ -299,7 +316,10 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                       Text(
                         "Start Date",
                         style: AppTextStyles.textSize12(
-                            color: AppColors.blueLight),
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.colorText
+                                    : AppColors.blueLight),
                       ),
                       SizedBox(
                         height: 5.0,
@@ -307,12 +327,14 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                       Row(
                         children: [
                           Text(
-                            dateFrom == null
-                                ? "From"
-                                : DateFormat('dd/MM/yyyy').format(dateFrom),
-                            style: AppTextStyles.textSize20(
-                                color: AppColors.blueLight),
-                          ),
+                              dateFrom == null
+                                  ? "From"
+                                  : DateFormat('dd/MM/yyyy').format(dateFrom),
+                              style: AppTextStyles.textSize20(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.whiteColor
+                                      : AppColors.blueLight)),
                           Spacer(),
                           SvgPicture.asset(
                             AppImage.calendar,
@@ -320,7 +342,11 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                           ),
                         ],
                       ),
-                      Divider()
+                      Divider(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.dividerDark
+                            : AppColors.divider,
+                      ),
                     ],
                   ),
                 )),
@@ -334,7 +360,10 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                       Text(
                         "End Date",
                         style: AppTextStyles.textSize12(
-                            color: AppColors.blueLight),
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.colorText
+                                    : AppColors.blueLight),
                       ),
                       SizedBox(
                         height: 5.0,
@@ -346,7 +375,10 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                                 ? "To"
                                 : DateFormat('dd/MM/yyyy').format(dateTo),
                             style: AppTextStyles.textSize20(
-                                color: AppColors.blueLight),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.blueLight),
                           ),
                           Spacer(),
                           SvgPicture.asset(
@@ -355,7 +387,11 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                           ),
                         ],
                       ),
-                      Divider()
+                      Divider(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.dividerDark
+                            : AppColors.divider,
+                      ),
                     ],
                   ),
                 )),

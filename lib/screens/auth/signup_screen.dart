@@ -30,8 +30,6 @@ class _SignUpState extends State<SignUp> {
   @override
   void initState() {
     super.initState();
-    controllerEmail = TextEditingController(text: 'jerrysmith@gmail.com');
-    controllerPassword = TextEditingController(text: '12345678');
     fnPassword = FocusNode();
   }
 
@@ -78,7 +76,13 @@ class _SignUpState extends State<SignUp> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              SvgPicture.asset(AppImage.logo),
+                              SvgPicture.asset(
+                                AppImage.logo,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppColors.colorText
+                                    : null,
+                              ),
                               SizedBox(
                                 height: 10.0,
                               ),
@@ -86,7 +90,11 @@ class _SignUpState extends State<SignUp> {
                                 AppTranslations()
                                     .getLanguage(context, 'signUp'),
                                 style: AppTextStyles.textSize25(
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.black),
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -102,18 +110,44 @@ class _SignUpState extends State<SignUp> {
                                 focusNode: fnEmail,
                                 title: AppTranslations()
                                     .getLanguage(context, 'email'),
+                                hinttitle: AppTranslations()
+                                    .getLanguage(context, 'email'),
+                                style: AppTextStyles.textSize18(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.black),
+                                textStyleHint: AppTextStyles.textSize18(
+                                    color: AppColors.blueLight),
+                                textStyle: AppTextStyles.textSize18(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.colorText
+                                        : AppColors.blueLight),
                                 textInputAction: TextInputAction.done,
                                 controller: controllerEmail,
-                                textStyle: AppTextStyles.textSize18(),
                                 icon: Icons.check_circle),
                             InputField(
                               focusNode: fnPassword,
                               title: AppTranslations()
                                   .getLanguage(context, 'password'),
+                              hinttitle: AppTranslations()
+                                  .getLanguage(context, 'password'),
+                              style: AppTextStyles.textSize18(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.whiteColor
+                                      : AppColors.black),
+                              textStyleHint: AppTextStyles.textSize18(
+                                  color: AppColors.blueLight),
+                              textStyle: AppTextStyles.textSize18(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.colorText
+                                      : AppColors.blueLight),
                               isPassword: true,
                               textInputAction: TextInputAction.done,
                               controller: controllerPassword,
-                              textStyle: AppTextStyles.textSize18(),
                               icon: Icons.visibility_off,
                             ),
                             Container(
@@ -123,7 +157,10 @@ class _SignUpState extends State<SignUp> {
                               alignment: Alignment.center,
                               child: InternationalPhoneNumberInput(
                                 textStyle: AppTextStyles.textSize18(
-                                    color: AppColors.blueLight),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.blueLight),
                                 onInputChanged: (PhoneNumber number) {
                                   print(number.phoneNumber);
                                 },
@@ -136,7 +173,10 @@ class _SignUpState extends State<SignUp> {
                                 ignoreBlank: false,
                                 autoValidateMode: AutovalidateMode.disabled,
                                 selectorTextStyle: AppTextStyles.textSize18(
-                                    color: AppColors.blueLight),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.blueLight),
                                 initialValue: number,
                                 textFieldController: controllerPhone,
                                 formatInput: false,
@@ -145,14 +185,17 @@ class _SignUpState extends State<SignUp> {
                                 inputDecoration: InputDecoration(
                                   hintText: '0412 345 678',
                                   hintStyle: AppTextStyles.textSize18(
-                                      color: AppColors.blueLight),
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? AppColors.whiteColor
+                                          : AppColors.blueLight),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide:
-                                        BorderSide(color: AppColors.grey10),
+                                        BorderSide(color: AppColors.blueLight),
                                   ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide:
-                                        BorderSide(color: AppColors.grey10),
+                                        BorderSide(color: AppColors.blueLight),
                                   ),
                                 ),
                                 onSaved: (PhoneNumber number) {
@@ -193,7 +236,10 @@ class _SignUpState extends State<SignUp> {
                                 AppTranslations()
                                     .getLanguage(context, 'alreadyRegisterd'),
                                 style: AppTextStyles.textSize14(
-                                    color: AppColors.greyColor),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.greyColor),
                               ),
                               SizedBox(
                                 width: 5.0,
@@ -207,7 +253,10 @@ class _SignUpState extends State<SignUp> {
                                     AppTranslations()
                                         .getLanguage(context, 'login'),
                                     style: AppTextStyles.textSize14(
-                                      color: AppColors.green,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? AppColors.colorText
+                                          : AppColors.green,
                                     )),
                               )
                             ],

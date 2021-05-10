@@ -9,6 +9,7 @@ class ThemeCubit extends Cubit<ThemeData> {
   final storage = new FlutterSecureStorage();
   static final _lightTheme = ThemeData(
     brightness: Brightness.light,
+    appBarTheme: AppBarTheme(elevation: 0.0),
     primaryColor: AppColors.greenAccent,
   );
 
@@ -16,6 +17,7 @@ class ThemeCubit extends Cubit<ThemeData> {
       brightness: Brightness.dark,
       backgroundColor: AppColors.black,
       primaryColor: AppColors.greenAccent,
+      appBarTheme: AppBarTheme(elevation: 0.0),
       scaffoldBackgroundColor: AppColors.black,
       accentColor: AppColors.black);
 

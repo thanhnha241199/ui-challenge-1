@@ -9,6 +9,7 @@ import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
+import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -102,38 +103,15 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: HeaderView(
-          color: Colors.transparent,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 1,
-                child: GestureDetector(
-                  onTap: () {
-                    NavigationService.instance.goback();
-                  },
-                  child: SvgPicture.asset(
-                    AppImage.arrow_back,
-                    alignment: Alignment.center,
-                  ),
-                ),
-              ),
-              Expanded(
-                  flex: 4,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: AppMetrics.paddingContainer),
-                    child: Text(
-                      "TimeSheet Details",
-                      style: AppTextStyles.textSize16(),
-                      textAlign: TextAlign.center,
-                    ),
-                  )),
-              Expanded(flex: 1, child: Text(''))
-            ],
-          ),
-        ),
+            color: AppColors.whiteColor,
+            child: HeaderChild(
+                title:
+                    AppTranslations().getLanguage(context, 'timesheetDetails'),
+                style: AppTextStyles.textSize16(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.whiteColor
+                        : AppColors.black),
+                leftIcon: SvgPicture.asset(AppImage.arrow_back))),
         body: ListView(
           physics: BouncingScrollPhysics(),
           children: [
@@ -159,14 +137,22 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                               Text(
                                 items.infor.name,
                                 style: AppTextStyles.textSize18(
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.black),
                               ),
                               SizedBox(
                                 height: 2.0,
                               ),
                               Text(
                                 items.infor.manager,
-                                style: AppTextStyles.textSize14(),
+                                style: AppTextStyles.textSize14(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.black),
                               ),
                               SizedBox(
                                 height: 2.0,
@@ -174,7 +160,10 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                               Text(
                                 "${widget.timeSheetModel.start}-${widget.timeSheetModel.end}",
                                 style: AppTextStyles.textSize14(
-                                    color: AppColors.greyColor),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.greyColor),
                               ),
                             ],
                           ),
@@ -206,7 +195,9 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                       ),
                     ),
                     Divider(
-                      color: AppColors.divider,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.dividerDark
+                          : AppColors.divider,
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(
@@ -220,7 +211,11 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                             child: Text(
                               "Total hours \nworked",
                               style: AppTextStyles.textSize16(
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.whiteColor
+                                      : AppColors.black),
                             ),
                           ),
                           Expanded(
@@ -235,12 +230,21 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                         "Scheduled",
                                         overflow: TextOverflow.ellipsis,
                                         style: AppTextStyles.textSize12(
-                                            color: AppColors.greyColor),
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.colorText
+                                                    : AppColors.greyColor),
                                       ),
                                       Text(
                                         widget.timeSheetModel.scheduled,
                                         style: AppTextStyles.textSize16(
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.black),
                                       )
                                     ],
                                   ),
@@ -254,12 +258,20 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                       Text(
                                         "Actual",
                                         style: AppTextStyles.textSize12(
-                                            color: AppColors.greyColor),
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.colorText
+                                                    : AppColors.greyColor),
                                       ),
                                       Text(
                                         widget.timeSheetModel.actual,
                                         style: AppTextStyles.textSize16(
-                                            color: AppColors.green,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.colorText
+                                                    : AppColors.green,
                                             fontWeight: FontWeight.bold),
                                       )
                                     ],
@@ -271,7 +283,11 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                         ],
                       ),
                     ),
-                    Divider(color: AppColors.divider),
+                    Divider(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.dividerDark
+                          : AppColors.divider,
+                    ),
                     Container(
                       child: Column(
                         children: items.detail
@@ -293,8 +309,12 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                               child: Text(
                                                 e.day,
                                                 style: AppTextStyles.textSize16(
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? AppColors.whiteColor
+                                                        : AppColors.black),
                                               ),
                                             ),
                                             Expanded(
@@ -308,11 +328,18 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                       children: [
                                                         Text(
                                                           e.toalschedule,
-                                                          style: AppTextStyles
-                                                              .textSize16(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
+                                                          style: AppTextStyles.textSize16(
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? AppColors
+                                                                      .whiteColor
+                                                                  : AppColors
+                                                                      .black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
                                                         )
                                                       ],
                                                     ),
@@ -366,9 +393,13 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                             children: [
                                                               Text(
                                                                 e.description,
-                                                                style: AppTextStyles
-                                                                    .textSize14(
-                                                                        color: AppColors
+                                                                style: AppTextStyles.textSize14(
+                                                                    color: Theme.of(context).brightness ==
+                                                                            Brightness
+                                                                                .dark
+                                                                        ? AppColors
+                                                                            .whiteColor
+                                                                        : AppColors
                                                                             .greyColor),
                                                               ),
                                                               Row(
@@ -377,8 +408,10 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                                     flex: 3,
                                                                     child: Text(
                                                                       e.time,
-                                                                      style: AppTextStyles
-                                                                          .textSize14(),
+                                                                      style: AppTextStyles.textSize14(
+                                                                          color: Theme.of(context).brightness == Brightness.dark
+                                                                              ? AppColors.whiteColor
+                                                                              : AppColors.black),
                                                                     ),
                                                                   ),
                                                                   Expanded(
@@ -394,7 +427,7 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                                             children: [
                                                                               Text(
                                                                                 e.schedule,
-                                                                                style: AppTextStyles.textSize14(),
+                                                                                style: AppTextStyles.textSize14(color: Theme.of(context).brightness == Brightness.dark ? AppColors.whiteColor : AppColors.black),
                                                                               )
                                                                             ],
                                                                           ),
@@ -436,14 +469,24 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                       items.detail.indexOf(e) ==
                                               items.detail.length - 1
                                           ? Container()
-                                          : Divider(color: AppColors.divider),
+                                          : Divider(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? AppColors.dividerDark
+                                                  : AppColors.divider,
+                                            ),
                                     ],
                                   ),
                                 ))
                             .toList(),
                       ),
                     ),
-                    Divider(color: AppColors.divider),
+                    Divider(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.dividerDark
+                          : AppColors.divider,
+                    ),
                     Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: AppMetrics.paddingHorizotal,
@@ -454,7 +497,10 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                             Text(
                               AppTranslations().getLanguage(context, 'notes'),
                               style: AppTextStyles.textSize14(
-                                  color: AppColors.greyColor),
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.whiteColor
+                                      : AppColors.greyColor),
                             ),
                             SizedBox(
                               height: 5.0,
@@ -481,11 +527,17 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                     flex: 4,
                                                     child: Text(
                                                       e.day,
-                                                      style: AppTextStyles
-                                                          .textSize16(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
+                                                      style: AppTextStyles.textSize16(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? AppColors
+                                                                  .whiteColor
+                                                              : AppColors
+                                                                  .black),
                                                     ),
                                                   ),
                                                   Spacer(),
@@ -495,8 +547,15 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                       e.time,
                                                       overflow:
                                                           TextOverflow.ellipsis,
-                                                      style: AppTextStyles
-                                                          .textSize14(),
+                                                      style: AppTextStyles.textSize14(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? AppColors
+                                                                  .whiteColor
+                                                              : AppColors
+                                                                  .black),
                                                     ),
                                                   )
                                                 ],
@@ -507,7 +566,11 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                               Text(
                                                 e.description,
                                                 style: AppTextStyles.textSize14(
-                                                    color: AppColors.greyColor),
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? AppColors.whiteColor
+                                                        : AppColors.greyColor),
                                               )
                                             ],
                                           ),
@@ -526,7 +589,10 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                               AppTranslations()
                                   .getLanguage(context, 'attachment'),
                               style: AppTextStyles.textSize14(
-                                  color: AppColors.greyColor),
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.whiteColor
+                                      : AppColors.greyColor),
                             ),
                             Column(
                                 children: items.attachment
@@ -550,11 +616,17 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                     flex: 4,
                                                     child: Text(
                                                       e.day,
-                                                      style: AppTextStyles
-                                                          .textSize16(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
+                                                      style: AppTextStyles.textSize16(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? AppColors
+                                                                  .whiteColor
+                                                              : AppColors
+                                                                  .black),
                                                     ),
                                                   ),
                                                   Spacer(),
@@ -564,42 +636,58 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                       e.time,
                                                       overflow:
                                                           TextOverflow.ellipsis,
-                                                      style: AppTextStyles
-                                                          .textSize14(),
+                                                      style: AppTextStyles.textSize14(
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? AppColors
+                                                                  .whiteColor
+                                                              : AppColors
+                                                                  .black),
                                                     ),
                                                   )
                                                 ],
                                               ),
                                               Column(
-                                                children: items
-                                                    .attachment[0].file
-                                                    .map((e) => Container(
-                                                          padding: EdgeInsets.only(
-                                                              top: AppMetrics
-                                                                  .paddingContent),
-                                                          child: Row(
-                                                            children: [
-                                                              SvgPicture.asset(
-                                                                AppImage
-                                                                    .paperclip,
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
+                                                children:
+                                                    items.attachment[0].file
+                                                        .map((e) => Container(
+                                                              padding: EdgeInsets.only(
+                                                                  top: AppMetrics
+                                                                      .paddingContent),
+                                                              child: Row(
+                                                                children: [
+                                                                  SvgPicture
+                                                                      .asset(
+                                                                    AppImage
+                                                                        .paperclip,
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .center,
+                                                                    color: Theme.of(context).brightness ==
+                                                                            Brightness
+                                                                                .dark
+                                                                        ? AppColors
+                                                                            .colorText
+                                                                        : AppColors
+                                                                            .black,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 10.0,
+                                                                  ),
+                                                                  Text(
+                                                                    e.file,
+                                                                    style: AppTextStyles.textSize14(
+                                                                        color: Theme.of(context).brightness ==
+                                                                                Brightness.dark
+                                                                            ? AppColors.whiteColor
+                                                                            : AppColors.greyColor),
+                                                                  )
+                                                                ],
                                                               ),
-                                                              SizedBox(
-                                                                width: 10.0,
-                                                              ),
-                                                              Text(
-                                                                e.file,
-                                                                style: AppTextStyles
-                                                                    .textSize14(
-                                                                        color: AppColors
-                                                                            .greyColor),
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ))
-                                                    .toList(),
+                                                            ))
+                                                        .toList(),
                                               )
                                             ],
                                           ),
@@ -625,7 +713,11 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                             Text(
                               AppTranslations()
                                   .getLanguage(context, 'addAttachment'),
-                              style: AppTextStyles.textSize18(),
+                              style: AppTextStyles.textSize18(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.whiteColor
+                                      : AppColors.black),
                             ),
                           ],
                         )),

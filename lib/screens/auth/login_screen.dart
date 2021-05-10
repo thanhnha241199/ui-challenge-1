@@ -29,8 +29,6 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    controllerEmail = TextEditingController(text: 'jerrysmith@gmail.com');
-    controllerPassword = TextEditingController(text: '12345678');
     fnPassword = FocusNode();
   }
 
@@ -76,7 +74,13 @@ class _LoginState extends State<Login> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                SvgPicture.asset(AppImage.logo),
+                                SvgPicture.asset(
+                                  AppImage.logo,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.greenAccent
+                                      : AppColors.black,
+                                ),
                                 SizedBox(
                                   height: 10.0,
                                 ),
@@ -84,7 +88,11 @@ class _LoginState extends State<Login> {
                                   AppTranslations()
                                       .getLanguage(context, 'welcomeBack'),
                                   style: AppTextStyles.textSize25(
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? AppColors.whiteColor
+                                          : AppColors.black),
                                   textAlign: TextAlign.center,
                                 ),
                               ],
@@ -104,9 +112,22 @@ class _LoginState extends State<Login> {
                                   focusNode: fnEmail,
                                   title: AppTranslations()
                                       .getLanguage(context, 'email'),
+                                  hinttitle: AppTranslations()
+                                      .getLanguage(context, 'email'),
+                                  style: AppTextStyles.textSize18(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? AppColors.whiteColor
+                                          : AppColors.black),
+                                  textStyleHint: AppTextStyles.textSize18(
+                                      color: AppColors.blueLight),
+                                  textStyle: AppTextStyles.textSize18(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? AppColors.colorText
+                                          : AppColors.blueLight),
                                   textInputAction: TextInputAction.done,
                                   controller: controllerEmail,
-                                  textStyle: AppTextStyles.textSize18(),
                                   icon: Icons.check_circle),
                               SizedBox(
                                 height: 20.0,
@@ -115,10 +136,23 @@ class _LoginState extends State<Login> {
                                 focusNode: fnPassword,
                                 title: AppTranslations()
                                     .getLanguage(context, 'password'),
+                                hinttitle: AppTranslations()
+                                    .getLanguage(context, 'password'),
+                                style: AppTextStyles.textSize18(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.black),
+                                textStyleHint: AppTextStyles.textSize18(
+                                    color: AppColors.blueLight),
+                                textStyle: AppTextStyles.textSize18(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.colorText
+                                        : AppColors.blueLight),
                                 isPassword: showpass,
                                 textInputAction: TextInputAction.done,
                                 controller: controllerPassword,
-                                textStyle: AppTextStyles.textSize18(),
                                 icon: Icons.visibility_off,
                                 onTapIcon: ontap,
                               ),
@@ -132,7 +166,10 @@ class _LoginState extends State<Login> {
                                       .getLanguage(context, 'forgotPassword'),
                                   textAlign: TextAlign.start,
                                   style: AppTextStyles.textSize14(
-                                      color: AppColors.green),
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? AppColors.colorText
+                                          : AppColors.green),
                                 ),
                               ),
                             ],
@@ -171,7 +208,10 @@ class _LoginState extends State<Login> {
                                 AppTranslations()
                                     .getLanguage(context, 'newBookeepa'),
                                 style: AppTextStyles.textSize14(
-                                    color: AppColors.greyColor),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.greyColor),
                               ),
                               SizedBox(
                                 width: 5.0,
@@ -185,7 +225,10 @@ class _LoginState extends State<Login> {
                                     AppTranslations()
                                         .getLanguage(context, 'registerNow'),
                                     style: AppTextStyles.textSize14(
-                                      color: AppColors.green,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? AppColors.colorText
+                                          : AppColors.green,
                                     )),
                               )
                             ],

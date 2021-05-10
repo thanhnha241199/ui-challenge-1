@@ -22,8 +22,6 @@ class _NewTimeCardState extends State<NewTimeCard> {
   DateTime _date;
   @override
   void initState() {
-    comments = TextEditingController(text: 'Enter Note');
-    location = TextEditingController(text: 'Add location');
     super.initState();
   }
 
@@ -34,7 +32,10 @@ class _NewTimeCardState extends State<NewTimeCard> {
           color: Colors.transparent,
           child: HeaderChild(
             title: "New Time Card",
-            style: AppTextStyles.textSize16(),
+            style: AppTextStyles.textSize16(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.whiteColor
+                    : AppColors.black),
           )),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
@@ -73,12 +74,20 @@ class _NewTimeCardState extends State<NewTimeCard> {
                           children: [
                             Text(
                               "You are next scheduled to clock in",
-                              style: AppTextStyles.textSize14(),
+                              style: AppTextStyles.textSize14(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.whiteColor
+                                      : AppColors.black),
                             ),
                             Text(
                               "Tomorrow at 06:00pm",
                               style: AppTextStyles.textSize14(
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.whiteColor
+                                      : AppColors.black),
                             ),
                           ],
                         )
@@ -126,7 +135,12 @@ class _NewTimeCardState extends State<NewTimeCard> {
                                             child: Text(
                                               "Your Are About To Clock In",
                                               style: AppTextStyles.textSize20(
-                                                  fontWeight: FontWeight.bold),
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? AppColors.whiteColor
+                                                      : AppColors.black),
                                               textAlign: TextAlign.center,
                                             )),
                                         Expanded(
@@ -150,7 +164,11 @@ class _NewTimeCardState extends State<NewTimeCard> {
                                     child: Text(
                                       "Just to confirm: you are not scheduled to work today. Please confirm you would like to clock in a time",
                                       maxLines: 5,
-                                      style: AppTextStyles.textSize16(),
+                                      style: AppTextStyles.textSize16(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? AppColors.whiteColor
+                                              : AppColors.black),
                                       textAlign: TextAlign.start,
                                     ),
                                   ),
@@ -207,7 +225,8 @@ class _NewTimeCardState extends State<NewTimeCard> {
                       color: AppColors.whiteColor,
                       text: 'Cancel',
                       height: MediaQuery.of(context).size.height * 0.08,
-                      style: AppTextStyles.textSize18(),
+                      style:
+                          AppTextStyles.textSize18(color: AppColors.greyColor),
                     ),
                   ],
                 )),
@@ -294,7 +313,10 @@ class _NewTimeCardState extends State<NewTimeCard> {
                             Text(
                               "Start Time",
                               style: AppTextStyles.textSize12(
-                                  color: AppColors.blueLight),
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.colorText
+                                      : AppColors.blueLight),
                             ),
                             SizedBox(
                               height: 5.0,
@@ -310,7 +332,10 @@ class _NewTimeCardState extends State<NewTimeCard> {
                                             .format(_date),
                                     overflow: TextOverflow.ellipsis,
                                     style: AppTextStyles.textSize18(
-                                        color: AppColors.blueLight),
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? AppColors.whiteColor
+                                            : AppColors.blueLight),
                                   ),
                                 ),
                                 GestureDetector(
@@ -322,7 +347,12 @@ class _NewTimeCardState extends State<NewTimeCard> {
                                 ),
                               ],
                             ),
-                            Divider()
+                            Divider(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColors.dividerDark
+                                  : AppColors.divider,
+                            ),
                           ],
                         )),
                   ),
@@ -361,11 +391,19 @@ class _NewTimeCardState extends State<NewTimeCard> {
                                 Text(
                                   _time.format(context),
                                   style: AppTextStyles.textSize18(
-                                      color: AppColors.blueLight),
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? AppColors.whiteColor
+                                          : AppColors.blueLight),
                                 ),
                               ],
                             ),
-                            Divider()
+                            Divider(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColors.dividerDark
+                                  : AppColors.divider,
+                            ),
                           ],
                         )),
                   ),
@@ -377,7 +415,10 @@ class _NewTimeCardState extends State<NewTimeCard> {
               padding:
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
               child: TextField(
-                style: AppTextStyles.textSize18(color: AppColors.blueLight),
+                style: AppTextStyles.textSize18(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.whiteColor
+                        : AppColors.blueLight),
                 controller: location,
                 decoration: InputDecoration(
                     suffixIcon: Image.asset(
@@ -386,10 +427,14 @@ class _NewTimeCardState extends State<NewTimeCard> {
                       width: 18.0,
                     ),
                     hintText: 'Add Location',
-                    labelStyle:
-                        AppTextStyles.textSize12(color: AppColors.blueLight),
-                    hintStyle:
-                        AppTextStyles.textSize18(color: AppColors.blueLight),
+                    labelStyle: AppTextStyles.textSize12(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.colorText
+                            : AppColors.blueLight),
+                    hintStyle: AppTextStyles.textSize18(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.whiteColor
+                            : AppColors.blueLight),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: AppColors.grey10),
                     ),
@@ -405,14 +450,21 @@ class _NewTimeCardState extends State<NewTimeCard> {
             padding:
                 EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
             child: TextField(
-              style: AppTextStyles.textSize18(color: AppColors.blueLight),
+              style: AppTextStyles.textSize18(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.whiteColor
+                      : AppColors.blueLight),
               controller: comments,
               decoration: InputDecoration(
                   hintText: 'Enter Note',
-                  labelStyle:
-                      AppTextStyles.textSize12(color: AppColors.blueLight),
-                  hintStyle:
-                      AppTextStyles.textSize18(color: AppColors.blueLight),
+                  labelStyle: AppTextStyles.textSize12(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.colorText
+                          : AppColors.blueLight),
+                  hintStyle: AppTextStyles.textSize18(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.whiteColor
+                          : AppColors.blueLight),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: AppColors.grey10),
                   ),

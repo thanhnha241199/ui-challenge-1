@@ -91,7 +91,10 @@ class _LeaveState extends State<Leave> {
           color: Colors.transparent,
           child: HeaderChild(
               title: AppTranslations().getLanguage(context, 'myLeave'),
-              style: AppTextStyles.textSize16(),
+              style: AppTextStyles.textSize16(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.whiteColor
+                      : AppColors.black),
               rightIcon: GestureDetector(
                   onTap: () {
                     showGeneralDialog(
@@ -185,7 +188,11 @@ class _LeaveState extends State<Leave> {
                       children: [
                         Text(
                           item.name,
-                          style: AppTextStyles.textSize16(),
+                          style: AppTextStyles.textSize16(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColors.whiteColor
+                                  : AppColors.black),
                         ),
                         SizedBox(
                           height: 8.0,
@@ -193,14 +200,21 @@ class _LeaveState extends State<Leave> {
                         Text(
                           "${item.start} - ${item.end}(${item.hours})",
                           style: AppTextStyles.textSize12(
-                              color: AppColors.greyColor),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColors.whiteColor
+                                  : AppColors.greyColor),
                         ),
                         SizedBox(
                           height: 8.0,
                         ),
                         Text(
                           item.description,
-                          style: AppTextStyles.textSize12(),
+                          style: AppTextStyles.textSize12(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColors.whiteColor
+                                  : AppColors.black),
                         )
                       ],
                     ),
@@ -249,10 +263,18 @@ class _LeaveState extends State<Leave> {
                   vertical: AppMetrics.paddingContent),
               child: Text(
                 AppTranslations().getLanguage(context, 'leaveBalance'),
-                style: AppTextStyles.textSize14(fontWeight: FontWeight.bold),
+                style: AppTextStyles.textSize14(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.whiteColor
+                        : AppColors.black),
               ),
             ),
-            Divider(),
+            Divider(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.dividerDark
+                  : AppColors.divider,
+            ),
             Container(
               padding: EdgeInsets.symmetric(
                   horizontal: AppMetrics.paddingContainer,
@@ -268,20 +290,31 @@ class _LeaveState extends State<Leave> {
                           'annualBalance',
                         ),
                         style: AppTextStyles.textSize16(
-                            color: AppColors.greyColor),
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.greyColor),
                       ),
                       Spacer(),
                       Text(
                         "23.5 h",
                         style: AppTextStyles.textSize25(
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.bold,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.black),
                       ),
                     ],
                   ),
                 ],
               ),
             ),
-            Divider(),
+            Divider(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.dividerDark
+                  : AppColors.divider,
+            ),
             Container(
               padding: EdgeInsets.symmetric(
                   horizontal: AppMetrics.paddingContainer,
@@ -290,13 +323,19 @@ class _LeaveState extends State<Leave> {
                 children: [
                   Text(
                     AppTranslations().getLanguage(context, 'sickBalance'),
-                    style: AppTextStyles.textSize16(color: AppColors.greyColor),
+                    style: AppTextStyles.textSize16(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.whiteColor
+                            : AppColors.greyColor),
                   ),
                   Spacer(),
                   Text(
                     "37.0 h",
-                    style:
-                        AppTextStyles.textSize25(fontWeight: FontWeight.bold),
+                    style: AppTextStyles.textSize25(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.whiteColor
+                            : AppColors.black),
                   ),
                 ],
               ),

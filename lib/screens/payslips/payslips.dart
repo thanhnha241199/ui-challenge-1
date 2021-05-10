@@ -59,7 +59,10 @@ class _PayslipsState extends State<Payslips> with TickerProviderStateMixin {
             color: Colors.transparent,
             child: HeaderChild(
                 title: AppTranslations().getLanguage(context, 'myPayslip'),
-                style: AppTextStyles.textSize16(),
+                style: AppTextStyles.textSize16(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.whiteColor
+                        : AppColors.black),
                 rightIcon: GestureDetector(
                     onTap: () {
                       showGeneralDialog(
@@ -150,7 +153,10 @@ class _PayslipsState extends State<Payslips> with TickerProviderStateMixin {
             children: [
               Text(
                 AppTranslations().getLanguage(context, 'amount'),
-                style: AppTextStyles.textSize16(),
+                style: AppTextStyles.textSize16(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.whiteColor
+                        : AppColors.black),
               ),
               Spacer(),
               AnimatedBuilder(
@@ -194,7 +200,10 @@ class _PayslipsState extends State<Payslips> with TickerProviderStateMixin {
             children: [
               Text(
                 AppTranslations().getLanguage(context, 'date'),
-                style: AppTextStyles.textSize16(),
+                style: AppTextStyles.textSize16(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.whiteColor
+                        : AppColors.black),
               ),
               Spacer(),
               AnimatedBuilder(
@@ -227,14 +236,20 @@ class _PayslipsState extends State<Payslips> with TickerProviderStateMixin {
                 children: [
                   Text(
                     item.end,
-                    style:
-                        AppTextStyles.textSize16(fontWeight: FontWeight.bold),
+                    style: AppTextStyles.textSize16(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.whiteColor
+                            : AppColors.black),
                   ),
                   Spacer(),
                   Text(
                     "\$${item.amount}",
-                    style:
-                        AppTextStyles.textSize16(fontWeight: FontWeight.bold),
+                    style: AppTextStyles.textSize16(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.whiteColor
+                            : AppColors.black),
                   ),
                 ],
               ),
@@ -243,7 +258,10 @@ class _PayslipsState extends State<Payslips> with TickerProviderStateMixin {
               ),
               Text(
                 "${item.start} - ${item.end}",
-                style: AppTextStyles.textSize12(color: AppColors.greyColor),
+                style: AppTextStyles.textSize12(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.whiteColor
+                        : AppColors.greyColor),
               ),
               SizedBox(
                 height: AppMetrics.paddingContainer,
@@ -253,17 +271,28 @@ class _PayslipsState extends State<Payslips> with TickerProviderStateMixin {
                   NavigationService.instance
                       .pushPage(context, false, ViewPayslip());
                 },
-                color: AppColors.whiteColor,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.black300
+                    : AppColors.whiteColor,
                 borderColor: AppColors.greenAccent,
                 text: AppTranslations().getLanguage(context, 'viewPdf'),
                 height: MediaQuery.of(context).size.height * 0.065,
                 width: MediaQuery.of(context).size.width * 0.3,
-                style: AppTextStyles.textSize14(color: AppColors.green),
+                style: AppTextStyles.textSize14(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.greenAccent
+                        : AppColors.green),
               ),
             ],
           ),
         ),
-        items.indexOf(item) == items.length - 1 ? Container() : Divider()
+        items.indexOf(item) == items.length - 1
+            ? Container()
+            : Divider(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.dividerDark
+                    : AppColors.divider,
+              ),
       ],
     );
   }

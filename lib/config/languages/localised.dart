@@ -1,24 +1,9 @@
 class Languages {
   static Map<dynamic, dynamic> localised = {
-    "title1": {"en": "All your financials \non the go"},
-    "title2": {"en": "Are you \nneeding payroll"},
-    "title3": {"en": "Account verification \n& set up"},
-    "title4": {"en": "Begin with \nBookkeepa"},
-    "subtitle1": {
+    "title": {"en": "Simplifying payroll \n for businesses"},
+    "subtitle": {
       "en":
-          "We're simplifying bookeeping and \naccounting so you can focus \non what master."
-    },
-    "subtitle2": {
-      "en":
-          "If you require access to rosters, \ntimesheets, payslips and more, then \npayroll is for you."
-    },
-    "subtitle3": {
-      "en":
-          "You dedicated bookkeeper will then \nneed to verify and \nset up your account."
-    },
-    "subtitle4": {
-      "en":
-          "Generate invoices and quotes, recied \ncashflow and manage payroll \non the go!"
+          "View your roster, record your \n attendance and manage payroll all from \n one easy-to-use app."
     },
     "welcomeBack": {"en": "Welcome back to \nBookKeepa"},
     "welcome": {"en": "Welcome"},
@@ -35,6 +20,11 @@ class Languages {
     "password": {"en": "Password"},
     "cancel": {"en": "Cancel"},
     "next": {"en": "Next"},
+    "employeer": {"en": "Employeer"},
+    "noWork": {"en": "No Work"},
+    "comments": {"en": "Comments"},
+    "enterNote": {"en": "Enter Note"},
+    "fullName": {"en": "FullName"},
     "skip": {"en": "Skip"},
     "addAttachment": {"en": "Add Attachments"},
     "attachment": {"en": "Attachments"},
@@ -47,6 +37,7 @@ class Languages {
     "dashBoard": {"en": "Dashboard"},
     "timesheets": {"en": "Timesheets"},
     "dartMode": {"en": "Dart Mode"},
+    "timesheetDetails": {"en": "Timesheet Details"},
     "leave": {"en": "Leave"},
     "payslips": {"en": "Payslips"},
     "rosters": {"en": "Rosters"},

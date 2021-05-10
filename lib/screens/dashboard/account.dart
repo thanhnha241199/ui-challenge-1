@@ -61,9 +61,6 @@ class _AccountScreenState extends State<AccountScreen> {
     obscureCurrent = false;
     obscureNew = false;
     obscureConfirm = false;
-    controllerPassword = TextEditingController(text: '12345678');
-    controllerNewPassword = TextEditingController(text: '12345678');
-    controllerConfirmNewPassword = TextEditingController(text: '12345678');
   }
 
   @override
@@ -79,7 +76,7 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: HeaderView(
-            color: Colors.transparent,
+            color: AppColors.whiteColor,
             child: HeaderChild(
               title: AppTranslations().getLanguage(context, 'account'),
               style: AppTextStyles.textSize16(
@@ -125,12 +122,8 @@ class _AccountScreenState extends State<AccountScreen> {
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
               padding:
                   EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.black300
-                  : AppColors.whiteColor,
-              colorBorder: Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.black300
-                  : AppColors.border,
+              color: AppColors.whiteColor,
+              colorBorder: AppColors.border,
               child: GestureDetector(
                 onTap: () {
                   NavigationService.instance.navigateTo(SelectBusiness());
@@ -177,12 +170,8 @@ class _AccountScreenState extends State<AccountScreen> {
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
               padding:
                   EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.black300
-                  : AppColors.whiteColor,
-              colorBorder: Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.black300
-                  : AppColors.border,
+              color: AppColors.whiteColor,
+              colorBorder: AppColors.border,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -211,7 +200,11 @@ class _AccountScreenState extends State<AccountScreen> {
                       ],
                     ),
                   ),
-                  Divider(),
+                  Divider(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.dividerDark
+                        : AppColors.divider,
+                  ),
                   Container(
                     padding: EdgeInsets.symmetric(
                         horizontal: AppMetrics.paddingContainer,
@@ -299,12 +292,8 @@ class _AccountScreenState extends State<AccountScreen> {
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
               padding:
                   EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.black300
-                  : AppColors.whiteColor,
-              colorBorder: Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.black300
-                  : AppColors.border,
+              color: AppColors.whiteColor,
+              colorBorder: AppColors.border,
               child: GestureDetector(
                 onTap: () {
                   setState(() {
@@ -359,12 +348,8 @@ class _AccountScreenState extends State<AccountScreen> {
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
               padding:
                   EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.black300
-                  : AppColors.whiteColor,
-              colorBorder: Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.black300
-                  : AppColors.border,
+              color: AppColors.whiteColor,
+              colorBorder: AppColors.border,
               child: GestureDetector(
                 onTap: () {
                   NavigationService.instance.navigateTo(SelectBusiness());

@@ -31,19 +31,21 @@ class _TimeCardState extends State<TimeCard> {
   DateTime _date;
   @override
   void initState() {
-    comments = TextEditingController(text: 'Enter Note');
-    location = TextEditingController(text: 'Add location');
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: HeaderView(
           color: Colors.transparent,
           child: HeaderChild(
             title: "My Time Card",
-            style: AppTextStyles.textSize16(),
+            style: AppTextStyles.textSize16(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.whiteColor
+                    : AppColors.black),
           )),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,7 +85,12 @@ class _TimeCardState extends State<TimeCard> {
                                       child: Text(
                                         "Time Card Added",
                                         style: AppTextStyles.textSize20(
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.black),
                                         textAlign: TextAlign.center,
                                       )),
                                   Expanded(
@@ -111,7 +118,12 @@ class _TimeCardState extends State<TimeCard> {
                                             TextSpan(
                                               text:
                                                   "This time card has been added to this week's timesheet. You can edit time card yor Timesheets as long as it is in ",
-                                              style: AppTextStyles.textSize16(),
+                                              style: AppTextStyles.textSize16(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? AppColors.whiteColor
+                                                      : AppColors.black),
                                             ),
                                             WidgetSpan(
                                                 alignment:
@@ -120,7 +132,12 @@ class _TimeCardState extends State<TimeCard> {
                                                     AppImage.draft)),
                                             TextSpan(
                                               text: " or ",
-                                              style: AppTextStyles.textSize16(),
+                                              style: AppTextStyles.textSize16(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? AppColors.whiteColor
+                                                      : AppColors.black),
                                             ),
                                             WidgetSpan(
                                                 alignment:
@@ -146,9 +163,14 @@ class _TimeCardState extends State<TimeCard> {
                                       vertical: AppMetrics.paddingContent),
                                   decoration: BoxDecoration(
                                       border: Border.all(
-                                          color:
-                                              AppColors.grey.withOpacity(0.2)),
-                                      color: AppColors.whiteColor,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? AppColors.green
+                                              : AppColors.border),
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? AppColors.green
+                                          : AppColors.whiteColor,
                                       borderRadius: BorderRadius.circular(
                                           AppMetrics.borderContainer)),
                                   alignment: Alignment.center,
@@ -159,50 +181,84 @@ class _TimeCardState extends State<TimeCard> {
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Text(
                                             "Day Total",
                                             style: AppTextStyles.textSize12(
-                                                color: AppColors.greyColor),
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.greyColor),
                                           ),
                                           Text(
                                             "1h12m",
                                             style: AppTextStyles.textSize18(
-                                                color: AppColors.green),
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.green),
                                           )
                                         ],
                                       ),
-                                      VerticalDivider(),
+                                      VerticalDivider(
+                                        color: AppColors.dividerVetical,
+                                      ),
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Text(
                                             "Start",
                                             style: AppTextStyles.textSize12(
-                                                color: AppColors.greyColor),
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.greyColor),
                                           ),
                                           Text(
                                             "3:00pm",
                                             style: AppTextStyles.textSize18(
-                                                color: AppColors.greyColor),
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.greyColor),
                                           )
                                         ],
                                       ),
-                                      VerticalDivider(),
+                                      VerticalDivider(
+                                        color: AppColors.dividerVetical,
+                                      ),
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Text(
                                             "End",
                                             style: AppTextStyles.textSize12(
-                                                color: AppColors.greyColor),
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.greyColor),
                                           ),
                                           Text(
                                             "4:12pm",
                                             style: AppTextStyles.textSize18(
-                                                color: AppColors.greyColor),
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.greyColor),
                                           )
                                         ],
                                       ),
@@ -340,7 +396,10 @@ class _TimeCardState extends State<TimeCard> {
                           Text(
                             "Start Time",
                             style: AppTextStyles.textSize12(
-                                color: AppColors.blueLight),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppColors.colorText
+                                    : AppColors.blueLight),
                           ),
                           SizedBox(
                             height: 5.0,
@@ -355,7 +414,10 @@ class _TimeCardState extends State<TimeCard> {
                                       : DateFormat('dd/MM/yyyy').format(_date),
                                   overflow: TextOverflow.ellipsis,
                                   style: AppTextStyles.textSize18(
-                                      color: AppColors.blueLight),
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? AppColors.whiteColor
+                                          : AppColors.blueLight),
                                 ),
                               ),
                               Spacer(),
@@ -368,7 +430,12 @@ class _TimeCardState extends State<TimeCard> {
                               ),
                             ],
                           ),
-                          Divider()
+                          Divider(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.dividerDark
+                                    : AppColors.divider,
+                          ),
                         ],
                       )),
                 ),
@@ -404,11 +471,19 @@ class _TimeCardState extends State<TimeCard> {
                               Text(
                                 _time.format(context),
                                 style: AppTextStyles.textSize18(
-                                    color: AppColors.blueLight),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.blueLight),
                               ),
                             ],
                           ),
-                          Divider()
+                          Divider(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.dividerDark
+                                    : AppColors.divider,
+                          ),
                         ],
                       )),
                 ),
@@ -419,7 +494,10 @@ class _TimeCardState extends State<TimeCard> {
               padding:
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
               child: TextField(
-                style: AppTextStyles.textSize18(color: AppColors.blueLight),
+                style: AppTextStyles.textSize18(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.whiteColor
+                        : AppColors.blueLight),
                 controller: location,
                 decoration: InputDecoration(
                     suffixIcon: Image.asset(
@@ -428,15 +506,19 @@ class _TimeCardState extends State<TimeCard> {
                       width: 18.0,
                     ),
                     hintText: 'Add Location',
-                    labelStyle:
-                        AppTextStyles.textSize12(color: AppColors.blueLight),
-                    hintStyle:
-                        AppTextStyles.textSize18(color: AppColors.blueLight),
+                    labelStyle: AppTextStyles.textSize12(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.colorText
+                            : AppColors.blueLight),
+                    hintStyle: AppTextStyles.textSize18(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.whiteColor
+                            : AppColors.blueLight),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.grey10),
+                      borderSide: BorderSide(color: AppColors.blueLight),
                     ),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.grey10),
+                      borderSide: BorderSide(color: AppColors.green),
                     ),
                     labelText: 'Location'),
               )),
@@ -447,19 +529,26 @@ class _TimeCardState extends State<TimeCard> {
               padding:
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
               child: TextField(
-                style: AppTextStyles.textSize18(color: AppColors.blueLight),
+                style: AppTextStyles.textSize18(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.whiteColor
+                        : AppColors.blueLight),
                 controller: comments,
                 decoration: InputDecoration(
                     hintText: 'Enter Note',
-                    labelStyle:
-                        AppTextStyles.textSize12(color: AppColors.blueLight),
-                    hintStyle:
-                        AppTextStyles.textSize18(color: AppColors.blueLight),
+                    labelStyle: AppTextStyles.textSize12(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.colorText
+                            : AppColors.blueLight),
+                    hintStyle: AppTextStyles.textSize18(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.whiteColor
+                            : AppColors.blueLight),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.grey10),
+                      borderSide: BorderSide(color: AppColors.blueLight),
                     ),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.grey10),
+                      borderSide: BorderSide(color: AppColors.green),
                     ),
                     labelText: 'Comments'),
               )),
@@ -509,7 +598,10 @@ class _TimeCardState extends State<TimeCard> {
                   ),
                   Text(
                     AppTranslations().getLanguage(context, 'addAttachment'),
-                    style: AppTextStyles.textSize18(),
+                    style: AppTextStyles.textSize18(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.colorText
+                            : AppColors.black),
                   ),
                 ],
               )),

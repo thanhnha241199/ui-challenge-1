@@ -75,7 +75,10 @@ class _RostersState extends State<Rosters> {
           children: [
             Text(
               "Wesnesday, 4th April 2021",
-              style: AppTextStyles.textSize14(),
+              style: AppTextStyles.textSize14(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.colorText
+                      : AppColors.black),
             ),
             SizedBox(
               height: AppMetrics.paddingContainer / 2,
@@ -88,7 +91,10 @@ class _RostersState extends State<Rosters> {
               colorBorder: AppColors.border,
               child: Text(
                 "09:00ap to 12:00pm",
-                style: AppTextStyles.textSize16(),
+                style: AppTextStyles.textSize16(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.whiteColor
+                        : AppColors.black),
               ),
             ),
             SizedBox(
@@ -96,7 +102,10 @@ class _RostersState extends State<Rosters> {
             ),
             Text(
               "Thursday, 5th April 2021",
-              style: AppTextStyles.textSize14(),
+              style: AppTextStyles.textSize14(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.colorText
+                      : AppColors.black),
             ),
             SizedBox(
               height: AppMetrics.paddingContainer / 2,
@@ -118,7 +127,10 @@ class _RostersState extends State<Rosters> {
                   ),
                   Text(
                     "This is today",
-                    style: AppTextStyles.textSize14(),
+                    style: AppTextStyles.textSize14(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.whiteColor
+                            : AppColors.black),
                   )
                 ],
               ),
@@ -137,7 +149,10 @@ class _RostersState extends State<Rosters> {
                 children: [
                   Text(
                     "09:00am to 12:00pm",
-                    style: AppTextStyles.textSize16(),
+                    style: AppTextStyles.textSize16(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.whiteColor
+                            : AppColors.black),
                   ),
                   SizedBox(
                     height: AppMetrics.paddingContainer,
@@ -168,7 +183,10 @@ class _RostersState extends State<Rosters> {
                 colorBorder: AppColors.border,
                 child: Text(
                   "01:00pm to 05:00pm",
-                  style: AppTextStyles.textSize16(),
+                  style: AppTextStyles.textSize16(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.whiteColor
+                          : AppColors.black),
                 )),
           ],
         ),
@@ -180,7 +198,10 @@ class _RostersState extends State<Rosters> {
           children: [
             Text(
               "Wesnesday, 4th April 2021",
-              style: AppTextStyles.textSize14(),
+              style: AppTextStyles.textSize14(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.colorText
+                      : AppColors.black),
             ),
             SizedBox(
               height: AppMetrics.paddingContainer / 2,
@@ -193,7 +214,10 @@ class _RostersState extends State<Rosters> {
               colorBorder: AppColors.border,
               child: Text(
                 "09:00ap to 12:00pm",
-                style: AppTextStyles.textSize16(),
+                style: AppTextStyles.textSize16(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.whiteColor
+                        : AppColors.black),
               ),
             ),
             SizedBox(
@@ -201,10 +225,16 @@ class _RostersState extends State<Rosters> {
             ),
             Text(
               "Thursday, 5th April 2021",
-              style: AppTextStyles.textSize14(),
+              style: AppTextStyles.textSize14(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.colorText
+                      : AppColors.black),
             ),
             SizedBox(
               height: AppMetrics.paddingContainer / 2,
+            ),
+            SizedBox(
+              height: 10.0,
             ),
             CustomContainer(
               padding: EdgeInsets.symmetric(
@@ -217,7 +247,10 @@ class _RostersState extends State<Rosters> {
                 children: [
                   Text(
                     "09:00am to 12:00pm",
-                    style: AppTextStyles.textSize16(),
+                    style: AppTextStyles.textSize16(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.whiteColor
+                            : AppColors.black),
                   ),
                   SizedBox(
                     height: AppMetrics.paddingContainer,
@@ -248,7 +281,10 @@ class _RostersState extends State<Rosters> {
                 colorBorder: AppColors.border,
                 child: Text(
                   "01:00pm to 05:00pm",
-                  style: AppTextStyles.textSize16(),
+                  style: AppTextStyles.textSize16(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.whiteColor
+                          : AppColors.black),
                 )),
           ],
         ),
@@ -259,7 +295,10 @@ class _RostersState extends State<Rosters> {
             color: Colors.transparent,
             child: HeaderChild(
                 title: AppTranslations().getLanguage(context, 'myRoster'),
-                style: AppTextStyles.textSize16(),
+                style: AppTextStyles.textSize16(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.whiteColor
+                        : AppColors.black),
                 rightIcon: GestureDetector(
                     onTap: () {
                       showGeneralDialog(
@@ -315,7 +354,10 @@ class _RostersState extends State<Rosters> {
                     onTap: _selectDate,
                     child: Text(
                       _range,
-                      style: AppTextStyles.textSize16(),
+                      style: AppTextStyles.textSize16(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.colorText
+                              : AppColors.black),
                     ),
                   ),
                   SizedBox(

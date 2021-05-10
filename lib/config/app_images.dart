@@ -62,4 +62,6 @@ class AppImage {
   static const String theme = 'assets/images/svg/moon.svg';
   static const String switch_on = 'assets/images/svg/switch_on.svg';
   static const String switch_off = 'assets/images/svg/switch_off.svg';
+  static const String background = 'assets/images/svg/background.svg';
+  static const String onboarding = 'assets/images/svg/onboarding.png';
 }

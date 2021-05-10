@@ -52,7 +52,11 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                             AppTranslations()
                                 .getLanguage(context, 'updatePassword'),
                             style: AppTextStyles.textSize20(
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.black),
                           )),
                       Expanded(
                           flex: 1,
@@ -146,8 +150,13 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                         TextFormField(
                           controller: widget.controllerConfirmNewPassword,
                           decoration: InputDecoration(
-                            labelText: AppTranslations()
+                            hintText: AppTranslations()
                                 .getLanguage(context, 'confirmPassword'),
+                            hintStyle: AppTextStyles.textSize18(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.blueLight),
                             suffixIcon: widget.obscureConfirm
                                 ? GestureDetector(
                                     onTap: () {

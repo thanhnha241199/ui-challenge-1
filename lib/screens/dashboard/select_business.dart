@@ -4,7 +4,6 @@ import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/models/business/business.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
-import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +48,10 @@ class _SelectBusinessState extends State<SelectBusiness> {
           color: Colors.transparent,
           child: HeaderChild(
               title: "Select Another Business",
-              style: AppTextStyles.textSize16(),
+              style: AppTextStyles.textSize16(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.whiteColor
+                      : AppColors.black),
               leftIcon: SvgPicture.asset(AppImage.arrow_back))),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
@@ -105,9 +107,9 @@ class _SelectBusinessState extends State<SelectBusiness> {
             e.select = true;
           });
         },
-        child: CustomContainer(
+        child: Container(
             width: MediaQuery.of(context).size.width,
-            edgeInsets: EdgeInsets.only(
+            margin: EdgeInsets.only(
               right: AppMetrics.paddingHorizotal,
               left: AppMetrics.paddingHorizotal,
               top: AppMetrics.paddingContainer,
@@ -115,7 +117,18 @@ class _SelectBusinessState extends State<SelectBusiness> {
             padding: EdgeInsets.symmetric(
                 vertical: AppMetrics.paddingContainer,
                 horizontal: AppMetrics.paddingContainer),
-            colorBorder: e.select ? AppColors.greenAccent : AppColors.border,
+            decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.black300
+                    : AppColors.whiteColor,
+                border: Border.all(
+                    color: e.select
+                        ? AppColors.greenAccent
+                        : Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.black300
+                            : AppColors.border),
+                borderRadius:
+                    BorderRadius.circular(AppMetrics.borderContainer)),
             child: Row(
               children: [
                 Container(
@@ -134,11 +147,17 @@ class _SelectBusinessState extends State<SelectBusiness> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(
                     e.title,
-                    style: AppTextStyles.textSize18(),
+                    style: AppTextStyles.textSize18(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.whiteColor
+                            : AppColors.black),
                   ),
                   Text(
                     e.subtitle,
-                    style: AppTextStyles.textSize14(),
+                    style: AppTextStyles.textSize14(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.whiteColor
+                            : AppColors.black),
                   )
                 ]),
               ],

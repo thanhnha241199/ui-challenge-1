@@ -27,7 +27,10 @@ class _ViewPayslipState extends State<ViewPayslip> {
           color: Colors.transparent,
           child: HeaderChild(
               title: "28 Feb 2021",
-              style: AppTextStyles.textSize16(),
+              style: AppTextStyles.textSize16(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.whiteColor
+                      : AppColors.black),
               leftIcon: SvgPicture.asset(AppImage.arrow_back))),
       body: ListView(
         physics: BouncingScrollPhysics(),

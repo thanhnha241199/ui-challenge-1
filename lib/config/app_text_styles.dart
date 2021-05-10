@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class AppTextStyles {
   static const String fontFamily = 'Graphie';
 
-  static TextStyle textSize31({
-    Color color = Colors.black,
-    fontWeight = FontWeight.w500,
-  }) {
+  static TextStyle textSize31(
+      {Color color = Colors.black,
+      fontWeight = FontWeight.w500,
+      BuildContext context}) {
     return TextStyle(
       fontSize: 31.25,
       color: color,

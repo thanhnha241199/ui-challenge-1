@@ -24,7 +24,6 @@ class _EditLeaveState extends State<EditLeave> {
   DateTime _dateFrom = DateTime(2021, 03, 11);
   @override
   void initState() {
-    description = TextEditingController(text: 'Doctor\'s Appointment');
     super.initState();
   }
 
@@ -42,17 +41,20 @@ class _EditLeaveState extends State<EditLeave> {
           color: Colors.transparent,
           child: HeaderChild(
               title: "Edit Leave Request",
-              style: AppTextStyles.textSize16(),
+              style: AppTextStyles.textSize16(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.whiteColor
+                      : AppColors.black),
               leftIcon: SvgPicture.asset(AppImage.arrow_back))),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-              margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+          CustomContainer(
+              colorBorder: AppColors.border,
+              edgeInsets:
+                  EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
               padding: EdgeInsets.symmetric(vertical: 10.0),
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(12)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -74,8 +76,10 @@ class _EditLeaveState extends State<EditLeave> {
                               ))
                           .toList(),
                       value: "Sick Leave",
-                      style:
-                          AppTextStyles.textSize18(color: AppColors.blueLight),
+                      style: AppTextStyles.textSize18(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.whiteColor
+                              : AppColors.blueLight),
                       decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: AppColors.grey10),
@@ -86,9 +90,15 @@ class _EditLeaveState extends State<EditLeave> {
                           labelText: 'Leave Type',
                           hintText: 'Sick Leave',
                           hintStyle: AppTextStyles.textSize18(
-                              color: AppColors.blueLight),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColors.whiteColor
+                                  : AppColors.blueLight),
                           labelStyle: AppTextStyles.textSize12(
-                              color: AppColors.blueLight)),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColors.colorText
+                                  : AppColors.blueLight)),
                       icon: SvgPicture.asset(
                         AppImage.caretdown,
                         alignment: Alignment.center,
@@ -106,14 +116,23 @@ class _EditLeaveState extends State<EditLeave> {
                         children: [
                           TextField(
                             style: AppTextStyles.textSize18(
-                                color: AppColors.blueLight),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.blueLight),
                             controller: description,
                             decoration: InputDecoration(
                                 hintText: 'Doctor\'s Appointment',
                                 labelStyle: AppTextStyles.textSize12(
-                                    color: AppColors.blueLight),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.colorText
+                                        : AppColors.blueLight),
                                 hintStyle: AppTextStyles.textSize18(
-                                    color: AppColors.blueLight),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.blueLight),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: AppColors.grey10),
@@ -136,7 +155,10 @@ class _EditLeaveState extends State<EditLeave> {
                           Text(
                             "Start Date",
                             style: AppTextStyles.textSize12(
-                                color: AppColors.blueLight),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppColors.colorText
+                                    : AppColors.blueLight),
                           ),
                           SizedBox(
                             height: 5.0,
@@ -146,7 +168,10 @@ class _EditLeaveState extends State<EditLeave> {
                               Text(
                                 DateFormat('dd/MM/yyyy').format(_dateStart),
                                 style: AppTextStyles.textSize18(
-                                    color: AppColors.blueLight),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.blueLight),
                               ),
                               Spacer(),
                               GestureDetector(
@@ -158,7 +183,12 @@ class _EditLeaveState extends State<EditLeave> {
                               ),
                             ],
                           ),
-                          Divider()
+                          Divider(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.dividerDark
+                                    : AppColors.divider,
+                          ),
                         ],
                       )),
                   Container(
@@ -171,7 +201,10 @@ class _EditLeaveState extends State<EditLeave> {
                           Text(
                             "End Date",
                             style: AppTextStyles.textSize12(
-                                color: AppColors.blueLight),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppColors.colorText
+                                    : AppColors.blueLight),
                           ),
                           SizedBox(
                             height: 5.0,
@@ -181,7 +214,10 @@ class _EditLeaveState extends State<EditLeave> {
                               Text(
                                 DateFormat('dd/MM/yyyy').format(_dateFrom),
                                 style: AppTextStyles.textSize18(
-                                    color: AppColors.blueLight),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.blueLight),
                               ),
                               Spacer(),
                               GestureDetector(
@@ -193,7 +229,12 @@ class _EditLeaveState extends State<EditLeave> {
                               ),
                             ],
                           ),
-                          Divider()
+                          Divider(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.dividerDark
+                                    : AppColors.divider,
+                          ),
                         ],
                       )),
                   Container(
@@ -224,7 +265,12 @@ class _EditLeaveState extends State<EditLeave> {
                                       ),
                                       Text(
                                         "All-day",
-                                        style: AppTextStyles.textSize14(),
+                                        style: AppTextStyles.textSize14(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.black),
                                       )
                                     ])
                               : Row(
@@ -247,7 +293,12 @@ class _EditLeaveState extends State<EditLeave> {
                                       ),
                                       Text(
                                         "All-day",
-                                        style: AppTextStyles.textSize14(),
+                                        style: AppTextStyles.textSize14(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.black),
                                       )
                                     ]),
                           SizedBox(
@@ -277,7 +328,12 @@ class _EditLeaveState extends State<EditLeave> {
                                             ),
                                             Text(
                                               "09:00am",
-                                              style: AppTextStyles.textSize16(),
+                                              style: AppTextStyles.textSize16(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? AppColors.whiteColor
+                                                      : AppColors.black),
                                             )
                                           ],
                                         )),
@@ -294,7 +350,12 @@ class _EditLeaveState extends State<EditLeave> {
                                             ),
                                             Text(
                                               "12:00am",
-                                              style: AppTextStyles.textSize16(),
+                                              style: AppTextStyles.textSize16(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? AppColors.whiteColor
+                                                      : AppColors.black),
                                             )
                                           ],
                                         )),

@@ -27,7 +27,6 @@ class _VerifyCodeState extends State<VerifyCode> {
   @override
   void initState() {
     super.initState();
-    controllerPassword = TextEditingController(text: '12345678');
     fnPassword = FocusNode();
   }
 
@@ -47,11 +46,14 @@ class _VerifyCodeState extends State<VerifyCode> {
       listener: (context, state) {},
       child: Scaffold(
         appBar: HeaderView(
-          color: Colors.transparent,
+          color: AppColors.whiteColor,
           child: HeaderChild(
               leftIcon: SvgPicture.asset(AppImage.arrow_back),
               title: AppTranslations().getLanguage(context, 'verifyNumber'),
-              style: AppTextStyles.textSize16()),
+              style: AppTextStyles.textSize16(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.whiteColor
+                      : AppColors.black)),
         ),
         body: GestureDetector(
           behavior: HitTestBehavior.opaque,
@@ -77,7 +79,11 @@ class _VerifyCodeState extends State<VerifyCode> {
                               ),
                               Text(
                                 '${AppTranslations().getLanguage(context, 'verifyPhone')} \n+61 0412 345 678',
-                                style: AppTextStyles.textSize16(),
+                                style: AppTextStyles.textSize16(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.black),
                                 textAlign: TextAlign.center,
                               ),
                               SizedBox(
@@ -144,7 +150,10 @@ class _VerifyCodeState extends State<VerifyCode> {
                                     AppTranslations()
                                         .getLanguage(context, 'notCode'),
                                     style: AppTextStyles.textSize14(
-                                        color: AppColors.blueLight),
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? AppColors.whiteColor
+                                            : AppColors.blueLight),
                                   ),
                                   SizedBox(
                                     width: 5.0,
@@ -153,7 +162,10 @@ class _VerifyCodeState extends State<VerifyCode> {
                                     AppTranslations()
                                         .getLanguage(context, 'resendCode'),
                                     style: AppTextStyles.textSize14(
-                                        color: AppColors.green),
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? AppColors.colorText
+                                            : AppColors.green),
                                   )
                                 ],
                               )

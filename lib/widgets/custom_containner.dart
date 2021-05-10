@@ -1,3 +1,4 @@
+import 'package:bookkeepa/config/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../config/app_metrics.dart';
@@ -26,8 +27,17 @@ class CustomContainer extends StatelessWidget {
       margin: this.edgeInsets,
       padding: this.padding,
       decoration: BoxDecoration(
-          color: color,
-          border: Border.all(color: colorBorder),
+          color: color == AppColors.green
+              ? AppColors.green
+              : Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.black300
+                  : color,
+          border: Border.all(
+              color: color == AppColors.greenAccent
+                  ? AppColors.greenAccent
+                  : Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.black300
+                      : colorBorder),
           borderRadius: BorderRadius.circular(AppMetrics.borderContainer)),
       alignment: Alignment.centerLeft,
       child: child,

@@ -82,25 +82,23 @@ class _NotificationState extends State<Notifications> {
               ),
             ),
           ),
-          Expanded(
-            child: CustomContainer(
-                edgeInsets: EdgeInsets.symmetric(
-                    horizontal: AppMetrics.paddingHorizotal,
-                    vertical: AppMetrics.paddingContainer),
-                height: MediaQuery.of(context).size.height * 0.8,
-                width: MediaQuery.of(context).size.width,
-                colorBorder: AppColors.border,
-                color: AppColors.whiteColor,
-                child: AppListView(
-                  data: items,
-                  renderItem: (item) {
-                    return renderItem(context, item);
-                  },
-                  onLoadMore: () {
-                    print('loadmore');
-                  },
-                )),
-          )
+          CustomContainer(
+              edgeInsets: EdgeInsets.symmetric(
+                  horizontal: AppMetrics.paddingHorizotal,
+                  vertical: AppMetrics.paddingContainer),
+              height: MediaQuery.of(context).size.height * 0.8,
+              width: MediaQuery.of(context).size.width,
+              colorBorder: AppColors.border,
+              color: AppColors.whiteColor,
+              child: AppListView(
+                data: items,
+                renderItem: (item) {
+                  return renderItem(context, item);
+                },
+                onLoadMore: () {
+                  print('loadmore');
+                },
+              ))
         ],
       ),
     );
@@ -111,8 +109,13 @@ class _NotificationState extends State<Notifications> {
         ? Container(
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-                color:
-                    item.read == true ? AppColors.green20 : Colors.transparent,
+                color: item.read == true
+                    ? Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.backgroundNotification
+                        : AppColors.green20
+                    : Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.black300
+                        : Colors.transparent,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(AppMetrics.borderContainer),
                     topRight: Radius.circular(AppMetrics.borderContainer))),
@@ -146,8 +149,10 @@ class _NotificationState extends State<Notifications> {
                     ? Container()
                     : Divider(
                         height: 1,
-                        color: AppColors.border,
-                      )
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.dividerDark
+                            : AppColors.divider,
+                      ),
               ],
             ))
         : items.indexOf(item) == items.length - 1
@@ -157,8 +162,12 @@ class _NotificationState extends State<Notifications> {
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                           color: item.read == true
-                              ? AppColors.green20
-                              : Colors.transparent,
+                              ? Theme.of(context).brightness == Brightness.dark
+                                  ? AppColors.backgroundNotification
+                                  : AppColors.green20
+                              : Theme.of(context).brightness == Brightness.dark
+                                  ? AppColors.black300
+                                  : Colors.transparent,
                           borderRadius: BorderRadius.only(
                               bottomLeft:
                                   Radius.circular(AppMetrics.borderContainer),
@@ -195,8 +204,11 @@ class _NotificationState extends State<Notifications> {
                               ? Container()
                               : Divider(
                                   height: 1,
-                                  color: AppColors.divider,
-                                )
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.dividerDark
+                                      : AppColors.divider,
+                                ),
                         ],
                       )),
                 ],
@@ -205,8 +217,12 @@ class _NotificationState extends State<Notifications> {
                 children: [
                   Container(
                       color: item.read == true
-                          ? AppColors.green20
-                          : Colors.transparent,
+                          ? Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.backgroundNotification
+                              : AppColors.green20
+                          : Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.black300
+                              : Colors.transparent,
                       width: MediaQuery.of(context).size.width,
                       child: Column(
                         children: [
@@ -239,8 +255,11 @@ class _NotificationState extends State<Notifications> {
                               ? Container()
                               : Divider(
                                   height: 1,
-                                  color: AppColors.divider,
-                                )
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.dividerDark
+                                      : AppColors.divider,
+                                ),
                         ],
                       )),
                 ],

@@ -6,7 +6,10 @@ class InputField extends StatefulWidget {
   final bool isPassword;
   final bool autofocus;
   final String title;
+  final String hinttitle;
+  final TextStyle style;
   final TextStyle textStyle;
+  final TextStyle textStyleHint;
   final TextInputType textInputType;
   final TextInputAction textInputAction;
   final TextEditingController controller;
@@ -18,8 +21,11 @@ class InputField extends StatefulWidget {
   InputField({
     Key key,
     this.title,
+    this.hinttitle,
     this.isPassword = false,
+    this.style,
     this.textStyle,
+    this.textStyleHint,
     this.textInputType,
     this.textInputAction,
     this.validator,
@@ -66,18 +72,19 @@ class _InputFieldState extends State<InputField> {
               obscureText: widget.isPassword,
               textInputAction: widget.textInputAction,
               onEditingComplete: widget.onEditingComplete,
-              style: widget.textStyle,
+              style: widget.style,
               validator: widget.validator,
               decoration: InputDecoration(
                   labelText: widget.title,
-                  labelStyle:
-                      AppTextStyles.textSize12(color: AppColors.blueLight),
+                  hintText: widget.hinttitle,
+                  labelStyle: widget.textStyle,
+                  hintStyle: widget.textStyleHint,
                   border: InputBorder.none,
                   fillColor: Colors.transparent,
                   contentPadding: EdgeInsets.symmetric(vertical: 15.0),
                   filled: true,
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.grey10),
+                    borderSide: BorderSide(color: AppColors.blueLight),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: AppColors.greenAccent),
