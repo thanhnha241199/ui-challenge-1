@@ -107,6 +107,8 @@ class _SignUpState extends State<SignUp> {
                               height: 20.0,
                             ),
                             InputField(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: AppMetrics.paddingContainer),
                                 focusNode: fnEmail,
                                 title: AppTranslations()
                                     .getLanguage(context, 'email'),
@@ -127,7 +129,7 @@ class _SignUpState extends State<SignUp> {
                                 textInputAction: TextInputAction.done,
                                 controller: controllerEmail,
                                 icon: Icons.check_circle),
-                            InputField(
+                            InputField( padding: EdgeInsets.symmetric(horizontal: 24.0),
                               focusNode: fnPassword,
                               title: AppTranslations()
                                   .getLanguage(context, 'password'),

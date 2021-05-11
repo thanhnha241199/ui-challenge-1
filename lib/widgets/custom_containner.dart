@@ -30,7 +30,9 @@ class CustomContainer extends StatelessWidget {
           color: color == AppColors.green
               ? AppColors.green
               : Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.black300
+                  ? color == AppColors.dividerDark
+                      ? AppColors.dividerDark
+                      : AppColors.black300
                   : color,
           border: Border.all(
               color: color == AppColors.greenAccent

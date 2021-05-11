@@ -27,4 +27,5 @@ class AppColors {
   static const Color dividerVetical = Color(0xffE9E9EB);
   static const Color dividerDark = Color(0xff555555);
   static const Color backgroundNotification = Color(0xff5CEF8EF);
+  static const Color borderCircle = Color(0xff74D7C1);
 }

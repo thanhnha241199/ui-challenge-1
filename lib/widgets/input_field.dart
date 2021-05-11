@@ -15,6 +15,7 @@ class InputField extends StatefulWidget {
   final TextEditingController controller;
   final Function onEditingComplete;
   final FocusNode focusNode;
+  final EdgeInsets padding;
   final IconData icon;
   final Function onTapIcon;
   final Function validator;
@@ -24,6 +25,7 @@ class InputField extends StatefulWidget {
     this.hinttitle,
     this.isPassword = false,
     this.style,
+    this.padding,
     this.textStyle,
     this.textStyleHint,
     this.textInputType,
@@ -63,13 +65,13 @@ class _InputFieldState extends State<InputField> {
             borderRadius: BorderRadius.circular(20.0),
           ),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            padding: widget.padding,
             child: TextFormField(
               focusNode: widget.focusNode,
               autofocus: widget.autofocus,
               controller: widget.controller,
               keyboardType: widget.textInputType,
-              obscureText: widget.isPassword,
+              obscureText: widget.isPassword ? !isEnable : isEnable,
               textInputAction: widget.textInputAction,
               onEditingComplete: widget.onEditingComplete,
               style: widget.style,
@@ -84,7 +86,7 @@ class _InputFieldState extends State<InputField> {
                   contentPadding: EdgeInsets.symmetric(vertical: 15.0),
                   filled: true,
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.blueLight),
+                    borderSide: BorderSide(color: AppColors.grey10),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: AppColors.greenAccent),

@@ -115,6 +115,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     InputField(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppMetrics.paddingContainer),
                       title: AppTranslations().getLanguage(context, 'fullName'),
                       hinttitle:
                           AppTranslations().getLanguage(context, 'fullName'),
@@ -132,6 +134,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       controller: nameController,
                     ),
                     InputField(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppMetrics.paddingContainer),
                       title: AppTranslations().getLanguage(context, 'email'),
                       hinttitle:
                           AppTranslations().getLanguage(context, 'email'),
@@ -213,6 +217,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     InputField(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppMetrics.paddingContainer),
                       title:
                           AppTranslations().getLanguage(context, 'employeer'),
                       hinttitle:

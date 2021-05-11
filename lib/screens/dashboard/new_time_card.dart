@@ -7,6 +7,7 @@ import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
+import 'package:bookkeepa/widgets/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
@@ -28,6 +29,7 @@ class _NewTimeCardState extends State<NewTimeCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: HeaderView(
           color: Colors.transparent,
           child: HeaderChild(
@@ -37,68 +39,69 @@ class _NewTimeCardState extends State<NewTimeCard> {
                     ? AppColors.whiteColor
                     : AppColors.black),
           )),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                SizedBox(
-                  height: AppMetrics.paddingContainer,
-                ),
-                formTimeCard(),
-                SizedBox(
-                  height: AppMetrics.paddingContainer,
-                ),
-                CustomContainer(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppMetrics.paddingContainer,
-                        vertical: AppMetrics.paddingVertical),
-                    edgeInsets: EdgeInsets.symmetric(
-                        horizontal: AppMetrics.paddingHorizotal),
-                    colorBorder: AppColors.border,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          AppImage.warningcircle,
-                          alignment: Alignment.center,
-                        ),
-                        SizedBox(
-                          width: 8.0,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "You are next scheduled to clock in",
-                              style: AppTextStyles.textSize14(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? AppColors.whiteColor
-                                      : AppColors.black),
-                            ),
-                            Text(
-                              "Tomorrow at 06:00pm",
-                              style: AppTextStyles.textSize14(
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? AppColors.whiteColor
-                                      : AppColors.black),
-                            ),
-                          ],
-                        )
-                      ],
-                    )),
-              ],
+      body: Column(
+        children: [
+          Expanded(
+            flex: 5,
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: AppMetrics.paddingContainer,
+                  ),
+                  formTimeCard(),
+                  SizedBox(
+                    height: AppMetrics.paddingContainer,
+                  ),
+                  CustomContainer(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppMetrics.paddingContainer,
+                          vertical: AppMetrics.paddingVertical),
+                      edgeInsets: EdgeInsets.symmetric(
+                          horizontal: AppMetrics.paddingHorizotal),
+                      colorBorder: AppColors.border,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            AppImage.warningcircle,
+                            alignment: Alignment.center,
+                          ),
+                          SizedBox(
+                            width: 8.0,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "You are next scheduled to clock in",
+                                style: AppTextStyles.textSize14(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.black),
+                              ),
+                              Text(
+                                "Tomorrow at 06:00pm",
+                                style: AppTextStyles.textSize14(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.black),
+                              ),
+                            ],
+                          )
+                        ],
+                      )),
+                ],
+              ),
             ),
-            SizedBox(
-              height: 40.0,
-            ),
-            Container(
+          ),
+          Expanded(
+            flex: 2,
+            child: Container(
                 margin: EdgeInsets.symmetric(
                     vertical: AppMetrics.paddingVertical,
                     horizontal: AppMetrics.paddingHorizotal),
@@ -230,15 +233,15 @@ class _NewTimeCardState extends State<NewTimeCard> {
                     ),
                   ],
                 )),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
   Widget formTimeCard() {
     return CustomContainer(
-      edgeInsets: EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
+      edgeInsets: EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
       colorBorder: AppColors.border,
       child: Column(
         children: [
@@ -411,68 +414,44 @@ class _NewTimeCardState extends State<NewTimeCard> {
               ],
             ),
           ),
-          Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
-              child: TextField(
-                style: AppTextStyles.textSize18(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? AppColors.whiteColor
-                        : AppColors.blueLight),
-                controller: location,
-                decoration: InputDecoration(
-                    suffixIcon: Image.asset(
-                      AppImage.search,
-                      height: 18.0,
-                      width: 18.0,
-                    ),
-                    hintText: 'Add Location',
-                    labelStyle: AppTextStyles.textSize12(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? AppColors.colorText
-                            : AppColors.blueLight),
-                    hintStyle: AppTextStyles.textSize18(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? AppColors.whiteColor
-                            : AppColors.blueLight),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.grey10),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.grey10),
-                    ),
-                    labelText: 'Location'),
-              )),
+          InputField(
+            padding:
+                EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
+            onEditingComplete: () {},
+            title: 'Location',
+            hinttitle: 'Add Location',
+            style: AppTextStyles.textSize18(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.whiteColor
+                    : AppColors.black),
+            textStyleHint: AppTextStyles.textSize18(color: AppColors.blueLight),
+            textStyle: AppTextStyles.textSize18(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.colorText
+                    : AppColors.blueLight),
+            textInputAction: TextInputAction.done,
+            controller: location,
+          ),
           SizedBox(
             height: AppMetrics.paddingContent,
           ),
-          Container(
+          InputField(
             padding:
                 EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
-            child: TextField(
-              style: AppTextStyles.textSize18(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? AppColors.whiteColor
-                      : AppColors.blueLight),
-              controller: comments,
-              decoration: InputDecoration(
-                  hintText: 'Enter Note',
-                  labelStyle: AppTextStyles.textSize12(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.colorText
-                          : AppColors.blueLight),
-                  hintStyle: AppTextStyles.textSize18(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.whiteColor
-                          : AppColors.blueLight),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.grey10),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.grey10),
-                  ),
-                  labelText: 'Comments'),
-            ),
+            onEditingComplete: () {},
+            title: 'Comments',
+            hinttitle: 'Enter Note',
+            style: AppTextStyles.textSize18(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.whiteColor
+                    : AppColors.black),
+            textStyleHint: AppTextStyles.textSize18(color: AppColors.blueLight),
+            textStyle: AppTextStyles.textSize18(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.colorText
+                    : AppColors.blueLight),
+            textInputAction: TextInputAction.done,
+            controller: location,
           ),
           SizedBox(
             height: AppMetrics.paddingHorizotal,

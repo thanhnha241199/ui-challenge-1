@@ -4,6 +4,7 @@ import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
+import 'package:bookkeepa/widgets/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -36,156 +37,122 @@ class _UpdatePasswordState extends State<UpdatePassword> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              margin:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
               child: Column(
                 children: [
                   SizedBox(
                     height: 30.0,
                   ),
-                  Row(
-                    children: [
-                      Expanded(flex: 2, child: Text("")),
-                      Expanded(
-                          flex: 5,
-                          child: Text(
-                            AppTranslations()
-                                .getLanguage(context, 'updatePassword'),
-                            style: AppTextStyles.textSize20(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? AppColors.whiteColor
-                                    : AppColors.black),
-                          )),
-                      Expanded(
-                          flex: 1,
-                          child: GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: SvgPicture.asset(
-                                AppImage.close,
-                                alignment: Alignment.center,
-                              )))
-                    ],
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: AppMetrics.paddingHorizotal),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(flex: 2, child: Text("")),
+                        Expanded(
+                            flex: 5,
+                            child: Text(
+                              AppTranslations()
+                                  .getLanguage(context, 'updatePassword'),
+                              style: AppTextStyles.textSize20(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.whiteColor
+                                      : AppColors.black),
+                            )),
+                        Expanded(
+                            flex: 1,
+                            child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: SvgPicture.asset(
+                                  AppImage.close,
+                                  alignment: Alignment.center,
+                                )))
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: AppMetrics.paddingContainer,
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                        vertical: AppMetrics.paddingVertical),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextField(
-                          controller: widget.controllerPassword,
-                          decoration: InputDecoration(
-                            labelText: AppTranslations()
-                                .getLanguage(context, 'currentPassword'),
-                            suffixIcon: widget.obscureCurrent
-                                ? GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        widget.obscureCurrent =
-                                            !widget.obscureCurrent;
-                                      });
-                                    },
-                                    child: Icon(Icons.visibility_off),
-                                  )
-                                : GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        widget.obscureCurrent =
-                                            !widget.obscureCurrent;
-                                      });
-                                    },
-                                    child: Icon(Icons.remove_red_eye)),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.grey10),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.grey10),
-                            ),
-                          ),
-                          obscureText: !widget.obscureCurrent,
-                        ),
-                        SizedBox(
-                          height: AppMetrics.paddingContainer,
-                        ),
-                        TextField(
-                          controller: widget.controllerNewPassword,
-                          decoration: InputDecoration(
-                            labelText: AppTranslations()
-                                .getLanguage(context, 'newPassword'),
-                            suffixIcon: widget.obscureNew
-                                ? GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        widget.obscureNew = !widget.obscureNew;
-                                      });
-                                    },
-                                    child: Icon(Icons.visibility_off),
-                                  )
-                                : GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        widget.obscureNew = !widget.obscureNew;
-                                      });
-                                    },
-                                    child: Icon(Icons.remove_red_eye)),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.grey10),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.grey10),
-                            ),
-                          ),
-                          obscureText: !widget.obscureNew,
-                        ),
-                        SizedBox(
-                          height: AppMetrics.paddingContainer,
-                        ),
-                        TextFormField(
-                          controller: widget.controllerConfirmNewPassword,
-                          decoration: InputDecoration(
-                            hintText: AppTranslations()
-                                .getLanguage(context, 'confirmPassword'),
-                            hintStyle: AppTextStyles.textSize18(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InputField(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppMetrics.paddingHorizotal),
+                        title: AppTranslations()
+                            .getLanguage(context, 'currentPassword'),
+                        hinttitle: AppTranslations()
+                            .getLanguage(context, 'currentPassword'),
+                        style: AppTextStyles.textSize18(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
                                     ? AppColors.whiteColor
+                                    : AppColors.black),
+                        textStyleHint: AppTextStyles.textSize18(
+                            color: AppColors.blueLight),
+                        textStyle: AppTextStyles.textSize18(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.colorText
                                     : AppColors.blueLight),
-                            suffixIcon: widget.obscureConfirm
-                                ? GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        widget.obscureConfirm =
-                                            !widget.obscureConfirm;
-                                      });
-                                    },
-                                    child: Icon(Icons.visibility_off),
-                                  )
-                                : GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        widget.obscureConfirm =
-                                            !widget.obscureConfirm;
-                                      });
-                                    },
-                                    child: Icon(Icons.remove_red_eye)),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.grey10),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.grey10),
-                            ),
-                          ),
-                          obscureText: !widget.obscureConfirm,
-                        )
-                      ],
-                    ),
+                        isPassword: true,
+                        textInputAction: TextInputAction.done,
+                        controller: widget.controllerPassword,
+                        icon: Icons.visibility_off,
+                      ),
+                      InputField(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppMetrics.paddingHorizotal),
+                        title: AppTranslations()
+                            .getLanguage(context, 'newPassword'),
+                        hinttitle: AppTranslations()
+                            .getLanguage(context, 'newPassword'),
+                        style: AppTextStyles.textSize18(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.black),
+                        textStyleHint: AppTextStyles.textSize18(
+                            color: AppColors.blueLight),
+                        textStyle: AppTextStyles.textSize18(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.colorText
+                                    : AppColors.blueLight),
+                        isPassword: true,
+                        textInputAction: TextInputAction.done,
+                        controller: widget.controllerNewPassword,
+                        icon: Icons.visibility_off,
+                      ),
+                      InputField(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppMetrics.paddingHorizotal),
+                        title: AppTranslations()
+                            .getLanguage(context, 'confirmPassword'),
+                        hinttitle: AppTranslations()
+                            .getLanguage(context, 'confirmPassword'),
+                        style: AppTextStyles.textSize18(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.black),
+                        textStyleHint: AppTextStyles.textSize18(
+                            color: AppColors.blueLight),
+                        textStyle: AppTextStyles.textSize18(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.colorText
+                                    : AppColors.blueLight),
+                        isPassword: true,
+                        textInputAction: TextInputAction.done,
+                        controller: widget.controllerConfirmNewPassword,
+                        icon: Icons.visibility_off,
+                      ),
+                    ],
                   ),
                 ],
               ),

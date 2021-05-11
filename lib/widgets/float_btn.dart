@@ -100,8 +100,8 @@ class _FancyFabState extends State<FancyFab>
           if (isOpened)
             Transform(
                 transform: Matrix4.translationValues(
+                  -_translateButton.value,
                   0.0,
-                  _translateButton.value * 3.0,
                   0.0,
                 ),
                 child: item(
@@ -109,11 +109,14 @@ class _FancyFabState extends State<FancyFab>
                     AppImage.newtimecard, () {
                   NavigationService.instance.navigateTo(NewTimeCard());
                 })),
+          SizedBox(
+            height: AppMetrics.paddingContainer,
+          ),
           if (isOpened)
             Transform(
                 transform: Matrix4.translationValues(
+                  -_translateButton.value,
                   0.0,
-                  _translateButton.value * 2.0,
                   0.0,
                 ),
                 child: item(
@@ -121,11 +124,14 @@ class _FancyFabState extends State<FancyFab>
                     AppImage.newtimesheet, () {
                   NavigationService.instance.navigateTo(NewTimeSheetDetail());
                 })),
+          SizedBox(
+            height: AppMetrics.paddingContainer,
+          ),
           if (isOpened)
             Transform(
               transform: Matrix4.translationValues(
+                -_translateButton.value,
                 0.0,
-                _translateButton.value,
                 0.0,
               ),
               child: item(
@@ -134,6 +140,9 @@ class _FancyFabState extends State<FancyFab>
                 NavigationService.instance.navigateTo(NewLeaveRequest());
               }),
             ),
+          SizedBox(
+            height: AppMetrics.paddingContainer,
+          ),
           Theme.of(context).brightness == Brightness.dark
               ? toggle(AppImage.floatbtn_dart)
               : toggle(AppImage.floatbtn)
@@ -148,6 +157,7 @@ class _FancyFabState extends State<FancyFab>
       child: Container(
         height: 55.0,
         width: 185.0,
+        margin: EdgeInsets.only(right: 10.0),
         padding: EdgeInsets.symmetric(
             horizontal: AppMetrics.paddingVerticalContainer,
             vertical: AppMetrics.paddingContent),

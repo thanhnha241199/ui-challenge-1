@@ -5,7 +5,6 @@ import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/models/notification/notification.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/app_list_view.dart';
-import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -73,7 +72,8 @@ class _NotificationState extends State<Notifications> {
               NavigationService.instance.goback();
             },
             child: Padding(
-              padding: EdgeInsets.only(right: 24.0, top: 40.0),
+              padding: EdgeInsets.only(
+                  right: AppMetrics.paddingHorizotal, top: 40.0),
               child: SvgPicture.asset(
                 AppImage.xcircle,
                 height: 50.0,
@@ -82,23 +82,34 @@ class _NotificationState extends State<Notifications> {
               ),
             ),
           ),
-          CustomContainer(
-              edgeInsets: EdgeInsets.symmetric(
-                  horizontal: AppMetrics.paddingHorizotal,
-                  vertical: AppMetrics.paddingContainer),
-              height: MediaQuery.of(context).size.height * 0.8,
-              width: MediaQuery.of(context).size.width,
-              colorBorder: AppColors.border,
-              color: AppColors.whiteColor,
-              child: AppListView(
-                data: items,
-                renderItem: (item) {
-                  return renderItem(context, item);
-                },
-                onLoadMore: () {
-                  print('loadmore');
-                },
-              ))
+          SizedBox(
+            height: AppMetrics.paddingContainer,
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(
+                  left: AppMetrics.paddingHorizotal,
+                  right: AppMetrics.paddingHorizotal,
+                  bottom: 40.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12.0),
+                child: Container(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.black300
+                      : AppColors.whiteColor,
+                  child: AppListView(
+                    data: items,
+                    renderItem: (item) {
+                      return renderItem(context, item);
+                    },
+                    onLoadMore: () {
+                      print('loadmore');
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -122,18 +133,26 @@ class _NotificationState extends State<Notifications> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: AppMetrics.paddingContent,
-                      horizontal: AppMetrics.paddingContent),
+                Container(
+                  margin: EdgeInsets.symmetric(
+                      vertical: AppMetrics.paddingHorizotal,
+                      horizontal: AppMetrics.paddingContainer),
                   child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
+                          flex: 3,
                           child: Text(
                             item.title,
-                            style: AppTextStyles.textSize16(),
-                            maxLines: 2,
+                            style: AppTextStyles.textSize16(
+                                color: item.read == true
+                                    ? AppColors.black
+                                    : Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.black),
+                            maxLines: 3,
                           ),
                         ),
                         Flexible(
@@ -175,20 +194,27 @@ class _NotificationState extends State<Notifications> {
                                   Radius.circular(AppMetrics.borderContainer))),
                       child: Column(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: AppMetrics.paddingContent,
-                                horizontal: AppMetrics.paddingContent),
+                          Container(
+                            margin: EdgeInsets.symmetric(
+                                vertical: AppMetrics.paddingHorizotal,
+                                horizontal: AppMetrics.paddingContainer),
                             child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
-                                    flex: 2,
+                                    flex: 3,
                                     child: Text(
                                       item.title,
-                                      style: AppTextStyles.textSize16(),
-                                      maxLines: 2,
+                                      style: AppTextStyles.textSize16(
+                                          color: item.read == true
+                                              ? AppColors.black
+                                              : Theme.of(context).brightness ==
+                                                      Brightness.dark
+                                                  ? AppColors.whiteColor
+                                                  : AppColors.black),
+                                      maxLines: 3,
                                     ),
                                   ),
                                   Flexible(
@@ -226,20 +252,27 @@ class _NotificationState extends State<Notifications> {
                       width: MediaQuery.of(context).size.width,
                       child: Column(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: AppMetrics.paddingContent,
-                                horizontal: AppMetrics.paddingContent),
+                          Container(
+                            margin: EdgeInsets.symmetric(
+                                vertical: AppMetrics.paddingHorizotal,
+                                horizontal: AppMetrics.paddingContainer),
                             child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
-                                    flex: 2,
+                                    flex: 3,
                                     child: Text(
                                       item.title,
-                                      style: AppTextStyles.textSize16(),
-                                      maxLines: 10,
+                                      style: AppTextStyles.textSize16(
+                                          color: item.read == true
+                                              ? AppColors.black
+                                              : Theme.of(context).brightness ==
+                                                      Brightness.dark
+                                                  ? AppColors.whiteColor
+                                                  : AppColors.black),
+                                      maxLines: 3,
                                     ),
                                   ),
                                   Flexible(

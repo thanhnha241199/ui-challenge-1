@@ -53,6 +53,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               ),
                             ),
                             InputField(
+                              padding: EdgeInsets.symmetric(horizontal: 24.0),
                               autofocus: true,
                               title: AppTranslations()
                                   .getLanguage(context, 'phoneNumber'),

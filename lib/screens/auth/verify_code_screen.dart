@@ -67,6 +67,7 @@ class _VerifyCodeState extends State<VerifyCode> {
                 children: [
                   Expanded(
                       child: SingleChildScrollView(
+                        physics: BouncingScrollPhysics(),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: AppMetrics.paddingHorizotal),

@@ -8,6 +8,7 @@ import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
+import 'package:bookkeepa/widgets/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -330,14 +331,18 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                                                       children: [
                                                         Text(
                                                           e.toalactual,
-                                                          style: AppTextStyles
-                                                              .textSize16(
-                                                                  color:
-                                                                      AppColors
-                                                                          .green,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
+                                                          style: AppTextStyles.textSize16(
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? AppColors
+                                                                      .colorText
+                                                                  : AppColors
+                                                                      .green,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
                                                         )
                                                       ],
                                                     ),
@@ -421,13 +426,20 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                                                                                 padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
                                                                                 decoration: BoxDecoration(
                                                                                   border: Border.all(
-                                                                                    color: AppColors.green,
+                                                                                    color: Theme.of(context).brightness == Brightness.dark ? AppColors.borderCircle : AppColors.green,
                                                                                   ),
                                                                                   shape: BoxShape.circle,
                                                                                 ),
                                                                                 child: Text(
                                                                                   e.actual,
-                                                                                  style: AppTextStyles.textSize14(color: AppColors.green),
+                                                                                  style: AppTextStyles.textSize14(
+                                                                                      color: Theme.of(context).brightness == Brightness.dark
+                                                                                          ? items.detail[0].elementdetail.indexOf(e) == items.detail[0].elementdetail.length - 1
+                                                                                              ? AppColors.colorText
+                                                                                              : AppColors.whiteColor
+                                                                                          : items.detail[0].elementdetail.indexOf(e) == items.detail[0].elementdetail.length - 1
+                                                                                              ? AppColors.green
+                                                                                              : AppColors.black),
                                                                                 ),
                                                                               )
                                                                             ],
@@ -464,38 +476,24 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                           ? AppColors.dividerDark
                           : AppColors.divider,
                     ),
-                    Container(
-                      padding: EdgeInsets.only(
-                          left: AppMetrics.paddingHorizotal,
-                          right: AppMetrics.paddingHorizotal,
-                          bottom: AppMetrics.paddingContent),
-                      child: TextField(
-                        style: AppTextStyles.textSize18(
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? AppColors.whiteColor
-                                    : AppColors.blueLight),
-                        controller: comments,
-                        decoration: InputDecoration(
-                            hintText: 'Enter Note',
-                            labelStyle: AppTextStyles.textSize12(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? AppColors.colorText
-                                    : AppColors.colorText),
-                            hintStyle: AppTextStyles.textSize18(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? AppColors.whiteColor
-                                    : AppColors.blueLight),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.grey10),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.grey10),
-                            ),
-                            labelText: 'Comments'),
-                      ),
+                    InputField(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppMetrics.paddingHorizotal),
+                      onEditingComplete: () {},
+                      title: 'Comments',
+                      hinttitle: 'Enter Note',
+                      style: AppTextStyles.textSize18(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.whiteColor
+                              : AppColors.black),
+                      textStyleHint:
+                          AppTextStyles.textSize18(color: AppColors.blueLight),
+                      textStyle: AppTextStyles.textSize18(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.colorText
+                              : AppColors.blueLight),
+                      textInputAction: TextInputAction.done,
+                      controller: comments,
                     ),
                     Container(
                         padding: EdgeInsets.symmetric(

@@ -90,6 +90,7 @@ class _NewPasswordState extends State<NewPassword> {
                                 ),
                               ),
                               InputField(
+                                padding: EdgeInsets.symmetric(horizontal: 24.0),
                                 autofocus: true,
                                 title: AppTranslations()
                                     .getLanguage(context, 'code'),
@@ -102,6 +103,7 @@ class _NewPasswordState extends State<NewPassword> {
                                 },
                               ),
                               InputField(
+                                padding: EdgeInsets.symmetric(horizontal: 24.0),
                                 title: AppTranslations()
                                     .getLanguage(context, 'newPassword'),
                                 isPassword: true,
@@ -115,6 +117,7 @@ class _NewPasswordState extends State<NewPassword> {
                                 },
                               ),
                               InputField(
+                                padding: EdgeInsets.symmetric(horizontal: 24.0),
                                 title: AppTranslations()
                                     .getLanguage(context, 'confirmNewPassword'),
                                 isPassword: true,

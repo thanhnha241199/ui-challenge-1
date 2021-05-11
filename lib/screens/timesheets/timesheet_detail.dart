@@ -353,14 +353,18 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                       children: [
                                                         Text(
                                                           e.toalactual,
-                                                          style: AppTextStyles
-                                                              .textSize16(
-                                                                  color:
-                                                                      AppColors
-                                                                          .green,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
+                                                          style: AppTextStyles.textSize16(
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? AppColors
+                                                                      .colorText
+                                                                  : AppColors
+                                                                      .green,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
                                                         )
                                                       ],
                                                     ),
@@ -450,7 +454,14 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                                                                 ),
                                                                                 child: Text(
                                                                                   e.actual,
-                                                                                  style: AppTextStyles.textSize14(color: AppColors.green),
+                                                                                  style: AppTextStyles.textSize14(
+                                                                                      color: Theme.of(context).brightness == Brightness.dark
+                                                                                          ? items.detail[0].elementdetail.indexOf(e) == items.detail[0].elementdetail.length - 1
+                                                                                              ? AppColors.colorText
+                                                                                              : AppColors.whiteColor
+                                                                                          : items.detail[0].elementdetail.indexOf(e) == items.detail[0].elementdetail.length - 1
+                                                                                              ? AppColors.green
+                                                                                              : AppColors.black),
                                                                                 ),
                                                                               )
                                                                             ],
@@ -508,7 +519,15 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                             Column(
                                 children: items.notes
                                     .map((e) => CustomContainer(
-                                          colorBorder: AppColors.border,
+                                          colorBorder:
+                                              Theme.of(context).brightness ==
+                                                      Brightness.dark
+                                                  ? AppColors.dividerDark
+                                                  : AppColors.border,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? AppColors.dividerDark
+                                              : AppColors.whiteColor,
                                           edgeInsets: EdgeInsets.only(
                                               top: AppMetrics.paddingContent),
                                           padding: EdgeInsets.symmetric(
@@ -597,7 +616,15 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                             Column(
                                 children: items.attachment
                                     .map((e) => CustomContainer(
-                                          colorBorder: AppColors.border,
+                                          colorBorder:
+                                              Theme.of(context).brightness ==
+                                                      Brightness.dark
+                                                  ? AppColors.dividerDark
+                                                  : AppColors.border,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? AppColors.dividerDark
+                                              : AppColors.whiteColor,
                                           edgeInsets: EdgeInsets.only(
                                               top: AppMetrics.paddingContent),
                                           padding: EdgeInsets.symmetric(
@@ -762,7 +789,10 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                     onPressed: () {},
                     child: Text(
                       "Delete",
-                      style: AppTextStyles.textSize16(),
+                      style: AppTextStyles.textSize16(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.whiteColor
+                              : AppColors.black),
                     ),
                   ),
                   SizedBox(

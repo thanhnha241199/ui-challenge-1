@@ -105,6 +105,8 @@ class _LoginState extends State<Login> {
                                 height: 20.0,
                               ),
                               InputField(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 24.0),
                                   validator: validateEmail,
                                   onEditingComplete: () {
                                     validateEmail(controllerEmail.text);
@@ -133,6 +135,7 @@ class _LoginState extends State<Login> {
                                 height: 20.0,
                               ),
                               InputField(
+                                padding: EdgeInsets.symmetric(horizontal: 24.0),
                                 focusNode: fnPassword,
                                 title: AppTranslations()
                                     .getLanguage(context, 'password'),
@@ -154,7 +157,6 @@ class _LoginState extends State<Login> {
                                 textInputAction: TextInputAction.done,
                                 controller: controllerPassword,
                                 icon: Icons.visibility_off,
-                                onTapIcon: ontap,
                               ),
                               SizedBox(
                                 height: 10.0,

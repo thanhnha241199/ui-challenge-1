@@ -104,6 +104,7 @@ class _CompleteSignUpState extends State<CompleteSignUp> {
                           ),
                         ),
                         InputField(
+                          padding: EdgeInsets.symmetric(horizontal: 24.0),
                           autofocus: true,
                           focusNode: fnFirstName,
                           title: AppTranslations()
@@ -116,6 +117,7 @@ class _CompleteSignUpState extends State<CompleteSignUp> {
                           },
                         ),
                         InputField(
+                          padding: EdgeInsets.symmetric(horizontal: 24.0),
                           title: AppTranslations()
                               .getLanguage(context, 'lastName'),
                           textInputAction: TextInputAction.next,
@@ -127,6 +129,7 @@ class _CompleteSignUpState extends State<CompleteSignUp> {
                           },
                         ),
                         InputField(
+                          padding: EdgeInsets.symmetric(horizontal: 24.0),
                           title:
                               AppTranslations().getLanguage(context, 'email'),
                           textInputAction: TextInputAction.done,
