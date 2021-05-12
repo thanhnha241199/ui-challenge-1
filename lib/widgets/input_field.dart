@@ -57,6 +57,12 @@ class _InputFieldState extends State<InputField> {
   }
 
   @override
+  void dispose() {
+    widget.controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
         padding: EdgeInsets.only(bottom: 15.0),

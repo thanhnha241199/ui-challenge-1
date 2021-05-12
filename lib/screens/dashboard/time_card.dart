@@ -35,6 +35,13 @@ class _TimeCardState extends State<TimeCard> {
   }
 
   @override
+  void dispose() {
+    comments.dispose();
+    location.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,

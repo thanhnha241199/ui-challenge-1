@@ -40,6 +40,12 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
     super.dispose();
   }
 
+  DropListModel dropListModel = DropListModel([
+    OptionItem(id: "1", title: "Option 1"),
+    OptionItem(id: "2", title: "Option 2")
+  ]);
+  OptionItem optionItemSelected =
+      OptionItem(id: null, title: "Chọn quyền truy cập");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -266,6 +272,14 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // SelectDropList(
+              //   this.optionItemSelected,
+              //   this.dropListModel,
+              //   (optionItem) {
+              //     optionItemSelected = optionItem;
+              //     setState(() {});
+              //   },
+              // ),
               Container(
                 padding: EdgeInsets.symmetric(
                     horizontal: AppMetrics.paddingContainer),
@@ -439,6 +453,53 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                       ],
                     ),
                   )),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppMetrics.paddingContainer),
+                child: Text(
+                  "Hours(optional)",
+                  style: AppTextStyles.textSize12(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.whiteColor
+                          : AppColors.blueLight),
+                ),
+              ),
+              SizedBox(
+                height: AppMetrics.paddingContainer / 2,
+              ),
+              CustomContainer(
+                  edgeInsets: EdgeInsets.symmetric(
+                      horizontal: AppMetrics.paddingContainer),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: AppMetrics.paddingHorizontalContainer,
+                      vertical: AppMetrics.paddingHorizontalContainer - 2),
+                  colorBorder: AppColors.border,
+                  child: Row(children: [
+                    Flexible(
+                        flex: 3,
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              AppImage.clock,
+                              alignment: Alignment.center,
+                            ),
+                            SizedBox(
+                              width: 5.0,
+                            ),
+                            Text(
+                              "0hr",
+                              style: AppTextStyles.textSize16(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.whiteColor
+                                      : AppColors.blueLight),
+                            )
+                          ],
+                        )),
+                  ])),
+              SizedBox(
+                height: AppMetrics.paddingContainer,
+              ),
             ],
           ),
         ));
@@ -498,5 +559,197 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
         dateTo = newDate;
       });
     }
+  }
+}
+
+class DropListModel {
+  DropListModel(this.listOptionItems);
+
+  final List<OptionItem> listOptionItems;
+}
+
+class OptionItem {
+  final String id;
+  final String title;
+
+  OptionItem({@required this.id, @required this.title});
+}
+
+class SelectDropList extends StatefulWidget {
+  final OptionItem itemSelected;
+  final DropListModel dropListModel;
+  final Function(OptionItem optionItem) onOptionSelected;
+
+  SelectDropList(this.itemSelected, this.dropListModel, this.onOptionSelected);
+
+  @override
+  _SelectDropListState createState() =>
+      _SelectDropListState(itemSelected, dropListModel);
+}
+
+class _SelectDropListState extends State<SelectDropList>
+    with SingleTickerProviderStateMixin {
+  OptionItem optionItemSelected;
+  final DropListModel dropListModel;
+
+  AnimationController expandController;
+  Animation<double> animation;
+
+  bool isShow = false;
+
+  _SelectDropListState(this.optionItemSelected, this.dropListModel);
+
+  @override
+  void initState() {
+    super.initState();
+    expandController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 350));
+    animation = CurvedAnimation(
+      parent: expandController,
+      curve: Curves.fastOutSlowIn,
+    );
+    _runExpandCheck();
+  }
+
+  void _runExpandCheck() {
+    if (isShow) {
+      expandController.forward();
+    } else {
+      expandController.reverse();
+    }
+  }
+
+  @override
+  void dispose() {
+    expandController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(
+              left: 16.0,
+              right: 16.0,
+              top: 16.0,
+            ),
+            decoration: BoxDecoration(
+              color: isShow ? Colors.red : Colors.transparent,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                isShow
+                    ? Expanded(
+                        child: GestureDetector(
+                            onTap: () {
+                              this.isShow = !this.isShow;
+                              _runExpandCheck();
+                              setState(() {});
+                            },
+                            child: Text(
+                              optionItemSelected.title,
+                              style: AppTextStyles.textSize16(),
+                            )))
+                    : Expanded(
+                        child: GestureDetector(
+                            onTap: () {
+                              this.isShow = !this.isShow;
+                              _runExpandCheck();
+                              setState(() {});
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Leave Type",
+                                  style: AppTextStyles.textSize12(),
+                                ),
+                                Text(
+                                  optionItemSelected.title,
+                                  style: AppTextStyles.textSize16(),
+                                ),
+                              ],
+                            ))),
+                Align(
+                    alignment: Alignment(1, 0),
+                    child: isShow
+                        ? SvgPicture.asset(
+                            AppImage.caretup,
+                            alignment: Alignment.center,
+                          )
+                        : SvgPicture.asset(
+                            AppImage.caretdown,
+                            alignment: Alignment.center,
+                          )),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: AppMetrics.paddingContainer / 2,
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              left: 16.0,
+              right: 16.0,
+            ),
+            child: Divider(
+              height: 2,
+              color: AppColors.divider,
+            ),
+          ),
+          SizeTransition(
+              axisAlignment: 1.0,
+              sizeFactor: animation,
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20)),
+                  ),
+                  child: _buildDropListOptions(
+                      dropListModel.listOptionItems, context))),
+        ],
+      ),
+    );
+  }
+
+  Column _buildDropListOptions(List<OptionItem> items, BuildContext context) {
+    return Column(
+      children: items.map((item) => _buildSubMenu(item, context)).toList(),
+    );
+  }
+
+  Widget _buildSubMenu(OptionItem item, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        this.optionItemSelected = item;
+        isShow = false;
+        expandController.reverse();
+        widget.onOptionSelected(item);
+      },
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: Container(
+              padding:
+                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
+              child: Text(
+                item.title,
+                style: AppTextStyles.textSize16(),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

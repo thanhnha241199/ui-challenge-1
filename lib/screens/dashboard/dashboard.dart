@@ -30,82 +30,84 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       //   extendBodyBehindAppBar: true,
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Stack(
-          children: [
-            Container(
-              height: 250.0,
-              color: Colors.black,
-              child: SvgPicture.asset(
-                AppImage.background,
-                fit: BoxFit.cover,
-                width: double.infinity,
+      body: Stack(
+        children: [
+          Container(
+            height: 250.0,
+            color: Colors.black,
+            child: SvgPicture.asset(
+              AppImage.background,
+              fit: BoxFit.cover,
+              width: double.infinity,
+            ),
+          ),
+          Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: HeaderView(
+                height: 90.0,
+                color: Colors.transparent,
+                child: HeaderChild(
+                  leftIcon: GestureDetector(
+                      onTap: () {
+                        NavigationService.instance
+                            .pushPage(context, true, AccountScreen());
+                      },
+                      child: Image.asset(AppImage.avatar_dashboard)),
+                  title:
+                      "${AppTranslations().getLanguage(context, 'welcome')} Lucas",
+                  style: AppTextStyles.textSize20(color: AppColors.whiteColor),
+                  rightIcon: GestureDetector(
+                      onTap: () {
+                        showGeneralDialog(
+                          barrierDismissible: true,
+                          barrierLabel: '',
+                          barrierColor: Colors.black38,
+                          transitionDuration: Duration(milliseconds: 500),
+                          pageBuilder: (ctx, anim1, anim2) {
+                            return Notifications();
+                          },
+                          transitionBuilder: (ctx, anim1, anim2, child) =>
+                              BackdropFilter(
+                            filter: ImageFilter.blur(
+                                sigmaX: 30 * anim1.value,
+                                sigmaY: 30 * anim1.value),
+                            child: FadeTransition(
+                              child: child,
+                              opacity: anim1,
+                            ),
+                          ),
+                          context: context,
+                        );
+                      },
+                      child: SvgPicture.asset(
+                        AppImage.notification,
+                        color: AppColors.whiteColor,
+                      )),
+                )),
+            body: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 8.0,
+                  ),
+                  circletime(),
+                  SizedBox(
+                    height: 8.0,
+                  ),
+                  scheduleroster(),
+                  SizedBox(
+                    height: 8.0,
+                  ),
+                  total(),
+                  SizedBox(
+                    height: AppMetrics.paddingContainer,
+                  ),
+                ],
               ),
             ),
-            Column(
-              children: [
-                HeaderView(
-                    height: 90.0,
-                    color: Colors.transparent,
-                    child: HeaderChild(
-                      leftIcon: GestureDetector(
-                          onTap: () {
-                            NavigationService.instance
-                                .pushPage(context, true, AccountScreen());
-                          },
-                          child: Image.asset(AppImage.avatar_dashboard)),
-                      title:
-                          "${AppTranslations().getLanguage(context, 'welcome')} Lucas",
-                      style:
-                          AppTextStyles.textSize20(color: AppColors.whiteColor),
-                      rightIcon: GestureDetector(
-                          onTap: () {
-                            showGeneralDialog(
-                              barrierDismissible: true,
-                              barrierLabel: '',
-                              barrierColor: Colors.black38,
-                              transitionDuration: Duration(milliseconds: 500),
-                              pageBuilder: (ctx, anim1, anim2) {
-                                return Notifications();
-                              },
-                              transitionBuilder: (ctx, anim1, anim2, child) =>
-                                  BackdropFilter(
-                                filter: ImageFilter.blur(
-                                    sigmaX: 30 * anim1.value,
-                                    sigmaY: 30 * anim1.value),
-                                child: FadeTransition(
-                                  child: child,
-                                  opacity: anim1,
-                                ),
-                              ),
-                              context: context,
-                            );
-                          },
-                          child: SvgPicture.asset(
-                            AppImage.notification,
-                            color: AppColors.whiteColor,
-                          )),
-                    )),
-                SizedBox(
-                  height: 8.0,
-                ),
-                circletime(),
-                SizedBox(
-                  height: 8.0,
-                ),
-                scheduleroster(),
-                SizedBox(
-                  height: 8.0,
-                ),
-                total(),
-                SizedBox(
-                  height: AppMetrics.paddingContainer,
-                ),
-              ],
-            )
-          ],
-        ),
+          ),
+        ],
       ),
       floatingActionButton: FancyFab(),
     );
