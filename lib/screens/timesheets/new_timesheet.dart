@@ -495,6 +495,9 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                       textInputAction: TextInputAction.done,
                       controller: comments,
                     ),
+                    SizedBox(
+                      height: AppMetrics.paddingContainer,
+                    ),
                     Container(
                         padding: EdgeInsets.symmetric(
                             vertical: AppMetrics.paddingContent),

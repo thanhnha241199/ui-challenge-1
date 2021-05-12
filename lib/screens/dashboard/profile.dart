@@ -40,10 +40,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void dispose() {
-    nameController.dispose();
-    emailController.dispose();
-    phoneController.dispose();
-    employerController.dispose();
+    nameController?.dispose();
+    emailController?.dispose();
+    phoneController?.dispose();
+    employerController?.dispose();
     super.dispose();
   }
 
@@ -117,8 +117,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               CustomContainer(
                 edgeInsets: EdgeInsets.symmetric(
                     horizontal: AppMetrics.paddingHorizotal),
-                padding:
-                    EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
                 colorBorder: AppColors.border,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,7 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                          left: AppMetrics.paddingHorizotal,
+                          left: AppMetrics.paddingContainer,
                           top: AppMetrics.paddingVertical),
                       child: Text(
                         'Phone Number',
@@ -175,9 +173,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(
-                          left: AppMetrics.paddingHorizotal,
-                          right: AppMetrics.paddingHorizotal),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppMetrics.paddingContainer),
                       alignment: Alignment.center,
                       child: InternationalPhoneNumberInput(
                         textStyle: AppTextStyles.textSize18(
@@ -245,6 +242,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       textInputAction: TextInputAction.done,
                       controller: employerController,
                     ),
+                    SizedBox(
+                      height: AppMetrics.paddingContainer,
+                    )
                   ],
                 ),
               ),

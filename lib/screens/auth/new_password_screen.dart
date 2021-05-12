@@ -37,12 +37,12 @@ class _NewPasswordState extends State<NewPassword> {
   @override
   void dispose() {
     // Clean up the focus node when the Form is disposed.
-    controllerCode.dispose();
-    controllerNewPassword.dispose();
-    controllerConfirmPassword.dispose();
-    fnCode.dispose();
-    fnNewPassword.dispose();
-    fnConfirmNewPassword.dispose();
+    controllerCode?.dispose();
+    controllerNewPassword?.dispose();
+    controllerConfirmPassword?.dispose();
+    fnCode?.dispose();
+    fnNewPassword?.dispose();
+    fnConfirmNewPassword?.dispose();
     super.dispose();
   }
 

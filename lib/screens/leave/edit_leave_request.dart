@@ -30,7 +30,7 @@ class _EditLeaveState extends State<EditLeave> {
 
   @override
   void dispose() {
-    description.dispose();
+    description?.dispose();
     super.dispose();
   }
 

@@ -33,8 +33,8 @@ class _VerifyCodeState extends State<VerifyCode> {
   @override
   void dispose() {
     // Clean up the focus node when the Form is disposed.
-    fnPassword.dispose();
-    controllerPassword.dispose();
+    fnPassword?.dispose();
+    controllerPassword?.dispose();
     super.dispose();
   }
 

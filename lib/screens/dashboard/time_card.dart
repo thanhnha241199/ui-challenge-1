@@ -8,6 +8,7 @@ import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
+import 'package:bookkeepa/widgets/input_field.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -36,8 +37,8 @@ class _TimeCardState extends State<TimeCard> {
 
   @override
   void dispose() {
-    comments.dispose();
-    location.dispose();
+    comments?.dispose();
+    location?.dispose();
     super.dispose();
   }
 
@@ -424,7 +425,7 @@ class _TimeCardState extends State<TimeCard> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Expanded(
+                                Flexible(
                                   child: Text(
                                     _date == null
                                         ? "Today"
@@ -508,70 +509,47 @@ class _TimeCardState extends State<TimeCard> {
                 ],
               ),
             ),
-            Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: AppMetrics.paddingContainer),
-                child: TextField(
-                  style: AppTextStyles.textSize18(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.whiteColor
-                          : AppColors.blueLight),
-                  controller: location,
-                  decoration: InputDecoration(
-                      suffixIcon: Image.asset(
-                        AppImage.search,
-                        height: 18.0,
-                        width: 18.0,
-                      ),
-                      hintText: 'Add Location',
-                      labelStyle: AppTextStyles.textSize12(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? AppColors.colorText
-                              : AppColors.blueLight),
-                      hintStyle: AppTextStyles.textSize18(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? AppColors.whiteColor
-                              : AppColors.blueLight),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.blueLight),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.green),
-                      ),
-                      labelText: 'Location'),
-                )),
-            SizedBox(
-              height: AppMetrics.paddingContent,
+            InputField(
+              padding:
+                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
+              onEditingComplete: () {},
+              title: 'Leave Description',
+              hinttitle: 'Add Description',
+              style: AppTextStyles.textSize18(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.whiteColor
+                      : AppColors.black),
+              icon: Icons.search,
+              textStyleHint:
+                  AppTextStyles.textSize18(color: AppColors.blueLight),
+              textStyle: AppTextStyles.textSize18(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.colorText
+                      : AppColors.blueLight),
+              textInputAction: TextInputAction.done,
+              controller: location,
             ),
-            Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: AppMetrics.paddingContainer),
-                child: TextField(
-                  style: AppTextStyles.textSize18(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.whiteColor
-                          : AppColors.blueLight),
-                  controller: comments,
-                  decoration: InputDecoration(
-                      hintText: 'Enter Note',
-                      labelStyle: AppTextStyles.textSize12(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? AppColors.colorText
-                              : AppColors.blueLight),
-                      hintStyle: AppTextStyles.textSize18(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? AppColors.whiteColor
-                              : AppColors.blueLight),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.blueLight),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.green),
-                      ),
-                      labelText: 'Comments'),
-                )),
+            InputField(
+              padding:
+                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
+              onEditingComplete: () {},
+              title: 'Comments',
+              hinttitle: 'Enter Note',
+              style: AppTextStyles.textSize18(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.whiteColor
+                      : AppColors.black),
+              textStyleHint:
+                  AppTextStyles.textSize18(color: AppColors.blueLight),
+              textStyle: AppTextStyles.textSize18(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.colorText
+                      : AppColors.blueLight),
+              textInputAction: TextInputAction.done,
+              controller: comments,
+            ),
             SizedBox(
-              height: AppMetrics.paddingContent,
+              height: AppMetrics.paddingContainer,
             ),
             if (_fileName != null)
               Container(

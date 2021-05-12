@@ -66,9 +66,11 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   void dispose() {
     // Clean up the focus node when the Form is disposed.
-    controllerPassword.dispose();
-    controllerNewPassword.dispose();
-    controllerConfirmNewPassword.dispose();
+    controllerPassword?.dispose();
+    controllerNewPassword?.dispose();
+    controllerConfirmNewPassword?.dispose();
+    fnEmail?.dispose();
+    fnPassword?.dispose();
     super.dispose();
   }
 

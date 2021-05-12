@@ -36,7 +36,7 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
 
   @override
   void dispose() {
-    description.dispose();
+    description?.dispose();
     super.dispose();
   }
 
@@ -621,7 +621,7 @@ class _SelectDropListState extends State<SelectDropList>
 
   @override
   void dispose() {
-    expandController.dispose();
+    expandController?.dispose();
     super.dispose();
   }
 

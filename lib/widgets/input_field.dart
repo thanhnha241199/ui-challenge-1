@@ -1,5 +1,4 @@
 import 'package:bookkeepa/config/app_colors.dart';
-import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class InputField extends StatefulWidget {
@@ -58,60 +57,59 @@ class _InputFieldState extends State<InputField> {
 
   @override
   void dispose() {
-    widget.controller.dispose();
+    widget.controller?.dispose();
+    widget.focusNode?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.only(bottom: 15.0),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: Padding(
-            padding: widget.padding,
-            child: TextFormField(
-              focusNode: widget.focusNode,
-              autofocus: widget.autofocus,
-              controller: widget.controller,
-              keyboardType: widget.textInputType,
-              obscureText: widget.isPassword ? !isEnable : isEnable,
-              textInputAction: widget.textInputAction,
-              onEditingComplete: widget.onEditingComplete,
-              style: widget.style,
-              validator: widget.validator,
-              decoration: InputDecoration(
-                  labelText: widget.title,
-                  hintText: widget.hinttitle,
-                  labelStyle: widget.textStyle,
-                  hintStyle: widget.textStyleHint,
-                  border: InputBorder.none,
-                  fillColor: Colors.transparent,
-                  contentPadding: EdgeInsets.symmetric(vertical: 15.0),
-                  filled: true,
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.grey10),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.greenAccent),
-                  ),
-                  suffixIcon: widget.icon is IconData
-                      ? GestureDetector(
-                          onTap: () {
-                            _onTap();
-                          },
-                          child: Container(
-                            child: Icon(
-                              widget.icon,
-                              color: isEnable ? Colors.green : Colors.grey,
-                            ),
-                          ),
-                        )
-                      : null),
-            ),
-          ),
-        ));
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      child: Padding(
+        padding: widget.padding,
+        child: TextFormField(
+          focusNode: widget.focusNode,
+          autofocus: widget.autofocus,
+          controller: widget.controller,
+          keyboardType: widget.textInputType,
+          obscureText: widget.isPassword ? !isEnable : isEnable,
+          textInputAction: widget.textInputAction,
+          onEditingComplete: widget.onEditingComplete,
+          style: widget.style,
+          validator: widget.validator,
+          decoration: InputDecoration(
+              labelText: widget.title,
+              hintText: widget.hinttitle,
+              labelStyle: widget.textStyle,
+              hintStyle: widget.textStyleHint,
+              border: InputBorder.none,
+              fillColor: Colors.transparent,
+              contentPadding: EdgeInsets.symmetric(vertical: 15.0),
+              filled: true,
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: AppColors.grey10),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: AppColors.greenAccent),
+              ),
+              suffixIcon: widget.icon is IconData
+                  ? GestureDetector(
+                      onTap: () {
+                        _onTap();
+                      },
+                      child: Container(
+                        child: Icon(
+                          widget.icon,
+                          color: isEnable ? Colors.green : Colors.grey,
+                        ),
+                      ),
+                    )
+                  : null),
+        ),
+      ),
+    );
   }
 }

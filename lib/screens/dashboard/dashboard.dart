@@ -88,9 +88,6 @@ class _DashboardState extends State<Dashboard> {
               physics: BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 8.0,
-                  ),
                   circletime(),
                   SizedBox(
                     height: 8.0,

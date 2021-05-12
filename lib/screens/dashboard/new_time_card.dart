@@ -28,8 +28,8 @@ class _NewTimeCardState extends State<NewTimeCard> {
 
   @override
   void dispose() {
-    comments.dispose();
-    location.dispose();
+    comments?.dispose();
+    location?.dispose();
     super.dispose();
   }
 

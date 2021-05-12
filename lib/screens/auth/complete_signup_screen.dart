@@ -36,12 +36,12 @@ class _CompleteSignUpState extends State<CompleteSignUp> {
   @override
   void dispose() {
     // Clean up the focus node when the Form is disposed.
-    fnFirstName.dispose();
-    fnLastName.dispose();
-    fnEmail.dispose();
-    controllerFirstName.dispose();
-    controllerLastName.dispose();
-    controllerEmail.dispose();
+    fnFirstName?.dispose();
+    fnLastName?.dispose();
+    fnEmail?.dispose();
+    controllerFirstName?.dispose();
+    controllerLastName?.dispose();
+    controllerEmail?.dispose();
     super.dispose();
   }
 

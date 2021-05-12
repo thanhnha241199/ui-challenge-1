@@ -35,10 +35,10 @@ class _LoginState extends State<Login> {
   @override
   void dispose() {
     // Clean up the focus node when the Form is disposed.
-    fnEmail.dispose();
-    controllerEmail.dispose();
-    fnPassword.dispose();
-    controllerPassword.dispose();
+    fnEmail?.dispose();
+    fnPassword?.dispose();
+    controllerEmail?.dispose();
+    controllerPassword?.dispose();
     super.dispose();
   }
 
@@ -132,7 +132,7 @@ class _LoginState extends State<Login> {
                                   controller: controllerEmail,
                                   icon: Icons.check_circle),
                               SizedBox(
-                                height: 20.0,
+                                height: AppMetrics.paddingContainer,
                               ),
                               InputField(
                                 padding: EdgeInsets.symmetric(horizontal: 24.0),
@@ -159,7 +159,7 @@ class _LoginState extends State<Login> {
                                 icon: Icons.visibility_off,
                               ),
                               SizedBox(
-                                height: 10.0,
+                                height: AppMetrics.paddingContainer,
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: 24.0),
