@@ -138,10 +138,14 @@ class _NewTimeCardState extends State<NewTimeCard> {
                                     margin: EdgeInsets.only(
                                         top: AppMetrics.paddingVertical),
                                     child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
-                                        Expanded(flex: 1, child: Text("")),
+                                        Expanded(child: Text("")),
                                         Expanded(
-                                            flex: 4,
+                                            flex: 5,
                                             child: Text(
                                               "Your Are About To Clock In",
                                               style: AppTextStyles.textSize20(
@@ -154,7 +158,6 @@ class _NewTimeCardState extends State<NewTimeCard> {
                                               textAlign: TextAlign.center,
                                             )),
                                         Expanded(
-                                            flex: 1,
                                             child: GestureDetector(
                                                 onTap: () {
                                                   NavigationService.instance
@@ -167,20 +170,15 @@ class _NewTimeCardState extends State<NewTimeCard> {
                                       ],
                                     ),
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            AppMetrics.paddingHorizotal),
-                                    child: Text(
-                                      "Just to confirm: you are not scheduled to work today. Please confirm you would like to clock in a time",
-                                      maxLines: 5,
-                                      style: AppTextStyles.textSize16(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? AppColors.whiteColor
-                                              : AppColors.black),
-                                      textAlign: TextAlign.start,
-                                    ),
+                                  Text(
+                                    "Just to confirm: you are not scheduled to work today. Please confirm you would like to clock in a time",
+                                    maxLines: 5,
+                                    style: AppTextStyles.textSize16(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? AppColors.whiteColor
+                                            : AppColors.black),
+                                    textAlign: TextAlign.start,
                                   ),
                                   Column(
                                     children: [

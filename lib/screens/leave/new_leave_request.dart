@@ -121,20 +121,14 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                                     SizedBox(
                                       height: 38.0,
                                     ),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              AppMetrics.paddingHorizotal),
-                                      child: Text(
-                                        "Your leave request has been submitted. You will be notified once your employer Approves or rejects it.",
-                                        style: AppTextStyles.textSize16(
-                                            color:
-                                                Theme.of(context).brightness ==
-                                                        Brightness.dark
-                                                    ? AppColors.whiteColor
-                                                    : AppColors.black),
-                                        textAlign: TextAlign.start,
-                                      ),
+                                    Text(
+                                      "Your leave request has been submitted. You will be notified once your employer Approves or rejects it.",
+                                      style: AppTextStyles.textSize16(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? AppColors.whiteColor
+                                              : AppColors.black),
+                                      textAlign: TextAlign.start,
                                     ),
                                     SizedBox(
                                       height: 24.0,
@@ -144,9 +138,6 @@ class _NewLeaveRequestState extends State<NewLeaveRequest> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal:
-                                                  AppMetrics.paddingHorizotal),
                                           child: Row(
                                             children: [
                                               Column(
