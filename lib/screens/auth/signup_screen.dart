@@ -197,11 +197,11 @@ class _SignUpState extends State<SignUp> {
                                           : AppColors.blueLight),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide:
-                                        BorderSide(color: AppColors.blueLight),
+                                        BorderSide(color: AppColors.grey10),
                                   ),
                                   focusedBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: AppColors.blueLight),
+                                    borderSide: BorderSide(
+                                        color: AppColors.greenAccent),
                                   ),
                                 ),
                                 onSaved: (PhoneNumber number) {

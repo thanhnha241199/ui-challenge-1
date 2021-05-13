@@ -1,7 +1,9 @@
+import 'package:bookkeepa/config/app_colors.dart';
 import 'package:bookkeepa/screens/auth/welcome_screen.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:flutter/material.dart';
 import 'package:bookkeepa/util/theme.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class App extends StatefulWidget {
@@ -21,11 +23,21 @@ class _AppState extends State<App> {
       create: (_) => ThemeCubit(),
       child: BlocBuilder<ThemeCubit, ThemeData>(
         builder: (context, theme) {
-          return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: theme,
-              navigatorKey: NavigationService.instance.navigationKey,
-              home: Welcome());
+          return GestureDetector(
+            onTap: () {
+              FocusScopeNode currentFocus = FocusScope.of(context);
+
+              if (!currentFocus.hasPrimaryFocus &&
+                  currentFocus.focusedChild != null) {
+                FocusManager.instance.primaryFocus.unfocus();
+              }
+            },
+            child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: theme,
+                navigatorKey: NavigationService.instance.navigationKey,
+                home: Welcome()),
+          );
         },
       ),
     );

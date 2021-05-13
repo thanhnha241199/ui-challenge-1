@@ -210,7 +210,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ? AppColors.whiteColor
                                   : AppColors.blueLight),
                           enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.blueLight),
+                            borderSide: BorderSide(color: AppColors.grey10),
                           ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide:

@@ -67,7 +67,7 @@ class Languages {
       "en":
           "Just to confirm: you are not scheduled to work today. Please confirm you would like to clock in a time"
     },
-    "changeBussiness": {"en": "Change Business"},
+    "changeBusiness": {"en": "Change Business"},
     "addBusiness": {"en": "Add New Business"},
     "selectBusiness": {"en": "Select Another Business"},
     "confirmClockIn": {"en": "Confirm Clock In"},
