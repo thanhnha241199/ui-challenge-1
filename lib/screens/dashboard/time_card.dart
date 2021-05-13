@@ -56,8 +56,8 @@ class _TimeCardState extends State<TimeCard> {
                     : AppColors.black),
           )),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(flex: 5, child: formTimeCard()),
           Expanded(
@@ -119,8 +119,8 @@ class _TimeCardState extends State<TimeCard> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
-                                      vertical: AppMetrics.paddingContent,
-                                      horizontal: AppMetrics.paddingHorizotal),
+                                    vertical: AppMetrics.paddingContent,
+                                  ),
                                   child: Flexible(
                                     child: Row(
                                       children: [
@@ -165,120 +165,116 @@ class _TimeCardState extends State<TimeCard> {
                                     ),
                                   ),
                                 ),
-                                Flexible(
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.12,
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: AppMetrics.paddingHorizotal,
-                                        vertical: AppMetrics.paddingVertical),
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: AppMetrics.paddingContent,
-                                        vertical: AppMetrics.paddingContent),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.12,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: AppMetrics.paddingHorizotal,
+                                      vertical: AppMetrics.paddingVertical),
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: AppMetrics.paddingContent),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? AppColors.green
+                                              : AppColors.border),
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? AppColors.green
+                                          : AppColors.whiteColor,
+                                      borderRadius: BorderRadius.circular(
+                                          AppMetrics.borderContainer)),
+                                  alignment: Alignment.center,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Day Total",
+                                            style: AppTextStyles.textSize12(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
-                                                    ? AppColors.green
-                                                    : AppColors.border),
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? AppColors.green
-                                            : AppColors.whiteColor,
-                                        borderRadius: BorderRadius.circular(
-                                            AppMetrics.borderContainer)),
-                                    alignment: Alignment.center,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "Day Total",
-                                              style: AppTextStyles.textSize12(
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? AppColors.whiteColor
-                                                      : AppColors.greyColor),
-                                            ),
-                                            Text(
-                                              "1h12m",
-                                              style: AppTextStyles.textSize18(
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? AppColors.whiteColor
-                                                      : AppColors.green),
-                                            )
-                                          ],
-                                        ),
-                                        VerticalDivider(
-                                          color: AppColors.dividerVetical,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "Start",
-                                              style: AppTextStyles.textSize12(
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? AppColors.whiteColor
-                                                      : AppColors.greyColor),
-                                            ),
-                                            Text(
-                                              "3:00pm",
-                                              style: AppTextStyles.textSize18(
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? AppColors.whiteColor
-                                                      : AppColors.greyColor),
-                                            )
-                                          ],
-                                        ),
-                                        VerticalDivider(
-                                          color: AppColors.dividerVetical,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "End",
-                                              style: AppTextStyles.textSize12(
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? AppColors.whiteColor
-                                                      : AppColors.greyColor),
-                                            ),
-                                            Text(
-                                              "4:12pm",
-                                              style: AppTextStyles.textSize18(
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? AppColors.whiteColor
-                                                      : AppColors.greyColor),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.greyColor),
+                                          ),
+                                          Text(
+                                            "1h12m",
+                                            style: AppTextStyles.textSize18(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.green),
+                                          )
+                                        ],
+                                      ),
+                                      VerticalDivider(
+                                        color: AppColors.dividerVetical,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Start",
+                                            style: AppTextStyles.textSize12(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.greyColor),
+                                          ),
+                                          Text(
+                                            "3:00pm",
+                                            style: AppTextStyles.textSize18(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.greyColor),
+                                          )
+                                        ],
+                                      ),
+                                      VerticalDivider(
+                                        color: AppColors.dividerVetical,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "End",
+                                            style: AppTextStyles.textSize12(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.greyColor),
+                                          ),
+                                          Text(
+                                            "4:12pm",
+                                            style: AppTextStyles.textSize18(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.greyColor),
+                                          )
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 CustomButton(
@@ -325,17 +321,16 @@ class _TimeCardState extends State<TimeCard> {
   }
 
   Widget formTimeCard() {
-    return CustomContainer(
-      edgeInsets: EdgeInsets.symmetric(
+    return SingleChildScrollView(
+      child: CustomContainer(
+        edgeInsets: EdgeInsets.symmetric(
           horizontal: AppMetrics.paddingHorizotal,
-          vertical: AppMetrics.paddingContainer),
-      colorBorder: AppColors.border,
-      child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        ),
+        colorBorder: AppColors.border,
         child: Column(
           children: [
             SizedBox(
-              height: AppMetrics.paddingHorizotal,
+              height: AppMetrics.paddingContainer,
             ),
             CustomContainer(
               edgeInsets:
@@ -354,7 +349,7 @@ class _TimeCardState extends State<TimeCard> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Day Total",
+                          AppTranslations().getLanguage(context, 'dayTotal'),
                           style: AppTextStyles.textSize12(
                               color: AppColors.whiteColor),
                         ),
@@ -412,7 +407,8 @@ class _TimeCardState extends State<TimeCard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Start Time",
+                              AppTranslations()
+                                  .getLanguage(context, 'startTime'),
                               style: AppTextStyles.textSize12(
                                   color: Theme.of(context).brightness ==
                                           Brightness.dark
@@ -428,7 +424,8 @@ class _TimeCardState extends State<TimeCard> {
                                 Flexible(
                                   child: Text(
                                     _date == null
-                                        ? "Today"
+                                        ? AppTranslations()
+                                            .getLanguage(context, 'today')
                                         : DateFormat('dd/MM/yyyy')
                                             .format(_date),
                                     overflow: TextOverflow.ellipsis,
@@ -510,31 +507,30 @@ class _TimeCardState extends State<TimeCard> {
               ),
             ),
             InputField(
-              padding:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
-              onEditingComplete: () {},
-              title: 'Leave Description',
-              hinttitle: 'Add Description',
-              style: AppTextStyles.textSize18(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? AppColors.whiteColor
-                      : AppColors.black),
-              icon: Icons.search,
-              textStyleHint:
-                  AppTextStyles.textSize18(color: AppColors.blueLight),
-              textStyle: AppTextStyles.textSize18(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? AppColors.colorText
-                      : AppColors.blueLight),
-              textInputAction: TextInputAction.done,
-              controller: location,
-            ),
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppMetrics.paddingContainer),
+                title: AppTranslations().getLanguage(context, 'location'),
+                hinttitle:
+                    AppTranslations().getLanguage(context, 'useLocation'),
+                style: AppTextStyles.textSize18(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.whiteColor
+                        : AppColors.black),
+                textStyleHint:
+                    AppTextStyles.textSize18(color: AppColors.blueLight),
+                textStyle: AppTextStyles.textSize18(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.colorText
+                        : AppColors.blueLight),
+                textInputAction: TextInputAction.done,
+                controller: location,
+                icon: Icons.search),
             InputField(
               padding:
                   EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
               onEditingComplete: () {},
-              title: 'Comments',
-              hinttitle: 'Enter Note',
+              title: AppTranslations().getLanguage(context, 'comments'),
+              hinttitle: AppTranslations().getLanguage(context, 'enterNote'),
               style: AppTextStyles.textSize18(
                   color: Theme.of(context).brightness == Brightness.dark
                       ? AppColors.whiteColor
@@ -603,7 +599,7 @@ class _TimeCardState extends State<TimeCard> {
                 )),
             SizedBox(
               height: AppMetrics.paddingContainer,
-            )
+            ),
           ],
         ),
       ),

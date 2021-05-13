@@ -389,9 +389,7 @@ class _EditLeaveState extends State<EditLeave> {
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         builder: (BuildContext context) {
                           return Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 30.0,
-                                horizontal: AppMetrics.paddingHorizotal),
+                            padding: EdgeInsets.symmetric(vertical: 30.0),
                             height: MediaQuery.of(context).size.height * 0.55,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -399,11 +397,12 @@ class _EditLeaveState extends State<EditLeave> {
                               children: [
                                 Row(
                                   children: [
-                                    Expanded(flex: 2, child: Text("")),
+                                    Expanded(child: Text("")),
                                     Expanded(
                                         flex: 5,
                                         child: Text(
                                           "Leave Requested",
+                                          textAlign: TextAlign.center,
                                           style: AppTextStyles.textSize18(
                                               fontWeight: FontWeight.bold,
                                               color: Theme.of(context)
@@ -413,140 +412,152 @@ class _EditLeaveState extends State<EditLeave> {
                                                   : AppColors.black),
                                         )),
                                     Expanded(
-                                        flex: 1,
                                         child: GestureDetector(
                                             onTap: () {
                                               NavigationService.instance
                                                   .goback();
                                             },
-                                            child: SvgPicture.asset(
-                                              AppImage.close,
-                                              alignment: Alignment.center,
+                                            child: Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 24.0),
+                                              child: SvgPicture.asset(
+                                                AppImage.close,
+                                                alignment: Alignment.center,
+                                              ),
                                             )))
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 38.0,
-                                ),
                                 Column(
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              AppMetrics.paddingHorizotal),
-                                      child: Text(
-                                        "Your leave request has been submitted. You will be notified once your employer Approves or rejects it.",
-                                        style: AppTextStyles.textSize16(
-                                            color:
-                                                Theme.of(context).brightness ==
+                                    SizedBox(
+                                      height: 38.0,
+                                    ),
+                                    Column(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal:
+                                                  AppMetrics.paddingHorizotal),
+                                          child: Text(
+                                            "Your leave request has been submitted. You will be notified once your employer Approves or rejects it.",
+                                            style: AppTextStyles.textSize16(
+                                                color: Theme.of(context)
+                                                            .brightness ==
                                                         Brightness.dark
                                                     ? AppColors.whiteColor
                                                     : AppColors.black),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 24.0,
-                                    ),
-                                    SingleChildScrollView(
-                                      physics: BouncingScrollPhysics(),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: AppMetrics
-                                                    .paddingHorizotal),
-                                            child: Row(
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                            textAlign: TextAlign.start,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 24.0,
+                                        ),
+                                        SingleChildScrollView(
+                                          physics: BouncingScrollPhysics(),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: AppMetrics
+                                                        .paddingHorizotal),
+                                                child: Row(
                                                   children: [
-                                                    Text(
-                                                      "Jackson Garrison",
-                                                      style: AppTextStyles.textSize16(
-                                                          color: Theme.of(context)
-                                                                      .brightness ==
-                                                                  Brightness
-                                                                      .dark
-                                                              ? AppColors
-                                                                  .whiteColor
-                                                              : AppColors
-                                                                  .black),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Jackson Garrison",
+                                                          style: AppTextStyles.textSize16(
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? AppColors
+                                                                      .whiteColor
+                                                                  : AppColors
+                                                                      .black),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 5,
+                                                        ),
+                                                        Text(
+                                                          "8 Feb - 12 2021 (36.5hrs)",
+                                                          style: AppTextStyles.textSize12(
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? AppColors
+                                                                      .whiteColor
+                                                                  : AppColors
+                                                                      .black),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 5,
+                                                        ),
+                                                        Text(
+                                                          "Doctor's Appointment",
+                                                          style: AppTextStyles.textSize12(
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? AppColors
+                                                                      .whiteColor
+                                                                  : AppColors
+                                                                      .black),
+                                                        )
+                                                      ],
                                                     ),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      "8 Feb - 12 2021 (36.5hrs)",
-                                                      style: AppTextStyles.textSize12(
-                                                          color: Theme.of(context)
-                                                                      .brightness ==
-                                                                  Brightness
-                                                                      .dark
-                                                              ? AppColors
-                                                                  .whiteColor
-                                                              : AppColors
-                                                                  .black),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      "Doctor's Appointment",
-                                                      style: AppTextStyles.textSize12(
-                                                          color: Theme.of(context)
-                                                                      .brightness ==
-                                                                  Brightness
-                                                                      .dark
-                                                              ? AppColors
-                                                                  .whiteColor
-                                                              : AppColors
-                                                                  .black),
+                                                    Spacer(),
+                                                    Column(
+                                                      children: [
+                                                        SvgPicture.asset(
+                                                          AppImage.pending,
+                                                          alignment:
+                                                              Alignment.center,
+                                                        ),
+                                                        SizedBox(
+                                                          height: 5,
+                                                        ),
+                                                        SvgPicture.asset(
+                                                          AppImage.sick_leave,
+                                                          alignment:
+                                                              Alignment.center,
+                                                        ),
+                                                      ],
                                                     )
                                                   ],
                                                 ),
-                                                Spacer(),
-                                                Column(
-                                                  children: [
-                                                    SvgPicture.asset(
-                                                      AppImage.pending,
-                                                      alignment:
-                                                          Alignment.center,
-                                                    ),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    SvgPicture.asset(
-                                                      AppImage.sick_leave,
-                                                      alignment:
-                                                          Alignment.center,
-                                                    ),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 40.0,
                                     ),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 40.0,
-                                ),
-                                CustomButton(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.08,
-                                  ontap: () {
-                                    NavigationService.instance.goback();
-                                  },
-                                  borderColor: AppColors.greenAccent,
-                                  color: AppColors.greenAccent,
-                                  text: "Close",
-                                  style: AppTextStyles.textSize14(),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: AppMetrics.paddingHorizotal),
+                                  child: CustomButton(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.08,
+                                    ontap: () {
+                                      NavigationService.instance.goback();
+                                    },
+                                    borderColor: AppColors.greenAccent,
+                                    color: AppColors.greenAccent,
+                                    text: "Close",
+                                    style: AppTextStyles.textSize14(),
+                                  ),
                                 )
                               ],
                             ),
