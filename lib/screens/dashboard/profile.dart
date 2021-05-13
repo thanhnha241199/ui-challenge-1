@@ -164,7 +164,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           left: AppMetrics.paddingContainer,
                           top: AppMetrics.paddingVertical),
                       child: Text(
-                        'Phone Number',
+                        AppTranslations().getLanguage(context, 'phoneNumber'),
                         style: AppTextStyles.textSize12(
                             color:
                                 Theme.of(context).brightness == Brightness.dark
@@ -262,7 +262,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ontap: () {},
                   borderColor: AppColors.greenAccent,
                   color: AppColors.greenAccent,
-                  text: "Save Changes",
+                  text: AppTranslations().getLanguage(context, 'saveChanges'),
                   height: MediaQuery.of(context).size.height * 0.075,
                   style: AppTextStyles.textSize14(),
                 ),
@@ -275,7 +275,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   },
                   borderColor: AppColors.greenAccent,
                   color: AppColors.whiteColor,
-                  text: "Cancel",
+                  text: AppTranslations().getLanguage(context, 'cancel'),
                   height: MediaQuery.of(context).size.height * 0.075,
                   style: AppTextStyles.textSize14(color: AppColors.greyColor),
                 ),

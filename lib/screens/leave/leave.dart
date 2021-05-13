@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:bookkeepa/models/leave/leave.dart';
 import 'package:bookkeepa/screens/leave/edit_leave_request.dart';
 import 'package:bookkeepa/screens/leave/new_leave_request.dart';
+import 'package:bookkeepa/screens/leave/widgets/leave_balance.dart';
 import 'package:bookkeepa/screens/notifications/notifications.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/widgets/app_list_view.dart';
@@ -120,7 +121,7 @@ class _LeaveState extends State<Leave> {
                   child: SvgPicture.asset(AppImage.notification)))),
       body: Column(
         children: [
-          leaveBalance(),
+          LeaveBalance(),
           Expanded(
             child: CustomContainer(
               width: MediaQuery.of(context).size.width,
@@ -244,103 +245,5 @@ class _LeaveState extends State<Leave> {
         items.indexOf(item) == items.length - 1 ? Container() : Divider()
       ],
     );
-  }
-
-  Widget leaveBalance() {
-    return CustomContainer(
-        edgeInsets: EdgeInsets.symmetric(
-            horizontal: AppMetrics.paddingHorizotal,
-            vertical: AppMetrics.paddingVertical),
-        padding: EdgeInsets.symmetric(vertical: AppMetrics.paddingContainer),
-        colorBorder: AppColors.border,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: AppMetrics.paddingContainer,
-                  vertical: AppMetrics.paddingContent),
-              child: Text(
-                AppTranslations().getLanguage(context, 'leaveBalance'),
-                style: AppTextStyles.textSize14(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? AppColors.whiteColor
-                        : AppColors.black),
-              ),
-            ),
-            Divider(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.dividerDark
-                  : AppColors.divider,
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: AppMetrics.paddingContainer,
-                  vertical: AppMetrics.paddingContent),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        AppTranslations().getLanguage(
-                          context,
-                          'annualBalance',
-                        ),
-                        style: AppTextStyles.textSize16(
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? AppColors.whiteColor
-                                    : AppColors.greyColor),
-                      ),
-                      Spacer(),
-                      Text(
-                        "23.5 h",
-                        style: AppTextStyles.textSize25(
-                            fontWeight: FontWeight.bold,
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? AppColors.whiteColor
-                                    : AppColors.black),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Divider(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.dividerDark
-                  : AppColors.divider,
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: AppMetrics.paddingContainer,
-                  vertical: AppMetrics.paddingContent),
-              child: Row(
-                children: [
-                  Text(
-                    AppTranslations().getLanguage(context, 'sickBalance'),
-                    style: AppTextStyles.textSize16(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? AppColors.whiteColor
-                            : AppColors.greyColor),
-                  ),
-                  Spacer(),
-                  Text(
-                    "37.0 h",
-                    style: AppTextStyles.textSize25(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? AppColors.whiteColor
-                            : AppColors.black),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ));
   }
 }

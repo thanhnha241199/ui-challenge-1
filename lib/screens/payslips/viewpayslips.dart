@@ -55,7 +55,7 @@ class _ViewPayslipState extends State<ViewPayslip> {
                   ontap: () {},
                   borderColor: AppColors.greenAccent,
                   color: AppColors.greenAccent,
-                  text: AppTranslations().getLanguage(context, 'Download'),
+                  text: AppTranslations().getLanguage(context, 'download'),
                   style: AppTextStyles.textSize18(),
                 ),
                 SizedBox(
@@ -68,7 +68,7 @@ class _ViewPayslipState extends State<ViewPayslip> {
                   },
                   borderColor: AppColors.greenAccent,
                   color: AppColors.whiteColor,
-                  text: AppTranslations().getLanguage(context, 'Share'),
+                  text: AppTranslations().getLanguage(context, 'share'),
                   style: AppTextStyles.textSize18(color: AppColors.greyColor),
                 ),
                 BottomSpace(),

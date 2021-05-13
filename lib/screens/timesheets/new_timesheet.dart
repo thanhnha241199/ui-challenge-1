@@ -108,7 +108,7 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
         appBar: HeaderView(
             color: Colors.transparent,
             child: HeaderChild(
-              title: "New TimeSheet",
+              title: AppTranslations().getLanguage(context, 'newTimeSheet'),
               style: AppTextStyles.textSize16(
                   color: Theme.of(context).brightness == Brightness.dark
                       ? AppColors.whiteColor
@@ -480,8 +480,9 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                       padding: EdgeInsets.symmetric(
                           horizontal: AppMetrics.paddingHorizotal),
                       onEditingComplete: () {},
-                      title: 'Comments',
-                      hinttitle: 'Enter Note',
+                      title: AppTranslations().getLanguage(context, 'comments'),
+                      hinttitle:
+                          AppTranslations().getLanguage(context, 'enterNote'),
                       style: AppTextStyles.textSize18(
                           color: Theme.of(context).brightness == Brightness.dark
                               ? AppColors.whiteColor
@@ -556,7 +557,7 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                     ontap: () {},
                     color: AppColors.greenAccent,
                     borderColor: AppColors.greenAccent,
-                    text: 'Submit',
+                    text: AppTranslations().getLanguage(context, 'submit'),
                     height: MediaQuery.of(context).size.height * 0.07,
                     style: AppTextStyles.textSize16(),
                   ),
@@ -577,7 +578,7 @@ class _NewTimeSheetDetailState extends State<NewTimeSheetDetail> {
                   MaterialButton(
                     onPressed: () {},
                     child: Text(
-                      "Delete",
+                      AppTranslations().getLanguage(context, 'delete'),
                       style: AppTextStyles.textSize16(
                           color: Theme.of(context).brightness == Brightness.dark
                               ? AppColors.whiteColor

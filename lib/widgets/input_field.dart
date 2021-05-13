@@ -80,6 +80,7 @@ class _InputFieldState extends State<InputField> {
           onEditingComplete: widget.onEditingComplete,
           style: widget.style,
           validator: widget.validator,
+          onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
           decoration: InputDecoration(
               labelText: widget.title,
               hintText: widget.hinttitle,

@@ -1,6 +1,7 @@
 import 'package:bookkeepa/config/app_colors.dart';
 import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
+import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
@@ -41,7 +42,7 @@ class _EditLeaveState extends State<EditLeave> {
       appBar: HeaderView(
           color: Colors.transparent,
           child: HeaderChild(
-              title: "Edit Leave Request",
+              title: AppTranslations().getLanguage(context, 'editLeave'),
               style: AppTextStyles.textSize16(
                   color: Theme.of(context).brightness == Brightness.dark
                       ? AppColors.whiteColor

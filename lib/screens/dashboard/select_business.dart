@@ -3,6 +3,8 @@ import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/models/business/business.dart';
+import 'package:bookkeepa/util/getLanguage.dart';
+import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
@@ -47,7 +49,7 @@ class _SelectBusinessState extends State<SelectBusiness> {
       appBar: HeaderView(
           color: Colors.transparent,
           child: HeaderChild(
-              title: "Select Another Business",
+              title: AppTranslations().getLanguage(context, 'selectBusiness'),
               style: AppTextStyles.textSize16(
                   color: Theme.of(context).brightness == Brightness.dark
                       ? AppColors.whiteColor
@@ -61,18 +63,6 @@ class _SelectBusinessState extends State<SelectBusiness> {
             Column(
               children: [
                 ..._getBody(),
-                SizedBox(
-                  height: AppMetrics.paddingContainer,
-                ),
-                CustomButton(
-                  ontap: () {},
-                  borderColor: AppColors.greenAccent,
-                  color: AppColors.greenAccent,
-                  text: 'Add New Business',
-                  height: MediaQuery.of(context).size.height * 0.065,
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  style: AppTextStyles.textSize16(),
-                ),
               ],
             ),
             Padding(
@@ -80,10 +70,185 @@ class _SelectBusinessState extends State<SelectBusiness> {
                   horizontal: AppMetrics.paddingHorizotal,
                   vertical: AppMetrics.paddingVertical),
               child: CustomButton(
-                ontap: () {},
+                ontap: () {
+                  showModalBottomSheet<void>(
+                    context: context,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(20),
+                      ),
+                    ),
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    builder: (BuildContext context) {
+                      return Container(
+                        padding: EdgeInsets.only(top: 30.0),
+                        height: MediaQuery.of(context).size.height * 0.55,
+                        child: SingleChildScrollView(
+                          physics: BouncingScrollPhysics(),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(child: Text("")),
+                                  Expanded(
+                                      flex: 5,
+                                      child: Text(
+                                        "Are you sure you want \nto switch to bussiness?",
+                                        textAlign: TextAlign.center,
+                                        style: AppTextStyles.textSize20(
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.black),
+                                      )),
+                                  Expanded(
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            NavigationService.instance.goback();
+                                          },
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsets.only(right: 24.0),
+                                            child: SvgPicture.asset(
+                                              AppImage.close,
+                                              alignment: Alignment.center,
+                                            ),
+                                          )))
+                                ],
+                              ),
+                              SizedBox(
+                                height: AppMetrics.paddingContent,
+                              ),
+                              Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: EdgeInsets.only(
+                                    right: AppMetrics.paddingHorizotal,
+                                    left: AppMetrics.paddingHorizotal,
+                                    top: AppMetrics.paddingContainer,
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: AppMetrics.paddingContainer,
+                                      horizontal: AppMetrics.paddingContainer),
+                                  decoration: BoxDecoration(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? AppColors.black300
+                                          : AppColors.whiteColor,
+                                      border:
+                                          Border.all(color: AppColors.border),
+                                      borderRadius: BorderRadius.circular(
+                                          AppMetrics.borderContainer)),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: 62,
+                                        width: 62,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Image.asset(
+                                          AppImage.business,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 28.0,
+                                      ),
+                                      Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              items[items
+                                                      .indexWhere((element) =>
+                                                          element.select ==
+                                                          true)
+                                                      .toInt()]
+                                                  .title,
+                                              style: AppTextStyles.textSize18(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? AppColors.whiteColor
+                                                      : AppColors.black),
+                                            ),
+                                            Text(
+                                              items[items
+                                                      .indexWhere((element) =>
+                                                          element.select ==
+                                                          true)
+                                                      .toInt()]
+                                                  .subtitle,
+                                              style: AppTextStyles.textSize14(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? AppColors.whiteColor
+                                                      : AppColors.black),
+                                            )
+                                          ]),
+                                    ],
+                                  )),
+                              SizedBox(
+                                height: 36.0,
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            AppMetrics.paddingHorizotal),
+                                    child: CustomButton(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.08,
+                                      ontap: () {
+                                        NavigationService.instance.goback();
+                                      },
+                                      borderColor: AppColors.greenAccent,
+                                      color: AppColors.greenAccent,
+                                      text: "Yes",
+                                      style: AppTextStyles.textSize14(),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: AppMetrics.paddingContainer,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            AppMetrics.paddingHorizotal),
+                                    child: CustomButton(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.08,
+                                      ontap: () {
+                                        NavigationService.instance.goback();
+                                      },
+                                      borderColor: AppColors.greenAccent,
+                                      color: AppColors.whiteColor,
+                                      text: "No",
+                                      style: AppTextStyles.textSize14(),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: AppMetrics.paddingContainer,
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
                 borderColor: AppColors.greenAccent,
                 color: AppColors.greenAccent,
-                text: 'Change Business',
+                text: AppTranslations().getLanguage(context, 'changeBusiness'),
                 height: MediaQuery.of(context).size.height * 0.08,
                 style: AppTextStyles.textSize16(),
               ),

@@ -2,6 +2,7 @@ import 'package:bookkeepa/config/app_colors.dart';
 import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
+import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
@@ -40,7 +41,7 @@ class _NewTimeCardState extends State<NewTimeCard> {
       appBar: HeaderView(
           color: Colors.transparent,
           child: HeaderChild(
-            title: "New Time Card",
+            title: AppTranslations().getLanguage(context, 'newTimeCard'),
             style: AppTextStyles.textSize16(
                 color: Theme.of(context).brightness == Brightness.dark
                     ? AppColors.whiteColor
@@ -82,7 +83,8 @@ class _NewTimeCardState extends State<NewTimeCard> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "You are next scheduled to clock in",
+                                AppTranslations()
+                                    .getLanguage(context, 'youAreNexrSchedule'),
                                 style: AppTextStyles.textSize14(
                                     color: Theme.of(context).brightness ==
                                             Brightness.dark
@@ -147,7 +149,8 @@ class _NewTimeCardState extends State<NewTimeCard> {
                                         Expanded(
                                             flex: 5,
                                             child: Text(
-                                              "Your Are About To Clock In",
+                                              AppTranslations().getLanguage(
+                                                  context, 'yourAreClockIn'),
                                               style: AppTextStyles.textSize20(
                                                   fontWeight: FontWeight.bold,
                                                   color: Theme.of(context)
@@ -171,7 +174,8 @@ class _NewTimeCardState extends State<NewTimeCard> {
                                     ),
                                   ),
                                   Text(
-                                    "Just to confirm: you are not scheduled to work today. Please confirm you would like to clock in a time",
+                                    AppTranslations()
+                                        .getLanguage(context, 'justConfirm'),
                                     maxLines: 5,
                                     style: AppTextStyles.textSize16(
                                         color: Theme.of(context).brightness ==
@@ -189,7 +193,8 @@ class _NewTimeCardState extends State<NewTimeCard> {
                                         ontap: () {},
                                         borderColor: AppColors.greenAccent,
                                         color: AppColors.greenAccent,
-                                        text: "Confirm Clock In",
+                                        text: AppTranslations().getLanguage(
+                                            context, 'confirmClockIn'),
                                         style: AppTextStyles.textSize14(),
                                       ),
                                       SizedBox(
@@ -204,7 +209,8 @@ class _NewTimeCardState extends State<NewTimeCard> {
                                         },
                                         borderColor: AppColors.greenAccent,
                                         color: AppColors.whiteColor,
-                                        text: "Cancel",
+                                        text: AppTranslations()
+                                            .getLanguage(context, 'cancel'),
                                         style: AppTextStyles.textSize14(
                                             color: AppColors.greyColor),
                                       ),
@@ -218,7 +224,7 @@ class _NewTimeCardState extends State<NewTimeCard> {
                       },
                       color: AppColors.greenAccent,
                       borderColor: AppColors.greenAccent,
-                      text: 'Clock In',
+                      text: AppTranslations().getLanguage(context, 'clockin'),
                       height: MediaQuery.of(context).size.height * 0.08,
                       style: AppTextStyles.textSize18(),
                     ),
@@ -231,7 +237,7 @@ class _NewTimeCardState extends State<NewTimeCard> {
                       },
                       borderColor: AppColors.greenAccent,
                       color: AppColors.whiteColor,
-                      text: 'Cancel',
+                      text: AppTranslations().getLanguage(context, 'cancel'),
                       height: MediaQuery.of(context).size.height * 0.08,
                       style:
                           AppTextStyles.textSize18(color: AppColors.greyColor),
@@ -423,8 +429,8 @@ class _NewTimeCardState extends State<NewTimeCard> {
             padding:
                 EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
             onEditingComplete: () {},
-            title: 'Location',
-            hinttitle: 'Add Location',
+            title: AppTranslations().getLanguage(context, 'location'),
+            hinttitle: AppTranslations().getLanguage(context, 'addlocation'),
             style: AppTextStyles.textSize18(
                 color: Theme.of(context).brightness == Brightness.dark
                     ? AppColors.whiteColor
@@ -444,8 +450,8 @@ class _NewTimeCardState extends State<NewTimeCard> {
             padding:
                 EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
             onEditingComplete: () {},
-            title: 'Comments',
-            hinttitle: 'Enter Note',
+            title: AppTranslations().getLanguage(context, 'comments'),
+            hinttitle: AppTranslations().getLanguage(context, 'enterNote'),
             style: AppTextStyles.textSize18(
                 color: Theme.of(context).brightness == Brightness.dark
                     ? AppColors.whiteColor

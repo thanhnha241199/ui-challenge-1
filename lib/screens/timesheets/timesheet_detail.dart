@@ -209,7 +209,8 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                           Expanded(
                             flex: 3,
                             child: Text(
-                              "Total hours \nworked",
+                              AppTranslations()
+                                  .getLanguage(context, 'totalHours'),
                               style: AppTextStyles.textSize16(
                                   fontWeight: FontWeight.bold,
                                   color: Theme.of(context).brightness ==
@@ -227,7 +228,8 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                   child: Column(
                                     children: [
                                       Text(
-                                        "Scheduled",
+                                        AppTranslations()
+                                            .getLanguage(context, 'scheduled'),
                                         overflow: TextOverflow.ellipsis,
                                         style: AppTextStyles.textSize12(
                                             color:
@@ -256,7 +258,8 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                                   child: Column(
                                     children: [
                                       Text(
-                                        "Actual",
+                                        AppTranslations()
+                                            .getLanguage(context, 'actual'),
                                         style: AppTextStyles.textSize12(
                                             color:
                                                 Theme.of(context).brightness ==
@@ -767,7 +770,7 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                     },
                     color: AppColors.greenAccent,
                     borderColor: AppColors.greenAccent,
-                    text: 'Submit',
+                    text: AppTranslations().getLanguage(context, 'submit'),
                     height: MediaQuery.of(context).size.height * 0.07,
                     style: AppTextStyles.textSize16(),
                   ),
@@ -788,7 +791,7 @@ class _TimeSheetDetailState extends State<TimeSheetDetail> {
                   MaterialButton(
                     onPressed: () {},
                     child: Text(
-                      "Delete",
+                      AppTranslations().getLanguage(context, 'delete'),
                       style: AppTextStyles.textSize16(
                           color: Theme.of(context).brightness == Brightness.dark
                               ? AppColors.whiteColor

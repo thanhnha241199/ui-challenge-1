@@ -22,13 +22,10 @@ class _AppState extends State<App> {
       child: BlocBuilder<ThemeCubit, ThemeData>(
         builder: (context, theme) {
           return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: theme,
-            navigatorKey: NavigationService.instance.navigationKey,
-            home: Scaffold(
-              body: Welcome(),
-            ),
-          );
+              debugShowCheckedModeBanner: false,
+              theme: theme,
+              navigatorKey: NavigationService.instance.navigationKey,
+              home: Welcome());
         },
       ),
     );

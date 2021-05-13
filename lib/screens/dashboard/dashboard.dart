@@ -2,17 +2,16 @@ import 'dart:ui';
 
 import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/screens/dashboard/account.dart';
-import 'package:bookkeepa/screens/dashboard/time_card.dart';
+import 'package:bookkeepa/screens/dashboard/widgets/circle_time.dart';
+import 'package:bookkeepa/screens/dashboard/widgets/schedule_roster.dart';
+import 'package:bookkeepa/screens/dashboard/widgets/total.dart';
 import 'package:bookkeepa/screens/notifications/notifications.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
-import 'package:bookkeepa/widgets/custom_btn.dart';
-import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/float_btn.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_vew_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../config/app_colors.dart';
 import '../../config/app_images.dart';
@@ -88,15 +87,15 @@ class _DashboardState extends State<Dashboard> {
               physics: BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  circletime(),
+                  CircleTime(),
                   SizedBox(
                     height: 8.0,
                   ),
-                  scheduleroster(),
+                  ScheduleRoster(),
                   SizedBox(
                     height: 8.0,
                   ),
-                  total(),
+                  Total(),
                   SizedBox(
                     height: AppMetrics.paddingContainer,
                   ),
@@ -107,261 +106,6 @@ class _DashboardState extends State<Dashboard> {
         ],
       ),
       floatingActionButton: FancyFab(),
-    );
-  }
-
-  Widget circletime() {
-    return CustomContainer(
-      edgeInsets: EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
-      colorBorder: AppColors.border,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingContainer,
-                vertical: AppMetrics.paddingContent),
-            child: Text(
-              AppTranslations().getLanguage(context, 'hoursworkedthisweek'),
-              style: AppTextStyles.textSize16(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? AppColors.whiteColor
-                      : AppColors.black),
-            ),
-          ),
-          Divider(
-            color: Theme.of(context).brightness == Brightness.dark
-                ? AppColors.dividerDark
-                : AppColors.divider,
-          ),
-          SizedBox(height: 26.0),
-          Container(
-            alignment: Alignment.center,
-            child: CircularPercentIndicator(
-              radius: 170.0,
-              lineWidth: 10.0,
-              animation: true,
-              animationDuration: 3000,
-              percent: 0.6,
-              animateFromLastPercent: true,
-              center: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: AppMetrics.paddingHorizotal,
-                    vertical: AppMetrics.paddingVertical),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "7.0 h",
-                      style: AppTextStyles.textSize31(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? AppColors.whiteColor
-                              : AppColors.black),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Text(
-                        "${AppTranslations().getLanguage(context, 'of')} 40.0 h",
-                        style: AppTextStyles.textSize14(
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? AppColors.whiteColor
-                                    : AppColors.greyColor)),
-                    SizedBox(
-                      height: 5.0,
-                    ),
-                    Text(
-                      AppTranslations().getLanguage(context, 'scheduled'),
-                      style: AppTextStyles.textSize14(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? AppColors.whiteColor
-                              : AppColors.greyColor),
-                    )
-                  ],
-                ),
-              ),
-              circularStrokeCap: CircularStrokeCap.round,
-              progressColor: AppColors.greenAccent,
-            ),
-          ),
-          SizedBox(height: AppMetrics.paddingHorizotal),
-        ],
-      ),
-    );
-  }
-
-  Widget scheduleroster() {
-    return CustomContainer(
-      edgeInsets: EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
-      padding: EdgeInsets.only(top: AppMetrics.paddingContent),
-      colorBorder: AppColors.border,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingContainer,
-                vertical: AppMetrics.paddingContent),
-            child: Text(
-              AppTranslations().getLanguage(context, 'scheduleRoster'),
-              style: AppTextStyles.textSize16(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? AppColors.whiteColor
-                      : AppColors.black),
-            ),
-          ),
-          Divider(
-            color: Theme.of(context).brightness == Brightness.dark
-                ? AppColors.dividerDark
-                : AppColors.divider,
-          ),
-          Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingContainer),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: AppMetrics.paddingContent,
-                  ),
-                  Text(
-                    "09:00am to 12:00pm",
-                    style: AppTextStyles.textSize16(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? AppColors.whiteColor
-                            : AppColors.black),
-                  ),
-                  SizedBox(
-                    height: AppMetrics.paddingVerticalContainer,
-                  ),
-                  CustomButton(
-                    ontap: () {
-                      NavigationService.instance
-                          .pushPage(context, false, TimeCard());
-                    },
-                    borderColor: AppColors.greenAccent,
-                    color: AppColors.greenAccent,
-                    text: AppTranslations().getLanguage(context, 'clockin'),
-                    height: MediaQuery.of(context).size.height * 0.06,
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    style: AppTextStyles.textSize14(),
-                  ),
-                  SizedBox(
-                    height: AppMetrics.paddingVerticalContainer,
-                  ),
-                ],
-              )),
-        ],
-      ),
-    );
-  }
-
-  Widget total() {
-    return CustomContainer(
-      edgeInsets: EdgeInsets.only(
-          left: AppMetrics.paddingHorizotal,
-          right: AppMetrics.paddingHorizotal),
-      padding: EdgeInsets.only(top: AppMetrics.paddingContent),
-      colorBorder: AppColors.border,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingContainer,
-                vertical: AppMetrics.paddingContent),
-            alignment: Alignment.center,
-            child: Row(
-              children: [
-                Text(
-                  AppTranslations().getLanguage(context, 'totalYtd'),
-                  style: AppTextStyles.textSize16(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.whiteColor
-                          : AppColors.black),
-                ),
-                Spacer(),
-                Text(
-                  "\$20,100",
-                  style: AppTextStyles.textSize16(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.whiteColor
-                          : AppColors.black),
-                ),
-              ],
-            ),
-          ),
-          Divider(
-            color: Theme.of(context).brightness == Brightness.dark
-                ? AppColors.dividerDark
-                : AppColors.divider,
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: AppMetrics.paddingContainer,
-                vertical: AppMetrics.paddingContent),
-            alignment: Alignment.center,
-            child: Row(
-              children: [
-                Text(
-                  AppTranslations().getLanguage(context, 'totalPayg'),
-                  style: AppTextStyles.textSize16(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.whiteColor
-                          : AppColors.black),
-                ),
-                Spacer(),
-                Text(
-                  "\$20,100",
-                  style: AppTextStyles.textSize16(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.whiteColor
-                          : AppColors.black),
-                ),
-              ],
-            ),
-          ),
-          Divider(
-            color: Theme.of(context).brightness == Brightness.dark
-                ? AppColors.dividerDark
-                : AppColors.divider,
-          ),
-          Container(
-            padding: EdgeInsets.only(
-                left: AppMetrics.paddingContainer,
-                right: AppMetrics.paddingContainer,
-                top: AppMetrics.paddingContent,
-                bottom: AppMetrics.paddingContainer),
-            alignment: Alignment.center,
-            child: Row(
-              children: [
-                Text(
-                  AppTranslations().getLanguage(context, 'totalNetpay'),
-                  style: AppTextStyles.textSize16(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.whiteColor
-                          : AppColors.black),
-                ),
-                Spacer(),
-                Text(
-                  "\$20,100",
-                  style: AppTextStyles.textSize16(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.whiteColor
-                          : AppColors.black),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

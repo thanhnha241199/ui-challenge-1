@@ -117,10 +117,10 @@ class _MaterialBottomNavigationScaffoldState
               .toList(),
           onTap: widget.onItemSelected,
           unselectedItemColor: AppColors.greyColorBottomTab,
-          selectedItemColor: AppColors.blackColor,
+          selectedItemColor: AppColors.black,
           type: BottomNavigationBarType.fixed,
-          selectedLabelStyle: AppTextStyles.textSize12(),
-          unselectedLabelStyle: AppTextStyles.textSize12(),
+          selectedLabelStyle: AppTextStyles.textSize12(color: Colors.black),
+          unselectedLabelStyle: AppTextStyles.textSize12(color: Colors.black),
         ),
       );
 
