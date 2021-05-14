@@ -121,48 +121,44 @@ class _TimeCardState extends State<TimeCard> {
                                   padding: EdgeInsets.symmetric(
                                     vertical: AppMetrics.paddingContent,
                                   ),
-                                  child: Flexible(
-                                    child: Row(
-                                      children: [
-                                        Flexible(
-                                          child: RichText(
-                                            text: TextSpan(children: [
-                                              TextSpan(
-                                                text:
-                                                    "This time card has been added to this week's timesheet. You can edit time card yor Timesheets as long as it is in ",
-                                                style: AppTextStyles.textSize16(
-                                                    color: Theme.of(context)
-                                                                .brightness ==
-                                                            Brightness.dark
-                                                        ? AppColors.whiteColor
-                                                        : AppColors.black),
-                                              ),
-                                              WidgetSpan(
-                                                  alignment:
-                                                      PlaceholderAlignment
-                                                          .middle,
-                                                  child: SvgPicture.asset(
-                                                      AppImage.draft)),
-                                              TextSpan(
-                                                text: " or ",
-                                                style: AppTextStyles.textSize16(
-                                                    color: Theme.of(context)
-                                                                .brightness ==
-                                                            Brightness.dark
-                                                        ? AppColors.whiteColor
-                                                        : AppColors.black),
-                                              ),
-                                              WidgetSpan(
-                                                  alignment:
-                                                      PlaceholderAlignment
-                                                          .middle,
-                                                  child: SvgPicture.asset(
-                                                      AppImage.pending)),
-                                            ]),
-                                          ),
-                                        )
-                                      ],
-                                    ),
+                                  child: Row(
+                                    children: [
+                                      Flexible(
+                                        child: RichText(
+                                          text: TextSpan(children: [
+                                            TextSpan(
+                                              text:
+                                                  "This time card has been added to this week's timesheet. You can edit time card yor Timesheets as long as it is in ",
+                                              style: AppTextStyles.textSize16(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? AppColors.whiteColor
+                                                      : AppColors.black),
+                                            ),
+                                            WidgetSpan(
+                                                alignment:
+                                                    PlaceholderAlignment.middle,
+                                                child: SvgPicture.asset(
+                                                    AppImage.draft)),
+                                            TextSpan(
+                                              text: " or ",
+                                              style: AppTextStyles.textSize16(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? AppColors.whiteColor
+                                                      : AppColors.black),
+                                            ),
+                                            WidgetSpan(
+                                                alignment:
+                                                    PlaceholderAlignment.middle,
+                                                child: SvgPicture.asset(
+                                                    AppImage.pending)),
+                                          ]),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
                                 Container(
