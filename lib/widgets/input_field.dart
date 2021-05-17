@@ -96,19 +96,17 @@ class _InputFieldState extends State<InputField> {
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: AppColors.greenAccent),
               ),
-              suffixIcon: widget.icon is IconData
-                  ? GestureDetector(
-                      onTap: () {
-                        _onTap();
-                      },
-                      child: Container(
-                        child: Icon(
-                          widget.icon,
-                          color: isEnable ? Colors.green : Colors.grey,
-                        ),
-                      ),
-                    )
-                  : null),
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  _onTap();
+                },
+                child: Container(
+                  child: Icon(
+                    widget.icon,
+                    color: isEnable ? Colors.green : Colors.grey,
+                  ),
+                ),
+              )),
         ),
       ),
     );

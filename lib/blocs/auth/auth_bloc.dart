@@ -46,6 +46,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield state.copyWith(requesting: true);
       dynamic sesstion = await CongnitoService()
           .loginCognito(userName: phoneNumber, password: password);
+      print(sesstion);
       await CongnitoService()
           .persistToken(phoneNumber, password, sesstion['token']);
       yield state.copyWith(requesting: false);

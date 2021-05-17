@@ -14,9 +14,7 @@ class CongnitoService {
   /// HANDLE TOKEN
   Future<Null> refreshToken() async {
     dynamic userInfo = await CongnitoService().getUserPass();
-
     final cognitoUser = new CognitoUser(userInfo['user'], userPool);
-
     final authDetails = new AuthenticationDetails(
         username: userInfo['user'], password: userInfo['pwd']);
 

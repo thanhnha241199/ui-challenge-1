@@ -6,5 +6,8 @@ final urlPy = AppConfig().baseUrlPython + versionApi;
 
 class APIUrl {
   // AUTHENTICATION
-  static final getStarted = urlPy + 'auth/get-started/';
+  static final getLogin = urlPy + 'api/auth/login/';
+
+  // NOTIFICATION
+  static final getNotification = urlPy + 'api/notification/employee/v1_0/';
 }

@@ -27,7 +27,7 @@ void main() async {
   AppConfig().setAppConfig(
     appEnvironment: AppEnvironment.PROD,
     baseUrlGo: 'https://api.com/',
-    baseUrlPython: 'https://api.com/',
+    baseUrlPython: 'https://api-dev.bookkeepa.co/',
     userPoolId: 'ap-xxxx-xxx',
     clientId: 'xxxxxxxx',
   );

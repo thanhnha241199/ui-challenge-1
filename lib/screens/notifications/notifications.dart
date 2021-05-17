@@ -1,3 +1,4 @@
+import 'package:bookkeepa/blocs/notification/notification_bloc.dart';
 import 'package:bookkeepa/config/app_colors.dart';
 import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_metrics.dart';
@@ -6,6 +7,7 @@ import 'package:bookkeepa/models/notification/notification.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/app_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Notifications extends StatefulWidget {
@@ -60,6 +62,12 @@ class _NotificationState extends State<Notifications> {
     NotificationModel(
         title: "3 documents needs to be signed", read: false, time: "1d ago"),
   ];
+  @override
+  void initState() {
+    BlocProvider.of<NotificationBloc>(context).add(FetchNotification());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

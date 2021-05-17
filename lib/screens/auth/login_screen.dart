@@ -29,6 +29,9 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
+    controllerEmail =
+        new TextEditingController(text: "newt.employee@mailinator.com");
+    controllerPassword = new TextEditingController(text: "fybahmay");
     fnPassword = FocusNode();
   }
 
@@ -188,9 +191,8 @@ class _LoginState extends State<Login> {
                       CustomButton(
                         height: MediaQuery.of(context).size.height * 0.08,
                         ontap: () {
-                          //  context.read<AuthBloc>().add(AuthLogin(
-                          //     phoneNumber:
-                          //         BlocProvider.of<AuthBloc>(context).state.phone,
+                          // context.read<AuthBloc>().add(AuthLogin(
+                          //     phoneNumber: controllerEmail.text,
                           //     password: controllerPassword.text));
                           NavigationService.instance.navigateTo(MainTab());
                         },
