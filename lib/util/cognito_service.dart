@@ -40,9 +40,7 @@ class CongnitoService {
   }
 
   Future<dynamic> getToken() async {
-    return {
-      'token': await storage.read(key: AppConstrants.TOKEN),
-    };
+    return storage.read(key: AppConstrants.TOKEN);
   }
 
   Future<bool> hasExpireToken() async {

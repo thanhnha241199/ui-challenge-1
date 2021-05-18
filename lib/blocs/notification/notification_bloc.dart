@@ -20,7 +20,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     if (event is FetchNotification) {
       try {
         yield LoadingState();
-        var result = notificationRepositories.getNotification();
+        var result = await notificationRepositories.getNotification();
         print("result ${result}");
       } catch (e) {
         ParseError error = ParseError.fromJson(e);
