@@ -22,26 +22,24 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool showpass = true;
-  TextEditingController controllerEmail, controllerPassword;
+  TextEditingController controllerEmail = new TextEditingController();
+  TextEditingController controllerPassword = new TextEditingController();
 
   FocusNode fnEmail, fnPassword;
   @override
   void initState() {
     super.initState();
-    controllerEmail =
-        new TextEditingController(text: "newt.employee@mailinator.com");
-    controllerPassword = new TextEditingController(text: "fybahmay");
-    fnPassword = FocusNode();
+    controllerEmail.text = "newt.employee@mailinator.com";
+    controllerPassword.text = "fybahmay";
   }
 
   @override
   void dispose() {
-    // Clean up the focus node when the Form is disposed.
-    fnEmail.dispose();
-    fnPassword.dispose();
+    super.dispose();
+    fnEmail?.dispose();
+    fnPassword?.dispose();
     controllerEmail?.dispose();
     controllerPassword?.dispose();
-    super.dispose();
   }
 
   @override

@@ -18,6 +18,11 @@ class NavigationService {
         .pushReplacement(MaterialPageRoute(builder: (_) => _rn));
   }
 
+  Future<dynamic> navigatePopUtil(Widget _rn) {
+    return navigationKey.currentState.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => _rn), (route) => false);
+  }
+
   Future<dynamic> navigateTo(Widget _rn) {
     return navigationKey.currentState
         .push(MaterialPageRoute(builder: (_) => _rn));

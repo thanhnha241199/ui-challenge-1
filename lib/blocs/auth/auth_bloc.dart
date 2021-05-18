@@ -49,7 +49,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       print(sesstion);
       await CongnitoService().persistToken(email, password, sesstion['token']);
       yield state.copyWith(requesting: false);
-      NavigationService.instance.navigateToReplacement(MainTab());
+      NavigationService.instance.navigatePopUtil(MainTab());
     } catch (e) {
       ParseError error = ParseError.fromJson(e);
       yield state.copyWith(
@@ -65,9 +65,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (await CongnitoService().hasToken()) {
         if (await CongnitoService().hasExpireToken())
           await CongnitoService().refreshToken();
-        NavigationService.instance.navigateTo(MainTab());
+        NavigationService.instance.navigatePopUtil(MainTab());
       } else {
-        NavigationService.instance.navigateTo(Welcome());
+        NavigationService.instance.navigatePopUtil(Welcome());
       }
       yield state.copyWith(requesting: false);
     } catch (e) {
@@ -83,7 +83,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       yield state.copyWith(requesting: true);
       await CongnitoService().deleteToken();
-      NavigationService.instance.navigateToReplacement(Welcome());
+
+      NavigationService.instance.navigatePopUtil(Welcome());
       yield state.copyWith(requesting: false);
     } catch (e) {
       ParseError error = ParseError.fromJson(e);

@@ -89,6 +89,7 @@ class CongnitoService {
   /// API
   Future<dynamic> loginCognito({String email, String password}) async {
     final cognitoUser = new CognitoUser(email, userPool);
+
     final authDetails =
         new AuthenticationDetails(username: email, password: password);
     CognitoUserSession session;
@@ -98,9 +99,7 @@ class CongnitoService {
       print(e);
       throw e;
     }
-    return {
-      'token': session.getIdToken().getJwtToken(),
-    };
+    return {'token': session.getIdToken().getJwtToken()};
   }
 
   Future<bool> signUpCognito(
