@@ -7,7 +7,6 @@ class NotificationRepositories extends Api {
   Future<List<NotificationModel>> getNotification() async {
     try {
       final response = await request(APIUrl.getNotification, Method.get);
-      print("response: ${response}");
       return NotificationModel.fromJson(response.data['results'])
           as List<NotificationModel>;
     } on DioError catch (e) {

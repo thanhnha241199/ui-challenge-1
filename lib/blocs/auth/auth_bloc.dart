@@ -41,14 +41,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  Stream<AuthState> authLogin(String phoneNumber, String password) async* {
+  Stream<AuthState> authLogin(String email, String password) async* {
     try {
       yield state.copyWith(requesting: true);
       dynamic sesstion = await CongnitoService()
-          .loginCognito(userName: phoneNumber, password: password);
+          .loginCognito(email: email, password: password);
       print(sesstion);
-      await CongnitoService()
-          .persistToken(phoneNumber, password, sesstion['token']);
+      await CongnitoService().persistToken(email, password, sesstion['token']);
       yield state.copyWith(requesting: false);
       NavigationService.instance.navigateToReplacement(MainTab());
     } catch (e) {

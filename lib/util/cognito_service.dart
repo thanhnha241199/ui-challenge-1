@@ -87,10 +87,10 @@ class CongnitoService {
   }
 
   /// API
-  Future<dynamic> loginCognito({String userName, String password}) async {
-    final cognitoUser = new CognitoUser(userName, userPool);
+  Future<dynamic> loginCognito({String email, String password}) async {
+    final cognitoUser = new CognitoUser(email, userPool);
     final authDetails =
-        new AuthenticationDetails(username: userName, password: password);
+        new AuthenticationDetails(username: email, password: password);
     CognitoUserSession session;
     try {
       session = await cognitoUser.authenticateUser(authDetails);
@@ -98,7 +98,6 @@ class CongnitoService {
       print(e);
       throw e;
     }
-
     return {
       'token': session.getIdToken().getJwtToken(),
     };

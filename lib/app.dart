@@ -1,5 +1,4 @@
 import 'package:bookkeepa/blocs/auth/index.dart';
-import 'package:bookkeepa/screens/auth/auth_init.dart';
 import 'package:bookkeepa/screens/auth/welcome_screen.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:flutter/material.dart';

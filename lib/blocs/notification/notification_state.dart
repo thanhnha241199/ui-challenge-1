@@ -10,8 +10,9 @@ abstract class NotificationState extends Equatable {
 class NotificationInitial extends NotificationState {}
 
 // ignore: must_be_immutable
-class SuccuessState extends NotificationEvent {
+class SuccessState extends NotificationEvent {
   List<NotificationModel> notification;
+  SuccessState({this.notification});
 }
 
 class LoadingState extends NotificationState {}
