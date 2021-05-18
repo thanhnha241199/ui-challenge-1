@@ -50,7 +50,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await CongnitoService()
           .persistToken(phoneNumber, password, sesstion['token']);
       yield state.copyWith(requesting: false);
-      NavigationService.instance.navigateTo(MainTab());
+      NavigationService.instance.navigateToReplacement(MainTab());
     } catch (e) {
       ParseError error = ParseError.fromJson(e);
       yield state.copyWith(

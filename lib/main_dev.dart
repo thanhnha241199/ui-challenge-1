@@ -29,8 +29,8 @@ void main() async {
     appEnvironment: AppEnvironment.DEV,
     baseUrlGo: 'https://api-dev.com/go-api/',
     baseUrlPython: 'https://api-dev.bookkeepa.co/',
-    userPoolId: 'ap-xxxx-xxxx',
-    clientId: 'xxxxx',
+    userPoolId: 'ap-southeast-2_pWckIrM3J',
+    clientId: '1lkq52mkr490mbl5fkc8pou190',
   );
 
   Bloc.observer = SimpleBlocObserver();

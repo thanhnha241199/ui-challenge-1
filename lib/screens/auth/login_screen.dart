@@ -4,7 +4,6 @@ import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/screens/auth/signup_screen.dart';
-import 'package:bookkeepa/screens/main/main_tab.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/bottom_space.dart';
@@ -38,8 +37,8 @@ class _LoginState extends State<Login> {
   @override
   void dispose() {
     // Clean up the focus node when the Form is disposed.
-    fnEmail?.dispose();
-    fnPassword?.dispose();
+    fnEmail.dispose();
+    fnPassword.dispose();
     controllerEmail?.dispose();
     controllerPassword?.dispose();
     super.dispose();
@@ -54,8 +53,8 @@ class _LoginState extends State<Login> {
               context: context,
               builder: (BuildContext context) {
                 return CustomDialog(
-                  descriptions: 'Alerts',
-                  title: 'error',
+                  title: 'Alerts',
+                  descriptions: 'Incorrect email or password',
                 );
               });
         }
@@ -191,10 +190,9 @@ class _LoginState extends State<Login> {
                       CustomButton(
                         height: MediaQuery.of(context).size.height * 0.08,
                         ontap: () {
-                          // context.read<AuthBloc>().add(AuthLogin(
-                          //     phoneNumber: controllerEmail.text,
-                          //     password: controllerPassword.text));
-                          NavigationService.instance.navigateTo(MainTab());
+                          context.read<AuthBloc>().add(AuthLogin(
+                              phoneNumber: controllerEmail.text,
+                              password: controllerPassword.text));
                         },
                         borderColor: AppColors.greenAccent,
                         color: AppColors.greenAccent,

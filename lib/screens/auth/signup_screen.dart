@@ -223,7 +223,10 @@ class _SignUpState extends State<SignUp> {
                       CustomButton(
                         height: MediaQuery.of(context).size.height * 0.08,
                         ontap: () {
-                          NavigationService.instance.navigateTo(VerifyCode());
+                          context.read<AuthBloc>().add(AuthSignUp(
+                              registerId: controllerEmail.text,
+                              phoneNumber: controllerPhone.text,
+                              password: controllerPassword.text));
                         },
                         borderColor: AppColors.greenAccent,
                         color: AppColors.greenAccent,

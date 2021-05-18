@@ -1,18 +1,14 @@
 import 'dart:ui';
+import 'package:bookkeepa/blocs/auth/index.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CustomDialog extends StatefulWidget {
+class ConfirmDialog extends StatelessWidget {
   final String title, descriptions;
 
-  const CustomDialog({this.title, this.descriptions}) : super();
-
-  @override
-  _CustomDialogState createState() => _CustomDialogState();
-}
-
-class _CustomDialogState extends State<CustomDialog> {
+  const ConfirmDialog({this.title, this.descriptions}) : super();
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -40,43 +36,50 @@ class _CustomDialogState extends State<CustomDialog> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(
-                widget.title,
+                title,
                 style: AppTextStyles.textSize25(fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 15,
               ),
               Text(
-                widget.descriptions,
+                descriptions,
                 style: AppTextStyles.textSize14(),
                 textAlign: TextAlign.center,
               ),
               SizedBox(
                 height: 22,
               ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: TextButton(
-                    onPressed: () {
-                      NavigationService.instance.goback();
-                    },
-                    child: Text(
-                      "Close",
-                      style: AppTextStyles.textSize14(),
-                    )),
-              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: TextButton(
+                        onPressed: () {
+                          BlocProvider.of<AuthBloc>(context).add(AuthLogout());
+                        },
+                        child: Text(
+                          "Yes",
+                          style: AppTextStyles.textSize14(),
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: TextButton(
+                        onPressed: () {
+                          NavigationService.instance.goback();
+                        },
+                        child: Text(
+                          "No",
+                          style: AppTextStyles.textSize14(),
+                        )),
+                  ),
+                ],
+              )
             ],
           ),
         ),
-        // Positioned(
-        //     left: 10,
-        //     right: 10,
-        //     child: CircleAvatar(
-        //         backgroundColor: Colors.transparent,
-        //         radius: 10,
-        //         child: Container(
-        //           child: Text('zxczxc'),
-        //         ))),
       ],
     );
   }

@@ -21,9 +21,10 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       try {
         yield LoadingState();
         var result = notificationRepositories.getNotification();
-        print(result);
+        print("result ${result}");
       } catch (e) {
         ParseError error = ParseError.fromJson(e);
+        print(error);
         yield FailedState();
       }
     }

@@ -12,6 +12,7 @@ import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/screens/dashboard/update_password.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_containner.dart';
+import 'package:bookkeepa/widgets/confirm_dialog.dart';
 import 'package:bookkeepa/widgets/float_btn.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:flutter/material.dart';
@@ -366,17 +367,24 @@ class _AccountScreenState extends State<AccountScreen> {
             SizedBox(
               height: AppMetrics.paddingContainer,
             ),
-            CustomContainer(
-              edgeInsets:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
-              padding:
-                  EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-              color: AppColors.whiteColor,
-              colorBorder: AppColors.border,
-              child: GestureDetector(
-                onTap: () {
-                  NavigationService.instance.navigateTo(SelectBusiness());
-                },
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ConfirmDialog(
+                        title: 'Alerts',
+                        descriptions: 'You want to log out ?',
+                      );
+                    });
+              },
+              child: CustomContainer(
+                edgeInsets: EdgeInsets.symmetric(
+                    horizontal: AppMetrics.paddingHorizotal),
+                padding:
+                    EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
+                color: AppColors.whiteColor,
+                colorBorder: AppColors.border,
                 child: Container(
                   padding: EdgeInsets.symmetric(
                       horizontal: AppMetrics.paddingContainer, vertical: 10.0),

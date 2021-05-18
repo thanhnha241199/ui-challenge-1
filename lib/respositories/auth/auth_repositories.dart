@@ -14,15 +14,4 @@ class AuthRepositories extends Api {
       throw e;
     }
   }
-
-  Future<UserData> startLogin(String username, String password) async {
-    try {
-      dynamic data = {'username': username, "password": password};
-      final response = await request(APIUrl.getLogin, Method.post,
-          body: data, useIDToken: false);
-      return UserData.fromJson(response.data);
-    } on DioError catch (e) {
-      throw e;
-    }
-  }
 }
