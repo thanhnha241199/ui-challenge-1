@@ -10,4 +10,7 @@ class APIUrl {
 
   // NOTIFICATION
   static final getNotification = urlPy + 'api/notification/employee/v1_0/';
+
+  // USERPROFILE
+  static final getUserProfile = urlPy + 'api/notification/employee/v1_0/';
 }

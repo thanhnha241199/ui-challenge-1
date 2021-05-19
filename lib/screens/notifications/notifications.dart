@@ -16,52 +16,7 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationState extends State<Notifications> {
-  List<NotificationModel> items = [
-    NotificationModel(
-        title: "Jack Hihnson requested leave", read: true, time: "1m ago"),
-    NotificationModel(
-        title: "Amy Ranch needs timesheet approved",
-        read: true,
-        time: "20m ago"),
-    NotificationModel(
-        title: "1 document needs to be signed", read: true, time: "1h ago"),
-    NotificationModel(
-        title: "Amy Ranch needs timesheet approved",
-        read: false,
-        time: "5h ago"),
-    NotificationModel(
-        title: "Cornor Halt requested leave", read: false, time: "10h ago"),
-    NotificationModel(
-        title: "Joseph Rosso needs timesheet approved",
-        read: false,
-        time: "1d ago"),
-    NotificationModel(
-        title: "3 documents needs to be signed", read: false, time: "1d ago"),
-    NotificationModel(
-        title: "Amy Ranch needs timesheet approved",
-        read: false,
-        time: "5h ago"),
-    NotificationModel(
-        title: "Cornor Halt requested leave", read: false, time: "10h ago"),
-    NotificationModel(
-        title: "Joseph Rosso needs timesheet approved",
-        read: false,
-        time: "1d ago"),
-    NotificationModel(
-        title: "3 documents needs to be signed", read: false, time: "1d ago"),
-    NotificationModel(
-        title: "Amy Ranch needs timesheet approved",
-        read: false,
-        time: "5h ago"),
-    NotificationModel(
-        title: "Cornor Halt requested leave", read: false, time: "10h ago"),
-    NotificationModel(
-        title: "Joseph Rosso needs timesheet approved",
-        read: false,
-        time: "1d ago"),
-    NotificationModel(
-        title: "3 documents needs to be signed", read: false, time: "1d ago"),
-  ];
+  List<NotificationModel> items = [];
   @override
   void initState() {
     BlocProvider.of<NotificationBloc>(context).add(FetchNotification());
@@ -105,13 +60,17 @@ class _NotificationState extends State<Notifications> {
                   color: Theme.of(context).brightness == Brightness.dark
                       ? AppColors.black300
                       : AppColors.whiteColor,
-                  child: AppListView(
-                    data: items,
-                    renderItem: (item) {
-                      return renderItem(context, item);
-                    },
-                    onLoadMore: () {
-                      print('loadmore');
+                  child: BlocBuilder<NotificationBloc, NotificationState>(
+                    builder: (context, state) {
+                      return AppListView(
+                        data: state.notificationData ?? [],
+                        renderItem: (item) {
+                          return renderItem(context, item);
+                        },
+                        onLoadMore: () {
+                          print('loadmore');
+                        },
+                      );
                     },
                   ),
                 ),
@@ -124,22 +83,18 @@ class _NotificationState extends State<Notifications> {
   }
 
   renderItem(BuildContext context, NotificationModel item) {
-    return items.indexOf(item) == 0
-        ? Container(
+    return Column(
+      children: [
+        Container(
+            color: item.isRead == true
+                ? Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.backgroundNotification
+                    : AppColors.green20
+                : Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.black300
+                    : Colors.transparent,
             width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                color: item.read == true
-                    ? Theme.of(context).brightness == Brightness.dark
-                        ? AppColors.backgroundNotification
-                        : AppColors.green20
-                    : Theme.of(context).brightness == Brightness.dark
-                        ? AppColors.black300
-                        : Colors.transparent,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(AppMetrics.borderContainer),
-                    topRight: Radius.circular(AppMetrics.borderContainer))),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   margin: EdgeInsets.symmetric(
@@ -154,7 +109,7 @@ class _NotificationState extends State<Notifications> {
                           child: Text(
                             item.title,
                             style: AppTextStyles.textSize16(
-                                color: item.read == true
+                                color: item.isRead == true
                                     ? AppColors.black
                                     : Theme.of(context).brightness ==
                                             Brightness.dark
@@ -165,7 +120,7 @@ class _NotificationState extends State<Notifications> {
                         ),
                         Flexible(
                           child: Text(
-                            item.time,
+                            item.createdAt,
                             style: AppTextStyles.textSize16(
                                 color: AppColors.greyColor),
                           ),
@@ -181,129 +136,8 @@ class _NotificationState extends State<Notifications> {
                             : AppColors.divider,
                       ),
               ],
-            ))
-        : items.indexOf(item) == items.length - 1
-            ? Column(
-                children: [
-                  Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: item.read == true
-                              ? Theme.of(context).brightness == Brightness.dark
-                                  ? AppColors.backgroundNotification
-                                  : AppColors.green20
-                              : Theme.of(context).brightness == Brightness.dark
-                                  ? AppColors.black300
-                                  : Colors.transparent,
-                          borderRadius: BorderRadius.only(
-                              bottomLeft:
-                                  Radius.circular(AppMetrics.borderContainer),
-                              bottomRight:
-                                  Radius.circular(AppMetrics.borderContainer))),
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                                vertical: AppMetrics.paddingHorizotal,
-                                horizontal: AppMetrics.paddingContainer),
-                            child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    flex: 3,
-                                    child: Text(
-                                      item.title,
-                                      style: AppTextStyles.textSize16(
-                                          color: item.read == true
-                                              ? AppColors.black
-                                              : Theme.of(context).brightness ==
-                                                      Brightness.dark
-                                                  ? AppColors.whiteColor
-                                                  : AppColors.black),
-                                      maxLines: 3,
-                                    ),
-                                  ),
-                                  Flexible(
-                                    child: Text(
-                                      item.time,
-                                      style: AppTextStyles.textSize16(
-                                          color: AppColors.greyColor),
-                                    ),
-                                  ),
-                                ]),
-                          ),
-                          items.indexOf(item) == items.length - 1
-                              ? Container()
-                              : Divider(
-                                  height: 1,
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? AppColors.dividerDark
-                                      : AppColors.divider,
-                                ),
-                        ],
-                      )),
-                ],
-              )
-            : Column(
-                children: [
-                  Container(
-                      color: item.read == true
-                          ? Theme.of(context).brightness == Brightness.dark
-                              ? AppColors.backgroundNotification
-                              : AppColors.green20
-                          : Theme.of(context).brightness == Brightness.dark
-                              ? AppColors.black300
-                              : Colors.transparent,
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                                vertical: AppMetrics.paddingHorizotal,
-                                horizontal: AppMetrics.paddingContainer),
-                            child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    flex: 3,
-                                    child: Text(
-                                      item.title,
-                                      style: AppTextStyles.textSize16(
-                                          color: item.read == true
-                                              ? AppColors.black
-                                              : Theme.of(context).brightness ==
-                                                      Brightness.dark
-                                                  ? AppColors.whiteColor
-                                                  : AppColors.black),
-                                      maxLines: 3,
-                                    ),
-                                  ),
-                                  Flexible(
-                                    child: Text(
-                                      item.time,
-                                      style: AppTextStyles.textSize16(
-                                          color: AppColors.greyColor),
-                                    ),
-                                  ),
-                                ]),
-                          ),
-                          items.indexOf(item) == items.length - 1
-                              ? Container()
-                              : Divider(
-                                  height: 1,
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? AppColors.dividerDark
-                                      : AppColors.divider,
-                                ),
-                        ],
-                      )),
-                ],
-              );
+            )),
+      ],
+    );
   }
 }

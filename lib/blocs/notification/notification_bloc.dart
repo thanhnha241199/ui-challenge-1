@@ -10,24 +10,32 @@ part 'notification_event.dart';
 part 'notification_state.dart';
 
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
-  NotificationRepositories notificationRepositories;
-  NotificationBloc() : super(NotificationInitial());
+  NotificationRepositories notificationRepositories =
+      NotificationRepositories();
+  NotificationBloc() : super(NotificationState.empty());
 
   @override
   Stream<NotificationState> mapEventToState(
     NotificationEvent event,
   ) async* {
     if (event is FetchNotification) {
-      try {
-        yield LoadingState();
-        var result = await notificationRepositories.getNotification();
-        print(result);
-        SuccessState(notification: result);
-      } catch (e) {
-        ParseError error = ParseError.fromJson(e);
-        print(error);
-        yield FailedState();
-      }
+      yield* getNotification();
+    }
+  }
+
+  Stream<NotificationState> getNotification() async* {
+    try {
+      yield state.copyWith(notificationRequesting: true);
+      List<NotificationModel> notificationData =
+          await notificationRepositories.getNotification();
+      yield state.copyWith(
+          notificationSuccess: true, notificationData: notificationData);
+    } catch (e) {
+      ParseError error = ParseError.fromJson(e);
+      yield state.copyWith(
+        notificationErrorCode: error.code,
+        notificationErrorMessage: error.message,
+      );
     }
   }
 }

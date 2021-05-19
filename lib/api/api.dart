@@ -25,7 +25,6 @@ class Api {
       if (await CongnitoService().hasExpireToken())
         await CongnitoService().refreshToken();
       final _token = await CongnitoService().getToken();
-      print(_token);
       headers['Authorization'] = 'Bearer $_token';
     }
 
