@@ -62,6 +62,7 @@ class _NotificationState extends State<Notifications> {
                       : AppColors.whiteColor,
                   child: BlocBuilder<NotificationBloc, NotificationState>(
                     builder: (context, state) {
+                      items = state.notificationData;
                       return AppListView(
                         data: state.notificationData ?? [],
                         renderItem: (item) {
@@ -109,18 +110,16 @@ class _NotificationState extends State<Notifications> {
                           child: Text(
                             item.title,
                             style: AppTextStyles.textSize16(
-                                color: item.isRead == true
-                                    ? AppColors.black
-                                    : Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? AppColors.whiteColor
-                                        : AppColors.black),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppColors.whiteColor
+                                    : AppColors.black),
                             maxLines: 3,
                           ),
                         ),
                         Flexible(
                           child: Text(
-                            item.createdAt,
+                            "${DateTime.now().difference(item.createdAt).inDays.toString()} days",
                             style: AppTextStyles.textSize16(
                                 color: AppColors.greyColor),
                           ),

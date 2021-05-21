@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:bookkeepa/config/app_colors.dart';
 import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
-import 'package:bookkeepa/models/notification/notification.dart';
 import 'package:bookkeepa/screens/dashboard/select_business.dart';
 import 'package:bookkeepa/screens/dashboard/widgets/notification_preference.dart';
 import 'package:bookkeepa/screens/dashboard/widgets/profile.dart';
@@ -29,28 +28,6 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-  List<NotificationModel> items = [
-    NotificationModel(
-        title: "Jack Hihnson requested leave", read: true, time: "1m ago"),
-    NotificationModel(
-        title: "Amy Ranch needs timesheet approved",
-        read: true,
-        time: "20m ago"),
-    NotificationModel(
-        title: "1 document needs to be signed", read: false, time: "1h ago"),
-    NotificationModel(
-        title: "Amy Ranch needs timesheet approved",
-        read: false,
-        time: "5h ago"),
-    NotificationModel(
-        title: "Cornor Halt requested leave", read: false, time: "10h ago"),
-    NotificationModel(
-        title: "Joseph Rosso needs timesheet approved",
-        read: false,
-        time: "1d ago"),
-    NotificationModel(
-        title: "3 documents needs to be signed", read: false, time: "1d ago"),
-  ];
   TextEditingController controllerPassword,
       controllerNewPassword,
       controllerConfirmNewPassword;
