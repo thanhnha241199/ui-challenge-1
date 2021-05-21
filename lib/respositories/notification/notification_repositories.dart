@@ -9,7 +9,7 @@ class NotificationRepositories extends Api {
       List<NotificationModel> notificationData = [];
       final response = await request(APIUrl.getNotification, Method.get);
       response.data['results']
-          .map((ad) => notificationData.add(NotificationModel.fromJson(ad)))
+          .map((e) => notificationData.add(NotificationModel.fromJson(e)))
           .toList();
       return notificationData;
     } on DioError catch (e) {

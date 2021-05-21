@@ -4,12 +4,26 @@ import 'package:bookkeepa/models/account/user_profile.dart';
 import 'package:dio/dio.dart';
 
 class UserRepositories extends Api {
-  Future<UserProfileModel> getNotification() async {
-    print("aaa");
+  Future<UserProfileModel> getUserProfile() async {
     try {
-      final response = await request(APIUrl.getNotification, Method.get);
-      print("Respose: ${response}");
-      return UserProfileModel.fromJson(response.data['results']);
+      UserProfileModel userProfileModel;
+      final response = await request(APIUrl.getUserProfile, Method.get);
+      userProfileModel = UserProfileModel.fromJson(response.data);
+      return userProfileModel;
+    } on DioError catch (e) {
+      throw e;
+    }
+  }
+
+  Future<UserProfileModel> editUserProfile(
+      String firstname, String lastname) async {
+    try {
+      UserProfileModel userProfileModel;
+      Map data = {"first_name": firstname, "last_name": lastname};
+      final response =
+          await request(APIUrl.getUserProfile, Method.put, body: data);
+      userProfileModel = UserProfileModel.fromJson(response.data);
+      return userProfileModel;
     } on DioError catch (e) {
       throw e;
     }

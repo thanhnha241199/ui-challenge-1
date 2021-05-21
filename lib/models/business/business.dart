@@ -1,15 +1,19 @@
 class BusinessModel {
-  BusinessModel({this.title, this.subtitle, this.select});
+  BusinessModel({
+    this.id,
+    this.name,
+  });
 
-  String title;
-  String subtitle;
-  bool select;
+  String id;
+  String name;
+
   factory BusinessModel.fromJson(Map<String, dynamic> json) => BusinessModel(
-      title: json["title"], subtitle: json["subtitle"], select: json["select"]);
+        id: json["id"],
+        name: json["name"],
+      );
 
   Map<String, dynamic> toJson() => {
-        "title": title,
-        "subtitle": subtitle,
-        "select": select,
+        "id": id,
+        "name": name,
       };
 }

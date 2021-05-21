@@ -1,8 +1,10 @@
 import 'dart:ui';
 
+import 'package:bookkeepa/blocs/userprofile/userprofile_bloc.dart';
 import 'package:bookkeepa/config/app_colors.dart';
 import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
+import 'package:bookkeepa/models/account/user_profile.dart';
 import 'package:bookkeepa/screens/dashboard/select_business.dart';
 import 'package:bookkeepa/screens/dashboard/widgets/notification_preference.dart';
 import 'package:bookkeepa/screens/dashboard/widgets/profile.dart';
@@ -14,6 +16,7 @@ import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/confirm_dialog.dart';
 import 'package:bookkeepa/widgets/float_btn.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
+import 'package:bookkeepa/widgets/overlay_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,11 +35,13 @@ class _AccountScreenState extends State<AccountScreen> {
       controllerNewPassword,
       controllerConfirmNewPassword;
   FocusNode fnEmail, fnPassword;
+  UserProfileModel userProfileModel;
   bool dartMode = false;
   bool obscureCurrent, obscureNew, obscureConfirm;
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<UserprofileBloc>(context).add(FetchUserProfile());
     obscureCurrent = false;
     obscureNew = false;
     obscureConfirm = false;
@@ -88,92 +93,31 @@ class _AccountScreenState extends State<AccountScreen> {
                   },
                   child: SvgPicture.asset(AppImage.notification)),
             )),
-        body: ListView(
-          physics: BouncingScrollPhysics(),
-          children: [
-            SizedBox(
-              height: AppMetrics.paddingContainer,
-            ),
-            Profile(),
-            SizedBox(
-              height: AppMetrics.paddingContainer,
-            ),
-            CustomContainer(
-              edgeInsets:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
-              padding:
-                  EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-              color: AppColors.whiteColor,
-              colorBorder: AppColors.border,
-              child: GestureDetector(
-                onTap: () {
-                  NavigationService.instance.navigateTo(SelectBusiness());
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: AppMetrics.paddingContainer, vertical: 10.0),
-                  alignment: Alignment.center,
-                  child: Row(
-                    children: [
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            AppImage.storefront,
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Text(
-                            AppTranslations()
-                                .getLanguage(context, 'switchBussiness'),
-                            style: AppTextStyles.textSize16(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? AppColors.whiteColor
-                                    : AppColors.black),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      SvgPicture.asset(
-                        AppImage.arrowforward,
-                      ),
-                    ],
-                  ),
+        body: BlocBuilder<UserprofileBloc, UserProfileState>(
+          builder: (context, state) {
+            if (state.notificationRequesting) {
+              return OverlayLoading();
+            }
+            return ListView(
+              physics: BouncingScrollPhysics(),
+              children: [
+                SizedBox(
+                  height: AppMetrics.paddingContainer,
                 ),
-              ),
-            ),
-            SizedBox(
-              height: AppMetrics.paddingContainer,
-            ),
-            CustomContainer(
-              edgeInsets:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
-              padding:
-                  EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-              color: AppColors.whiteColor,
-              colorBorder: AppColors.border,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  GestureDetector(
+                Profile(userProfileModel: state.userProfileData),
+                SizedBox(
+                  height: AppMetrics.paddingContainer,
+                ),
+                CustomContainer(
+                  edgeInsets: EdgeInsets.symmetric(
+                      horizontal: AppMetrics.paddingHorizotal),
+                  padding:
+                      EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
+                  color: AppColors.whiteColor,
+                  colorBorder: AppColors.border,
+                  child: GestureDetector(
                     onTap: () {
-                      showModalBottomSheet<void>(
-                        context: context,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(20),
-                          ),
-                        ),
-                        useRootNavigator: true,
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        builder: (BuildContext context) {
-                          return NotificationPreference(
-                            switchButton: false,
-                            switchNews: false,
-                          );
-                        },
-                      );
+                      NavigationService.instance.navigateTo(SelectBusiness());
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(
@@ -182,70 +126,269 @@ class _AccountScreenState extends State<AccountScreen> {
                       alignment: Alignment.center,
                       child: Row(
                         children: [
+                          Row(
+                            children: [
+                              SvgPicture.asset(
+                                AppImage.storefront,
+                              ),
+                              SizedBox(
+                                width: 10.0,
+                              ),
+                              Text(
+                                AppTranslations()
+                                    .getLanguage(context, 'switchBussiness'),
+                                style: AppTextStyles.textSize16(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.black),
+                              ),
+                            ],
+                          ),
+                          Spacer(),
                           SvgPicture.asset(
-                            AppImage.toggleright,
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Text(
-                            AppTranslations()
-                                .getLanguage(context, 'notification'),
-                            style: AppTextStyles.textSize16(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? AppColors.whiteColor
-                                    : AppColors.black),
+                            AppImage.arrowforward,
                           ),
                         ],
                       ),
                     ),
                   ),
-                  Divider(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? AppColors.dividerDark
-                        : AppColors.divider,
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppMetrics.paddingContainer,
-                        vertical: 10.0),
-                    alignment: Alignment.center,
-                    child: GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet<void>(
-                          context: context,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(20),
+                ),
+                SizedBox(
+                  height: AppMetrics.paddingContainer,
+                ),
+                CustomContainer(
+                  edgeInsets: EdgeInsets.symmetric(
+                      horizontal: AppMetrics.paddingHorizotal),
+                  padding:
+                      EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
+                  color: AppColors.whiteColor,
+                  colorBorder: AppColors.border,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet<void>(
+                            context: context,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(20),
+                              ),
                             ),
+                            useRootNavigator: true,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            builder: (BuildContext context) {
+                              return NotificationPreference(
+                                switchButton: false,
+                                switchNews: false,
+                              );
+                            },
+                          );
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: AppMetrics.paddingContainer,
+                              vertical: 10.0),
+                          alignment: Alignment.center,
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(
+                                AppImage.toggleright,
+                              ),
+                              SizedBox(
+                                width: 10.0,
+                              ),
+                              Text(
+                                AppTranslations()
+                                    .getLanguage(context, 'notification'),
+                                style: AppTextStyles.textSize16(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.black),
+                              ),
+                            ],
                           ),
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          useRootNavigator: true,
-                          builder: (BuildContext context) {
-                            return UpdatePassword(
-                              obscureNew: obscureNew,
-                              obscureCurrent: obscureCurrent,
-                              obscureConfirm: obscureConfirm,
-                              controllerPassword: controllerPassword,
-                              controllerNewPassword: controllerNewPassword,
-                              controllerConfirmNewPassword:
-                                  controllerConfirmNewPassword,
+                        ),
+                      ),
+                      Divider(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.dividerDark
+                            : AppColors.divider,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppMetrics.paddingContainer,
+                            vertical: 10.0),
+                        alignment: Alignment.center,
+                        child: GestureDetector(
+                          onTap: () {
+                            showModalBottomSheet<void>(
+                              context: context,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20),
+                                ),
+                              ),
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              useRootNavigator: true,
+                              builder: (BuildContext context) {
+                                return UpdatePassword(
+                                  obscureNew: obscureNew,
+                                  obscureCurrent: obscureCurrent,
+                                  obscureConfirm: obscureConfirm,
+                                  controllerPassword: controllerPassword,
+                                  controllerNewPassword: controllerNewPassword,
+                                  controllerConfirmNewPassword:
+                                      controllerConfirmNewPassword,
+                                );
+                              },
                             );
                           },
-                        );
-                      },
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(
+                                AppImage.key,
+                              ),
+                              SizedBox(
+                                width: 10.0,
+                              ),
+                              Text(
+                                AppTranslations()
+                                    .getLanguage(context, 'updatePassword'),
+                                style: AppTextStyles.textSize16(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.black),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Divider(),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppMetrics.paddingContainer,
+                            vertical: 10.0),
+                        alignment: Alignment.center,
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              AppImage.privacy,
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            Text(
+                              AppTranslations()
+                                  .getLanguage(context, 'privacyPocicy'),
+                              style: AppTextStyles.textSize16(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.whiteColor
+                                      : AppColors.black),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: AppMetrics.paddingContainer,
+                ),
+                CustomContainer(
+                  edgeInsets: EdgeInsets.symmetric(
+                      horizontal: AppMetrics.paddingHorizotal),
+                  padding:
+                      EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
+                  color: AppColors.whiteColor,
+                  colorBorder: AppColors.border,
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        dartMode = !dartMode;
+                      });
+                      context.read<ThemeCubit>().toggleTheme();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppMetrics.paddingContainer,
+                          vertical: 4.0),
+                      alignment: Alignment.center,
+                      child: Row(
+                        children: [
+                          Row(
+                            children: [
+                              SvgPicture.asset(AppImage.theme),
+                              SizedBox(
+                                width: 10.0,
+                              ),
+                              Text(
+                                "${AppTranslations().getLanguage(context, 'dartMode')} ${Theme.of(context).brightness == Brightness.dark ? "On" : "Off"}",
+                                style: AppTextStyles.textSize16(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.black),
+                              ),
+                            ],
+                          ),
+                          Spacer(),
+                          dartMode
+                              ? SvgPicture.asset(
+                                  AppImage.switch_on,
+                                  width: 51.0,
+                                  height: 31.0,
+                                )
+                              : SvgPicture.asset(
+                                  AppImage.switch_off,
+                                  width: 51.0,
+                                  height: 31.0,
+                                ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: AppMetrics.paddingContainer,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return ConfirmDialog(
+                            title: 'Alerts',
+                            descriptions: 'You want to log out ?',
+                          );
+                        });
+                  },
+                  child: CustomContainer(
+                    edgeInsets: EdgeInsets.symmetric(
+                        horizontal: AppMetrics.paddingHorizotal),
+                    padding: EdgeInsets.symmetric(
+                        vertical: AppMetrics.paddingContent),
+                    color: AppColors.whiteColor,
+                    colorBorder: AppColors.border,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppMetrics.paddingContainer,
+                          vertical: 10.0),
+                      alignment: Alignment.center,
                       child: Row(
                         children: [
                           SvgPicture.asset(
-                            AppImage.key,
+                            AppImage.logout,
                           ),
                           SizedBox(
                             width: 10.0,
                           ),
                           Text(
-                            AppTranslations()
-                                .getLanguage(context, 'updatePassword'),
+                            AppTranslations().getLanguage(context, 'logout'),
                             style: AppTextStyles.textSize16(
                                 color: Theme.of(context).brightness ==
                                         Brightness.dark
@@ -256,141 +399,13 @@ class _AccountScreenState extends State<AccountScreen> {
                       ),
                     ),
                   ),
-                  Divider(),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppMetrics.paddingContainer,
-                        vertical: 10.0),
-                    alignment: Alignment.center,
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(
-                          AppImage.privacy,
-                        ),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        Text(
-                          AppTranslations()
-                              .getLanguage(context, 'privacyPocicy'),
-                          style: AppTextStyles.textSize16(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? AppColors.whiteColor
-                                  : AppColors.black),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: AppMetrics.paddingContainer,
-            ),
-            CustomContainer(
-              edgeInsets:
-                  EdgeInsets.symmetric(horizontal: AppMetrics.paddingHorizotal),
-              padding:
-                  EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-              color: AppColors.whiteColor,
-              colorBorder: AppColors.border,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    dartMode = !dartMode;
-                  });
-                  context.read<ThemeCubit>().toggleTheme();
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: AppMetrics.paddingContainer, vertical: 4.0),
-                  alignment: Alignment.center,
-                  child: Row(
-                    children: [
-                      Row(
-                        children: [
-                          SvgPicture.asset(AppImage.theme),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Text(
-                            "${AppTranslations().getLanguage(context, 'dartMode')} ${Theme.of(context).brightness == Brightness.dark ? "On" : "Off"}",
-                            style: AppTextStyles.textSize16(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? AppColors.whiteColor
-                                    : AppColors.black),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      dartMode
-                          ? SvgPicture.asset(
-                              AppImage.switch_on,
-                              width: 51.0,
-                              height: 31.0,
-                            )
-                          : SvgPicture.asset(
-                              AppImage.switch_off,
-                              width: 51.0,
-                              height: 31.0,
-                            ),
-                    ],
-                  ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: AppMetrics.paddingContainer,
-            ),
-            GestureDetector(
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return ConfirmDialog(
-                        title: 'Alerts',
-                        descriptions: 'You want to log out ?',
-                      );
-                    });
-              },
-              child: CustomContainer(
-                edgeInsets: EdgeInsets.symmetric(
-                    horizontal: AppMetrics.paddingHorizotal),
-                padding:
-                    EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
-                color: AppColors.whiteColor,
-                colorBorder: AppColors.border,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: AppMetrics.paddingContainer, vertical: 10.0),
-                  alignment: Alignment.center,
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        AppImage.logout,
-                      ),
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                      Text(
-                        AppTranslations().getLanguage(context, 'logout'),
-                        style: AppTextStyles.textSize16(
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? AppColors.whiteColor
-                                    : AppColors.black),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: AppMetrics.paddingContainer,
-            )
-          ],
+                SizedBox(
+                  height: AppMetrics.paddingContainer,
+                )
+              ],
+            );
+          },
         ),
         floatingActionButton: FancyFab());
   }

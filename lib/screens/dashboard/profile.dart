@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:bookkeepa/blocs/userprofile/userprofile_bloc.dart';
 import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
+import 'package:bookkeepa/models/account/user_profile.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/custom_btn.dart';
@@ -9,6 +11,7 @@ import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/input_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -20,6 +23,8 @@ import '../../util/navigator_serivce.dart';
 import '../../widgets/header_view.dart';
 
 class ProfileScreen extends StatefulWidget {
+  final UserProfileModel userProfileModel;
+  ProfileScreen({this.userProfileModel});
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -36,6 +41,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
+    nameController = new TextEditingController(
+        text: widget.userProfileModel.firstName +
+            " " +
+            widget.userProfileModel.lastName);
+    emailController =
+        new TextEditingController(text: widget.userProfileModel.email);
+    phoneController = new TextEditingController(
+        text: widget.userProfileModel.phone
+            .substring(3, widget.userProfileModel.phone.length));
+    employerController =
+        new TextEditingController(text: widget.userProfileModel.email);
   }
 
   @override
@@ -91,7 +107,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 shape: BoxShape.circle,
                               ),
                               child: Image.asset(
-                                AppImage.avatar,
+                                widget.userProfileModel.image != null
+                                    ? widget.userProfileModel.image
+                                    : AppImage.avatar,
                               ),
                             ),
                             SizedBox(
@@ -181,7 +199,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? AppColors.whiteColor
-                                    : AppColors.blueLight),
+                                    : AppColors.black),
                         onInputChanged: (PhoneNumber number) {
                           print(number.phoneNumber);
                         },
@@ -259,7 +277,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 CustomButton(
-                  ontap: () {},
+                  ontap: () {
+                    BlocProvider.of<UserprofileBloc>(context).add(
+                        EditUserProfile(
+                            firstname: nameController.text.split(" ")[0],
+                            lastname: nameController.text.split(" ")[1]));
+                    NavigationService.instance.goback();
+                  },
                   borderColor: AppColors.greenAccent,
                   color: AppColors.greenAccent,
                   text: AppTranslations().getLanguage(context, 'saveChanges'),
