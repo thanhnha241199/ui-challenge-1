@@ -4,6 +4,7 @@ import 'package:bookkeepa/config/app_images.dart';
 import 'package:bookkeepa/config/app_metrics.dart';
 import 'package:bookkeepa/config/app_text_styles.dart';
 import 'package:bookkeepa/screens/auth/signup_screen.dart';
+import 'package:bookkeepa/screens/main/main_tab.dart';
 import 'package:bookkeepa/util/getLanguage.dart';
 import 'package:bookkeepa/util/navigator_serivce.dart';
 import 'package:bookkeepa/widgets/bottom_space.dart';
@@ -191,6 +192,7 @@ class _LoginState extends State<Login> {
                           context.read<AuthBloc>().add(AuthLogin(
                               phoneNumber: controllerEmail.text,
                               password: controllerPassword.text));
+                          NavigationService.instance.navigateTo(MainTab());
                         },
                         borderColor: AppColors.greenAccent,
                         color: AppColors.greenAccent,

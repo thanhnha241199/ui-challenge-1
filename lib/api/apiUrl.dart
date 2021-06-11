@@ -14,6 +14,8 @@ class APIUrl {
   // USERPROFILE
   static final getUserProfile = urlPy + 'api/auth/profile/';
 
-  // USERPROFILE
+  // BUSINESS
   static final getBusiness = urlPy + 'api/business/employee/v1_0/';
+  static final getLeave = urlPy +
+      'api/hr_xero_leave/employee/v1_0/466f8d8a-54a2-4a7a-bb03-fef6603b3ea2/';
 }

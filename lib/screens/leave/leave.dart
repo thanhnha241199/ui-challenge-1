@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:bookkeepa/blocs/business/business_bloc.dart';
 import 'package:bookkeepa/models/leave/leave.dart';
 import 'package:bookkeepa/screens/leave/edit_leave_request.dart';
 import 'package:bookkeepa/screens/leave/new_leave_request.dart';
@@ -12,8 +13,11 @@ import 'package:bookkeepa/widgets/custom_containner.dart';
 import 'package:bookkeepa/widgets/float_btn.dart';
 import 'package:bookkeepa/widgets/header_child.dart';
 import 'package:bookkeepa/widgets/header_view.dart';
+import 'package:bookkeepa/widgets/overlay_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 import '../../config/app_colors.dart';
 import '../../config/app_images.dart';
@@ -27,64 +31,15 @@ class Leave extends StatefulWidget {
 }
 
 class _LeaveState extends State<Leave> {
-  List<LeaveModel> items = [
-    LeaveModel(
-        name: "Jackson Garrison",
-        start: "8 Feb",
-        end: "12 Feb 2021",
-        hours: "36.5hrs",
-        description: "Doctor's Appointment",
-        label1: AppImage.pending,
-        label2: AppImage.sick_leave),
-    LeaveModel(
-        name: "Jackson Garrison",
-        start: "8 Feb",
-        end: "12 Feb 2021",
-        hours: "36.5hrs",
-        description: "Trip to Sydney",
-        label1: AppImage.approved,
-        label2: AppImage.sick_leave),
-    LeaveModel(
-        name: "Jackson Garrison",
-        start: "8 Feb",
-        end: "12 Feb 2021",
-        hours: "36.5hrs",
-        description: "Doctor's Appointment",
-        label1: AppImage.pending,
-        label2: AppImage.sick_leave),
-    LeaveModel(
-        name: "Jackson Garrison",
-        start: "8 Feb",
-        end: "12 Feb 2021",
-        hours: "36.5hrs",
-        description: "Doctor's Appointment",
-        label1: AppImage.approved,
-        label2: AppImage.sick_leave),
-    LeaveModel(
-        name: "Jackson Garrison",
-        start: "8 Feb",
-        end: "12 Feb 2021",
-        hours: "36.5hrs",
-        description: "Trip to Sydney",
-        label1: AppImage.approved,
-        label2: AppImage.sick_leave),
-    LeaveModel(
-        name: "Jackson Garrison",
-        start: "8 Feb",
-        end: "12 Feb 2021",
-        hours: "36.5hrs",
-        description: "Doctor's Appointment",
-        label1: AppImage.pending,
-        label2: AppImage.sick_leave),
-    LeaveModel(
-        name: "Jackson Garrison",
-        start: "8 Feb",
-        end: "12 Feb 2021",
-        hours: "36.5hrs",
-        description: "Doctor's Appointment",
-        label1: AppImage.approved,
-        label2: AppImage.sick_leave)
-  ];
+  final formatStart = new DateFormat('dd MMM');
+  final formatEnd = new DateFormat('dd MMM');
+  List<LeaveModel> items = [];
+  @override
+  void initState() {
+    BlocProvider.of<BusinessBloc>(context).add(FetchListLeave());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,13 +86,20 @@ class _LeaveState extends State<Leave> {
               padding:
                   EdgeInsets.symmetric(vertical: AppMetrics.paddingContent),
               colorBorder: AppColors.border,
-              child: AppListView(
-                data: items,
-                renderItem: (item) {
-                  return renderItem(context, item);
-                },
-                onLoadMore: () {
-                  print('loadmore');
+              child: BlocBuilder<BusinessBloc, BusinessState>(
+                builder: (context, state) {
+                  if (state.businessRequesting) {
+                    return OverlayLoading();
+                  }
+                  return AppListView(
+                    data: state.leaveData,
+                    renderItem: (item) {
+                      return renderItem(context, item);
+                    },
+                    onLoadMore: () {
+                      print('loadmore');
+                    },
+                  );
                 },
               ),
             ),
@@ -188,7 +150,7 @@ class _LeaveState extends State<Leave> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          item.name,
+                          "Name",
                           style: AppTextStyles.textSize16(
                               color: Theme.of(context).brightness ==
                                       Brightness.dark
@@ -199,7 +161,7 @@ class _LeaveState extends State<Leave> {
                           height: 8.0,
                         ),
                         Text(
-                          "${item.start} - ${item.end}(${item.hours})",
+                          "${formatStart.format(item.startDate)} - ${formatEnd.format(item.endDate)}(${item.endDate.difference(item.startDate).inHours})",
                           style: AppTextStyles.textSize12(
                               color: Theme.of(context).brightness ==
                                       Brightness.dark
@@ -223,17 +185,32 @@ class _LeaveState extends State<Leave> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SvgPicture.asset(
-                          item.label1,
-                          alignment: Alignment.center,
-                        ),
+                        item.status == -1
+                            ? SvgPicture.asset(
+                                AppImage.rejected,
+                                alignment: Alignment.center,
+                              )
+                            : item.status == 0
+                                ? SvgPicture.asset(
+                                    AppImage.pending,
+                                    alignment: Alignment.center,
+                                  )
+                                : SvgPicture.asset(
+                                    AppImage.approved,
+                                    alignment: Alignment.center,
+                                  ),
                         SizedBox(
                           height: 10.0,
                         ),
-                        SvgPicture.asset(
-                          item.label2,
-                          alignment: Alignment.center,
-                        ),
+                        item.leaveType == "Annual Leave"
+                            ? SvgPicture.asset(
+                                AppImage.anual_leave,
+                                alignment: Alignment.center,
+                              )
+                            : SvgPicture.asset(
+                                AppImage.sick_leave,
+                                alignment: Alignment.center,
+                              ),
                       ],
                     )
                   ],

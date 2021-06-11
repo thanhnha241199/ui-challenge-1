@@ -6,9 +6,11 @@ class BusinessState extends Equatable {
   final String businessErrorMessage;
   final bool businessSuccess;
   final List<BusinessModel> businessData;
+  final List<LeaveModel> leaveData;
 
   BusinessState(
       {this.businessData,
+      this.leaveData,
       this.businessRequesting,
       this.businessErrorCode,
       this.businessErrorMessage,
@@ -37,6 +39,7 @@ class BusinessState extends Equatable {
     String businessErrorMessage,
     bool businessSuccess,
     List<BusinessModel> businessData,
+    List<LeaveModel> leaveData,
   }) {
     return (BusinessState(
       businessRequesting: businessRequesting ?? false,
@@ -44,6 +47,7 @@ class BusinessState extends Equatable {
       businessErrorMessage: businessErrorMessage ?? '',
       businessSuccess: businessSuccess ?? false,
       businessData: businessData ?? this.businessData,
+      leaveData: leaveData ?? this.leaveData,
     ));
   }
 }

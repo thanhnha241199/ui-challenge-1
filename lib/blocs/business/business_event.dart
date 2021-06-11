@@ -8,3 +8,5 @@ abstract class BusinessEvent extends Equatable {
 }
 
 class FetchBusiness extends BusinessEvent {}
+
+class FetchListLeave extends BusinessEvent {}

@@ -27,10 +27,10 @@ class SimpleBlocObserver extends BlocObserver {
 void main() async {
   AppConfig().setAppConfig(
     appEnvironment: AppEnvironment.DEV,
-    baseUrlGo: 'https://api-dev.com/go-api/',
-    baseUrlPython: 'https://api-dev.bookkeepa.co/',
-    userPoolId: 'ap-southeast-2_pWckIrM3J',
-    clientId: '1lkq52mkr490mbl5fkc8pou190',
+    baseUrlGo: 'https://api.com/',
+    baseUrlPython: 'https://api.com/',
+    userPoolId: 'xxxxxx',
+    clientId: 'xxxxxxx',
   );
 
   Bloc.observer = SimpleBlocObserver();
